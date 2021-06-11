@@ -1,12 +1,12 @@
 {
-  "name": "upstatement/timber-starter-theme",
-  "description": "Starter theme to build a Timber theme",
+  "name": "marccent",
+  "description": "Marccent Theme",
   "type":"wordpress-theme",
   "minimum-stability" : "stable",
   "authors": [
     {
-      "email": "jared@upstatement.com",
-      "name": "jarednova"
+      "email": "marcoscenteno89@gmail.com",
+      "name": "marcos centeno"
     }  
   ],
   "repositories": [
