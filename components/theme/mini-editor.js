@@ -7,38 +7,29 @@ import { PaletteSwatches } from './palette-swatches';
 import { DesignSelect } from './designs';
 
 /**
- * MiniThemeEditor: with a title, a short section of its own (a Box), usually right under the element it edits: a
- * third for the text, two thirds for the controls (layout-1-2, side by side from 40rem, stacked below), the controls
- * one .row-wrap that wraps item by item rather than squeeze; the design style is a button that widens into a select.
- * With no title, just the row of controls, to sit inside a section (the home page's "Try it now").
+ * MiniThemeEditor: just the row of controls, so it fits anywhere: under a section, in a header, beside a page's own
+ * heading (the page places any title or text itself). One .row-wrap that wraps item by item rather than squeeze; the
+ * design style is a button that widens into a select. It packs at the start; wrap it in a .grid.justify-end (or any
+ * justify-*) to place it. Scoped to an element, a ring marks that element while the pointer is on the editor.
+ * @param {Object} props
  * @param {string} props.scope - "site" or the id of the element it themes.
- * @param {React.ReactNode} [props.title] @param {React.ReactNode} [props.text]
  */
-const MiniThemeEditor = ({ scope, title, text }) => {
+const MiniThemeEditor = ({ scope }) => {
   const site = scope === 'site';
   // A ring round the element being edited while the pointer is on the editor.
   const mark = (on) => !site && document.getElementById(scope)?.style[on ? 'setProperty' : 'removeProperty']('box-shadow', 'inset 0 0 0 3px var(--primary)');
 
   return (
-    <div data-component="mini-theme-editor" data-scope={scope} className={title ? 'grid gap-lg items-center layout-1-2' : 'grid cols-1'}
+    // One row-wrap for every control, the palette squares included: one line until it runs out of room, then each
+    // wraps on its own. A tighter gap than usual, so the row fits beside text.
+    <div data-component="mini-theme-editor" data-scope={scope} className="row-wrap" role="group"
+      aria-label={site ? 'Site theme' : 'Section theme'} style={{ '--gap': 'var(--space-xs)' }}
       onPointerEnter={() => mark(true)} onPointerLeave={() => mark(false)}>
-      {title && (
-        <div className="grid cols-1 gap-0">
-          <strong>{!site && <i className="fa-solid fa-arrow-up text-primary" aria-hidden="true"></i>} {title}</strong>
-          {text && <small className="opacity-75">{text}</small>}
-        </div>
-      )}
-      {/* One row-wrap for every control, the palette squares included: one line until it runs out of room, then each
-          wraps on its own. A tighter gap than usual, so the row fits two thirds of a section. */}
-      <div className="grid cols-1 justify-end">
-        <div className="row-wrap" role="group" aria-label={site ? 'Site theme' : 'Section theme'} style={{ '--gap': 'var(--space-xs)' }}>
-          <DesignSelect scope={scope} />
-          <ModeToggle scope={scope} className="hover-expand" />
-          <GlassToggle scope={scope} className="hover-expand" />
-          <PaletteSwatches scope={scope} bare />
-          <ThemeReset scope={scope} className="hover-expand" />
-        </div>
-      </div>
+      <DesignSelect scope={scope} />
+      <ModeToggle scope={scope} className="hover-expand" />
+      <GlassToggle scope={scope} className="hover-expand" />
+      <PaletteSwatches scope={scope} bare />
+      <ThemeReset scope={scope} className="hover-expand" />
     </div>
   );
 };
