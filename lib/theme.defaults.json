@@ -1,0 +1,17 @@
+{
+  "dark": "#212529",
+  "light": "#FFFFFF",
+  "palettes": [
+    { "primary": "#1f64cf", "secondary": "#1ecbe1" },
+    { "primary": "#ff8f5d", "secondary": "#ffd32b" },
+    { "primary": "#4e267e", "secondary": "#3d59b4" },
+    { "primary": "#f873aa", "secondary": "#d4b5fb" },
+    { "primary": "#1dc1e7", "secondary": "#63e2a8" },
+    { "primary": "#ff8f5d", "secondary": "#6de2f5" },
+    { "primary": "#496073", "secondary": "#c7d9e8" },
+    { "primary": "#662D8C", "secondary": "#ED1E79" },
+    { "primary": "#43ad9f", "secondary": "#a3dbd4" },
+    { "primary": "#f2547d", "secondary": "#ff7a59" },
+    { "primary": "#FF4081", "secondary": "#40FFBE" }
+  ]
+}

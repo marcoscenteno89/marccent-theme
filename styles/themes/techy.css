@@ -1,0 +1,37 @@
+/* Self-hosted Google Fonts (npm @fontsource): Space Grotesk for headings, JetBrains Mono for text. @import must come before any rule. */
+@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/space-grotesk";
+
+/*
+ * THEME: Techy / futuristic. Optional. Monospace text, uppercase headings, thin glowing edges, a faint blueprint grid behind the page: dev tools, AI, gaming.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "JetBrains Mono Variable", "Cascadia Code", Consolas, ui-monospace, monospace;
+  --font-heading: "Space Grotesk Variable", system-ui, "Segoe UI", Roboto, sans-serif;
+  --weight-heading: 600;
+  --radius: .25rem;
+  --shadow-opacity: .3;
+}
+
+/* Panels get a faint neon edge and glow instead of a drop shadow. */
+[data-theme] .bg {
+  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  box-shadow: 0 0 1.5rem color-mix(in srgb, var(--primary) 12%, transparent);
+}
+:is(h1, h2, h3, h4, h5, h6) { text-transform: uppercase; letter-spacing: .08em; }
+
+/* Light mode: the glow is too faint to see on white, so panels get a crisper colored edge instead. */
+[data-theme=light] .bg { box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent); }
+
+/* A faint blueprint grid behind everything, drawn in the primary color. */
+body {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 7%, transparent) 1px, transparent 1px);
+  background-size: 2rem 2rem;
+}
+.btn-text { text-transform: uppercase; letter-spacing: .06em; }

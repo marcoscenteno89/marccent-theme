@@ -1,0 +1,32 @@
+/* Self-hosted Google Fonts (npm @fontsource): Caveat for headings, Patrick Hand for text. @import must come before any rule. */
+@import "@fontsource-variable/caveat";
+@import "@fontsource/patrick-hand/400.css";
+
+/*
+ * THEME: Hand-drawn / sketch. Optional. Marker headings, handwriting, wobbly pen-drawn borders and slightly tilted panels: personal blogs, kids, creative studios.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  /* Bigger headlines: this font runs small and narrow. */
+  --h1: min(calc(var(--font-size) * 1.8 + 2vw), calc(var(--font-size) * 3.25));
+  --h2: min(calc(var(--font-size) * 1.6 + 1.2vw), calc(var(--font-size) * 2.5));
+  --font-body: "Patrick Hand", "Comic Sans MS", cursive;
+  --font-heading: "Caveat Variable", "Patrick Hand", cursive;
+  --font-size: 1.125rem;  /* handwriting reads small */
+  --weight-heading: 700;
+  --btn-weight: 400;
+  --border-width: 2px;
+  --shadow-opacity: 0;
+}
+/* Uneven radii on each corner make a box look drawn by hand. */
+[data-theme] .bg, .btn, .input {
+  border: var(--border-width) solid var(--body-color);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+/* Cards inside a section sit a little crooked, alternating, like notes pinned to a board. Full-width panels (the
+   sections themselves, the footer) stay straight: tilted, their corners would poke past the screen edge. */
+:is(.wrap .grid, .wrap.grid) > .bg:not(.wrap):nth-child(odd) { rotate: -.4deg; }
+:is(.wrap .grid, .wrap.grid) > .bg:not(.wrap):nth-child(even) { rotate: .4deg; }

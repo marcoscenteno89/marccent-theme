@@ -1,0 +1,545 @@
+/*
+ * HOVERS: hover effects as their own classes, separate from color, so any element (button, card, link, image) can
+ * take one and swap it without touching its look. Each draws in the theme's colors, --hover-from and --hover-to
+ * (default: primary and secondary; set them on an element to change one), and times itself with --hover-duration
+ * (defaults.css). Unlayered, so it beats the components layer (layers.css): an effect can replace a
+ * component's own hover. The pressed state of a toggle ([aria-pressed="true"]) shows the same effect.
+ * Moving parts stay still for visitors who ask for reduced motion.
+ * Each hover state repeats its class (.hover-x.hover-x:is(:hover, …)): one more class of specificity, so an effect
+ * you put on an element beats the hover of its color class (.btn.primary:hover) and of a design theme.
+ */
+
+/* DEFAULT COLORS: every effect draws from --hover-from to --hover-to, the theme's primary and secondary unless the
+   element sets them. Weightless (:where), so a color class wins: a colored button (.btn.danger, .btn.outline-success…,
+   colors.css) hovers in its own color, and a style="--hover-from: …" on any element still overrides both. */
+:where(.btn, [class*="hover-"]) {
+  --hover-from: var(--primary);
+  --hover-to: var(--secondary);
+}
+
+/* HOLOGRAPHIC: grows a little, glows in both theme colors, and a band of them sweeps diagonally across it.
+   The band is ::after (::before is taken by .outline-gradient); isolation keeps it behind the element's content
+   but in front of its background, so the content needs no class. The site's default: every .btn without a hover-*
+   class of its own has it, no class needed; cards take .hover-holographic. */
+:is(.hover-holographic, :where(.btn):not([class*="hover-"])) {
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform var(--hover-duration) ease, box-shadow var(--hover-duration) ease,
+    background-color var(--duration), color var(--duration);
+}
+:where(.hover-holographic, .btn:not([class*="hover-"])) { position: relative; } /* weightless: an element positioned otherwise keeps that */
+:is(.hover-holographic, :where(.btn):not([class*="hover-"]))::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(0deg, transparent, transparent 30%, color-mix(in srgb, var(--hover-from) 30%, transparent),
+    color-mix(in srgb, var(--hover-to) 35%, transparent));
+  transform: rotate(-45deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--hover-duration) ease, opacity var(--hover-duration) ease;
+}
+:is(.hover-holographic.hover-holographic, .btn:not([class*="hover-"])):is(:hover, [aria-pressed="true"]) {
+  transform: scale(1.05);
+  box-shadow: 0 0 1.25rem color-mix(in srgb, var(--hover-from) 45%, transparent),
+    0 0 2.5rem color-mix(in srgb, var(--hover-to) 35%, transparent);
+}
+:is(.hover-holographic.hover-holographic, .btn:not([class*="hover-"])):is(:hover, [aria-pressed="true"])::after {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(.hover-holographic.hover-holographic, .btn:not([class*="hover-"])):is(:hover, [aria-pressed="true"]) { transform: none; }
+  :is(.hover-holographic.hover-holographic, .btn:not([class*="hover-"])):is(:hover, [aria-pressed="true"])::after { transform: rotate(-45deg); }
+}
+
+/* UNDERLINE: a line in the theme gradient draws in above the element (from the left) and below it (from the right).
+   For text (links, headings, menu items). Uses both ::before and ::after, so it doesn't combine with
+   hover-holographic or .outline-gradient; a .btn clips it (overflow: hidden). */
+:where(.hover-underline) { position: relative; display: inline-block; } /* weightless: grid / block layouts win */
+.hover-underline {
+  text-decoration: none; /* the drawn lines replace a link's own underline */
+}
+.hover-underline::before,
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: calc(var(--border-width) * 2);
+  background: linear-gradient(to right, var(--hover-from), var(--hover-to));
+  transform: scaleX(0);
+  pointer-events: none;
+  transition: transform var(--hover-duration) ease-out;
+}
+.hover-underline::before { top: calc(-1 * var(--space-xs)); transform-origin: left; }
+.hover-underline::after { bottom: calc(-1 * var(--space-xs)); transform-origin: right; }
+.hover-underline.hover-underline:is(:hover, :focus-visible, [aria-pressed="true"])::before,
+.hover-underline.hover-underline:is(:hover, :focus-visible, [aria-pressed="true"])::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .hover-underline::before, .hover-underline::after { transition: none; }
+}
+
+/* RISE: a fill in the theme gradient rises from the bottom while the icon inside (i, svg or img) spins once and
+   turns light to stay readable on it. For icon links and icon buttons; the shape comes from the element's own
+   classes (e.g. circle border). Per element colors (brand colors on social icons): --hover-from / --hover-to. */
+.hover-rise {
+  isolation: isolate;
+  overflow: hidden;
+  transition: color var(--hover-duration);
+}
+:where(.hover-rise) { position: relative; } /* weightless: an element positioned otherwise keeps that */
+.hover-rise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, var(--hover-from), var(--hover-to));
+  translate: 0 100%;
+  pointer-events: none;
+  transition: translate var(--hover-duration);
+}
+.hover-rise :is(i, svg, img) { transition: transform var(--hover-duration), color var(--hover-duration); }
+.hover-rise.hover-rise:is(:hover, :focus-visible, [aria-pressed="true"]) { color: var(--light); }
+.hover-rise.hover-rise:is(:hover, :focus-visible, [aria-pressed="true"])::after { translate: 0 0; }
+.hover-rise.hover-rise:is(:hover, :focus-visible, [aria-pressed="true"]) :is(i, svg, img) { transform: rotateY(360deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-rise::after, .hover-rise :is(i, svg, img) { transition: none; }
+  .hover-rise.hover-rise:is(:hover, :focus-visible, [aria-pressed="true"]) :is(i, svg, img) { transform: none; }
+}
+
+/* EXPAND: for an icon + label .btn (Button with icon and text). At rest a pill the size of its icon, the label
+   scaled to nothing; on hover the pill widens to fit the label, the theme gradient (a filled button: its own color)
+   fades in with a soft blurred glow below, the icon shrinks away and the label scales in. It hides the label itself, so use it instead of
+   .icon-only-*. Uses ::before (fill) and ::after (glow): doesn't combine with the other effects or
+   .outline-gradient. The width animates where interpolate-size is supported; elsewhere it snaps. */
+.btn.hover-expand {
+  interpolate-size: allow-keywords;
+  isolation: isolate;
+  overflow: visible; /* the glow sits outside */
+  width: calc(var(--icon-size) + 2 * var(--border-width));
+  grid-template-columns: auto;
+  place-items: center;
+  border-radius: var(--icon-size); /* pill */
+  transition: width var(--hover-duration), color var(--hover-duration), box-shadow var(--hover-duration);
+}
+:where(.btn.hover-expand) { position: relative; }
+.btn.hover-expand > * { grid-area: 1 / 1; } /* icon and label share one cell */
+.btn.hover-expand > .btn-icon {
+  background: none;
+  transition: scale var(--hover-duration) calc(var(--hover-duration) / 2); /* comes back after the label leaves */
+}
+.btn.hover-expand > .btn-text {
+  scale: 0;
+  transition: scale var(--hover-duration);
+}
+.btn.hover-expand::before,
+.btn.hover-expand::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(45deg, var(--hover-from), var(--hover-to));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--hover-duration);
+}
+.btn.hover-expand::before { z-index: -1; }                               /* the fill */
+.btn.hover-expand::after { z-index: -2; top: .6rem; filter: blur(.9rem); } /* the glow, lower and blurred */
+/* Only hover and keyboard focus open it; a pressed toggle keeps the fill (below) but stays the icon, so it still
+   reads as the icon at rest and expands like any other on hover. :focus-within: a control inside it (a select as the
+   label: the mini theme editor's design style) keeps it open while in use, its own list open off the button. */
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) { width: fit-content; }
+/* Light text on the gradient; a filled button (a color class) instead expands in its own color, fill and glow alike,
+   and keeps its own text color. */
+.btn.hover-expand.hover-expand:not(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient):is(:hover, :focus-visible, :focus-within, [aria-pressed="true"]) { color: var(--light); }
+.btn.hover-expand:is(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient)::before,
+.btn.hover-expand:is(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient)::after { background: inherit; }
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within, [aria-pressed="true"])::before { opacity: 1; }
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within, [aria-pressed="true"])::after { opacity: .5; }
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) > .btn-icon { scale: 0; transition-delay: 0s; }
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) > .btn-text {
+  scale: 1;
+  transition-delay: calc(var(--hover-duration) / 2); /* in once the icon is gone */
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn.hover-expand, .btn.hover-expand > *, .btn.hover-expand::before, .btn.hover-expand::after { transition: none; }
+}
+
+/* SPREAD: the letters spread apart and a line grows out from the center above and below the label.
+   Uses ::before and ::after: doesn't combine with the other pseudo-element effects or .outline-gradient. */
+.hover-spread {
+  isolation: isolate;
+  letter-spacing: 0;
+  transition: letter-spacing var(--hover-duration), background-color var(--duration), color var(--duration);
+}
+:where(.hover-spread) { position: relative; }
+.hover-spread::before,
+.hover-spread::after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  width: 70%;
+  border-top: var(--border-width) solid currentColor;
+  scale: 0 1;
+  pointer-events: none;
+  transition: scale var(--hover-duration) ease-in-out;
+}
+.hover-spread::before { top: var(--space-xs); }
+.hover-spread::after { bottom: var(--space-xs); }
+.hover-spread.hover-spread:is(:hover, :focus-visible, [aria-pressed="true"]) { letter-spacing: .15em; }
+.hover-spread.hover-spread:is(:hover, :focus-visible, [aria-pressed="true"])::before,
+.hover-spread.hover-spread:is(:hover, :focus-visible, [aria-pressed="true"])::after { scale: 1 1; }
+
+/* PRESS: a raised button (a bottom edge and a drop shadow in its own color) sinks in when hovered: the shadows go,
+   it moves down by the edge's height and the text gets a pressed-in shadow. No pseudo-elements. */
+.hover-press {
+  box-shadow: 0 .125rem 0 color-mix(in srgb, currentColor 40%, transparent),
+    .125rem .25rem .375rem color-mix(in srgb, currentColor 20%, transparent);
+  transition: translate var(--duration) linear, box-shadow var(--duration) linear, text-shadow var(--duration) linear,
+    background-color var(--duration), color var(--duration);
+}
+.hover-press.hover-press:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  translate: 0 .125rem;
+  box-shadow: 0 0 0 transparent;
+  text-shadow: -1px -1px 0 rgb(0 0 0 / .25);
+}
+
+/* SHINE: a pale diagonal bar sweeps across from left to right. Uses ::after (behind the content, in front of the
+   background): doesn't combine with the other ::after effects. */
+.hover-shine {
+  isolation: isolate;
+  overflow: hidden;
+}
+:where(.hover-shine) { position: relative; }
+.hover-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  z-index: -1;
+  width: 3rem;
+  height: 200%;
+  background: color-mix(in srgb, var(--light) 25%, transparent);
+  rotate: 35deg;
+  pointer-events: none;
+  transition: left var(--hover-duration) cubic-bezier(.19, 1, .22, 1);
+}
+.hover-shine.hover-shine:is(:hover, :focus-visible, [aria-pressed="true"])::after { left: 120%; }
+
+/* HALO: an outline floats away from the element and fades while a soft glow in the theme's primary fills it from
+   inside. No pseudo-elements; while hovered its glow replaces a button's focus ring. */
+.hover-halo {
+  outline: var(--border-width) solid color-mix(in srgb, currentColor 50%, transparent);
+  outline-offset: 0;
+  transition: outline-offset calc(var(--hover-duration) * 2.5) cubic-bezier(.19, 1, .22, 1),
+    outline-color calc(var(--hover-duration) * 2.5) cubic-bezier(.19, 1, .22, 1),
+    box-shadow calc(var(--hover-duration) * 2.5) cubic-bezier(.19, 1, .22, 1), background-color var(--duration), color var(--duration);
+}
+.hover-halo.hover-halo:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  outline-color: transparent;
+  outline-offset: .9rem;
+  box-shadow: inset 0 0 1.25rem color-mix(in srgb, var(--hover-from) 50%, transparent),
+    0 0 1.25rem color-mix(in srgb, var(--hover-from) 20%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-spread, .hover-spread::before, .hover-spread::after, .hover-press, .hover-shine::after, .hover-halo { transition: none; }
+  .hover-press.hover-press:is(:hover, :focus-visible, [aria-pressed="true"]) { translate: none; }
+}
+
+/* TRACE and DASH draw on an SVG outline inside the element: <Button trace> adds one (components/ui/trace.js).
+   The outline sits 1px inside the edge (so overflow: hidden doesn't cut the stroke) with the element's corner
+   radius; pathLength="100" on it makes the dash values below percentages of the outline. */
+.trace {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: none; /* drawn only under hover-trace / hover-dash */
+  pointer-events: none;
+}
+.trace rect { x: 1px; y: 1px; width: calc(100% - 2px); height: calc(100% - 2px); rx: var(--radius); }
+:where(.hover-trace, .hover-dash) { position: relative; }
+
+/* TRACE: a segment of the outline (in the theme's secondary) travels once round the element while it fills
+   lightly with the primary. The dash is 31% of the outline in a 131% pattern, so it's hidden before and after. */
+.hover-trace {
+  transition: background-color calc(var(--hover-duration) * 2) ease-in-out, color var(--duration);
+}
+.hover-trace .trace {
+  stroke: var(--hover-to);
+  stroke-width: 2;
+  stroke-dasharray: 31 100;
+  stroke-dashoffset: 31;
+  transition: stroke-dashoffset calc(var(--hover-duration) * 2) ease-in-out;
+}
+.hover-trace.hover-trace:is(:hover, :focus-visible, [aria-pressed="true"]) { background-color: color-mix(in srgb, var(--hover-from) 25%, transparent); }
+.hover-trace.hover-trace:is(:hover, :focus-visible, [aria-pressed="true"]) .trace { stroke-dashoffset: -100; }
+
+/* DASH: a solid outline in the text color replaces the border; when hovered it breaks into thick short dashes and
+   the label turns bold and spaces out. It snaps back quickly and eases out slowly. */
+.hover-dash {
+  border-color: transparent;
+  transition: letter-spacing var(--duration), background-color var(--duration), color var(--duration);
+}
+.hover-dash .trace {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-dasharray: 100 0;
+  stroke-dashoffset: 0;
+  transition: all calc(var(--hover-duration) * .7) linear;
+}
+.hover-dash.hover-dash:is(:hover, :focus-visible, [aria-pressed="true"]) { font-weight: var(--weight-bold); letter-spacing: .06em; }
+.hover-dash.hover-dash:is(:hover, :focus-visible, [aria-pressed="true"]) .trace {
+  stroke-width: 5;
+  stroke-dasharray: 3.5 73;
+  stroke-dashoffset: 11;
+  transition: all calc(var(--hover-duration) * 2.7) cubic-bezier(.19, 1, .22, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-trace .trace, .hover-dash .trace { transition: none; }
+}
+
+/* Effects that draw past the element's edge (goo, pop, glow) turn off a .btn's overflow clipping; the icon's
+   tinted cell then takes the button's rounding itself. */
+:is(.hover-goo, .hover-pop, .hover-glow) { overflow: visible; }
+:is(.hover-goo, .hover-pop, .hover-glow) > .btn-icon:first-child { border-start-start-radius: inherit; border-end-start-radius: inherit; }
+:where(.hover-goo, .hover-pop, .hover-glow) { position: relative; }
+
+/* GOO: two blobs of the element's own background swell out of its top-left and bottom-right edges and melt into
+   it (the #goo SVG filter, components/ui/goo.js, rendered once in the layout). For filled elements: on a
+   transparent one the blobs don't show. Uses ::before and ::after. */
+.hover-goo { isolation: isolate; filter: url(#goo); }
+.hover-goo::before,
+.hover-goo::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 4.4em;
+  height: 2.95em;
+  border-radius: 50%;
+  background: inherit;
+  scale: 0;
+  pointer-events: none;
+  transition: scale calc(var(--hover-duration) * 2) ease;
+}
+.hover-goo::before { top: -25%; left: 20%; }
+.hover-goo::after { bottom: -25%; right: 20%; }
+.hover-goo.hover-goo:is(:hover, :focus-visible, [aria-pressed="true"])::before,
+.hover-goo.hover-goo:is(:hover, :focus-visible, [aria-pressed="true"])::after { scale: 1; }
+
+/* POP: rises with a shadow while a copy of its background swells outward and fades, like a pulse; pressing it
+   settles it back down a little. Uses ::after. */
+.hover-pop {
+  isolation: isolate;
+  transition: translate var(--duration), box-shadow var(--duration), background-color var(--duration), color var(--duration);
+}
+.hover-pop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: inherit;
+  pointer-events: none;
+  transition: scale calc(var(--hover-duration) * .8), opacity calc(var(--hover-duration) * .8);
+}
+.hover-pop.hover-pop:is(:hover, :focus-visible, [aria-pressed="true"]) { translate: 0 -.1875rem; box-shadow: 0 .625rem 1.25rem rgb(0 0 0 / .2); }
+.hover-pop.hover-pop:is(:hover, :focus-visible, [aria-pressed="true"])::after { scale: 1.4 1.6; opacity: 0; }
+.hover-pop:active { translate: 0 -.0625rem; box-shadow: 0 .3125rem .625rem rgb(0 0 0 / .2); }
+
+/* GLOW: a blurred ring of the theme's colors, drifting along, lights up around the element. The ring is ::before,
+   masked to outside the element, so it works on any background (transparent ones too). */
+.hover-glow { isolation: isolate; }
+.hover-glow::before {
+  content: "";
+  position: absolute;
+  inset: -.5rem;
+  z-index: -1;
+  padding: .5rem; /* the ring's width: the mask keeps only this band, outside the element */
+  border-radius: calc(var(--radius) + .5rem);
+  background: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary-lighter), var(--secondary-lighter), var(--primary));
+  background-size: 400%;
+  filter: blur(.3rem);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+  animation: hover-glow-drift 20s linear infinite;
+  transition: opacity var(--hover-duration) ease-in-out;
+}
+.hover-glow.hover-glow:is(:hover, :focus-visible, [aria-pressed="true"])::before { opacity: 1; }
+@keyframes hover-glow-drift {
+  50% { background-position: 400% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-goo::before, .hover-goo::after, .hover-pop, .hover-pop::after { transition: none; }
+  .hover-pop.hover-pop:is(:hover, :focus-visible, [aria-pressed="true"], :active) { translate: none; }
+  .hover-glow::before { animation: none; }
+}
+
+/* RINGS: outlines drawn with box-shadow in the theme's primary (--hover-from); the gaps between them are the page
+   background, so they read as cut-outs in either mode. No pseudo-elements, so they combine with the other
+   effects; outer shadows aren't clipped by a .btn's overflow. */
+:is(.hover-rings, .hover-inset-ring, .hover-offset, .hover-frame, .hover-tabs, .hover-double, .hover-corners, .hover-pill) {
+  transition: box-shadow var(--hover-duration) ease-in-out, background-color var(--hover-duration) ease-in-out,
+    color var(--hover-duration) ease-in-out, letter-spacing var(--hover-duration) ease-in-out,
+    border-radius var(--hover-duration) ease-in-out, border-color var(--hover-duration) ease-in-out;
+}
+/* Two concentric rings; the element turns outlined (page background, colored text). */
+.hover-rings.hover-rings:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  background-color: var(--body-bg);
+  color: var(--hover-from);
+  box-shadow: 0 0 0 .15rem var(--body-bg), 0 0 0 .3rem var(--hover-from), 0 0 0 .6rem var(--body-bg), 0 0 0 .65rem var(--hover-from);
+}
+/* A gap just inside the edge and a ring just outside it. */
+.hover-inset-ring.hover-inset-ring:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  box-shadow: inset 0 0 0 .15rem var(--body-bg), 0 0 0 .3rem var(--hover-from);
+}
+/* The letters spread and an outline drops behind it, offset down and right. */
+.hover-offset.hover-offset:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  letter-spacing: .3em;
+  background-color: transparent;
+  border-color: var(--hover-from);
+  color: var(--hover-from);
+  box-shadow: .15rem .15rem 0 .3rem var(--body-bg), .3rem .3rem 0 .45rem var(--hover-from);
+}
+/* A double frame round it and a third one offset behind; the letters spread a little. */
+.hover-frame.hover-frame:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  letter-spacing: .15em;
+  box-shadow: 0 0 0 .125rem var(--body-bg), 0 0 0 .1875rem var(--hover-from), inset 0 0 0 .125rem var(--body-bg),
+    0 0 0 .3rem var(--hover-from), .45rem .45rem 0 .15rem var(--body-bg), .6rem .6rem 0 .3rem var(--hover-from);
+}
+/* Tabs stick out at both sides and a bar runs along the bottom (inside, so nothing moves); it turns outlined. */
+.hover-tabs.hover-tabs:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  background-color: transparent;
+  color: var(--hover-from);
+  box-shadow: inset 0 -.3rem 0 var(--hover-from), 0 0 0 .3rem var(--body-bg), .6rem 0 0 .6rem var(--hover-from),
+    .9rem 0 0 .3rem var(--body-bg), -.6rem 0 0 .6rem var(--hover-from), -.9rem 0 0 .3rem var(--body-bg);
+}
+/* A double frame inside the edge and a ring outside; it turns outlined with rounder corners. */
+.hover-double.hover-double:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  background-color: transparent;
+  color: var(--hover-from);
+  border-radius: calc(var(--radius) * 1.6);
+  box-shadow: inset 0 0 0 .3rem var(--body-bg), inset 0 0 0 .45rem var(--hover-from), inset 0 0 0 .6rem var(--body-bg),
+    0 0 0 .0625rem var(--hover-from), 0 0 0 .1875rem var(--body-bg), 0 0 0 .3rem var(--hover-from);
+}
+/* Blocks of color stick out at two opposite corners. */
+.hover-corners.hover-corners:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  box-shadow: .15rem .15rem 0 .15rem var(--body-bg), -.15rem -.15rem 0 .15rem var(--body-bg), inset 0 0 0 .125rem var(--body-bg),
+    .6rem .6rem 0 .6rem var(--hover-from), -.6rem -.6rem 0 .6rem var(--hover-from);
+}
+/* It becomes a pill wrapped in rings and turns outlined. */
+.hover-pill.hover-pill:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  border-radius: 100rem;
+  background-color: transparent;
+  color: var(--hover-from);
+  box-shadow: 0 0 0 .0625rem var(--body-bg), 0 0 0 .125rem var(--hover-from), 0 0 0 .3rem var(--hover-from),
+    0 0 0 .4rem var(--body-bg), 0 0 0 .45rem var(--hover-from);
+}
+
+/* FILLS: the element fills with the theme's primary (--hover-from) in different ways and its text turns light.
+   Made for outlined or plain elements (e.g. .outline-primary). */
+/* Fills in from the edges (an inset shadow grows over it). */
+.hover-fill { transition: box-shadow var(--hover-duration) ease-in-out, color var(--hover-duration) ease-in-out; }
+.hover-fill.hover-fill:is(:hover, :focus-visible, [aria-pressed="true"]) { color: var(--light); box-shadow: inset 0 0 2.5rem 2.5rem var(--hover-from); }
+/* Striped at rest (light and full stripes of the color); the stripes slide along when hovered. */
+.hover-stripes {
+  color: var(--light);
+  background-image: repeating-linear-gradient(to right, color-mix(in srgb, var(--hover-from) 60%, transparent) 0 5%, var(--hover-from) 5% 10%);
+  background-position: 0 0;
+  transition: background-position var(--hover-duration) ease-in-out;
+}
+.hover-stripes.hover-stripes:is(:hover, :focus-visible, [aria-pressed="true"]) { background-position: 6.25rem 0; }
+/* Solid at rest; when hovered the fill opens into a glow inside the edge and one outside it. */
+.hover-bloom {
+  color: var(--light);
+  box-shadow: inset 0 0 2.5rem 2.5rem var(--hover-from), 0 0 0 0 var(--hover-from);
+  transition: box-shadow calc(var(--hover-duration) * .3) ease-in-out, color calc(var(--hover-duration) * .3) ease-in-out;
+}
+.hover-bloom.hover-bloom:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  color: var(--body-color);
+  box-shadow: inset 0 0 .6rem 0 var(--hover-from), 0 0 .6rem .25rem var(--hover-from);
+}
+/* A diagonal wipe fills it from the bottom-left corner. */
+.hover-wipe {
+  background-image: linear-gradient(45deg, var(--hover-from) 50%, transparent 50%);
+  background-size: 400%;
+  background-position: 100%;
+  transition: background-position var(--hover-duration) ease-in-out, color var(--hover-duration) ease-in-out;
+}
+.hover-wipe.hover-wipe:is(:hover, :focus-visible, [aria-pressed="true"]) { background-position: 0; color: var(--light); }
+/* The fill grows out from the center to both sides. Uses ::after. */
+.hover-split { isolation: isolate; overflow: hidden; transition: color calc(var(--hover-duration) * .3) ease-in-out; }
+:where(.hover-split) { position: relative; }
+.hover-split::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: -1;
+  width: 0;
+  height: 100%;
+  background: var(--hover-from);
+  translate: -50% 0;
+  pointer-events: none;
+  transition: width calc(var(--hover-duration) * .3) ease-in-out;
+}
+.hover-split.hover-split:is(:hover, :focus-visible, [aria-pressed="true"]) { color: var(--light); }
+.hover-split.hover-split:is(:hover, :focus-visible, [aria-pressed="true"])::after { width: 110%; }
+/* The fill slides up from the bottom. */
+.hover-slide {
+  background-image: linear-gradient(to bottom, transparent 50%, var(--hover-from) 50%);
+  background-size: 100% 210%;
+  background-position: 0 0;
+  transition: background-position calc(var(--hover-duration) * .3) ease-in-out, color calc(var(--hover-duration) * .3) ease-in-out;
+}
+.hover-slide.hover-slide:is(:hover, :focus-visible, [aria-pressed="true"]) { background-position: 0 100%; color: var(--light); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-stripes, .hover-wipe, .hover-split::after, .hover-slide { transition: none; }
+}
+
+/* SHAPES: hovers for .shape-* elements (utilities.css). A shape cuts away anything drawn outside it (shadows,
+   outlines, the rings above), so these move or reshape the element itself. Effects drawn inside it (shine, rise,
+   slide, split) work on a shape as they are. */
+/* GROW: scales up a little. */
+.hover-grow { transition: scale var(--hover-duration) ease; }
+.hover-grow.hover-grow:is(:hover, :focus-visible, [aria-pressed="true"]) { scale: 1.12; }
+/* SPIN: one full turn. */
+.hover-spin { transition: rotate var(--hover-duration) ease-in-out; }
+.hover-spin.hover-spin:is(:hover, :focus-visible, [aria-pressed="true"]) { rotate: 1turn; }
+/* FLIP: one turn round its vertical axis, like a coin. */
+.hover-flip { transition: rotate var(--hover-duration) ease-in-out; }
+.hover-flip.hover-flip:is(:hover, :focus-visible, [aria-pressed="true"]) { rotate: y 1turn; }
+/* MORPH: turns into --hover-shape (a clip-path, e.g. polygon(...)). It animates when both shapes are the same kind
+   with the same number of points (a polygon to a polygon of as many corners); otherwise it switches at once.
+   Clip-path shapes only, not the masked ones (heart, squircle, teardrop, moon, ticket, wave, ring). */
+.hover-morph { transition: clip-path var(--hover-duration) ease-in-out; }
+.hover-morph.hover-morph:is(:hover, :focus-visible, [aria-pressed="true"]) { clip-path: var(--hover-shape, inset(0)); }
+/* FLOAT: rises with a glow in the theme colors around its outline. Put it on a WRAPPER round the shape: a glow on
+   the shape itself would be cut off with everything else outside it. */
+.hover-float {
+  transition: translate var(--hover-duration) ease, filter var(--hover-duration) ease;
+}
+.hover-float.hover-float:is(:hover, :focus-visible, :focus-within, [aria-pressed="true"]) {
+  translate: 0 -.375rem;
+  filter: drop-shadow(-.25rem .25rem .75rem color-mix(in srgb, var(--hover-from) 70%, transparent))
+          drop-shadow(.25rem .5rem .75rem color-mix(in srgb, var(--hover-to) 70%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-spin, .hover-flip, .hover-morph { transition: none; }
+}

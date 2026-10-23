@@ -1,0 +1,25 @@
+/* Self-hosted Google Fonts (npm @fontsource): IBM Plex Mono. @import must come before any rule. */
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/700.css";
+
+/*
+ * THEME: Terminal. Optional. A command line: monospace everything, $ prompts before headings, a blinking cursor, square boxes: developer portfolios, CLIs.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --weight-heading: 700;
+  --btn-weight: 700;
+  --radius: 0rem;
+  --shadow-opacity: 0;
+}
+:is(h1, h2, h3)::before { content: "$ "; color: var(--primary); }
+h1::after { content: "_"; color: var(--primary); }
+@media (prefers-reduced-motion: no-preference) {
+  h1::after { animation: terminal-blink 1s steps(1) infinite; }
+}
+@keyframes terminal-blink { 50% { opacity: 0; } }
+.btn-text::before { content: "> "; }

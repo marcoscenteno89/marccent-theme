@@ -1,0 +1,111 @@
+@import "../layers.css";
+/*
+ * BUTTONS. Neutral: current text color, no background (give one with a
+ * palette class from colors.css).
+ * Layout: icon pinned left, label centered in the rest. Wrap the label in .btn-text. An icon + label button
+ * can drop its label below a width with .icon-only-sm / -md (below). The icon never shrinks. A button is as wide
+ * as its content and centered in its slot; .w-100 (or any width / self-* class) changes that.
+ * Buttons without .btn-text just center their content.
+ */
+@layer components {
+.btn {
+  display: inline-grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+  max-width: 100%;
+  padding: var(--control-pad);
+  border-width: var(--border-width);
+  border-style: solid;
+  border-radius: var(--radius);
+  overflow: hidden; /* the icon tint follows the rounded corners */
+  font: inherit;
+  font-weight: var(--btn-weight); /* after font: inherit, which would reset it */
+  line-height: var(--line-height);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--duration), border-color var(--duration), color var(--duration), box-shadow var(--duration);
+}
+
+/* No fill, and the text color of where it sits: clears the browser's grey <button> background and its own text
+   color (buttontext), so a button reads like the text around it (e.g. light on the modal's band). A link button
+   keeps the link color (base layer). :where() makes it weightless, so a .bg-* / color class still wins. */
+:where(.btn) { background-color: transparent; }
+:where(.btn:not(a)) { color: inherit; }
+
+/* With a label: .btn-text is the whole button except the icon square. The button has no padding or
+   gap of its own; the label carries the padding, so its box (and hover area) runs edge to edge.
+   The label column can shrink (clipped, no "…"); the icon column keeps its size. */
+.btn:has(> .btn-text) { padding: 0; gap: 0; grid-template-columns: minmax(0, 1fr); } /* label only */
+.btn:has(> :not(.btn-text) + .btn-text) { grid-template-columns: auto minmax(0, 1fr); } /* icon + label */
+
+.btn-text {
+  display: grid;          /* fills its cell both ways; the text stays vertically centered */
+  align-content: center;
+  align-self: stretch;
+  padding: var(--control-pad-y) var(--btn-pad-x); /* the button is as wide as the label plus this */
+  overflow: hidden;       /* safety clip only; the container query hides the label before it gets cut */
+  white-space: nowrap;
+}
+
+/* Icon cell (Button's icon prop): the icon is already a square (icons.css); it sits on the
+   left edge and sets the button's height. Its tint is in colors.css. An icon-only button is just the square. */
+.btn:has(> .btn-icon) { padding: 0; }
+
+/* Icon only: the button is the icon square wherever it sits; it doesn't stretch to fill a grid or flex slot.
+   Layout defaults like this and the one below are in :where(), weightless, so any class (.w-100, .self-start…) or
+   a parent's rule can change them without a more specific selector. */
+:where(.btn:has(> .btn-icon):not(:has(> .btn-text))) {
+  width: fit-content;
+  height: fit-content;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Icon + label: as wide as its content (icon, label and its padding), centered in its slot instead of stretching
+   to fill it. */
+:where(.btn:has(> .btn-text)) { justify-self: center; }
+
+/* Icon only below a width, by choice (not measured): put .icon-only-sm / -md on a button, or on any element to
+   cover every button inside it. Below the step, measured on the nearest container (a .wrap or .cq, e.g. the
+   header or a hero box), the label goes and the button is just its icon square. Steps match layout.css:
+   sm below 40rem, md below 56rem. */
+@container (width < 40rem) {
+  :is(.icon-only-sm, .icon-only-sm .btn) > .btn-text { display: none; }
+}
+@container (width < 56rem) {
+  :is(.icon-only-md, .icon-only-md .btn) > .btn-text { display: none; }
+}
+
+/* Button without an icon (components/ui/button.js): a plain text link, whether it renders <a> or <button>. */
+.btn-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--link);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.btn-link:hover { color: var(--link-hover); }
+
+/* Neutral colors. background-color (not the shorthand), so an inline background-image (theme swatches) survives.
+   The icon square is tinted with the text color, so it works in light and dark mode. */
+.btn:hover,
+.btn[aria-pressed="true"] { background-color: var(--muted-bg); } /* pressed: a toggle that is on (Minesweeper flag mode) */
+.btn:focus-visible { outline: 0; box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+.btn-icon { background-color: color-mix(in srgb, currentColor 15%, transparent); }
+
+/* Disabled: faded, with a not-allowed cursor. A <button disabled> ignores clicks itself, so it still takes the
+   pointer (its title tooltip shows); a disabled link (.disabled, aria-disabled; Button renders it) can't, so it
+   ignores the pointer. */
+.btn:disabled,
+.btn.disabled,
+.btn-link:disabled,
+.btn-link.disabled { opacity: .5; cursor: not-allowed; }
+:is(.btn, .btn-link).disabled { pointer-events: none; }
+}

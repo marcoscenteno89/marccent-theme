@@ -1,0 +1,33 @@
+/* Self-hosted Google Fonts (npm @fontsource): Sora. @import must come before any rule. */
+@import "@fontsource-variable/sora";
+
+/*
+ * THEME: Aurora. Optional. A soft, slowly drifting glow of the site's colors behind the page, light translucent panels: launches, AI products, music.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: "Sora Variable", system-ui, sans-serif;
+  --weight-heading: 600;
+  --radius: 1rem;
+  --shadow-opacity: .1;
+}
+/* The glow: two big blurred color fields behind everything, drifting slowly (still for reduced motion). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 35% at 30% 30%, color-mix(in srgb, var(--primary) 35%, transparent), transparent),
+    radial-gradient(40% 35% at 70% 60%, color-mix(in srgb, var(--secondary) 30%, transparent), transparent);
+  filter: blur(60px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  body::before { animation: aurora-drift 18s ease-in-out infinite alternate; }
+}
+@keyframes aurora-drift { to { transform: translate(6%, -4%) rotate(8deg) scale(1.1); } }
+[data-theme] .bg { background-color: color-mix(in srgb, var(--surface) 70%, transparent); }

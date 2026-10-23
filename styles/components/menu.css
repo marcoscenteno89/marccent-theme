@@ -1,0 +1,43 @@
+@import "../layers.css";
+/* MENU (Menu in components/layout/menus.js). Layout comes from layout.css on the markup; this is the look. */
+@layer components {
+.menu-link {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: start;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  min-width: 0; /* may shrink inside its grid cell */
+}
+
+/* Top-level menu items fill their cell with the content centered, so a .divide line sits evenly between items. */
+.menu > .menu-link { justify-content: center; }
+.menu > .menu-dropdown > summary { display: grid; justify-content: center; }
+
+/* Icon-only link (Menu iconOnly): the icon square is the whole link, no extra padding. */
+.menu-link:has(> i:only-child) { padding: 0; }
+
+.menu-link:hover { background-color: var(--muted-bg); }
+.menu-link:focus-visible { outline: 0; box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+
+/* Dropdown: the panel floats over the page (the one non-grid rule: an overlay can't take grid space). */
+.menu-dropdown { position: relative; }
+.menu-dropdown > summary { list-style: none; }                           /* hide the default triangle */
+.menu-dropdown > summary::-webkit-details-marker { display: none; }      /* Safari */
+.menu-dropdown > summary::after { content: '\25BE'; transition: rotate var(--duration); } /* ▾ caret */
+.menu-dropdown[open] > summary::after { rotate: 180deg; }
+
+.menu-panel {
+  position: absolute;
+  top: calc(100% + var(--space-xs));
+  left: 0;
+  z-index: 1000;
+  min-width: max-content;
+}
+}

@@ -1,0 +1,24 @@
+/* Self-hosted Google Fonts (npm @fontsource): Baloo 2. @import must come before any rule. */
+@import "@fontsource-variable/baloo-2";
+
+/*
+ * THEME: Claymorphism. Optional. Puffy clay-like 3D: very round shapes with an inner highlight and a soft drop shadow: playful apps, games, onboarding.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: "Baloo 2 Variable", ui-rounded, system-ui, sans-serif;
+  --weight-heading: 800;
+  --radius: 1.75rem;
+  --border-width: 0px;
+}
+/* An inner light at the top, an inner shade at the bottom and a soft shadow outside make the surface look inflated. */
+[data-theme=light] :is(.bg, .btn) {
+  box-shadow: inset 0 4px 8px rgb(255 255 255 / .7), inset 0 -6px 12px rgb(0 0 0 / .08), 0 12px 24px rgb(0 0 0 / .1);
+}
+[data-theme=dark] :is(.bg, .btn) {
+  box-shadow: inset 0 4px 8px rgb(255 255 255 / .08), inset 0 -6px 12px rgb(0 0 0 / .35), 0 12px 24px rgb(0 0 0 / .4);
+}
+.btn { border-radius: 999px; }

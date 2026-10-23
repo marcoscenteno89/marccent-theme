@@ -1,0 +1,31 @@
+@import "../layers.css";
+/* NAV (Bootstrap's navbar; the site header in components/layout/header.tsx). Markup: a .nav bar (full width, its
+   background) around a .wrap.grid.layout-ends row (like Bootstrap's .navbar > .container) holding the brand, a
+   .btn.nav-toggle, a .nav-collapse (the menus) and the always-visible tools (.col-last).
+   From 56rem (the layout-ends breakpoint) the toggle hides and .nav-collapse is display: contents, so its menus are
+   the bar's own grid items: brand | main menu | .nav-end group (in the empty column, pushed to its end) | tools.
+   Below 56rem the first row is brand, then empty space, then toggle | tools at the right end; .nav-collapse (main
+   menu stacked as a list, then the .nav-end group) is hidden until the toggle adds .open to the .nav, then fills
+   row 2. .btn.nav-toggle outranks .btn's display. */
+@layer components {
+.nav-collapse { display: contents; }
+.btn.nav-toggle { display: none; }
+.nav-end { justify-self: end; }
+
+@container (width < 56rem) {
+  /* The brand's column takes the spare room, so the toggle and tools sit at the right. It may shrink (the brand
+     truncates) while a hover-expand tool button is open, so the row never runs off the screen. */
+  .nav > .wrap { grid-template-columns: minmax(0, 1fr) auto auto; }
+  .btn.nav-toggle { display: inline-grid; }
+  /* Row 2 is placed first, so brand, toggle and tools fill row 1 in source order. */
+  .nav-collapse { display: grid; grid-row: 2; grid-column: 1 / -1; gap: var(--space-sm); padding-bottom: var(--space-sm); }
+  .nav:not(.open) .nav-collapse { display: none; }
+  /* Main menu: one link per row (the line between them: colors.css), text at the start. */
+  .nav .nav-collapse > .menu:not(.nav-end) { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; } /* row: undoes auto-cols' column flow */
+  .nav .nav-collapse > .menu > .menu-link,
+  .nav .nav-collapse > .menu > .menu-dropdown > summary { justify-content: start; }
+  .nav-end { justify-self: start; }
+  /* A dropdown opens in place, pushing the rest down, instead of floating over the page. */
+  .nav .nav-collapse .menu-panel { position: static; margin-top: var(--space-xs); }
+}
+}

@@ -1,0 +1,50 @@
+@import "../layers.css";
+/* MODAL (Modal / ModalPanel in components/ui/modal.js; a native <dialog>), in two looks with the same behavior.
+   The dialog has no padding, so a click on it (not on its content) is a click on the backdrop.
+   Default: a bordered box; inside, .header, a .pad body and a .pad footer with .divide lines between them. */
+@layer components {
+.modal {
+  width: min(var(--modal-width), 100% - var(--space-lg));
+  padding: 0;
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: calc(var(--radius) * 1.5);
+  color: var(--body-color);
+  background-color: var(--body-bg);
+  box-shadow: var(--shadow);
+}
+.modal::backdrop { background-color: rgb(0 0 0 / .5); }
+
+/* Ticket (variant="ticket", after the old client's PopUp): a band in the theme gradient with the title, a "neck"
+   and "flare" whose cut corners make a half-circle notch on each side, then the body. The dialog itself is
+   transparent (the notches show the backdrop) and its drop-shadow follows the whole outline. --neck: the notch's
+   radius. */
+.modal.ticket {
+  --neck: 2rem;
+  width: min(var(--modal-ticket-width), 100% - var(--space-lg));
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+  filter: drop-shadow(0 0 .6rem rgb(0 0 0 / .6));
+}
+/* The band is .header.bg-gradient and the body .bg: theme classes, so they follow the mode like any surface. The neck
+   and the flare carry the same classes (bg-gradient, bg); these rules only give them their height and cut the
+   notches with a mask, so the neck's gradient lines up with the band's exactly. Neck: its bottom corners cut;
+   flare: its top corners cut; together a half-circle notch on each side. */
+.modal-neck,
+.modal-flare { height: var(--neck); }
+.modal-neck {
+  -webkit-mask: radial-gradient(circle at bottom left, transparent var(--neck), #000 var(--neck)) left / var(--neck) 100% no-repeat,
+    radial-gradient(circle at bottom right, transparent var(--neck), #000 var(--neck)) right / var(--neck) 100% no-repeat,
+    linear-gradient(#000 0 0) center / calc(100% - 2 * var(--neck)) 100% no-repeat;
+  mask: radial-gradient(circle at bottom left, transparent var(--neck), #000 var(--neck)) left / var(--neck) 100% no-repeat,
+    radial-gradient(circle at bottom right, transparent var(--neck), #000 var(--neck)) right / var(--neck) 100% no-repeat,
+    linear-gradient(#000 0 0) center / calc(100% - 2 * var(--neck)) 100% no-repeat;
+}
+.modal-flare {
+  -webkit-mask: radial-gradient(circle at top left, transparent var(--neck), #000 var(--neck)) left / 50% 100% no-repeat,
+    radial-gradient(circle at top right, transparent var(--neck), #000 var(--neck)) right / 50% 100% no-repeat;
+  mask: radial-gradient(circle at top left, transparent var(--neck), #000 var(--neck)) left / 50% 100% no-repeat,
+    radial-gradient(circle at top right, transparent var(--neck), #000 var(--neck)) right / 50% 100% no-repeat;
+}
+}

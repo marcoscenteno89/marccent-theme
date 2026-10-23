@@ -1,0 +1,27 @@
+/* Self-hosted Google Fonts (npm @fontsource): Fredoka. @import must come before any rule. */
+@import "@fontsource-variable/fredoka";
+
+/*
+ * THEME: Illustrative / playful. Optional. Round everything, chunky friendly type, pill buttons that bounce a little: education, consumer apps, nonprofits.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "Fredoka Variable", ui-rounded, "Trebuchet MS", system-ui, "Segoe UI", Roboto, sans-serif;
+  --weight-heading: 800;
+  --radius: 1.25rem;
+  --shadow-size: .6rem;
+  --shadow-opacity: .12;
+}
+
+/* Pill buttons and a tinted, colorful shadow under panels. */
+.btn { border-radius: 999px; }
+[data-theme] .bg { box-shadow: 0 .6rem 1.5rem color-mix(in srgb, var(--primary) 20%, transparent); }
+
+/* Buttons bounce up and tilt a touch when hovered (skipped for reduced motion). */
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: transform .2s cubic-bezier(.34, 1.56, .64, 1), background-color var(--duration); }
+  .btn:hover { transform: translateY(-3px) rotate(-1.5deg); }
+}

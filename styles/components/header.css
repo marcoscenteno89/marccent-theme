@@ -1,0 +1,16 @@
+@import "../layers.css";
+/* HEADER: the title row of any box (modal, toast, accordion item, card): the first child (the title) takes the row;
+   anything after it (close button, time, caret) gets an end column sized to its content. Layout only: padding is a
+   class beside it, like the box's body and footer (.pad, which reads --pad, so a box resizes its parts by setting
+   --pad once: the toast is tighter; or .pad-sm). Lines between parts: .divide on the box. */
+@layer components {
+.header {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-columns: auto;
+  align-items: center;
+  gap: var(--space-sm);
+}
+.header > :is(h1, h2, h3, h4, h5, h6, p) { margin: 0; }
+}

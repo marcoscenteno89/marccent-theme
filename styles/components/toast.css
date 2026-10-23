@@ -1,0 +1,29 @@
+@import "../layers.css";
+/* TOASTS (Toast in components/ui/toast.js). Colors live in colors.css. */
+@layer components {
+.toasts { /* position-fixed bottom-0 end-0 on the markup; not .grid, whose 14rem columns would widen it */
+  z-index: 1090;
+  display: grid;
+  gap: var(--space-xs);
+  width: max-content;
+  max-width: 100%;
+  pointer-events: none; /* clicks pass through the empty corner; the toasts themselves take them */
+}
+
+.toast {
+  --pad: var(--space-xs) var(--space-sm); /* tighter header and body */
+  width: var(--toast-width);
+  max-width: 100%;
+  font-size: var(--text-sm);
+  pointer-events: auto;
+  background-clip: padding-box;
+  border: var(--border-width) solid; /* not .border: its color would beat the toast tones' (utilities load last) */
+} /* round (corners, and the header's background clipped to them) and shadow on the markup */
+
+/* Header (title | time | close) and body (.pad, the last child); only the sizes and line differ here. */
+.toast > .header { font-size: var(--text-xs); background-clip: padding-box; border-bottom: var(--border-width) solid; }
+/* Neutral colors: a translucent page background. */
+.toast { background-color: color-mix(in srgb, var(--body-bg) 85%, transparent); border-color: var(--border-subtle); }
+.toast > .header { color: var(--muted-color); background-color: color-mix(in srgb, var(--body-bg) 85%, transparent); border-bottom-color: var(--border-subtle); }
+.toast > :last-child { font-size: var(--text-xs); overflow-wrap: break-word; }
+}

@@ -1,0 +1,29 @@
+/* Self-hosted Google Fonts (npm @fontsource): Orbitron for headings, Rajdhani for text. @import must come before any rule. */
+@import "@fontsource-variable/orbitron";
+@import "@fontsource/rajdhani/400.css";
+@import "@fontsource/rajdhani/600.css";
+@import "@fontsource/rajdhani/700.css";
+
+/*
+ * THEME: Cyberpunk. Optional. Angular sci-fi: panels with cut corners, wide techno headings with a glitchy two-color offset, neon edges: games, esports, streetwear.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: Rajdhani, "Segoe UI", sans-serif;
+  --font-heading: "Orbitron Variable", Rajdhani, sans-serif;
+  --font-size: 1.0625rem;
+  --weight-heading: 700;
+  --btn-weight: 700;
+  --radius: 0rem;
+}
+/* Cut top-left and bottom-right corners. */
+[data-theme] .bg, .btn {
+  clip-path: polygon(1rem 0, 100% 0, 100% calc(100% - 1rem), calc(100% - 1rem) 100%, 0 100%, 0 1rem);
+  border-color: var(--primary);
+}
+.btn { clip-path: polygon(.5rem 0, 100% 0, 100% calc(100% - .5rem), calc(100% - .5rem) 100%, 0 100%, 0 .5rem); }
+/* Glitch: the heading echoed in the two theme colors, slightly offset. */
+:is(h1, h2, h3) { text-transform: uppercase; letter-spacing: .06em; text-shadow: -2px 0 var(--secondary), 2px 0 var(--primary); }

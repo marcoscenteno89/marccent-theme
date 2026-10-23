@@ -1,0 +1,212 @@
+/*
+ * DEFAULTS: every site-wide variable with its default value, so nothing is ever undefined. Loaded first.
+ * All selectors are in :where() (zero specificity), which sets the order of who wins without caring about load order:
+ *   1. these defaults,
+ *   2. a theme (styles/themes/, also :where(:root); loaded later, so it replaces what it changes),
+ *   3. settings.css (plain :root, so its active lines beat both).
+ * Edit a default here only to change the base theme; to change this site, use settings.css.
+ * The blocks after the first (SCALES, DERIVED COLORS, PAGE COLORS) are computed from it and normally left alone.
+ * The only sizes left as literals elsewhere are @media / @container breakpoints (a variable can't be used there)
+ * and the close button's em-based geometry. Variables not here are per-element plumbing, set on their own
+ * selectors so nested elements don't inherit them: --cols / --min / --gap on .grid, --wrap on .wrap (layout.css),
+ * --pad on .toast (components/toast.css).
+ */
+
+:where(:root) {
+  /* COLORS: every color the theme changer can set. It only writes these eight (UpdateThemeVariables,
+     components/theme/core.js, sets them on <html>, overriding the defaults below); the DERIVED COLORS below read
+     them, so nothing else needs changing for a new theme. */
+
+  /* Brand colors: buttons, alerts, links, gradients. -lighter / -darker default to a mix with white / black;
+     the theme changer replaces them with the shades the canvas animations use. */
+  --primary: #1f64cf;
+  --primary-lighter: color-mix(in srgb, var(--primary) 60%, #fff);
+  --primary-darker: color-mix(in srgb, var(--primary) 60%, #000);
+  --secondary: #1ecbe1;
+  --secondary-lighter: color-mix(in srgb, var(--secondary) 60%, #fff);
+  --secondary-darker: color-mix(in srgb, var(--secondary) 60%, #000);
+
+  /* Status colors (the usual names, in bright neon-pastel shades): danger for destructive actions, success for confirmations,
+     info for notes. Fixed; the theme changer doesn't touch them. Shades are mixed like the brand colors. */
+  --danger: #ff5555;   /* bright coral red */
+  --danger-lighter: color-mix(in srgb, var(--danger) 60%, #fff);
+  --danger-darker: color-mix(in srgb, var(--danger) 60%, #000);
+  --success: #50fa7b;  /* neon mint green */
+  --success-lighter: color-mix(in srgb, var(--success) 60%, #fff);
+  --success-darker: color-mix(in srgb, var(--success) 60%, #000);
+  --info: #8be9fd;     /* electric sky cyan */
+  --info-lighter: color-mix(in srgb, var(--info) 60%, #fff);
+  --info-darker: color-mix(in srgb, var(--info) 60%, #000);
+
+  /* Neutrals. Text, backgrounds, borders and panels in both modes are mixed from these two (PAGE COLORS below):
+     dark mode's page is --dark, light mode's is --light. */
+  --dark: #1a1a1a;
+  --light: #fff;
+
+  /* SIZES: each family has one base value; its smaller and larger steps are multiples of it (SCALES below),
+     so changing the base resizes the whole family. Classes come in three steps, -sm, base and -lg
+     (.gap-sm / .gap-lg, .fs-sm / .fs-lg…); anything in between goes in a style attribute. */
+
+  /* Typography */
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+  --font-heading: var(--font-body);
+  --root-font-size: 16px;      /* sets 1rem (on <html>, base.css); every rem size scales with it */
+  --font-size: 1rem;           /* base text size; the text and heading scales follow it */
+  --line-height: 1.5;
+  --heading-line-height: 1.2;  /* headings and display text */
+  --weight-light: 300;         /* display text, .fw-light */
+  --weight-normal: 400;
+  --weight-heading: 500;
+  --weight-bold: 700;          /* .fw-bold */
+  --small-size: .875em;        /* <small>, .fs-sm; em = relative to the surrounding text */
+
+  /* Spacing */
+  --space: 1rem;               /* base space: paragraph gaps, box padding, the gap scale */
+
+  /* Shape */
+  --radius: .375rem;
+  --border-width: 1px;         /* every border and divide line */
+  --focus-width: .25rem;       /* the focus ring around controls */
+
+  /* Depth */
+  --shadow-size: .5rem;        /* offset of the medium shadow; small and large are multiples */
+  --shadow-opacity: .15;       /* darkness of the medium shadow */
+
+  /* Motion */
+  --duration: .15s;            /* hovers, focus, carets, fades */
+  --hover-duration: .5s;       /* the .hover-* effects (hovers.css): slower, so their motion reads */
+  --spinner-duration: .75s;    /* one pulse of the loading spinner (twice as long with reduced motion) */
+
+  /* Layout (layout.css). The .span-* and layout-* breakpoints assume the default --grid-min and --grid-gap:
+     a breakpoint can't read a variable, so change them there too if these change. */
+  --grid-cols: 3;              /* max columns per row of a .grid without a .cols-* class */
+  --grid-gap: var(--space);    /* space between grid items */
+  --grid-min: 14rem;           /* narrowest a fluid grid column gets before wrapping */
+  --wrap-max: 75rem;           /* max width of .wrap containers; .wrap-sm / .wrap-lg are multiples (SCALES) */
+  --wrap-pad: var(--space);    /* side padding of .wrap containers */
+  --pad: var(--space);         /* inner padding of boxes (.pad) */
+  --icon-size: calc(1.5em + var(--space) * 1.25); /* every icon's square (components/icons.css); em = the icon's font size */
+
+  /* Components (components/) */
+  --btn-weight: 600;           /* button labels: semibold, between --weight-heading and --weight-bold */
+  --btn-pad-x: 1rem;           /* space on each side of a button's label; the button is as wide as label + this */
+  --toast-width: 250px;
+  --modal-width: 500px;        /* never wider than the screen minus --space-lg */
+  --modal-ticket-width: 750px; /* the "ticket" modal look (Modal variant="ticket") */
+  --modal-offset: 50px;        /* how far above its place the modal starts sliding in */
+
+  /* Glass mode */
+  --glass-blur: 20px;
+  --glass-opacity: 0.4;
+  --theme-glass: 0;            /* 1 in a design theme that is glass already (themes/): the Glass toggle turns off */
+}
+
+/* SCALES: the steps of each size family, as multiples of its base above. */
+:where(:root) {
+  /* Space */
+  --space-xs: calc(var(--space) * .25);  /* component insides only (menu links, toasts); no class */
+  --space-sm: calc(var(--space) * .5);
+  --space-lg: calc(var(--space) * 2);
+  --control-pad-y: calc(var(--space) * .375); /* inside buttons, inputs and field labels */
+  --control-pad-x: calc(var(--space) * .75);
+  --control-pad: var(--control-pad-y) var(--control-pad-x);
+
+  /* Text */
+  --text-xs: calc(var(--font-size) * .75);
+  --text-sm: calc(var(--font-size) * .875);
+  --text-md: calc(var(--font-size) * 1.25);
+  --text-lg: calc(var(--font-size) * 1.5);
+
+  /* Headings grow with the viewport and stop at their desktop size. */
+  --h1: min(calc(var(--font-size) * 1.375 + 1.5vw), calc(var(--font-size) * 2.5));
+  --h2: min(calc(var(--font-size) * 1.325 + .9vw), calc(var(--font-size) * 2));
+  --h3: min(calc(var(--font-size) * 1.3 + .6vw), calc(var(--font-size) * 1.75));
+  --h4: min(calc(var(--font-size) * 1.275 + .3vw), calc(var(--font-size) * 1.5));
+  --h5: var(--text-md);
+  --h6: var(--font-size);
+  --display-sm: var(--h2);
+  --display: var(--h1);
+  --display-lg: min(calc(var(--font-size) * 1.425 + 2.1vw), calc(var(--font-size) * 3));
+
+  /* Shadows */
+  --shadow-sm: 0 calc(var(--shadow-size) * .25) calc(var(--shadow-size) * .5) rgb(0 0 0 / calc(var(--shadow-opacity) * .5));
+  --shadow: 0 var(--shadow-size) calc(var(--shadow-size) * 2) rgb(0 0 0 / var(--shadow-opacity));
+  --shadow-lg: 0 calc(var(--shadow-size) * 2) calc(var(--shadow-size) * 6) rgb(0 0 0 / calc(var(--shadow-opacity) * 7 / 6));
+
+  /* Containers */
+  --wrap-sm: calc(var(--wrap-max) * .64);
+  --wrap-lg: calc(var(--wrap-max) * 1.2);
+
+  /* Motion */
+  --duration-slow: calc(var(--duration) * 2); /* opening and closing: accordion, modal */
+}
+
+/* DERIVED COLORS: computed from the COLORS above; the color classes in colors.css use these names. */
+
+/* GRADIENTS: primary to secondary, in the three versions of the palette (lighter, base, darker). */
+:where(:root) {
+  --gradient: linear-gradient(to right, var(--primary), var(--secondary));
+  --gradient-lighter: linear-gradient(to right, var(--primary-lighter), var(--secondary-lighter));
+  --gradient-darker: linear-gradient(to right, var(--primary-darker), var(--secondary-darker));
+  /* Text on a fill of the brand colors (.bg-primary, .bg-secondary, .bg-gradient, .btn.gradient): --dark or --light,
+     whichever reads on it. The theme changer picks each by the color's perceived brightness (textVars,
+     lib/section-theme.js); light until then. */
+  --primary-text: var(--light);
+  --secondary-text: var(--light);
+  --gradient-text: var(--light);
+}
+
+/* PAGE COLORS: text, background, border, link and focus colors for light and dark mode
+   (dark = data-theme="dark" on any element; Body in components/theme/core.js sets it on <body>). */
+:where(:root, [data-theme=light]) {
+  --body-color: var(--dark);
+  --body-bg: var(--light);
+  --muted-color: color-mix(in srgb, var(--body-color) 75%, transparent); /* secondary text: placeholders, toast headers, disabled */
+  --muted-bg: color-mix(in srgb, var(--dark) 3%, var(--light));    /* light shading: field labels, hovers */
+  --border-color: color-mix(in srgb, var(--dark) 14%, var(--light));
+  --border-subtle: color-mix(in srgb, var(--dark) 18%, transparent);  /* translucent border for floating boxes (toast, modal) */
+  --surface: color-mix(in srgb, var(--dark) 3%, var(--light));     /* .bg panels */
+  --link: var(--primary);
+  --link-hover: var(--primary-darker);
+  --focus-ring: color-mix(in srgb, var(--primary) 25%, transparent); /* glow around focused controls */
+  --focus-border: color-mix(in srgb, var(--primary) 50%, #fff);
+  /* Mode shades: the fill behind text (bg-primary / bg-secondary / bg-gradient, current page or step, Alert). Fills use the
+     lighter shade in light mode and the darker in dark mode; -text is the opposite shade, for text on that fill. */
+  --primary-mode: var(--primary-lighter);
+  --primary-mode-text: var(--primary-darker);
+  --secondary-mode: var(--secondary-lighter);
+  --secondary-mode-text: var(--secondary-darker);
+  --danger-mode: var(--danger-lighter);
+  --danger-mode-text: var(--danger-darker);
+  --success-mode: var(--success-lighter);
+  --success-mode-text: var(--success-darker);
+  --info-mode: var(--info-lighter);
+  --info-mode-text: var(--info-darker);
+  --gradient-mode: var(--gradient-lighter);
+  color-scheme: light;
+}
+
+:where([data-theme=dark]) {
+  --body-color: color-mix(in srgb, var(--light) 87%, var(--dark));
+  --body-bg: var(--dark);
+  --muted-color: color-mix(in srgb, var(--body-color) 75%, transparent);
+  --muted-bg: color-mix(in srgb, var(--light) 6%, var(--dark));
+  --border-color: color-mix(in srgb, var(--light) 22%, var(--dark));
+  --border-subtle: color-mix(in srgb, var(--light) 15%, transparent);
+  --surface: color-mix(in srgb, var(--light) 4%, var(--dark)); /* .bg panels: a step lighter than the page */
+  --link: var(--primary-lighter);
+  --link-hover: var(--primary);
+  --focus-border: color-mix(in srgb, var(--primary) 50%, #000);
+  --primary-mode: var(--primary-darker);
+  --primary-mode-text: var(--primary-lighter);
+  --secondary-mode: var(--secondary-darker);
+  --secondary-mode-text: var(--secondary-lighter);
+  --danger-mode: var(--danger-darker);
+  --danger-mode-text: var(--danger-lighter);
+  --success-mode: var(--success-darker);
+  --success-mode-text: var(--success-lighter);
+  --info-mode: var(--info-darker);
+  --info-mode-text: var(--info-lighter);
+  --gradient-mode: var(--gradient-darker);
+  color-scheme: dark;
+}

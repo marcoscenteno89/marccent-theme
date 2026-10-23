@@ -1,0 +1,61 @@
+@import "../layers.css";
+/* SPINNER (Loading): a circle that grows and fades, in the text color.
+   Sized by its parent (Loading makes it a .square); the pulse is in animations.css. */
+@layer components {
+.spinner { /* circle on the markup */
+  background-color: currentColor;
+  opacity: 0;
+}
+
+/* LOADERS: one element each, one class, sized by its width (Loading kind="…", or any element). The ones in the text
+   color (dots, bars, pulse, orbit's track, bar's track) take a text-* class; the rest draw in the theme gradient.
+   loader-spin and loader-breathe only move, so they turn any shape into a loader (shape-star bg-gradient
+   loader-spin). Motion in animations.css. */
+.loader-ring {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(transparent, var(--primary), var(--secondary));
+  mask: radial-gradient(closest-side, transparent 68%, #000 70%);
+}
+.loader-dots {
+  --dot: radial-gradient(circle closest-side, currentColor 90%, transparent);
+  aspect-ratio: 3;
+  background: var(--dot) 0% 50%, var(--dot) 50% 50%, var(--dot) 100% 50%;
+  background-size: calc(100% / 3) 50%;
+  background-repeat: no-repeat;
+}
+.loader-bars {
+  --bar: linear-gradient(currentColor 0 0);
+  aspect-ratio: 1;
+  background: var(--bar) 0% 50%, var(--bar) 33.3% 50%, var(--bar) 66.6% 50%, var(--bar) 100% 50%;
+  background-size: 18% 30%;
+  background-repeat: no-repeat;
+}
+.loader-pulse { display: grid; aspect-ratio: 1; } /* two rings in one cell, the second half a beat behind */
+.loader-pulse::before,
+.loader-pulse::after { content: ""; grid-area: 1 / 1; border-radius: 50%; border: .25rem solid currentColor; }
+.loader-orbit { /* a faint track and a gradient dot riding it (the whole element turns) */
+  display: grid;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: .2rem solid color-mix(in srgb, currentColor 25%, transparent);
+}
+.loader-orbit::before {
+  content: "";
+  width: 24%;
+  aspect-ratio: 1;
+  place-self: start center;
+  translate: 0 -60%;
+  border-radius: 50%;
+  background: linear-gradient(var(--primary), var(--secondary));
+}
+.loader-bar { /* a strip of the gradient sliding along a faint track, for "loading, no idea how long" */
+  width: 100%;
+  height: .4rem;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent) no-repeat,
+    color-mix(in srgb, currentColor 15%, transparent);
+  background-size: 40% 100%, auto;
+}
+.loader-flip { aspect-ratio: 1; border-radius: var(--radius); background-image: var(--gradient-mode); }
+}

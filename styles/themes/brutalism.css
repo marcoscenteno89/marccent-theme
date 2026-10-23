@@ -1,0 +1,26 @@
+/* Self-hosted Google Fonts (npm @fontsource): Archivo Black for headings, Space Mono for text. @import must come before any rule. */
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
+@import "@fontsource/archivo-black";
+
+/*
+ * THEME: Brutalism. Optional. Raw on purpose: heavy borders, hard block shadows, blunt uppercase type: art, music, brands that want to shock.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "Space Mono", "Courier New", ui-monospace, monospace;
+  --font-heading: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --weight-heading: 400; /* Archivo Black has one (very heavy) weight, so headings use it as is instead of a faked bolder one. */
+  --radius: 0rem;
+  --border-width: 3px;
+}
+
+/* Everything boxed in the text color, with a solid shadow block behind it. */
+[data-theme] .bg,
+.btn,
+.input { border: var(--border-width) solid var(--body-color); box-shadow: 6px 6px 0 var(--body-color); }
+:is(h1, h2, h3, h4, h5, h6) { font-family: var(--font-heading); text-transform: uppercase; }
+

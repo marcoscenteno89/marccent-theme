@@ -1,0 +1,277 @@
+/*
+ * THEME: the color classes and element colors. Every color variable (the palette the theme changer sets and the
+ * gradients and light/dark page colors derived from it) is in defaults.css (settings.css overrides); nothing here defines one. Components have no
+ * colors of their own: they are neutral (the page colors) and take these classes where they need one.
+ */
+
+/* BACKGROUNDS. The base ones follow the mode (lighter in light mode, darker in dark mode: --*-mode, defaults.css),
+   so text on them stays readable; -lighter and -darker are fixed shades. Primary, secondary and the gradient also
+   set the text: dark or light, by the color's brightness (--*-text, defaults.css). */
+.bg-primary-lighter { background-color: var(--primary-lighter); }
+.bg-primary { background-color: var(--primary-mode); color: var(--primary-text); }
+.bg-primary-darker { background-color: var(--primary-darker); }
+.bg-secondary-lighter { background-color: var(--secondary-lighter); }
+.bg-secondary { background-color: var(--secondary-mode); color: var(--secondary-text); }
+.bg-secondary-darker { background-color: var(--secondary-darker); }
+.bg-danger-lighter { background-color: var(--danger-lighter); }
+.bg-danger { background-color: var(--danger-mode); }
+.bg-danger-darker { background-color: var(--danger-darker); }
+.bg-success-lighter { background-color: var(--success-lighter); }
+.bg-success { background-color: var(--success-mode); }
+.bg-success-darker { background-color: var(--success-darker); }
+.bg-info-lighter { background-color: var(--info-lighter); }
+.bg-info { background-color: var(--info-mode); }
+.bg-info-darker { background-color: var(--info-darker); }
+.bg-gradient-lighter { background-image: var(--gradient-lighter); }
+.bg-gradient { background-image: var(--gradient-mode); color: var(--gradient-text); }
+.bg-gradient-darker { background-image: var(--gradient-darker); }
+
+/* CONTINUOUS GRADIENT: put .bg-gradient-run on a group and its children (up to 24) show one gradient between them,
+   as if each were a window onto it. Each child paints the gradient at the size of the whole group (its columns and
+   rows, gaps included) and shifts it to its own cell: --run-i is its place, --run-n how many there are (both
+   counted here), --run-cols the group's --cols (a .grid's cols-N; set .fixed so the columns don't change with the
+   width) and --run-gap its gap. A child's own .grid can't reset them: they're read on the group. Change the
+   gradient with --run (default: primary to secondary on the diagonal, the mode shades). Without mod() / round()
+   (older browsers) each child just shows the whole gradient. */
+.bg-gradient-run {
+  --run: linear-gradient(135deg, var(--primary-mode), var(--secondary-mode));
+  --run-n: 1;
+  --run-cols: var(--cols, var(--run-n));
+  --run-gap: var(--gap, 0px);
+}
+.bg-gradient-run:has(> :nth-child(2):last-child) { --run-n: 2; }
+.bg-gradient-run:has(> :nth-child(3):last-child) { --run-n: 3; }
+.bg-gradient-run:has(> :nth-child(4):last-child) { --run-n: 4; }
+.bg-gradient-run:has(> :nth-child(5):last-child) { --run-n: 5; }
+.bg-gradient-run:has(> :nth-child(6):last-child) { --run-n: 6; }
+.bg-gradient-run:has(> :nth-child(7):last-child) { --run-n: 7; }
+.bg-gradient-run:has(> :nth-child(8):last-child) { --run-n: 8; }
+.bg-gradient-run:has(> :nth-child(9):last-child) { --run-n: 9; }
+.bg-gradient-run:has(> :nth-child(10):last-child) { --run-n: 10; }
+.bg-gradient-run:has(> :nth-child(11):last-child) { --run-n: 11; }
+.bg-gradient-run:has(> :nth-child(12):last-child) { --run-n: 12; }
+.bg-gradient-run:has(> :nth-child(13):last-child) { --run-n: 13; }
+.bg-gradient-run:has(> :nth-child(14):last-child) { --run-n: 14; }
+.bg-gradient-run:has(> :nth-child(15):last-child) { --run-n: 15; }
+.bg-gradient-run:has(> :nth-child(16):last-child) { --run-n: 16; }
+.bg-gradient-run:has(> :nth-child(17):last-child) { --run-n: 17; }
+.bg-gradient-run:has(> :nth-child(18):last-child) { --run-n: 18; }
+.bg-gradient-run:has(> :nth-child(19):last-child) { --run-n: 19; }
+.bg-gradient-run:has(> :nth-child(20):last-child) { --run-n: 20; }
+.bg-gradient-run:has(> :nth-child(21):last-child) { --run-n: 21; }
+.bg-gradient-run:has(> :nth-child(22):last-child) { --run-n: 22; }
+.bg-gradient-run:has(> :nth-child(23):last-child) { --run-n: 23; }
+.bg-gradient-run:has(> :nth-child(24):last-child) { --run-n: 24; }
+.bg-gradient-run > * {
+  --run-i: 0;
+  --run-col: mod(var(--run-i), var(--run-cols));
+  --run-row: round(down, var(--run-i) / var(--run-cols));
+  --run-rows: round(up, var(--run-n) / var(--run-cols));
+  background-image: var(--run);
+  color: var(--gradient-text);
+  background-size: calc(var(--run-cols) * 100% + (var(--run-cols) - 1) * var(--run-gap))
+    calc(var(--run-rows) * 100% + (var(--run-rows) - 1) * var(--run-gap));
+  background-position: calc(var(--run-col) / max(var(--run-cols) - 1, 1) * 100%)
+    calc(var(--run-row) / max(var(--run-rows) - 1, 1) * 100%);
+  background-repeat: no-repeat;
+}
+.bg-gradient-run > :nth-child(2) { --run-i: 1; }
+.bg-gradient-run > :nth-child(3) { --run-i: 2; }
+.bg-gradient-run > :nth-child(4) { --run-i: 3; }
+.bg-gradient-run > :nth-child(5) { --run-i: 4; }
+.bg-gradient-run > :nth-child(6) { --run-i: 5; }
+.bg-gradient-run > :nth-child(7) { --run-i: 6; }
+.bg-gradient-run > :nth-child(8) { --run-i: 7; }
+.bg-gradient-run > :nth-child(9) { --run-i: 8; }
+.bg-gradient-run > :nth-child(10) { --run-i: 9; }
+.bg-gradient-run > :nth-child(11) { --run-i: 10; }
+.bg-gradient-run > :nth-child(12) { --run-i: 11; }
+.bg-gradient-run > :nth-child(13) { --run-i: 12; }
+.bg-gradient-run > :nth-child(14) { --run-i: 13; }
+.bg-gradient-run > :nth-child(15) { --run-i: 14; }
+.bg-gradient-run > :nth-child(16) { --run-i: 15; }
+.bg-gradient-run > :nth-child(17) { --run-i: 16; }
+.bg-gradient-run > :nth-child(18) { --run-i: 17; }
+.bg-gradient-run > :nth-child(19) { --run-i: 18; }
+.bg-gradient-run > :nth-child(20) { --run-i: 19; }
+.bg-gradient-run > :nth-child(21) { --run-i: 20; }
+.bg-gradient-run > :nth-child(22) { --run-i: 21; }
+.bg-gradient-run > :nth-child(23) { --run-i: 22; }
+.bg-gradient-run > :nth-child(24) { --run-i: 23; }
+
+/* TEXT. The gradient versions paint the gradient through the letters. */
+.text-primary-lighter { color: var(--primary-lighter); }
+.text-primary { color: var(--primary); }
+.text-primary-darker { color: var(--primary-darker); }
+.text-secondary-lighter { color: var(--secondary-lighter); }
+.text-secondary { color: var(--secondary); }
+.text-secondary-darker { color: var(--secondary-darker); }
+/* On a .btn these color the icon and its tint (not the border; for that use .outline-*, below). */
+.text-danger-lighter { color: var(--danger-lighter); }
+.text-danger { color: var(--danger); }
+.text-danger-darker { color: var(--danger-darker); }
+.text-success-lighter { color: var(--success-lighter); }
+.text-success { color: var(--success); }
+.text-success-darker { color: var(--success-darker); }
+.text-info-lighter { color: var(--info-lighter); }
+.text-info { color: var(--info); }
+.text-info-darker { color: var(--info-darker); }
+:is(.text-gradient-lighter, .text-gradient, .text-gradient-darker) {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-lighter { background-image: var(--gradient-lighter); }
+.text-gradient { background-image: var(--gradient); }
+.text-gradient-darker { background-image: var(--gradient-darker); }
+
+/* FILLED BUTTONS: .btn plus a color name, e.g. <Button className="primary" …>. Mixed from the color and the page, so
+   they read in both modes and with any theme color (the theme changer's own shades can sit too close together,
+   e.g. a light cyan): the fill is the color over the page background, the text the color over the page text,
+   the border the color itself; hover deepens the fill. .btn:is(…) outranks .btn and, with :hover, .btn:hover
+   (this file is unlayered, so it beats the components layer anyway). */
+.btn.primary { --tone: var(--primary); }
+.btn.secondary { --tone: var(--secondary); }
+.btn.danger { --tone: var(--danger); }
+.btn.success { --tone: var(--success); }
+.btn.info { --tone: var(--info); }
+.btn:is(.primary, .secondary, .danger, .success, .info) {
+  background-color: color-mix(in srgb, var(--tone) 30%, var(--body-bg));
+  color: color-mix(in srgb, var(--tone) 40%, var(--body-color));
+  border-color: var(--tone);
+}
+.btn:is(.primary, .secondary, .danger, .success, .info):is(:hover, [aria-pressed="true"]) {
+  background-color: color-mix(in srgb, var(--tone) 45%, var(--body-bg));
+}
+/* Neutral fills: a light button (the --light page color, dark text) and a dark one (the reverse), whatever the mode,
+   e.g. the light / dark toggle shows the mode it switches to. Hover mixes in a little of the opposite color. */
+.btn.light { background-color: var(--light); color: var(--dark); border-color: color-mix(in srgb, var(--dark) 20%, var(--light)); }
+.btn.dark { background-color: var(--dark); color: var(--light); border-color: color-mix(in srgb, var(--light) 20%, var(--dark)); }
+.btn.light:is(:hover, [aria-pressed="true"]) { background-color: color-mix(in srgb, var(--dark) 10%, var(--light)); }
+.btn.dark:is(:hover, [aria-pressed="true"]) { background-color: color-mix(in srgb, var(--light) 15%, var(--dark)); }
+/* Gradient fill: the mode gradient (like .bg-gradient) with the text that reads on it; hover darkens it slightly. */
+.btn.gradient { background-image: var(--gradient-mode); color: var(--gradient-text); border-color: transparent; }
+.btn.gradient:is(:hover, [aria-pressed="true"]) { background-image: linear-gradient(rgb(0 0 0 / .12) 0 0), var(--gradient-mode); }
+
+/* OUTLINES: a border in one color, on a card (.bg or .border: "bg border round outline-primary") or a .btn. The
+   card rule is weighted to beat .border (utilities.css, loaded later), [data-theme] .bg and the design styles'. Hover effects (hovers.css) glow
+   in the color too (below). A .btn also gets the text and icon in the color's readable shade for the mode
+   (--*-mode-text) and a wash of it on hover: <Button className="outline-primary" …>. Unlayered, so .btn.outline-*
+   beats .btn and .btn:hover (components layer, layers.css). */
+.outline-primary { --outline: var(--primary); --outline-text: var(--primary-mode-text); }
+.outline-secondary { --outline: var(--secondary); --outline-text: var(--secondary-mode-text); }
+.outline-danger { --outline: var(--danger); --outline-text: var(--danger-mode-text); }
+.outline-success { --outline: var(--success); --outline-text: var(--success-mode-text); }
+.outline-info { --outline: var(--info); --outline-text: var(--info-mode-text); }
+:is(.outline-primary, .outline-secondary, .outline-danger, .outline-success, .outline-info):is(.bg, .border):not(.btn) { border-color: var(--outline); }
+.btn:is(.outline-primary, .outline-secondary, .outline-danger, .outline-success, .outline-info) {
+  color: var(--outline-text);
+  border-color: var(--outline);
+}
+.btn:is(.outline-primary, .outline-secondary, .outline-danger, .outline-success, .outline-info):is(:hover, [aria-pressed="true"]) {
+  background-color: color-mix(in srgb, var(--outline) 12%, transparent);
+}
+
+/* Colored buttons hover in their own color: every hover effect (hovers.css) draws from --hover-from to --hover-to,
+   the theme's primary → secondary by default; a colored button, filled or outline, takes its color for both, so a
+   delete button glows red and a success one green; an outlined card (hover-holographic) glows in its outline color.
+   Plain, light, dark and gradient buttons keep the theme's pair. */
+.btn:is(.primary, .secondary, .danger, .success, .info) { --hover-from: var(--tone); --hover-to: var(--tone); }
+:is(.outline-primary, .outline-secondary, .outline-danger, .outline-success, .outline-info) {
+  --hover-from: var(--outline);
+  --hover-to: var(--outline);
+}
+
+/* Gradient outline: a border can't be a gradient and keep rounded corners, so the border goes transparent and
+   ::before draws a 1px gradient ring just inside it (the ring's middle is masked out). .btn's overflow: hidden
+   would clip anything drawn over the border itself. :where() keeps position: relative weak, so a .btn that is
+   positioned some other way (absolute) keeps that. The label gets the gradient too (below). */
+:where(.btn.outline-gradient) { position: relative; }
+.btn.outline-gradient { border-color: transparent; }
+.btn.outline-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: var(--border-width);
+  border-radius: inherit; /* the button's own corners, whatever a theme makes them (pills) */
+  background: var(--gradient);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+/* The label is painted with the same gradient (like .text-gradient); the icon keeps the text color. */
+.btn.outline-gradient > .btn-text {
+  background-image: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* DIVIDE (a default class): a line after every direct child except the last. Put .divide on a ul/ol, nav or any grid.
+   Stacked (plain list, .cols-1, or a layout-* below 40rem): border-bottom.
+   In a row (.grid with 2+ cols, .fixed, .auto-cols, or a layout-* from 40rem): border-right.
+   CSS can't tell when an auto-fill .grid wraps onto a new row; there it keeps the row rule. */
+.divide > :not(:last-child) {
+  border: 0 solid var(--border-color);
+  border-bottom-width: var(--border-width);
+}
+
+/* Square corners, so the line doesn't curve at its ends. This file is unlayered, so it beats component radii
+   (e.g. .menu-link, components layer); :nth-child(n) (every child) only adds weight. */
+.divide > :nth-child(n) { border-radius: 0; }
+
+.divide:is(.grid, .auto-cols):not(.cols-1, [class*="layout-"]) > :not(:last-child) {
+  border-bottom-width: 0;
+  border-right-width: var(--border-width);
+}
+
+.divide[class*="layout-"] > :not(:last-child) {
+  border-right-width: 0;
+  border-bottom-width: var(--border-width);
+}
+
+@container (min-width: 40rem) {
+  .divide[class*="layout-"]:not(.layout-ends) > :not(:last-child) {
+    border-bottom-width: 0;
+    border-right-width: var(--border-width);
+  }
+}
+
+@container (min-width: 56rem) {
+  .divide.layout-ends > :not(:last-child) {
+    border-bottom-width: 0;
+    border-right-width: var(--border-width);
+  }
+}
+
+/* Component lines that change the ones above. Here, not in the component's file, because components sit in a
+   lower layer (layers.css) and couldn't beat them. Nav (nav.css): below 56rem the main menu is stacked, so the
+   line goes below each link. Inline form (form.css): from 40rem the button's border matches the fields'. */
+@container (width < 56rem) {
+  .nav .nav-collapse > .menu.divide:not(.nav-end) > :not(:last-child) {
+    border-right-width: 0;
+    border-bottom-width: var(--border-width);
+  }
+}
+@container (min-width: 40rem) {
+  .inline-form > .btn { border-color: var(--border-color); }
+}
+
+/* Element colors: in the base layer (layers.css) like the reset, so any component's color (.menu-link inherits) wins. */
+@layer base {
+  body { color: var(--body-color); background-color: var(--body-bg); }
+  a { color: var(--link); }
+  a:hover { color: var(--link-hover); }
+}
+
+/* SURFACES: .bg panels in light and dark mode; glass mode (.glass on <body>) makes them translucent and blurred. */
+[data-theme] .bg {
+  background-color: var(--surface);
+  border-color: var(--border-color); /* a visible edge: text in a panel reads as set apart from the page and its animation */
+}
+.glass .bg {
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  background-color: color-mix(in srgb, var(--surface) calc(var(--glass-opacity) * 100%), transparent) !important;
+}

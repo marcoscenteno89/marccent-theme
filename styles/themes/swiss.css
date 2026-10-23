@@ -1,0 +1,21 @@
+/* Self-hosted Google Fonts (npm @fontsource): Inter Tight. @import must come before any rule. */
+@import "@fontsource-variable/inter-tight";
+
+/*
+ * THEME: Swiss / International. Optional. Grid-first typography: heavy tight headlines, flush-left text, thick rules on top of sections, no decoration: design studios, architects, museums.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: "Inter Tight Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --weight-heading: 800;
+  --heading-line-height: 1;
+  --radius: 0rem;
+  --shadow-opacity: 0;
+  --h1: min(calc(var(--font-size) * 2 + 2.5vw), calc(var(--font-size) * 4));
+}
+:is(h1, h2, h3) { letter-spacing: -.045em; text-align: start; }
+/* Panels are marked by a thick rule along the top instead of a box. */
+[data-theme] .bg { border-width: 0; border-top: .375rem solid var(--body-color); background-color: transparent; }

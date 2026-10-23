@@ -1,0 +1,27 @@
+/* Self-hosted Google Fonts (npm @fontsource): Poiret One for headings, Josefin Sans for text. @import must come before any rule. */
+@import "@fontsource/poiret-one/400.css";
+@import "@fontsource-variable/josefin-sans";
+
+/*
+ * THEME: Art Deco. Optional. 1920s glamour: thin geometric capitals spaced wide, double-line frames with an inner border, symmetry: bars, events, boutique hotels.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: "Josefin Sans Variable", "Century Gothic", Futura, sans-serif;
+  --font-heading: "Poiret One", "Josefin Sans Variable", sans-serif;
+  --weight-heading: 400;
+  --radius: 0rem;
+  --border-width: 3px;
+  --shadow-opacity: .08;
+}
+:is(h1, h2, h3, h4, h5, h6) { text-transform: uppercase; letter-spacing: .25em; text-align: center; }
+/* A double frame with a thin inner line, in the primary color. */
+[data-theme] .bg {
+  border: var(--border-width) double var(--primary);
+  outline: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
+  outline-offset: -.5rem;
+}
+.btn-text { text-transform: uppercase; letter-spacing: .15em; }

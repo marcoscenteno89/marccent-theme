@@ -1,0 +1,28 @@
+/* Self-hosted Google Fonts (npm @fontsource): IBM Plex Sans. @import must come before any rule. */
+@import "@fontsource/ibm-plex-sans/300.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-sans/700.css";
+
+/*
+ * THEME: Professional / corporate. Optional. Plain sturdy type, tight corners, subtle depth, small caps labels, clear hierarchy: corporate, B2B, consulting.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "IBM Plex Sans", "Segoe UI", Roboto, Arial, sans-serif;
+  --weight-heading: 600;
+  --radius: .25rem;
+  --shadow-size: .25rem;
+  --shadow-opacity: .08;
+}
+
+:is(h1, h2, h3) { color: var(--primary-mode-text); }
+
+/* Headings in the primary color (its readable shade in each mode). */
+[data-theme=dark] :is(h1, h2, h3) { color: var(--primary-lighter); }
+
+/* Small headings read as labels: small caps, spaced out. */
+:is(h5, h6) { text-transform: uppercase; letter-spacing: .06em; font-size: .85em; }

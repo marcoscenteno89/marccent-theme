@@ -1,0 +1,9 @@
+/*
+ * CASCADE LAYERS: their rank, lowest first. Imported at the top of main.css and of every components/ file, because
+ * Next.js may put a component's CSS before main.css: the first stylesheet to name a layer fixes its rank, so each
+ * one states the order. base: reset and element colors; layout: layout.css; components: every components/ file,
+ * one layer, so specificity decides between them as usual, and at equal specificity the later file wins: a file
+ * that must come after another imports it (nav.css imports button.css). Layered rules lose to every unlayered rule
+ * (main.css's colors, site, hovers, utilities, theme) whatever the specificity.
+ */
+@layer base, layout, components;

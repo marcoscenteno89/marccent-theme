@@ -1,0 +1,25 @@
+/* Self-hosted Google Fonts (npm @fontsource): Kalam. @import must come before any rule. */
+@import "@fontsource/kalam/300.css";
+@import "@fontsource/kalam/400.css";
+@import "@fontsource/kalam/700.css";
+
+/*
+ * THEME: Notebook. Optional. Handwriting on ruled paper with a margin line: journals, study notes, personal sites.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: Kalam, "Patrick Hand", cursive;
+  --line-height: 1.75;
+  --radius: .125rem;
+  --shadow-size: .25rem;
+}
+/* Ruled lines one text-line apart, and a red-ish margin line drawn in the secondary color. */
+[data-theme] .bg {
+  background-image:
+    linear-gradient(90deg, transparent 2.25rem, color-mix(in srgb, var(--secondary) 45%, transparent) 2.25rem 2.35rem, transparent 2.35rem),
+    repeating-linear-gradient(to bottom, transparent 0 calc(1lh - 1px), color-mix(in srgb, var(--body-color) 12%, transparent) calc(1lh - 1px) 1lh);
+  background-attachment: local;
+}

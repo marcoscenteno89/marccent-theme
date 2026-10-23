@@ -1,0 +1,32 @@
+/* Self-hosted Google Fonts (npm @fontsource-variable/*): Playfair Display for headings, EB Garamond for text.
+   @import must come before any rule. */
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/eb-garamond";
+
+/*
+ * THEME: Elegant / luxury. Optional. Serif type, wide letter-spacing, square corners, whisper-soft shadows, slow motion: fashion, hotels, fine dining.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "EB Garamond Variable", Garamond, Georgia, "Times New Roman", serif;
+  --font-heading: "Playfair Display Variable", Didot, "Bodoni 72", Georgia, serif;
+  --weight-heading: 400;
+  --weight-light: 300;
+  --radius: 0rem;
+  --shadow-size: .75rem;
+  --shadow-opacity: .06;
+  --duration: .35s;
+}
+
+:is(h1, h2, h3, h4, h5, h6) { font-family: var(--font-heading); letter-spacing: .04em; }
+:is(h4, h5, h6) { text-transform: uppercase; font-size: .9em; letter-spacing: .2em; }
+
+/* Dark mode: headings in the light primary shade, like foil on a dark card. */
+[data-theme=dark] :is(h1, h2, h3) { color: var(--primary-lighter); }
+
+/* Button labels set like a fashion label: small, uppercase, widely spaced, not bold. */
+:where(:root) { --btn-weight: 400; }
+.btn-text { text-transform: uppercase; letter-spacing: .14em; font-size: .85em; }

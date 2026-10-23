@@ -1,0 +1,25 @@
+/* Self-hosted Google Fonts (npm @fontsource): Plus Jakarta Sans. @import must come before any rule. */
+@import "@fontsource-variable/plus-jakarta-sans";
+
+/*
+ * THEME: Modern / flat. Optional. Friendly geometric type, generous rounding, soft layered shadows, a little lift on hover: startup and app pages.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "Plus Jakarta Sans Variable", system-ui, "Segoe UI", Roboto, sans-serif;
+  --weight-heading: 700;
+  --radius: .75rem;
+  --shadow-size: .6rem;
+  --shadow-opacity: .1;
+}
+
+:is(h1, h2) { letter-spacing: -.03em; }
+
+/* A small lift when hovered (skipped for visitors who ask for reduced motion). */
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: transform var(--duration), box-shadow var(--duration), background-color var(--duration); }
+  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+}

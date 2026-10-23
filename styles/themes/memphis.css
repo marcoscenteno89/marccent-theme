@@ -1,0 +1,29 @@
+/* Self-hosted Google Fonts (npm @fontsource): Righteous for headings, DM Sans for text. @import must come before any rule. */
+@import "@fontsource/righteous/400.css";
+@import "@fontsource-variable/dm-sans";
+
+/*
+ * THEME: Memphis. Optional. Loud 80s design: confetti of squiggles, dots and triangles behind the page, bold rounded type, chunky offset shadows: creative agencies, events, youth brands.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  --font-body: "DM Sans Variable", system-ui, sans-serif;
+  --font-heading: Righteous, "DM Sans Variable", sans-serif;
+  --weight-heading: 400;  /* Righteous has one weight */
+  --radius: .5rem;
+  --border-width: 2px;
+}
+/* Confetti: dots, rings and diagonal dashes in the two theme colors, tiled behind everything. */
+body {
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--primary) 0 .35rem, transparent .4rem),
+    radial-gradient(circle at 72% 64%, transparent 0 .45rem, var(--secondary) .5rem .65rem, transparent .7rem),
+    linear-gradient(45deg, transparent 46%, color-mix(in srgb, var(--secondary) 70%, transparent) 46% 54%, transparent 54%),
+    radial-gradient(circle at 38% 82%, color-mix(in srgb, var(--body-color) 40%, transparent) 0 .2rem, transparent .25rem);
+  background-size: 9rem 9rem, 11rem 11rem, 3rem 3rem, 6rem 6rem;
+  background-position: 0 0, 2rem 3rem, 0 0, 1rem 2rem;
+}
+[data-theme] .bg, .btn { border: var(--border-width) solid var(--body-color); box-shadow: 6px 6px 0 var(--secondary); }

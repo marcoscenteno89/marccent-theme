@@ -1,0 +1,14 @@
+@import "../layers.css";
+@import url("@fortawesome/fontawesome-free/css/all.css");
+
+/* ICONS: every Font Awesome icon is a perfect square of --icon-size (defaults.css), glyph centered.
+   Same size everywhere, buttons included (a button's height comes from its icon). Scale one with font-size.
+   Font Awesome's own rules are unlayered, so they beat this layer: display goes through its --fa-display. */
+@layer components {
+:is(.fa, .fa-solid, .fa-regular, .fa-brands) {
+  --fa-display: inline-grid;
+  place-items: center;
+  width: var(--icon-size);
+  aspect-ratio: 1 / 1;
+}
+}

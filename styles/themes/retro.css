@@ -1,0 +1,39 @@
+/* Self-hosted Google Fonts (npm @fontsource): Press Start 2P for headings, VT323 for text. @import must come before any rule. */
+@import "@fontsource/vt323";
+@import "@fontsource/press-start-2p";
+
+/*
+ * THEME: Retro / Y2K / vaporwave. Optional. Pixel fonts, gradient headings, hard pixel shadows, faint CRT scanlines: entertainment, music, merch, events.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: VT323, "Courier New", ui-monospace, monospace;
+  --font-heading: "Press Start 2P", VT323, ui-monospace, monospace;
+  --weight-heading: 400; /* Both pixel fonts have one weight; headings stay at it (a faked bold smears the pixels). */
+  --radius: 0rem;
+  --border-width: 2px;
+}
+
+/* Headings painted with the pink-to-cyan gradient. */
+:is(h1, h2, h3) {
+  background-image: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+[data-theme] .bg { border-color: var(--primary); box-shadow: 6px 6px 0 var(--secondary); }
+
+/* Faint CRT scanlines over the whole page; they don't catch clicks. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / .06) 0 1px, transparent 1px 3px);
+}

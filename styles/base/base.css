@@ -1,0 +1,91 @@
+/*
+ * BASE: page defaults: box sizing, fonts, headings, spacing of
+ * text elements, form element resets. No colors: those are all in colors.css.
+ * In the lowest layer (base, main.css), so every component and every unlayered file beats it.
+ */
+@layer base {
+
+/* RESET */
+*,
+*::before,
+*::after { box-sizing: border-box; } /* padding and border inside the width: .pad rings, .square, .input */
+
+html { font-size: var(--root-font-size); } /* defines 1rem */
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size);
+  font-weight: var(--weight-normal);
+  line-height: var(--line-height);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  /* Body is a size container (.cq, layout.tsx), so the browser no longer paints its background on the page
+     canvas: body paints it itself. isolation keeps the background animation (.back, z-index -99) above that
+     background instead of behind it, and min-height keeps it covering the screen on short pages. */
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+[hidden] { display: none !important; } /* hidden always wins, e.g. inactive StepForm steps */
+
+hr {
+  margin: var(--space) 0;
+  color: inherit;
+  border: 0;
+  border-top: var(--border-width) solid;
+  opacity: .25;
+}
+
+/* TEXT. Heading sizes scale with the viewport and stop at their desktop size (responsive headings). */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-heading);
+  font-weight: var(--weight-heading);
+  line-height: var(--heading-line-height);
+}
+h1, .h1 { font-size: var(--h1); }
+h2, .h2 { font-size: var(--h2); }
+h3, .h3 { font-size: var(--h3); }
+h4, .h4 { font-size: var(--h4); }
+h5, .h5 { font-size: var(--h5); }
+h6, .h6 { font-size: var(--h6); }
+
+/* Display headings: bigger and lighter, for hero numbers (e.g. the weather temperature). */
+:is(.display-sm, .display, .display-lg) { font-weight: var(--weight-light); line-height: var(--heading-line-height); }
+.display-sm { font-size: var(--display-sm); }
+.display { font-size: var(--display); }
+.display-lg { font-size: var(--display-lg); }
+
+p { margin-top: 0; margin-bottom: var(--space); }
+ol, ul, dl { margin-top: 0; margin-bottom: var(--space); }
+ol, ul { padding-left: var(--space-lg); }
+small { font-size: var(--small-size); }
+
+img, svg { vertical-align: middle; }
+/* Images never overflow their box and keep their proportions (no class needed; Bootstrap's was .img-fluid). Weightless,
+   so any class wins; not inside Google Maps, whose tiles break when their width is capped. */
+:where(img:not(.gm-style img)) { max-width: 100%; height: auto; }
+
+/* FORM ELEMENTS: take the page font; fieldsets are plain groups (StepForm steps). Look: .input (components/form.css). */
+input, button, select, optgroup, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+button { border-radius: 0; text-transform: none; }
+button:not(:disabled) { cursor: pointer; }
+button:focus:not(:focus-visible) { outline: 0; }
+select { text-transform: none; }
+textarea { resize: vertical; }
+label { display: inline-block; }
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+}

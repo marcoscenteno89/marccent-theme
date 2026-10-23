@@ -1,0 +1,23 @@
+/* Self-hosted Google Fonts (npm @fontsource): Manrope. @import must come before any rule. */
+@import "@fontsource-variable/manrope";
+
+/*
+ * THEME: Minimal. Optional. Lots of space, hairlines instead of boxes, no shadows, light type: the content is the design.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "Manrope Variable", system-ui, "Segoe UI", Roboto, sans-serif;
+  --weight-heading: 300;
+  --space: 1.25rem;
+  --radius: .125rem;
+  --shadow-opacity: 0;
+}
+
+/* Surfaces blend into the page; only a hairline separates them. */
+[data-theme] .bg { background-color: var(--body-bg); }
+:is(h1, h2, h3) { letter-spacing: -.02em; }
+
+:where(:root) { --line-height: 1.65; --btn-weight: 500; --border-width: 1px; }

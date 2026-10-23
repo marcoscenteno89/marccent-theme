@@ -1,0 +1,24 @@
+/* Self-hosted Google Fonts (npm @fontsource): Quicksand. @import must come before any rule. */
+@import "@fontsource-variable/quicksand";
+
+/*
+ * THEME: Paper cut / layered. Optional. Rounded friendly type, panels on stacked cut-paper layers with crisp offset shadows: crafty, storytelling.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "Quicksand Variable", "Trebuchet MS", system-ui, "Segoe UI", Roboto, sans-serif;
+  --weight-heading: 700;
+  --radius: .75rem;
+}
+
+/* Each panel sits on two paper layers below it (hard offsets, no blur). */
+[data-theme] .bg {
+  box-shadow:
+    4px 4px 0 color-mix(in srgb, var(--secondary) 55%, var(--body-bg)),
+    8px 8px 0 color-mix(in srgb, var(--primary) 45%, var(--body-bg));
+}
+.btn { box-shadow: 3px 3px 0 color-mix(in srgb, var(--body-color) 25%, transparent); }
+

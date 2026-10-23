@@ -1,0 +1,6 @@
+@import "../layers.css";
+/* BOARD (Board in components/ui/board.js): cells that are buttons drop the button look (cells are made square with
+   .square on the markup). */
+@layer components {
+.board > button { border: 0; padding: 0; color: inherit; font: inherit; }
+}

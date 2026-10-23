@@ -1,0 +1,157 @@
+/*
+ * UTILS: single-purpose classes (text, color, border, shadow, size, position).
+ * Scales come in three steps: -sm, -md, -lg.
+ * Unlayered and loaded last, so a util wins over a component's own rule (components layer, layers.css) without !important.
+ * Layout lives in layout.css and spacing comes from gap/.pad, so there are no flex or margin utils here.
+ */
+
+/* TEXT */
+.text-start { text-align: start; }
+.text-center { text-align: center; }
+.text-end { text-align: end; }
+.text-capitalize { text-transform: capitalize; }
+.text-uppercase { text-transform: uppercase; }
+.text-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* FONT. fs-sm is relative (em): a bit smaller than the text around it. */
+.fs-sm { font-size: var(--small-size); }
+.fs-lg { font-size: var(--text-lg); }
+.fw-light { font-weight: var(--weight-light); }
+.fw-normal { font-weight: var(--weight-normal); }
+.fw-bold { font-weight: var(--weight-bold); }
+
+/* OPACITY (colors: the palette classes in colors.css) */
+.opacity-25 { opacity: .25; }
+.opacity-50 { opacity: .5; }
+.opacity-75 { opacity: .75; }
+
+/* BORDER */
+.border { border: var(--border-width) solid var(--border-color); }
+.border-bottom { border-bottom: var(--border-width) solid var(--border-color); }
+/* Rounded corners. Radius comes from --radius (defaults.css; settings.css can pin it). */
+.round {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.circle {
+  border-radius: 50%;
+}
+
+/* SHADOW */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow { box-shadow: var(--shadow); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-inset {
+  box-shadow: inset 0 0 var(--space-lg) rgba(0,0,0,0.5);
+}
+
+/* SIZE */
+.w-50 { width: 50%; }
+.w-100 { width: 100%; }
+.h-100 { height: 100%; }
+.vh-100 { height: 100vh; }
+/* Height follows width; replaces the old JS-sized <Square> component. */
+.square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+/* OVERFLOW */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+
+/* DISPLAY */
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline-block { display: inline-block; }
+
+/* POSITION. Overlays (toasts, the fixed background layer); for layering in the flow use .stack (layout.css). */
+.position-relative { position: relative; }
+.position-absolute { position: absolute; }
+.position-fixed { position: fixed; }
+.bottom-0 { bottom: 0; }
+.end-0 { right: 0; }
+.fixed-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.back {
+  z-index: -99;
+}
+/* Pinned to the top of the window while its parent scrolls past (the site header); -md-: only from 768px. */
+.sticky-top { position: sticky; top: 0; z-index: 1020; }
+@media (min-width: 768px) {
+  .sticky-md-top { position: sticky; top: 0; z-index: 1020; }
+}
+
+/* SHAPES: cut any element to a shape, a .shape-* class on it. clip-path (a mask for the heart and the ring), so the
+   content and background are cut too but the box still takes its full space in the layout. Each shape sets the
+   aspect ratio that makes it regular; a width (or a grid cell) sizes it, and an inline aspect-ratio stretches it.
+   Borders and box-shadows are cut with it: for an outline, put the shape on a parent with padding and a background
+   and the same shape on the child; for a shadow, filter: drop-shadow() on a wrapper. */
+:where([class*="shape-"]) { aspect-ratio: 1; } /* the default; each shape below sets its own */
+.shape-circle { clip-path: circle(50%); }
+.shape-ellipse { aspect-ratio: 3 / 2; clip-path: ellipse(50% 50%); }
+.shape-semicircle { aspect-ratio: 2; clip-path: ellipse(50% 100% at 50% 100%); }
+.shape-triangle { aspect-ratio: 1.1547; clip-path: polygon(50% 0, 100% 100%, 0 100%); } /* equilateral */
+.shape-triangle-down { aspect-ratio: 1.1547; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.shape-triangle-left { aspect-ratio: .866; clip-path: polygon(100% 0, 100% 100%, 0 50%); }
+.shape-triangle-right { aspect-ratio: .866; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.shape-diamond { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.shape-pentagon { aspect-ratio: 1.0515; clip-path: polygon(50% 0, 100% 38.2%, 80.9% 100%, 19.1% 100%, 0 38.2%); }
+.shape-hexagon { aspect-ratio: .866; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); } /* point up */
+.shape-hexagon-flat { aspect-ratio: 1.1547; clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); } /* flat top */
+.shape-octagon { clip-path: polygon(29.3% 0, 70.7% 0, 100% 29.3%, 100% 70.7%, 70.7% 100%, 29.3% 100%, 0 70.7%, 0 29.3%); }
+.shape-star { aspect-ratio: 1.0515; clip-path: polygon(50% 0, 61.8% 36.3%, 100% 38.2%, 69.1% 61.8%, 80.9% 100%, 50% 76.4%, 19.1% 100%, 30.9% 61.8%, 0 38.2%, 38.2% 36.3%); }
+.shape-cross { clip-path: polygon(33.3% 0, 66.7% 0, 66.7% 33.3%, 100% 33.3%, 100% 66.7%, 66.7% 66.7%, 66.7% 100%, 33.3% 100%, 33.3% 66.7%, 0 66.7%, 0 33.3%, 33.3% 33.3%); }
+.shape-bevel { clip-path: polygon(20% 0, 80% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 80%, 0 20%); } /* cut corners */
+.shape-parallelogram { aspect-ratio: 2; clip-path: polygon(25% 0, 100% 0, 75% 100%, 0 100%); }
+.shape-trapezoid { aspect-ratio: 2; clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%); }
+.shape-arrow-right { aspect-ratio: 3 / 2; clip-path: polygon(0 30%, 60% 30%, 60% 0, 100% 50%, 60% 100%, 60% 70%, 0 70%); }
+.shape-arrow-left { aspect-ratio: 3 / 2; clip-path: polygon(100% 30%, 40% 30%, 40% 0, 0 50%, 40% 100%, 40% 70%, 100% 70%); }
+.shape-chevron-right { aspect-ratio: 3 / 2; clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%, 25% 50%); }
+.shape-chevron-left { aspect-ratio: 3 / 2; clip-path: polygon(25% 0, 100% 0, 75% 50%, 100% 100%, 25% 100%, 0 50%); }
+.shape-tag { aspect-ratio: 2; clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%); }
+.shape-bubble { aspect-ratio: 4 / 3; clip-path: polygon(0 0, 100% 0, 100% 75%, 35% 75%, 15% 100%, 20% 75%, 0 75%); } /* speech bubble */
+.shape-heart {
+  aspect-ratio: 1.1;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 20'%3E%3Cpath d='M11 20 1.6 10.6A5.5 5.5 0 0 1 11 2.6a5.5 5.5 0 0 1 9.4 8z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+/* Curves. The border-radius ones (blob, egg, pill, quarter, leaf) keep their border and shadow, since nothing is cut. */
+.shape-blob { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; overflow: clip; }
+.shape-egg { aspect-ratio: .78; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; overflow: clip; }
+.shape-pill { aspect-ratio: 5 / 2; border-radius: 100vmax; overflow: clip; }
+.shape-quarter { border-top-left-radius: 100%; overflow: clip; } /* a quarter circle, its center at the bottom right */
+.shape-leaf { border-radius: 0 100%; overflow: clip; }
+.shape-squircle { mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C90 0 100 10 100 50s-10 50-50 50S0 90 0 50 10 0 50 0z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
+.shape-teardrop {
+  aspect-ratio: 10 / 13;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 130'%3E%3Cpath d='M50 0s50 55 50 80a50 50 0 0 1-100 0C0 55 50 0 50 0z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+.shape-moon { clip-path: circle(50%); mask: radial-gradient(circle closest-side at 72% 32%, transparent 140%, #000 142%); } /* a crescent */
+
+/* UI shapes */
+.shape-ribbon { aspect-ratio: 3; clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%, 8% 50%); } /* notched both ends */
+.shape-bookmark { aspect-ratio: .7; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%); }
+.shape-ticket { /* --notch: the side notches' radius */
+  aspect-ratio: 2;
+  mask: radial-gradient(circle var(--notch, 1rem) at 0 50%, transparent 98%, #000),
+        radial-gradient(circle var(--notch, 1rem) at 100% 50%, transparent 98%, #000);
+  mask-composite: intersect;
+}
+.shape-slant { aspect-ratio: 4; clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); } /* a section with a sloped bottom edge */
+.shape-wave { /* a section with a wavy bottom edge; the waves stretch with the box */
+  aspect-ratio: 4;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0h100v85q-6.25-15-12.5 0t-12.5 0-12.5 0-12.5 0-12.5 0-12.5 0-12.5 0-12.5 0z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+.shape-frame { /* a square with a square hole; --frame: the edge's width */
+  clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--frame, 20%) var(--frame, 20%),
+    var(--frame, 20%) calc(100% - var(--frame, 20%)), calc(100% - var(--frame, 20%)) calc(100% - var(--frame, 20%)),
+    calc(100% - var(--frame, 20%)) var(--frame, 20%), var(--frame, 20%) var(--frame, 20%));
+}
+.shape-ring { /* --ring-hole: the hole's size, a % of the ring */
+  mask: radial-gradient(closest-side, transparent var(--ring-hole, 60%), #000 calc(var(--ring-hole, 60%) + 1px) calc(100% - 1px), transparent);
+}

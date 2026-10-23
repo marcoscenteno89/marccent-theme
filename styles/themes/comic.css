@@ -1,0 +1,29 @@
+/* Self-hosted Google Fonts (npm @fontsource): Bangers for headings, Comic Neue for text. @import must come before any rule. */
+@import "@fontsource/bangers/400.css";
+@import "@fontsource/comic-neue/400.css";
+@import "@fontsource/comic-neue/700.css";
+
+/*
+ * THEME: Comic / pop art. Optional. Punchy comic-book headlines, thick ink outlines, hard shadows and a halftone dot background: games, kids, events, fun brands.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors. Works in light and dark mode.
+ */
+
+:where(:root) {
+  /* Bigger headlines: this font runs small and narrow. */
+  --h1: min(calc(var(--font-size) * 1.8 + 2vw), calc(var(--font-size) * 3.25));
+  --h2: min(calc(var(--font-size) * 1.6 + 1.2vw), calc(var(--font-size) * 2.5));
+  --font-body: "Comic Neue", "Comic Sans MS", cursive;
+  --font-heading: Bangers, Impact, sans-serif;
+  --weight-heading: 400;  /* Bangers has one weight */
+  --radius: .5rem;
+  --border-width: 3px;
+}
+/* Halftone dots behind the page, in the primary color. */
+body {
+  background-image: radial-gradient(color-mix(in srgb, var(--primary) 18%, transparent) 1.5px, transparent 1.6px);
+  background-size: .9rem .9rem;
+}
+[data-theme] .bg, .btn { border: var(--border-width) solid var(--body-color); box-shadow: 5px 5px 0 var(--body-color); }
+:is(h1, h2, h3) { letter-spacing: .04em; text-shadow: 2px 2px 0 var(--secondary); }

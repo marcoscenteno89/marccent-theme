@@ -1,0 +1,37 @@
+/* Self-hosted Google Fonts (npm @fontsource): Outfit. @import must come before any rule. */
+@import "@fontsource-variable/outfit";
+
+/*
+ * THEME: Glassmorphism. Optional. Frosted translucent panels over blurred color from the site's own palette: dashboards, app UIs, creative work.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "Outfit Variable", system-ui, "Segoe UI", Roboto, sans-serif;
+  --radius: 1.25rem;
+  --glass-blur: 24px;
+  --glass-opacity: .35;
+  --shadow-opacity: .12;
+  --theme-glass: 1;   /* glass already: the header's Glass toggle turns off */
+}
+
+/* Color behind everything, so the glass has something to blur. */
+body {
+  background-image:
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--primary) 45%, transparent), transparent 40%),
+    radial-gradient(circle at 85% 30%, color-mix(in srgb, var(--secondary) 40%, transparent), transparent 45%),
+    radial-gradient(circle at 50% 90%, color-mix(in srgb, var(--primary-lighter) 35%, transparent), transparent 50%);
+  background-attachment: fixed;
+}
+/* Every panel is glass, whether or not glass mode is on (same rule as .glass .bg in colors.css). */
+[data-theme] .bg {
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  background-color: color-mix(in srgb, var(--surface) calc(var(--glass-opacity) * 100%), transparent);
+  border-color: rgb(255 255 255 / .25);
+}
+
+[data-theme=light] .bg { border-color: rgb(255 255 255 / .6); }
+[data-theme=dark] .bg { border-color: rgb(255 255 255 / .12); }

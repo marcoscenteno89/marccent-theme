@@ -1,0 +1,208 @@
+/* LAYOUT: in the layout layer (layers.css), below the components, so a component can reshape its own grid
+   (.inline-form, .nav) without outranking .grid. */
+@layer layout {
+/* Defaults live on .grid (not :root) so a nested grid never inherits its parent's count or gap. */
+.grid {
+  --cols: var(--grid-cols);      /* max columns per row */
+  --min: var(--grid-min);   /* narrowest a column may get before the row wraps */
+  --gap: var(--grid-gap);
+  /* Width one column would have at --cols per row; never narrower than --min, never wider than the grid. */
+  --_col: max(var(--min), (100% - (var(--cols) - 1) * var(--gap)) / var(--cols));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--_col), 100%), 1fr));
+  gap: var(--gap);
+}
+
+/* One row, each column as wide as its content; when space runs out the columns shrink (down to 0). Must come after .grid. */
+.auto-cols { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, max-content); }
+
+/* Center the column tracks when they don't fill the grid (e.g. .auto-cols in a wider box). Centers a .row-wrap too. */
+.cols-center { justify-content: center; }
+
+/* Row that wraps: each item as wide as its content, packed from the start, wrapping onto more lines when space runs
+   out (button groups, tag lists, toolbars). The one flex layout: grid columns all share one width, so content-sized
+   items that wrap need flex. Spaced by the gap-* classes, centered with .cols-center; the defaults are in :where(),
+   weightless, so those classes (and items-*) win wherever they sit in this file. */
+.row-wrap { display: flex; flex-wrap: wrap; }
+:where(.row-wrap) { --gap: var(--grid-gap); gap: var(--gap); align-items: center; }
+
+/* Exactly --cols per row at any width; columns shrink instead of wrapping. Must come after .grid. */
+.fixed { grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); }
+
+.cols-1 { --cols: 1; }
+.cols-2 { --cols: 2; }
+.cols-3 { --cols: 3; }
+.cols-4 { --cols: 4; }
+.cols-5 { --cols: 5; }
+.cols-6 { --cols: 6; }
+.cols-7 { --cols: 7; }
+.cols-8 { --cols: 8; }
+.cols-9 { --cols: 9; }
+.cols-10 { --cols: 10; }
+
+/* Subgrid. The item spans --rows of the parent's rows and lays its children on them. */
+.sub {
+  display: grid;
+  grid-row: span var(--rows, 1);
+  grid-template-rows: subgrid;
+}
+.rows-2 { --rows: 2; }
+.rows-3 { --rows: 3; }
+.rows-4 { --rows: 4; }
+.rows-5 { --rows: 5; }
+.rows-6 { --rows: 6; }
+.rows-7 { --rows: 7; }
+.rows-8 { --rows: 8; }
+.rows-9 { --rows: 9; }
+.rows-10 { --rows: 10; }
+
+/* Column subgrid: a spanning item (e.g. .span-full) whose children snap to the parent's columns. */
+.sub-x {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+/* Pairs: rows of two parts with the first column lined up, as wide as the widest first part (form labels,
+   <dl> terms, stat names). A .sub-x child snaps its two parts to the columns (the card subgrid, sideways);
+   any other child spans the full row. column-gap 0 keeps the two parts joined; rows keep the gap.
+   Must come after .grid. */
+.pairs { grid-template-columns: auto minmax(0, 1fr); column-gap: 0; }
+.pairs > * { grid-column: 1 / -1; }
+.pairs > .sub-x { grid-template-columns: subgrid; } /* outranks a child's own columns (e.g. .field) */
+
+/* Gap: three sizes, -sm, base and -lg. The base is the default (--grid-gap), so it has no class; -0 removes
+   the gap. Units are required: a bare 0 would break the width math. Must come after .grid. */
+.gap-0 { --gap: 0rem; }
+.gap-sm { --gap: var(--space-sm); }
+.gap-lg { --gap: var(--space-lg); }
+/* Row gap only, same steps (safe: it does not affect how many columns fit). Must come after .grid and .sub. */
+.gap-y-0 { row-gap: 0; }
+.gap-y-sm { row-gap: var(--space-sm); }
+.gap-y-lg { row-gap: var(--space-lg); }
+
+/* Pack rows at the top when the grid is taller than its content (e.g. a stretched column). */
+.content-start { align-content: start; }
+.items-start { align-items: start; }
+.items-center { align-items: center; }
+.items-end { align-items: end; }
+.items-stretch { align-items: stretch; }
+.justify-start { justify-items: start; }
+.justify-center { justify-items: center; }
+.justify-end { justify-items: end; }
+.justify-stretch { justify-items: stretch; }
+.self-start { align-self: start; }
+.self-center { align-self: center; }
+.self-end { align-self: end; }
+.self-stretch { align-self: stretch; }
+.order-first { order: -1; }
+.order-last { order: 99; }
+.order-0 { order: 0; }
+
+.span-full { grid-column: 1 / -1; }
+/* Last column, skipping any empty ones before it (e.g. an empty spacer column in a layout-*). */
+.col-last { grid-column: -2 / -1; }
+
+/* Centering without flex. Standalone (no .grid needed); the children are centered both ways.
+   .center: children side by side (like flex-center). With several children the columns share the width.
+   .col-center: children stacked and packed in the middle (like flex-col-center). */
+.center { display: grid; place-items: center; grid-auto-flow: column; }
+.col-center { display: grid; place-items: center; align-content: center; }
+
+/* Uneven layouts: one column until the container is wide enough. */
+.layout-2-1,
+.layout-1-2,
+.layout-3-1,
+.layout-1-3,
+.layout-1-2-1,
+.layout-2-1-1,
+.layout-1-1-2,
+.layout-ends { --cols: 1; }
+
+.cq,
+.wrap {
+  container-type: inline-size;
+  box-sizing: border-box;
+}
+
+.cq { flex-grow: 1; }
+
+/* --wrap is reset on every .wrap so a nested .wrap never inherits its parent's size (e.g. none from .wrap-fluid). */
+.wrap {
+  --wrap: var(--wrap-max);
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--wrap-pad);
+}
+
+.wrap-sm { --wrap: var(--wrap-sm); }
+.wrap-lg { --wrap: var(--wrap-lg); }
+.wrap-fluid { --wrap: none; }
+
+/* Inner padding for boxes (panels, cards, banners). Space between items comes from gap, not margins. */
+.pad-0 { padding: 0; } /* also clears a .wrap's side padding: these come after .wrap */
+.pad { padding: var(--pad); }
+.pad-sm { padding: var(--space-sm); }
+.pad-lg { padding: var(--space-lg); }
+/* One axis only: x = left and right, y = top and bottom, in the same three sizes. The base uses --pad, so give
+   it one value (or two: start end). Safe on a .wrap: -y leaves its side padding alone. */
+.pad-x-0 { padding-inline: 0; }
+.pad-x { padding-inline: var(--pad); }
+.pad-x-sm { padding-inline: var(--space-sm); }
+.pad-x-lg { padding-inline: var(--space-lg); }
+.pad-y-0 { padding-block: 0; }
+.pad-y { padding-block: var(--pad); }
+.pad-y-sm { padding-block: var(--space-sm); }
+.pad-y-lg { padding-block: var(--space-lg); }
+
+/* Text elements inside a grid drop their default margins; the grid's gap spaces them instead. */
+:is(.grid, .sub, .sub-x) > :is(h1, h2, h3, h4, h5, h6, p, ul, ol, dl, hr, figure, blockquote) { margin: 0; }
+/* A list that is itself a grid is a layout, not running text: no bullets, no indent. */
+:is(ul, ol):is(.grid, .sub, .sub-x) { padding: 0; list-style: none; }
+
+@container (min-width: 40rem) {
+  .layout-2-1 { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .layout-1-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
+  .layout-3-1 { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); }
+  .layout-1-3 { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); }
+  .layout-1-2-1 { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr); }
+  .layout-2-1-1 { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .layout-1-1-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr); }
+}
+
+/* Ends: the first --start items (default 2) sit at the start, sized to their content; an empty column
+   takes the rest; the .col-last item sits at the end. Content-sized, so it needs more room than the
+   ratio layouts before it goes to one row. */
+@container (min-width: 56rem) {
+  .layout-ends { grid-template-columns: repeat(var(--start, 2), auto) minmax(0, 1fr) auto; }
+}
+
+/* Spans: N columns need N * 14rem + (N - 1) * 1rem; each threshold adds 1rem of slack. */
+@container (min-width: 30rem) { .span-2 { grid-column: span 2; } }
+@container (min-width: 45rem) { .span-3 { grid-column: span 3; } }
+@container (min-width: 60rem) { .span-4 { grid-column: span 4; } }
+@container (min-width: 75rem) { .span-5 { grid-column: span 5; } }
+@container (min-width: 90rem) { .span-6 { grid-column: span 6; } }
+@container (min-width: 105rem) { .span-7 { grid-column: span 7; } }
+@container (min-width: 120rem) { .span-8 { grid-column: span 8; } }
+@container (min-width: 135rem) { .span-9 { grid-column: span 9; } }
+@container (min-width: 150rem) { .span-10 { grid-column: span 10; } }
+
+/* A .fixed grid always has --cols columns, so its spans don't wait for a container width. */
+.fixed > .span-2 { grid-column: span 2; }
+.fixed > .span-3 { grid-column: span 3; }
+.fixed > .span-4 { grid-column: span 4; }
+.fixed > .span-5 { grid-column: span 5; }
+.fixed > .span-6 { grid-column: span 6; }
+.fixed > .span-7 { grid-column: span 7; }
+.fixed > .span-8 { grid-column: span 8; }
+.fixed > .span-9 { grid-column: span 9; }
+.fixed > .span-10 { grid-column: span 10; }
+
+/* STACK: every child in the same grid cell, layered in source order (later on top). Replaces
+   position: absolute overlays and z-index. Children stretch to fill the cell. The one track is pinned
+   (minmax(0, 1fr) both ways), so the cell is always the box's own size: tall content can't stretch it
+   (a canvas reads its size once, so a taller cell would draw an oval). */
+.stack { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
+.stack > * { grid-area: 1 / 1; }
+}

@@ -1,0 +1,70 @@
+@import "../layers.css";
+@import "./button.css"; /* .inline-form > .btn comes after .btn */
+/* FORMS (Form / StepForm in components/ui/form.js, Field in ui/field.js).
+   .input is any input, select or textarea. */
+@layer components {
+.input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: var(--control-pad);
+  border: var(--border-width) solid;
+  border-radius: var(--radius);
+  font: inherit;
+  line-height: var(--line-height);
+  transition: border-color var(--duration), box-shadow var(--duration);
+}
+.input:focus { outline: 0; }
+/* Neutral colors: inputs on the page background, labels on a light shade. */
+.input { color: var(--body-color); background-color: var(--body-bg); border-color: var(--border-color); }
+.input::placeholder { color: var(--muted-color); opacity: 1; }
+.input:focus { border-color: var(--focus-border); box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+
+/* Field: label | input on one row, joined into one box: one shared border, only the outer corners rounded.
+   The label stretches to the input's height (a textarea too) with its text centered. Inside .pairs (layout.css)
+   it snaps to the shared columns, so every label in the form has the same width. */
+.field { display: grid; grid-template-columns: auto minmax(0, 1fr); }
+.pairs > .field.sub-x { grid-template-columns: subgrid; } /* layout.css's .pairs > .sub-x is in a lower layer */
+.field-label {
+  display: block; /* not grid: ::first-letter (below) only works on a block; align-content centers a block too */
+  align-content: center;
+  padding: var(--control-pad);
+  border: var(--border-width) solid;
+  border-right-width: 0;
+  border-radius: var(--radius) 0 0 var(--radius);
+  white-space: nowrap;
+}
+.field-label::first-letter { text-transform: uppercase; } /* "first name" (from the name) → "First name" */
+.field > .input { border-start-start-radius: 0; border-end-start-radius: 0; }
+.field-label { color: var(--body-color); background-color: var(--muted-bg); border-color: var(--border-color); }
+
+/* States. Invalid: after the user has edited the field or tried to submit (:user-invalid), so an untouched
+   form isn't red on load. Colors from the palette (no status colors): secondary marks what needs attention. */
+.input:user-invalid { border-color: var(--secondary); }
+.input:user-invalid:focus { box-shadow: 0 0 0 var(--focus-width) color-mix(in srgb, var(--secondary) 25%, transparent); }
+.input:disabled { color: var(--muted-color); background-color: var(--muted-bg); cursor: not-allowed; }
+.field:has(> :required) > .field-label::after { content: ' *'; color: var(--secondary); } /* required marker */
+
+/* INLINE FORM: the fields and the submit button on one row once the container is 40rem wide (stacked with a
+   small gap below that, like the layout-* classes). In the row they are joined into one bar: no gap, every
+   item stretched to the same height, one shared border between items and only the outer corners rounded.
+   Fields share the width; the button sizes to its content. The field count is read from the children
+   (2–4 fields + the button), so the class alone is enough: <Form className="grid inline-form">. After .grid. */
+.inline-form { --fields: 1; }
+.inline-form:has(> :nth-child(3)) { --fields: 2; }
+.inline-form:has(> :nth-child(4)) { --fields: 3; }
+.inline-form:has(> :nth-child(5)) { --fields: 4; }
+.inline-form { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+@container (min-width: 40rem) {
+  .inline-form { grid-template-columns: repeat(var(--fields), minmax(0, 1fr)) auto; gap: 0; }
+  /* One border between items: each item after the first slides 1px left, over its neighbour's border. */
+  .inline-form > :not(:first-child) { margin-inline-start: calc(-1 * var(--border-width)); }
+  .inline-form > :focus-within { position: relative; z-index: 1; } /* the focused item's border stays on top */
+  /* Inner corners square. A Field's corners are on its label and input, so its children are included. */
+  .inline-form > :not(:last-child),
+  .inline-form > :not(:last-child) > :last-child { border-start-end-radius: 0; border-end-end-radius: 0; }
+  .inline-form > :not(:first-child),
+  .inline-form > :not(:first-child) > :first-child { border-start-start-radius: 0; border-end-start-radius: 0; }
+  /* The button's border matches the fields': in colors.css, since its .btn.primary etc. are unlayered. */
+}
+}

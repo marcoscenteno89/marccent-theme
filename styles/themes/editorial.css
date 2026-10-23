@@ -1,0 +1,30 @@
+/* Self-hosted Google Fonts (npm @fontsource): Fraunces for headings, Source Serif 4 for text. @import must come before any rule. */
+@import "@fontsource-variable/source-serif-4";
+@import "@fontsource-variable/fraunces";
+
+/*
+ * THEME: Editorial / magazine. Optional. Serif reading type, big confident headlines, thin rules instead of boxes, no rounding: news, long-form, culture.
+ * Try it: make it the active line under THEME at the end of styles/main.css (only one at a time).
+ * Colors stay the site's own (the theme changer's palette and the light/dark page colors); a style only changes
+ * type, shape, depth and effects, and its effects are drawn in those colors.
+ */
+
+:where(:root) {
+  --font-body: "Source Serif 4 Variable", Georgia, "Times New Roman", serif;
+  --font-heading: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --weight-heading: 700;
+  --line-height: 1.7;
+  --radius: 0rem;
+  --shadow-opacity: 0;
+}
+
+:is(h1, h2, h3, h4, h5, h6) { font-family: var(--font-heading); letter-spacing: -.01em; }
+/* Panels read as columns on the page: a top rule instead of a box. */
+[data-theme] .bg { background-color: var(--body-bg); border-width: 0; border-top: 2px solid var(--body-color); }
+
+/* Bigger, tighter headlines, like a magazine cover line. */
+:where(:root) {
+  --h1: min(calc(var(--font-size) * 1.8 + 2vw), calc(var(--font-size) * 3.5));
+  --h2: min(calc(var(--font-size) * 1.5 + 1.2vw), calc(var(--font-size) * 2.5));
+  --heading-line-height: 1.05;
+}

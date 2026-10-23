@@ -1,0 +1,18 @@
+@import "../layers.css";
+/* PAGINATION (Pagination in components/ui/pagination.js).
+   The nav is a grid of equal cells (add .divide for lines between them); each button fills its cell. */
+@layer components {
+.page-link { /* col-center w-100 h-100 on the markup */
+  padding: var(--control-pad-y) var(--space-xs);
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.page-link:disabled { cursor: default; }
+/* Neutral colors; the current page or step (aria-current, set by Pagination and StepForm) takes the mode shade. */
+.page-link { color: var(--link); background-color: transparent; transition: color var(--duration), background-color var(--duration); }
+.page-link:hover:not(:disabled) { background-color: var(--muted-bg); }
+.page-link:disabled { color: var(--muted-color); }
+.page-link[aria-current] { color: var(--primary-mode-text); background-color: var(--primary-mode); }
+.page-link:focus-visible { outline: 0; box-shadow: inset 0 0 0 var(--focus-width) var(--focus-ring); }
+}
