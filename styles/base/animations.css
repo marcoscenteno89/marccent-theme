@@ -17,6 +17,19 @@
 }
 .accordion > details[open]::details-content { block-size: auto; }
 
+/* COLLAPSE: a box that slides open and shut (the header's pull-down theme editor). One child, which clips its content;
+   its row grows from 0 to the content's height while .collapse has .open (0fr -> 1fr animates, auto doesn't). Put
+   padding and borders inside the child, not on it, so it can close all the way. Make the closed content inert, so
+   it's out of the tab order.
+   <div class="collapse open"><div><div class="pad">…</div></div></div> */
+.collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-slow) ease;
+}
+.collapse.open { grid-template-rows: 1fr; }
+.collapse > * { min-height: 0; overflow: hidden; }
+
 /* TOAST FADE-IN (Toast in components/ui/toast.js). */
 .toast { animation: toast-in var(--duration) linear; }
 @keyframes toast-in { from { opacity: 0; } }
@@ -161,6 +174,7 @@
   .modal[open],
   .modal[open]::backdrop { animation: none; }
   .countdown > i { transition: none; }
+  .collapse,
   .accordion > details::details-content,
   .accordion > details > summary::after { transition: none; } /* beats the caret transition in components/accordion.css */
 }
