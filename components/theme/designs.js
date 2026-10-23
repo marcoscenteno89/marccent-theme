@@ -21,11 +21,12 @@ const OPTIONS = [ ...DESIGNS, { name: 'none', title: 'Plain', description: 'No d
 const Select = ({ theme, update, className }) => {
   const current = theme.value('design') ?? DEFAULT_DESIGN;
   return (
-    <div className={cx('btn hover-expand', className)} title={`Design style: ${designTitle(current)}`}>
+    <div className={cx('btn hover-expand', className)} title="Design Style">
       <Icon name="swatchbook" className="btn-icon" />
-      <select className="btn-text" aria-label="Design style" value={current} onChange={(e) => update({ design: e.target.value })}
+      <select className="btn-text" aria-label="Design Style" value={current} onChange={(e) => update({ design: e.target.value })}
         style={{ background: 'none', border: 0, color: 'inherit', font: 'inherit', cursor: 'pointer' }}>
-        {OPTIONS.map(d => <option key={d.name} value={d.name}>{d.title}</option>)}
+        {/* The list in the page's colors: the select's inherited light text would otherwise sit on a white list. */}
+        {OPTIONS.map(d => <option key={d.name} value={d.name} style={{ color: 'var(--body-color)', background: 'var(--body-bg)' }}>{d.title}</option>)}
       </select>
     </div>
   );

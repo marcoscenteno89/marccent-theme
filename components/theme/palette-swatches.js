@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import '../../styles/components/palette-swatches.css';
 import { withTheme } from './hoc';
 import { usePager, SliderPager } from '../widgets/slider-pager';
 
@@ -33,19 +34,23 @@ const Swatches = ({ theme, update, className, style, bare, slider }) => {
  * squares when there's room, less when there isn't). The pill (SliderPager: previous | 2 / 11 | next) shows beside
  * it only while some squares are out of view: Swiper locks when they all fit (watchOverflow) and unlocks when they
  * don't. That can't flip back and forth: the pill only takes room once the squares already don't fit.
- * A little padding inside, so the ring round the palette in use isn't clipped.
+ * A little padding inside, so the ring round the palette in use isn't clipped. The slider never gets narrower than
+ * one square (plus that padding), so the pill always has its own room and never covers the squares or the controls
+ * next to them. The pill's column is max-content, not auto: the pill clips (overflow hidden, for the holographic
+ * hover), which makes its automatic minimum 0, and an auto column would let it spill over the squares.
+ * Under 400px the mini editor caps the column at one square (--swatches-max, palette-swatches.css).
  */
 const SwatchSlider = ({ squares }) => {
   const pager = usePager();
   const [ more, setMore ] = useState(false); // some squares are out of view: show the pill
   return (
     <div className="grid items-center" role="group" aria-label="Theme colors"
-      style={{ '--gap': 'var(--space-xs)', gridTemplateColumns: more ? 'minmax(0, max-content) auto' : 'minmax(0, max-content)' }}>
+      style={{ '--gap': 'var(--space-xs)', gridTemplateColumns: `minmax(calc(var(--icon-size) + 8px), var(--swatches-max, max-content))${more ? ' max-content' : ''}` }}>
       <Swiper {...pager.swiperProps} slidesPerView="auto" spaceBetween={8} className="w-100" style={{ padding: '4px' }}
         onLock={() => setMore(false)} onUnlock={() => setMore(true)}>
         {squares.map((square, i) => <SwiperSlide key={i} style={{ width: 'auto' }}>{square}</SwiperSlide>)}
       </Swiper>
-      <SliderPager pager={pager} className={more ? undefined : 'd-none'} style={{ marginTop: 0 }} />
+      <SliderPager pager={pager} compact className={more ? undefined : 'd-none'} style={{ marginTop: 0 }} />
     </div>
   );
 };

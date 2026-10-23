@@ -49,15 +49,18 @@ const usePager = () => {
  * @param {ReturnType<typeof usePager>} props.pager - From usePager().
  * @param {string} [props.className]
  * @param {Object} [props.style] - Inline styles; marginTop overrides the default -2rem.
+ * @param {boolean} [props.compact] - Smaller and tighter, for a row of controls (the mini editor's palette squares).
  */
-const SliderPager = ({ pager, className, style }) => {
+const SliderPager = ({ pager, className, style, compact }) => {
   const { prev, next, count } = pager.refs;
-  const arrow = { border: 0, background: 'none', color: 'inherit', cursor: 'pointer' };
+  const arrow = { border: 0, background: 'none', color: 'inherit', cursor: 'pointer', ...(compact && { padding: '.25em .4em' }) };
+  // Compact: the arrows a small square (1.5em) instead of the usual --icon-size.
+  const icon = compact ? { width: '1.5em' } : undefined;
   return (
-    <div className={cx('center gap-0 bg border shadow-sm hover-holographic', className)} style={{ justifySelf: 'center', marginTop: '-2rem', borderRadius: '99px', position: 'relative', zIndex: 2, ...style }}>
-      <button ref={prev} type="button" className="col-center" style={arrow} aria-label="Previous slide"><Icon name="arrow-left" /></button>
-      <span ref={count} className="fs-sm fw-bold pad-x-sm" />
-      <button ref={next} type="button" className="col-center" style={arrow} aria-label="Next slide"><Icon name="arrow-right" /></button>
+    <div className={cx('center gap-0 bg border shadow-sm hover-holographic', className)} style={{ justifySelf: 'center', marginTop: '-2rem', borderRadius: '99px', position: 'relative', zIndex: 2, ...(compact && { fontSize: 'var(--text-xs)' }), ...style }}>
+      <button ref={prev} type="button" className="col-center" style={arrow} aria-label="Previous slide"><Icon name="arrow-left" style={icon} /></button>
+      <span ref={count} className={compact ? 'fw-bold' : 'fs-sm fw-bold pad-x-sm'} style={compact ? { whiteSpace: 'nowrap' } : undefined} />
+      <button ref={next} type="button" className="col-center" style={arrow} aria-label="Next slide"><Icon name="arrow-right" style={icon} /></button>
     </div>
   );
 };

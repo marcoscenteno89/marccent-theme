@@ -1,0 +1,9 @@
+@import "../layers.css";
+/* PALETTE SWATCHES (PaletteSwatches in components/theme/palette-swatches.js).
+   The slider (the mini editor's squares) caps its column at --swatches-max, max-content by default: all the squares
+   that fit. On a narrow screen it's one square, whatever room is left, so the row never crowds; the pill pages the rest. */
+@layer components {
+@media (width < 400px) {
+  [data-component="mini-theme-editor"] { --swatches-max: calc(var(--icon-size) + 8px); }
+}
+}
