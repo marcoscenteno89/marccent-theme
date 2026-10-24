@@ -151,17 +151,17 @@
 }
 .btn.hover-expand::before { z-index: -1; }                               /* the fill */
 .btn.hover-expand::after { z-index: -2; top: .6rem; filter: blur(.9rem); } /* the glow, lower and blurred */
-/* Only hover and keyboard focus open it; a pressed toggle keeps the fill (below) but stays the icon, so it still
-   reads as the icon at rest and expands like any other on hover. :focus-within: a control inside it (a select as the
+/* Only hover and keyboard focus open it; a pressed or open toggle (aria-pressed / aria-expanded: ToggleButton) keeps
+   the fill (below) but stays the icon, so it still reads as the icon at rest and expands like any other on hover. :focus-within: a control inside it (a select as the
    label: the mini theme editor's design style) keeps it open while in use, its own list open off the button. */
 .btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) { width: fit-content; }
 /* Light text on the gradient; a filled button (a color class) instead expands in its own color, fill and glow alike,
    and keeps its own text color. */
-.btn.hover-expand.hover-expand:not(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient):is(:hover, :focus-visible, :focus-within, [aria-pressed="true"]) { color: var(--light); }
+.btn.hover-expand.hover-expand:not(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient):is(:hover, :focus-visible, :focus-within, [aria-pressed="true"], [aria-expanded="true"]) { color: var(--light); }
 .btn.hover-expand:is(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient)::before,
 .btn.hover-expand:is(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient)::after { background: inherit; }
-.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within, [aria-pressed="true"])::before { opacity: 1; }
-.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within, [aria-pressed="true"])::after { opacity: .5; }
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within, [aria-pressed="true"], [aria-expanded="true"])::before { opacity: 1; }
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within, [aria-pressed="true"], [aria-expanded="true"])::after { opacity: .5; }
 .btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) > .btn-icon { scale: 0; transition-delay: 0s; }
 .btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) > .btn-text {
   scale: 1;

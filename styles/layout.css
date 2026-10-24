@@ -139,6 +139,15 @@
 .wrap-lg { --wrap: var(--wrap-lg); }
 .wrap-fluid { --wrap: none; }
 
+/* A .wrap inside a .wrap (a full-width band, its content capped) doesn't pad again: the outer one gives the side
+   padding and the inner one is narrower by it, so its content lines up with a single .wrap's at every width. Before
+   the pad classes, so a .pad on the inner one (a panel) still wins. An inner .wrap-fluid: calc(none…) is invalid,
+   so no max. */
+:where(.wrap) .wrap {
+  padding-inline: 0;
+  max-width: calc(var(--wrap) - 2 * var(--wrap-pad));
+}
+
 /* Inner padding for boxes (panels, cards, banners). Space between items comes from gap, not margins. */
 .pad-0 { padding: 0; } /* also clears a .wrap's side padding: these come after .wrap */
 .pad { padding: var(--pad); }

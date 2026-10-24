@@ -26,6 +26,9 @@
   text-transform: uppercase;
   letter-spacing: .06em;
 }
+/* On a gradient fill they'd be the fill's own colors: there they take its text color, with a hard pixel shadow. A .bg panel inside brings the gradient back. */
+:is(.bg-gradient, .bg-gradient-lighter, .bg-gradient-darker) :is(h1, h2, h3) { background-image: none; color: inherit; text-shadow: .12em .12em 0 rgb(0 0 0 / .3); }
+:is(.bg-gradient, .bg-gradient-lighter, .bg-gradient-darker) .bg :is(h1, h2, h3) { background-image: var(--gradient); color: transparent; text-shadow: none; }
 [data-theme] .bg { border-color: var(--primary); box-shadow: 6px 6px 0 var(--secondary); }
 
 /* Faint CRT scanlines over the whole page; they don't catch clicks. */

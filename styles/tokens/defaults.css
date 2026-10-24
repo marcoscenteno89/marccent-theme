@@ -170,8 +170,9 @@
   --link-hover: var(--primary-darker);
   --focus-ring: color-mix(in srgb, var(--primary) 25%, transparent); /* glow around focused controls */
   --focus-border: color-mix(in srgb, var(--primary) 50%, #fff);
-  /* Mode shades: the fill behind text (bg-primary / bg-secondary / bg-gradient, current page or step, Alert). Fills use the
-     lighter shade in light mode and the darker in dark mode; -text is the opposite shade, for text on that fill. */
+  /* Mode shades: the fill behind text (bg-danger / bg-success / bg-info, current page or step, Alert; bg-primary,
+     bg-secondary and bg-gradient use the colors themselves). Fills use the lighter shade in light mode and the darker
+     in dark mode; -text is the opposite shade, for text on that fill. */
   --primary-mode: var(--primary-lighter);
   --primary-mode-text: var(--primary-darker);
   --secondary-mode: var(--secondary-lighter);

@@ -4,26 +4,24 @@
 // sees it, and the scope's update and reset.
 import { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
+import { ToggleButton } from '../ui/toggle-button';
 import { SITE } from '../../lib/singleton';
 import { withTheme } from "./hoc";
 
-const RainbowButton = (props) => {
-  const rainbow = props.theme.rainbow;
-  return (
-    <Button icon={['fa-solid', rainbow ? 'fa-wand-magic-sparkles' : 'fa-wand-magic', props.className].filter(Boolean).join(' ')} aria-label="Toggle rainbow mode" onClick={() => props.update({rainbow: !rainbow})} />
-  )  
-}
+const RainbowButton = (props) => (
+  <ToggleButton icon="wand-magic" activeIcon="wand-magic-sparkles" className={props.className} aria-label="Rainbow mode"
+    open={!!props.theme.rainbow} onToggle={(rainbow) => props.update({ rainbow })} />
+);
 
+// Shows the mode it switches to: its icon, its name, filled in its colors (colors.css).
 const ModeButton = (props) => {
-  const isDark = props.theme.value('isDark'); // the scope's own, else the site's (Theme.scoped)
+  const isDark = !!props.theme.value('isDark'); // the scope's own, else the site's (Theme.scoped)
   return (
-    <Button
-      icon={isDark ? 'sun' : 'moon'}
-      className={[isDark ? 'light' : 'dark', props.className].filter(Boolean).join(' ')} /* filled in the mode it switches to (colors.css) */
-      onClick={() => props.update({isDark: !isDark})}>
-      {isDark ? 'Light' : 'Dark'}
-    </Button>
-  )  
+    <ToggleButton icon="moon" activeIcon="sun" activeLabel="Light" className={[isDark ? 'light' : 'dark', props.className].filter(Boolean).join(' ')}
+      open={isDark} onToggle={(isDark) => props.update({ isDark })}>
+      Dark
+    </ToggleButton>
+  );
 }
 
 // The glass toggle's own look, on no other button: a frosted pane (backdrop blur), a light sheen from the top-left,

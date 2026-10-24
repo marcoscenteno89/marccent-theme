@@ -4,14 +4,15 @@
  * colors of their own: they are neutral (the page colors) and take these classes where they need one.
  */
 
-/* BACKGROUNDS. The base ones follow the mode (lighter in light mode, darker in dark mode: --*-mode, defaults.css),
-   so text on them stays readable; -lighter and -darker are fixed shades. Primary, secondary and the gradient also
-   set the text: dark or light, by the color's brightness (--*-text, defaults.css). */
+/* BACKGROUNDS. Primary, secondary and the gradient are the colors themselves, and set the text that reads on them:
+   dark or light, by the color's brightness (--*-text, defaults.css: picked for these base colors, so the fill must be
+   them too). Danger, success and info follow the mode (lighter in light mode, darker in dark mode: --*-mode), so text
+   on them stays readable. -lighter and -darker are fixed shades. */
 .bg-primary-lighter { background-color: var(--primary-lighter); }
-.bg-primary { background-color: var(--primary-mode); color: var(--primary-text); }
+.bg-primary { background-color: var(--primary); color: var(--primary-text); }
 .bg-primary-darker { background-color: var(--primary-darker); }
 .bg-secondary-lighter { background-color: var(--secondary-lighter); }
-.bg-secondary { background-color: var(--secondary-mode); color: var(--secondary-text); }
+.bg-secondary { background-color: var(--secondary); color: var(--secondary-text); }
 .bg-secondary-darker { background-color: var(--secondary-darker); }
 .bg-danger-lighter { background-color: var(--danger-lighter); }
 .bg-danger { background-color: var(--danger-mode); }
@@ -23,7 +24,7 @@
 .bg-info { background-color: var(--info-mode); }
 .bg-info-darker { background-color: var(--info-darker); }
 .bg-gradient-lighter { background-image: var(--gradient-lighter); }
-.bg-gradient { background-image: var(--gradient-mode); color: var(--gradient-text); }
+.bg-gradient { background-image: var(--gradient); color: var(--gradient-text); }
 .bg-gradient-darker { background-image: var(--gradient-darker); }
 
 /* CONTINUOUS GRADIENT: put .bg-gradient-run on a group and its children (up to 24) show one gradient between them,
@@ -124,6 +125,11 @@
 .text-gradient-lighter { background-image: var(--gradient-lighter); }
 .text-gradient { background-image: var(--gradient); }
 .text-gradient-darker { background-image: var(--gradient-darker); }
+/* Gradient text on a gradient fill would disappear into it: it takes the fill's text color instead (a .bg panel inside brings it back). */
+:is(.bg-gradient, .bg-gradient-lighter, .bg-gradient-darker) :is(.text-gradient-lighter, .text-gradient, .text-gradient-darker) { background-image: none; color: inherit; }
+:is(.bg-gradient, .bg-gradient-lighter, .bg-gradient-darker) .bg .text-gradient-lighter { background-image: var(--gradient-lighter); color: transparent; }
+:is(.bg-gradient, .bg-gradient-lighter, .bg-gradient-darker) .bg .text-gradient { background-image: var(--gradient); color: transparent; }
+:is(.bg-gradient, .bg-gradient-lighter, .bg-gradient-darker) .bg .text-gradient-darker { background-image: var(--gradient-darker); color: transparent; }
 
 /* FILLED BUTTONS: .btn plus a color name, e.g. <Button className="primary" …>. Mixed from the color and the page, so
    they read in both modes and with any theme color (the theme changer's own shades can sit too close together,
