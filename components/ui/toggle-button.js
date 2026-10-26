@@ -10,7 +10,7 @@ import '../../styles/components/button.css';
  * What it says it is:
  *  - panel: it opens that content itself, in a panel in front of the page under the button, like a phone menu.
  *    The panel is a popover: in the top layer, so no overflow or stacking clips it, and the browser closes it on a
- *    tap outside, on Esc or on the button. 70% of the screen wide, never taller than 60% of it or the room
+ *    tap outside, on Esc or on the button. As big as its content, never wider than 70% of the screen nor taller than 60% of it or the room
  *    under the button (.toggle-panel, button.css), so there's always page left to tap.
  *  - controls (the id of what it opens: a nav, a menu): a disclosure (aria-expanded, aria-controls); Esc closes it.
  *  - neither: a pressed toggle (aria-pressed), unless activeLabel changes the label: then the label says the state
@@ -58,6 +58,7 @@ const useToggle = ({ open, defaultOpen = false, onToggle, controls, pressed = tr
 
 const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen = false, onToggle, controls, panel, children, onClick, ...rest }) => {
   const id = useId();
+  const toggleId = rest.id ?? `${id}-toggle`; // yours when you give one (ExpandButton finds its button by it)
   const box = useRef(null);
   // A panel's popover closes itself on Esc; a changing label says the state itself (see above).
   const { on, set, flip, attrs } = useToggle({ open, defaultOpen, onToggle, controls: panel ? id : controls, pressed: !activeLabel, esc: !panel });
@@ -71,7 +72,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
   useEffect(() => {
     const el = box.current;
     if (!hasPanel || !el) return;
-    const button = document.getElementById(`${id}-toggle`);
+    const button = document.getElementById(toggleId);
     button.popoverTargetElement = el;
     const place = () => {
       const r = button.getBoundingClientRect();
@@ -90,7 +91,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
       window.removeEventListener('scroll', place);
       window.removeEventListener('resize', place);
     };
-  }, [ hasPanel, id ]);
+  }, [ hasPanel, id, toggleId ]);
   // Your open (or defaultOpen) opens and closes the panel too.
   useEffect(() => {
     const el = box.current;
@@ -98,7 +99,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
   }, [ hasPanel, on ]);
 
   const button = (
-    <Button data-component="toggle-button" icon={on ? activeIcon : icon} {...attrs} {...rest} {...(panel && { id: `${id}-toggle` })}
+    <Button data-component="toggle-button" icon={on ? activeIcon : icon} {...attrs} {...rest} {...(panel && { id: toggleId })}
       onClick={panel ? onClick : (e) => { onClick?.(e); flip(); }}>
       {on && activeLabel ? activeLabel : children}
     </Button>

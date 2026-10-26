@@ -112,9 +112,9 @@
 .btn-link.disabled { opacity: .5; cursor: not-allowed; }
 :is(.btn, .btn-link).disabled { pointer-events: none; }
 
-/* ToggleButton's panel (components/ui/toggle-button.js; ExpandButton's on narrow screens): a popover in the top
-   layer, under its button (top set there) and centered on the screen, like a phone menu. 70% of the screen wide,
-   as tall as its content but never taller than 60% of the screen or the room under the button (max-height set there; it scrolls), so
+/* ToggleButton's panel (components/ui/toggle-button.js; ExpandButton's on narrow screens or a full row): a popover in the top
+   layer, under its button (top set there) and centered on the screen, like a phone menu. As big as its content, never
+   wider than 70% of the screen nor taller than 60% of it or the room under the button (max-height set there; it scrolls), so
    there's always page around it to tap and close it. inset and margin undo the browser's centered popover; z-index
    keeps it over the page where the top layer isn't supported. */
 .toggle-panel {
@@ -123,7 +123,7 @@
   left: 50%;
   translate: -50% 0;
   margin: 0;
-  width: 100%;
+  width: max-content;
   max-width: 70vw;
   height: auto;
   overflow: auto;

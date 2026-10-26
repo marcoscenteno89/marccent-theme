@@ -154,7 +154,8 @@
 /* Only hover and keyboard focus open it; a pressed or open toggle (aria-pressed / aria-expanded: ToggleButton) keeps
    the fill (below) but stays the icon, so it still reads as the icon at rest and expands like any other on hover. :focus-within: a control inside it (a select as the
    label: the mini theme editor's design style) keeps it open while in use, its own list open off the button. */
-.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) { width: fit-content; }
+/* --open-width: a width measured for it (ExpandButton sets its content's full width); otherwise as wide as it fits. */
+.btn.hover-expand.hover-expand:is(:hover, :focus-visible, :focus-within) { width: var(--open-width, fit-content); }
 /* Light text on the gradient; a filled button (a color class) instead expands in its own color, fill and glow alike,
    and keeps its own text color. */
 .btn.hover-expand.hover-expand:not(.primary, .secondary, .danger, .success, .info, .light, .dark, .gradient):is(:hover, :focus-visible, :focus-within, [aria-pressed="true"], [aria-expanded="true"]) { color: var(--light); }
