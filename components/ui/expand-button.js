@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useId, useRef } from 'react';
+import { useState, useEffect, useId } from 'react';
 import { cx } from '../../lib/cx';
 import { useMedia } from '../../lib/media';
 import { ButtonIcon } from './button';
@@ -8,39 +8,74 @@ import { ToggleButton } from './toggle-button';
 // Below this the content doesn't fit beside the icon: it pops out in a panel instead (the sm step, layout.css).
 const NARROW = '(width < 40rem)';
 
-// Whether its content fits in its row, tried for real: the button widened at once to the content's width, with no
-// transition, the row's items (some may shrink to make room, like the mini editor's palette slider) must all stay
-// inside the row. Then back as it was.
-const fits = (el, width) => {
-  const row = el.parentElement;
-  const box = row.getBoundingClientRect();
-  const pad = getComputedStyle(row);
-  const start = box.left + parseFloat(pad.paddingLeft);
-  const end = box.right - parseFloat(pad.paddingRight);
+/**
+ * RowRoom: whether an ExpandButton's content fits in its row, kept up to date as the row changes size
+ * (ResizeObserver). Tried for real, in one layout pass: the button widened at once (no transition) to its content's
+ * width, the row's items (some may shrink to make room, like the mini editor's palette slider) must all stay inside
+ * the row; then back as it was. The content's width is read while the button is the wide one (its first render always
+ * is), set as its --open-width (hovers.css: fit-content would squeeze it to what a grid track offers) and kept for
+ * when it's the toggle, whose content is in the panel. The button is found by id, as it's either element.
+ */
+class RowRoom {
+  constructor(id) {
+    this.id = id;
+    this.need = 0;
+  }
 
-  el.style.transition = 'none';
-  el.style.maxWidth = 'none';
-  el.style.width = `${width}px`;
-  const items = [ ...row.children ].map((child) => child.getBoundingClientRect()).filter((item) => item.width);
-  const first = Math.min(...items.map((item) => item.left));
-  const last = Math.max(...items.map((item) => item.right));
-  el.style.width = '';
-  el.style.maxWidth = '';
-  el.offsetWidth; // the resting width applies before the transition comes back, so it doesn't animate
-  el.style.transition = '';
-  return first >= start - 1 && last <= end + 1; // a row packed at the end spills out of its start instead
-};
+  // Calls onChange(fits) now and whenever the row's size changes.
+  watch(onChange) {
+    const row = document.getElementById(this.id)?.parentElement;
+    if (!row) {
+      return;
+    }
+    this.onChange = onChange;
+    this.observer = new ResizeObserver(() => this.check());
+    this.observer.observe(row);
+  }
 
-// The content's full width (fit-content would squeeze it to what a grid track offers): the width it opens to.
-const measure = (el) => {
-  el.style.transition = 'none';
-  el.style.width = 'max-content';
-  const width = el.offsetWidth;
-  el.style.width = '';
-  el.offsetWidth;
-  el.style.transition = '';
-  return width;
-};
+  stop() {
+    this.observer?.disconnect();
+    this.observer = null;
+  }
+
+  check() {
+    const el = document.getElementById(this.id);
+    // The wide one, at rest (not mid-opening): its content is there to measure.
+    const wide = el?.matches('[role="group"]:not(:hover, :focus-within)');
+    if (!el || (!wide && !this.need)) {
+      return;
+    }
+    const { width, fits } = this.trial(el, wide ? 'max-content' : `${this.need}px`);
+    if (wide) {
+      this.need = width;
+      el.style.setProperty('--open-width', `${width}px`);
+    }
+    this.onChange(fits);
+  }
+
+  // The button at that width for one layout: its width then, and whether the row still holds all its items.
+  trial(el, width) {
+    const row = el.parentElement;
+    const box = row.getBoundingClientRect();
+    const pad = getComputedStyle(row);
+    const start = box.left + parseFloat(pad.paddingLeft);
+    const end = box.right - parseFloat(pad.paddingRight);
+
+    el.style.transition = 'none';
+    el.style.maxWidth = 'none';
+    el.style.width = width;
+    const measured = el.offsetWidth;
+    const items = [ ...row.children ].map((child) => child.getBoundingClientRect()).filter((item) => item.width);
+    el.style.width = '';
+    el.style.maxWidth = '';
+    el.offsetWidth; // the resting width applies before the transition comes back, so it doesn't animate
+    el.style.transition = '';
+
+    // A row packed at the end spills out of its start instead.
+    const fits = items.every((item) => item.left >= start - 1 && item.right <= end + 1);
+    return { width: measured, fits };
+  }
+}
 
 /**
  * ExpandButton: an icon button that opens into whatever you put in it: a select, a few links, a search field…
@@ -61,35 +96,16 @@ const ExpandButton = ({ icon, label, className, children, ...rest }) => {
   const narrow = useMedia(NARROW);
   const [ cramped, setCramped ] = useState(false);
   const id = useId();
-  const need = useRef(0);
+  const [ room ] = useState(() => new RowRoom(id));
 
-  // Wide screens: check the room whenever the row changes size. The content's width is measured while it's the
-  // wide button (the first render always is) and kept for when it's the toggle, whose content is in the panel.
+  // Wide screens: switch to the toggle whenever the row has no room (RowRoom, above).
   useEffect(() => {
     if (narrow) {
       return;
     }
-    const row = document.getElementById(id)?.parentElement;
-    if (!row) {
-      return;
-    }
-    const check = () => {
-      const el = document.getElementById(id);
-      if (!el) {
-        return;
-      }
-      if (el.matches('[role="group"]') && !el.matches(':hover, :focus-within')) {
-        need.current = measure(el);
-        el.style.setProperty('--open-width', `${need.current}px`);
-      }
-      if (need.current) {
-        setCramped(!fits(el, need.current));
-      }
-    };
-    const watch = new ResizeObserver(check);
-    watch.observe(row);
-    return () => watch.disconnect();
-  }, [ narrow, id ]);
+    room.watch((fits) => setCramped(!fits));
+    return () => room.stop();
+  }, [ narrow, room ]);
 
   if (narrow || cramped) {
     return <ToggleButton data-component="expand-button" id={id} icon={icon} activeIcon="xmark" panel={children} className={className} title={label} aria-label={label} {...rest} />;
