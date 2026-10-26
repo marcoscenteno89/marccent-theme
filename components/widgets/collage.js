@@ -1,4 +1,5 @@
 // Shared: no 'use client' (no state or effects), so a collage page can render on the server.
+import { cx } from '../../lib/cx';
 import { Button } from '../ui/button';
 import { Icon } from '../ui/icon';
 import { Loading } from '../ui/loading';
@@ -55,10 +56,12 @@ const Progress = ({ value, label }) => (
  * @param {number} [cols=6] @param {string} [min='9rem'] - Columns, and the narrowest a column gets before they wrap.
  * @param {string} [row='11rem'] - The shortest a row gets. Bigger cells: <Collage cols={3} min="18rem" row="22rem">,
  *   each tile four times the area (the Animations page: fewer canvases, each one larger).
+ * @param {React.ReactNode} [children] - Instead of tiles, any tiles of your own on the same grid (span-* and row
+ *   spans size them). @param {string} [className] - e.g. a gap class.
  */
-const Collage = ({ tiles, cols = 6, min = '9rem', row = '11rem' }) => (
-  <div data-component="collage" className="grid" style={{ '--cols': cols, '--min': min, '--row': row, gridAutoRows: 'minmax(var(--row), auto)', gridAutoFlow: 'dense' }}>
-    {tiles.map(({ src, canvas, size, border, children, ...card }, i) => {
+const Collage = ({ tiles, cols = 6, min = '9rem', row = '11rem', className, children }) => (
+  <div data-component="collage" className={cx('grid', className)} style={{ '--cols': cols, '--min': min, '--row': row, gridAutoRows: 'minmax(var(--row), auto)', gridAutoFlow: 'dense' }}>
+    {tiles ? tiles.map(({ src, canvas, size, border, children, ...card }, i) => {
       const { style, className, ...shape } = SIZE[size];
       const edge = BORDER[border] ?? {};
       return (
@@ -67,7 +70,7 @@ const Collage = ({ tiles, cols = 6, min = '9rem', row = '11rem' }) => (
           {children}
         </ImageCard>
       );
-    })}
+    }) : children}
   </div>
 );
 
