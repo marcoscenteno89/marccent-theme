@@ -10,7 +10,7 @@ import { Button } from '../ui/button';
 import { Carousel } from '../widgets/carousel';
 import { DESIGNS, DEFAULT_DESIGN, designTitle } from '../../lib/design';
 
-const OPTIONS = [ ...DESIGNS, { name: 'none', title: 'Plain', description: 'No design style: the theme on its own.' } ];
+const OPTIONS = [ ...DESIGNS, { id: 'none', title: 'Plain', description: 'No design style: the theme on its own.' } ];
 
 /**
  * DesignSelect: the design style as an icon button that widens into a select on hover (hover-expand, the select as
@@ -26,7 +26,7 @@ const Select = ({ theme, update, className }) => {
       <select className="btn-text" aria-label="Design Style" value={current} onChange={(e) => update({ design: e.target.value })}
         style={{ background: 'none', border: 0, color: 'inherit', font: 'inherit', cursor: 'pointer' }}>
         {/* The list in the page's colors: the select's inherited light text would otherwise sit on a white list. */}
-        {OPTIONS.map(d => <option key={d.name} value={d.name} style={{ color: 'var(--body-color)', background: 'var(--body-bg)' }}>{d.title}</option>)}
+        {OPTIONS.map(d => <option key={d.id} value={d.id} style={{ color: 'var(--body-color)', background: 'var(--body-bg)' }}>{d.title}</option>)}
       </select>
     </div>
   );
@@ -37,7 +37,7 @@ const Select = ({ theme, update, className }) => {
 // the outer one sets the style (its variables), the card inside the mode, so a style's light / dark page colors
 // (written for a [data-theme] inside it) apply and the text takes them (color: --body-color).
 const DesignCard = ({ design, active, dark, use }) => (
-  <div data-design={design.name} className="grid h-100">
+  <div data-design={design.id} className="grid h-100">
     <article data-theme={dark ? 'dark' : 'light'} className="bg border round shadow pad-sm grid cols-1 gap-sm h-100 hover-holographic"
       style={{ gridTemplateRows: 'auto 1fr auto', color: 'var(--body-color)' }}>
       <h4 className="h6">{design.title}</h4>
@@ -59,7 +59,7 @@ const DesignCardList = ({ theme, update }) => {
     <div className="bg border round shadow pad grid cols-1 gap-sm content-start h-100">
       <h3 className="h6 text-uppercase opacity-75">Design style: {designTitle(current)}</h3>
       <Carousel slideWidth="12rem" label="Design styles">
-        {OPTIONS.map(d => <DesignCard key={d.name} design={d} active={d.name === current} dark={theme.value('isDark')} use={() => update({ design: d.name })} />)}
+        {OPTIONS.map(d => <DesignCard key={d.id} design={d} active={d.id === current} dark={theme.value('isDark')} use={() => update({ design: d.id })} />)}
       </Carousel>
     </div>
   );

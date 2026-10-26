@@ -12,15 +12,15 @@ import { usePager, SliderPager } from '../widgets/slider-pager';
 // bare: the squares alone, no wrapper, to sit in a row of other controls and wrap one by one. slider: the squares in
 // one swiped row instead (SwatchSlider below), for a row that shouldn't wrap (the mini editor).
 const Swatches = ({ theme, update, className, style, bare, slider }) => {
-  const current = theme.value('palette');
-  const squares = theme.palettes.map((t, i) => (
-    <button key={i} type="button" className="border round shadow-sm hover-holographic" onClick={() => update({ palette: i })}
-      aria-pressed={i === current} aria-label={`Use theme ${i + 1}: ${t.primary.hex} and ${t.secondary.hex}`} title={`${t.primary.hex} · ${t.secondary.hex}`}
+  const current = theme.getPalette(theme.value('palette'))?.id;
+  const squares = theme.palettes.map((t) => (
+    <button key={t.id} type="button" className="border round shadow-sm hover-holographic" onClick={() => update({ palette: t.id })}
+      aria-pressed={t.id === current} aria-label={`Use palette ${t.id}: ${t.primary.hex} and ${t.secondary.hex}`} title={`${t.primary.hex} · ${t.secondary.hex}`}
       style={{ width: 'var(--icon-size)', aspectRatio: 1, padding: 0, backgroundImage: `linear-gradient(to bottom, ${t.primary.hex}, ${t.secondary.hex})`,
         // The theme in use: a ring in the page's text color round it.
-        ...(i === current && { outline: '2px solid var(--body-color)', outlineOffset: '2px' }) }} />
+        ...(t.id === current && { outline: '2px solid var(--body-color)', outlineOffset: '2px' }) }} />
   ));
-  if (slider) return <SwatchSlider squares={squares} current={current} />;
+  if (slider) return <SwatchSlider squares={squares} current={Math.max(theme.palettes.findIndex(t => t.id === current), 0)} />;
   if (bare) return squares;
   return (
     <div className={['row-wrap gap-sm', className].filter(Boolean).join(' ')} role="group" aria-label="Theme colors" style={style}>
@@ -42,6 +42,7 @@ const Swatches = ({ theme, update, className, style, bare, slider }) => {
  * hover), which makes its automatic minimum 0, and an auto column would let it spill over the squares.
  * Under 400px the mini editor caps the column at one square (--swatches-max, palette-swatches.css).
  */
+// current: the index of the palette in use among the squares.
 const SwatchSlider = ({ squares, current }) => {
   const pager = usePager();
   const swiper = useRef(null);

@@ -7,6 +7,7 @@
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../lib/context";
 import { DEFAULT_DESIGN } from '../../lib/design';
+import defaults from '../../lib/theme.defaults.json';
 import { applyScopes, paletteVars } from '../../lib/theme-scope';
 
 const Body = (props) => (
@@ -16,8 +17,9 @@ const Body = (props) => (
 );
 
 // Applies the saved theme to <html>: the COLORS in styles/defaults.css (the only ones meant to be changed at runtime)
-// from the same Color shades the canvas animations use, the mode (data-theme), glass (.glass) and the design style
-// (data-design; the server renders the default, layout.tsx), whenever the theme changes. Renders nothing.
+// from the same Color shades the canvas animations use, the mode (data-theme), glass (.glass), the design style
+// (data-design; the server renders the default, layout.tsx), the default hover (data-hover) and, with the default
+// design only, the defaults' vars (lib/theme.defaults.json), whenever the theme changes. Renders nothing.
 const SiteTheme = () => {
   const { theme } = useContext(ThemeContext);
   useEffect(() => {
@@ -29,6 +31,10 @@ const SiteTheme = () => {
     html.dataset.theme = theme.isDark ? 'dark' : 'light';
     html.classList.toggle('glass', !!theme.glass);
     html.dataset.design = theme.design ?? DEFAULT_DESIGN;
+    if (theme.hover) html.dataset.hover = theme.hover; else delete html.dataset.hover;
+    // The defaults' vars only go with the default design: pick another and they drop away.
+    const own = html.dataset.design === DEFAULT_DESIGN;
+    for (const [ prop, v ] of Object.entries(defaults.vars ?? {})) own ? html.style.setProperty(prop, v) : html.style.removeProperty(prop);
   }, [theme, theme?.version]);
   return null;
 }

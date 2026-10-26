@@ -46,7 +46,7 @@ const describe = (css, file) => {
   const text = (css.match(/\/\*([\s\S]*?)\*\//g) ?? []).map(c => c.replace(/^\/\*|\*\/$/g, '').replace(/^\s*\* ?/gm, '')).join('\n');
   const m = text.match(/THEME:\s*([^.]+)\.\s*Optional\.\s*([\s\S]*?)(?:\n\s*\n|\nTry it|$)/);
   return {
-    name: path.basename(file, '.css'),
+    id: path.basename(file, '.css'),
     title: m?.[1].trim() ?? path.basename(file, '.css'),
     description: (m?.[2] ?? '').replace(/\s+/g, ' ').trim(),
   };
@@ -86,7 +86,7 @@ for (const file of files) {
   tree.walkComments(c => c.remove());
   const body = tree.toString().trim().replace(/^/gm, '  ');
   blocks.push(`/* ${info.title} (styles/themes/${file}) */\n`
-    + `@scope ([data-design="${info.name}"]) to ([data-design]:not([data-design="${info.name}"])) {\n  ${rederive}\n${body}\n}`
+    + `@scope ([data-design="${info.id}"]) to ([data-design]:not([data-design="${info.id}"])) {\n  ${rederive}\n${body}\n}`
     + (frames.length ? `\n${frames.join('\n')}` : ''));
 }
 

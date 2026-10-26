@@ -12,7 +12,7 @@ import { withTheme } from "./hoc";
 
 const Palettes = (props) => {
   const [ modal, setModal ] = useState(false);
-  const current = props.theme.palettes[props.theme.value('palette')];
+  const current = props.theme.getPalette(props.theme.value('palette'));
 
   const add = (data) => {
     setModal(false);
@@ -20,29 +20,29 @@ const Palettes = (props) => {
     props.notify('Palette created', 'success');
   }
 
-  const remove = (index, event) => {
+  const remove = (id, event) => {
     event.stopPropagation();
-    if (index === props.theme.palette) {
+    if (id === props.theme.palette) {
       props.notify('The palette in use can\'t be deleted', 'danger');
       return;
     }
 
-    props.theme.remove(index);
+    props.theme.remove(id);
     props.notify('Palette deleted', 'success');
   }
 
   return (
     <>
       <div className="bg border round shadow pad grid cols-1 gap-sm content-start h-100">
-        <h3 className="h6 text-uppercase opacity-75">Palette: #{props.theme.value('palette')}</h3>
+        <h3 className="h6 text-uppercase opacity-75">Palette: {current?.id}</h3>
         <Carousel slideWidth="11rem" label="Palettes">
           <button key="add" type="button" className="bg border round shadow col-center gap-sm h-100 w-100 hover-holographic" onClick={() => setModal(true)}>
             <Icon name="circle-plus" />
             <span className="fs-sm">Add palette</span>
           </button>
-          {props.theme.palettes.map((single, i) => (
-            <ThemeCard key={i} data={single} id={i} active={i === props.theme.value('palette')}
-              update={() => props.update({ palette: i })} remove={remove} />
+          {props.theme.palettes.map((single) => (
+            <ThemeCard key={single.id} data={single} id={single.id} active={single.id === current?.id}
+              update={() => props.update({ palette: single.id })} remove={remove} />
           ))}
         </Carousel>
       </div>
@@ -70,7 +70,7 @@ const ThemeCard = (props) => {
   const colors = [ { name: 'primary', hex: data.primary.hex }, { name: 'secondary', hex: data.secondary.hex } ];
   return (
     <div className="bg border round shadow grid cols-1 gap-0 h-100 overflow-hidden hover-holographic" style={{ gridTemplateRows: '1fr auto' }}>
-      <div className="w-100" style={{ aspectRatio: '2 / 1', backgroundImage: bg }} role="img" aria-label={`Palette #${id} colors`} />
+      <div className="w-100" style={{ aspectRatio: '2 / 1', backgroundImage: bg }} role="img" aria-label={`palette ${id} colors`} />
       <div className="pad-sm grid auto-cols items-center gap-sm" style={{ justifyContent: 'space-between' }}>
         <ul className="grid cols-1 text-uppercase" style={{ '--gap': 'var(--space-xs)', fontSize: 'var(--text-xs)' }}>
           {colors.map(c => (
@@ -81,7 +81,7 @@ const ThemeCard = (props) => {
           ))}
         </ul>
         <div className="grid auto-cols" style={{ '--gap': 'var(--space-xs)' }}>
-          <Button icon="fill-drip" className="success" aria-label={`Use palette #${id}`}
+          <Button icon="fill-drip" className="success" aria-label={`Use palette ${id}`}
             title={active ? 'Current palette' : 'Use this palette'} aria-pressed={active} onClick={update} />
           <Button icon="trash-can" className="outline-danger" aria-label={`Delete palette #${id}`} title="Delete this palette"
             onClick={(event) => remove(id, event)} />
