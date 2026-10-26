@@ -9,6 +9,7 @@
     "url": "git+https://github.com/marcoscenteno89/marccent-theme.git"
   },
   "homepage": "https://github.com/marcoscenteno89/marccent-theme#readme",
+  "main": "core/index.js",
   "scripts": {
     "designs": "node styles/themes/designs.gen.mjs"
   },
