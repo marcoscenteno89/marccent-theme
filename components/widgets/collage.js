@@ -31,8 +31,8 @@ const BORDER = {
 
 // Small pieces for the cards' content. Spinner: Loading waits for a value that never comes, so it keeps spinning.
 const Spinner = ({ kind, width = '3rem' }) => <div data-component="spinner" style={{ width, justifySelf: 'center' }}><Loading require={[ null ]} kind={kind} /></div>;
-const Light = (props) => <Button data-component="light" className="light" {...props} />;
-const Ghost = ({ icon, label }) => <Button data-component="ghost" icon={icon} aria-label={label} style={{ color: 'inherit', borderColor: 'rgb(255 255 255 / .5)' }} />;
+const Light = (props) => <Button data-name="light" className="light" {...props} />;
+const Ghost = ({ icon, label }) => <Button data-name="ghost" icon={icon} aria-label={label} style={{ color: 'inherit', borderColor: 'rgb(255 255 255 / .5)' }} />;
 const Stars = ({ n }) => (
   <span data-component="stars" className="grid auto-cols gap-0" aria-label={`${n} out of 5 stars`} style={{ color: '#ffd166', justifyContent: 'inherit' }}>
     {[1, 2, 3, 4, 5].map(i => <Icon key={i} name="star" family={i <= n ? 'fa-solid' : 'fa-regular'} style={{ '--icon-size': '1.1em' }} />)}

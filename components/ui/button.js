@@ -27,7 +27,8 @@ import '../../styles/components/button.css';
 const Button = ({ icon = false, href, disabled = false, className, children, trace = false, 'data-component': component = 'button', ...rest }) => {
   // A disabled link: no href (nothing to follow), out of the tab order, announced as disabled.
   const off = disabled && href ? { 'aria-disabled': true, tabIndex: -1 } : {};
-  // What it is, in the HTML: "button", or what's built on it ("toggle-button"…) passing its own name.
+  // What it is, in the HTML (README: In the HTML): "button", or what's built on it ("toggle-button"…) passing its
+  // own; data-name, which one, goes through with the rest.
   rest = { 'data-component': component, ...rest };
   if (!icon) {
     const cls = cx('btn-link', disabled && 'disabled', className);

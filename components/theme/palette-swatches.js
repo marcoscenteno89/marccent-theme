@@ -17,14 +17,14 @@ const Swatches = ({ theme, update, className, style, bare, slider }) => {
   const narrow = useMedia('(width < 400px)');
   const current = theme.getPalette(theme.value('palette'))?.id;
   const squares = theme.palettes.map((t) => (
-    <button key={t.id} type="button" className="border round shadow-sm hover-holographic" onClick={() => update({ palette: t.id })}
+    <button data-component="button" data-name={t.id} key={t.id} type="button" className="border round shadow-sm hover-holographic" onClick={() => update({ palette: t.id })}
       aria-pressed={t.id === current} aria-label={`Use palette ${t.id}: ${t.primary.hex} and ${t.secondary.hex}`} title={`${t.primary.hex} · ${t.secondary.hex}`}
       style={{ width: 'var(--icon-size)', aspectRatio: 1, padding: 0, backgroundImage: `linear-gradient(to bottom, ${t.primary.hex}, ${t.secondary.hex})`,
         // The theme in use: a ring in the page's text color round it.
         ...(t.id === current && { outline: '2px solid var(--body-color)', outlineOffset: '2px' }) }} />
   ));
   if (slider && narrow) return (
-    <ToggleButton data-component="palette-swatches" icon="palette" activeIcon="xmark" aria-label="Theme colors" title="Theme colors"
+    <ToggleButton data-name="palette" icon="palette" activeIcon="xmark" aria-label="Theme colors" title="Theme colors"
       panel={<div className="row-wrap gap-sm" style={{ padding: '4px' }}>{squares}</div>} />
   );
   if (slider) return <SwatchSlider squares={squares} current={Math.max(theme.palettes.findIndex(t => t.id === current), 0)} />;

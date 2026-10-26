@@ -488,7 +488,7 @@ class Snow extends Animation {
  * destroyed on unmount); on every theme change it takes the new theme, becomes the sketch's draw and draws one
  * frame right away, so a paused canvas (off screen, reduced motion) still shows the change. A colors prop (an
  * array of CSS colors) replaces the theme's, read once when it's built.
- * @param {typeof Animation} AnimationClass @param {string} name - Its data-component ("blob-canvas").
+ * @param {typeof Animation} AnimationClass @param {string} name - Its data-name ("blob").
  */
 const animate = (AnimationClass, name) => {
   const Animated = (props) => {
@@ -829,18 +829,18 @@ const Graph = (props) => {
   return <div ref={readout} className="chart-readout order-first" />;
 }
 
-const GraphCanvas = withThemeCanvas(Graph, { decorative: false, name: 'graph-canvas' }); // a chart people read: full sharpness, no pausing
-const BlobCanvas = animate(Blob, 'blob-canvas');
-const FireCanvas = animate(Fire, 'fire-canvas');
-const WaveCanvas = animate(Wave, 'wave-canvas');
-const NetworkLoopCanvas = animate(NetworkLoop, 'network-loop-canvas');
-const ParticleFlowfieldCanvas = animate(ParticleFlowfield, 'particle-flowfield-canvas');
-const OrbitAnimCanvas = animate(OrbitAnim, 'orbit-canvas');
-const SnowCanvas = animate(Snow, 'snow-canvas');
-const FirefliesCanvas = animate(Fireflies, 'fireflies-canvas');
-const LeavesCanvas = animate(Leaves, 'leaves-canvas');
-const RainCanvas = animate(Rain, 'rain-canvas');
-const BubblesCanvas = animate(Bubbles, 'bubbles-canvas');
+const GraphCanvas = withThemeCanvas(Graph, { decorative: false, name: 'graph' }); // a chart people read: full sharpness, no pausing
+const BlobCanvas = animate(Blob, 'blob');
+const FireCanvas = animate(Fire, 'fire');
+const WaveCanvas = animate(Wave, 'wave');
+const NetworkLoopCanvas = animate(NetworkLoop, 'network-loop');
+const ParticleFlowfieldCanvas = animate(ParticleFlowfield, 'particle-flowfield');
+const OrbitAnimCanvas = animate(OrbitAnim, 'orbit');
+const SnowCanvas = animate(Snow, 'snow');
+const FirefliesCanvas = animate(Fireflies, 'fireflies');
+const LeavesCanvas = animate(Leaves, 'leaves');
+const RainCanvas = animate(Rain, 'rain');
+const BubblesCanvas = animate(Bubbles, 'bubbles');
 
 export {
   ParticleFlowfieldCanvas, OrbitAnimCanvas, BlobCanvas, FireCanvas, NetworkLoopCanvas, WaveCanvas, SnowCanvas,

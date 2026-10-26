@@ -4,7 +4,7 @@ import '../../styles/components/pagination.css';
 
 // One pagination button. Outside Pagination, so it keeps its identity (and keyboard focus) across renders.
 const PageCell = ({ page, label, disabled, current, update, children }) => (
-  <button type="button" className="page-link col-center w-100 h-100"
+  <button data-component="button" data-name={label ?? page} type="button" className="page-link col-center w-100 h-100"
     disabled={disabled} aria-label={label} aria-current={page === current && !label ? 'page' : undefined} onClick={() => update(page)}>
     {children}
   </button>

@@ -5,10 +5,11 @@ import { ThemeContext } from '../../lib/context';
 import { decorativeObserver, DECORATIVE_FPS } from '../theme/hoc';
 
 /*
- * CanvasScanner: gives any element a canvas background from its markup, no component needed:
- *   <section data-canvas="blob">…</section>
- *   <div data-canvas="fire" data-canvas-fps="20">…</div>
- *   <div data-canvas="snow" data-canvas-colors="#fff">…</div>   (colors that replace the theme's, comma-separated)
+ * CanvasScanner: gives any element a canvas background from its markup, no component needed: data-component
+ * "animation" (a word of it: "button animation" for a Button with one behind it), data-name which one:
+ *   <section data-component="animation" data-name="blob">…</section>
+ *   <div data-component="animation" data-name="fire" data-fps="20">…</div>
+ *   <div data-component="animation" data-name="snow" data-colors="#fff">…</div>   (colors that replace the theme's, comma-separated)
  * Names: blob, fire, wave, network-loop, particle-flowfield, orbit, snow, fireflies, leaves, rain, bubbles (the
  * canvas.js Animation classes). The canvas sits behind the element's content and fills it; the element becomes a
  * positioning box (position: relative, unless it already is one) and its own stacking context (isolation), so the
@@ -25,9 +26,9 @@ const NAMES = {
 };
 
 // What a host's background is built from: a change to either rebuilds it.
-const keyOf = (host) => `${host.dataset.canvas}|${host.dataset.canvasColors ?? ''}`;
+const keyOf = (host) => `${host.dataset.name}|${host.dataset.colors ?? ''}`;
 
-// Both modules once, the first time a page has a [data-canvas].
+// Both modules once, the first time a page has an animation.
 let modules = null;
 const load = () => (modules ??= Promise.all([ import('p5'), import('./canvas') ])
   .then(([ p5, canvas ]) => ({ p5: p5.default, canvas })));
@@ -51,9 +52,9 @@ class CanvasBackground {
     this.sketch = new p5((p) => { this.p = p; });
     this.scene = new Scene(this.p, this.layer, { pauseOffscreen: false });
     this.p.pixelDensity(1);
-    this.p.frameRate(Number(host.dataset.canvasFps) || DECORATIVE_FPS);
+    this.p.frameRate(Number(host.dataset.fps) || DECORATIVE_FPS);
     this.stopObserver = decorativeObserver(this.p, this.layer);
-    this.anim = new AnimationClass(this.scene, this.layer, host.dataset.canvasColors?.split(',').map((c) => c.trim()).filter(Boolean));
+    this.anim = new AnimationClass(this.scene, this.layer, host.dataset.colors?.split(',').map((c) => c.trim()).filter(Boolean));
     this.sketch.draw = () => this.anim.draw();
     this.theme(theme);
   }
@@ -80,7 +81,7 @@ const CanvasScanner = () => {
   themeRef.current = theme;
   const ready = Boolean(theme); // scanning starts once the theme has loaded, and doesn't restart on every theme change
 
-  // Mount a background on every new [data-canvas] (or one whose name or colors changed), remove the ones that left the page.
+  // Mount a background on every new animation (or one whose name or colors changed), remove the ones that left the page.
   useEffect(() => {
     if (!ready) return;
     const live = running.current;
@@ -89,13 +90,13 @@ const CanvasScanner = () => {
       for (const [ host, bg ] of live) {
         if (!host.isConnected || keyOf(host) !== bg.key) { bg.destroy(); live.delete(host); }
       }
-      const hosts = [ ...document.querySelectorAll('[data-canvas]') ].filter((el) => !live.has(el) && NAMES[el.dataset.canvas]);
+      const hosts = [ ...document.querySelectorAll('[data-component~="animation"]') ].filter((el) => !live.has(el) && NAMES[el.dataset.name]);
       if (!hosts.length) return;
       const { p5, canvas } = await load();
       if (cancelled) return;
       for (const host of hosts) {
         if (live.has(host) || !host.isConnected) continue;
-        const bg = new CanvasBackground(host, canvas[NAMES[host.dataset.canvas]], p5, themeRef.current);
+        const bg = new CanvasBackground(host, canvas[NAMES[host.dataset.name]], p5, themeRef.current);
         bg.key = keyOf(host);
         live.set(host, bg);
       }
@@ -103,7 +104,7 @@ const CanvasScanner = () => {
     scan();
     let queued = null;
     const mo = new MutationObserver(() => { if (!queued) queued = requestAnimationFrame(() => { queued = null; scan(); }); });
-    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: [ 'data-canvas', 'data-canvas-colors' ] });
+    mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: [ 'data-component', 'data-name', 'data-colors' ] });
     return () => { cancelled = true; mo.disconnect(); if (queued) cancelAnimationFrame(queued); };
   }, [ pathname, ready ]);
 

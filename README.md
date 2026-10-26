@@ -5,7 +5,7 @@ A theme for Next.js sites: a full CSS system, a live theme engine visitors can e
 - **CSS**: tokens, a grid layout system, utilities, hover effects and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
 - **UI kit**: Button, Icon (Font Awesome), Modal, Form, Field, Toast, Accordion, Pagination, Loading and more.
-- **Animations**: canvas backgrounds on any element with `data-canvas="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
+- **Animations**: canvas backgrounds on any element with `data-component="animation" data-name="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
 
 ## Install
 
@@ -59,6 +59,23 @@ export default function RootLayout({ children }) {
 `ThemeProvider` takes an optional `notify(msg, tone)` for the theme's messages; by default they go to its toasts.
 
 To put your own styles between the theme's (overrides after the defaults, custom styles after the layout), import the files listed in `styles/index.css` one by one instead, in the same order.
+
+## In the HTML
+
+Every component marks itself with two attributes, so it's easy to find in the browser's inspector (and to style or
+query):
+
+- `data-component`: what kind of thing it is: `button`, `toggle-button`, `stat-card`, `animation`…
+- `data-name`: which one, when there are several: `mode`, `glass`, `humidity`, `snow`…
+
+```html
+<button data-component="toggle-button" data-name="mode">…</button>
+<div data-component="animation" data-name="fire" data-fps="20" data-colors="#ff3d00, #ffb300"></div>
+```
+
+A component with its own markup has its own `data-component`; a configured use of another (the mode toggle is a
+`ToggleButton`) keeps that kind and gets a `data-name`. `data-component` can hold several words: `"button animation"`
+is a Button with an animation behind it (select a word with `[data-component~="animation"]`).
 
 ## Design styles
 

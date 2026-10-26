@@ -157,7 +157,7 @@ const Orbit = ({ items, start = 0, startAngle = 0, wheel, center, hub = true, of
                   transform: `rotate(${angleOf(i)}deg) translate(var(--orbit-radius)) rotate(${-angleOf(i)}deg)` }}>
                   {sync
                     ? <span {...button} aria-hidden="true">{icon}</span>
-                    : <button type="button" {...button} aria-label={item.title} aria-pressed={i === active} onClick={() => player.select(i)}>{icon}</button>}
+                    : <button data-component="button" data-name={item.title} type="button" {...button} aria-label={item.title} aria-pressed={i === active} onClick={() => player.select(i)}>{icon}</button>}
                 </li>
               );
             })}
@@ -293,7 +293,7 @@ const SolarSystem = ({ className, style }) => {
                   '--ring-hole': 'calc(100% - 1px)', background: 'var(--border-color)', pointerEvents: 'none' }} />
                 <div className="stack" data-lap={p.lap} data-from={from} data-dir={1}
                   style={{ width: `${p.radius * 2}cqi`, aspectRatio: 1, rotate: `${from}deg`, pointerEvents: 'none' }}>
-                  <button type="button" className="stack" aria-label={p.name} aria-pressed={active === i}
+                  <button data-component="button" data-name={p.name} type="button" className="stack" aria-label={p.name} aria-pressed={active === i}
                     onClick={() => setActive(active === i ? null : i)} data-lap={p.lap} data-from={-from} data-dir={-1}
                     style={{ placeSelf: 'center end', translate: '50% 0', rotate: `${-from}deg`, placeItems: 'center',
                       padding: 0, border: 0, background: 'none', cursor: 'pointer', pointerEvents: 'auto' }}>
@@ -385,7 +385,7 @@ const Countdown = ({ from = 5, onDone, className, style }) => {
     const timer = new CountdownTimer(ref.current, from, () => done.current?.());
     return () => timer.destroy();
   }, [from]);
-  return <GooDigit ref={ref} data-component="countdown" digit={null} className={className} style={style} role="timer" />;
+  return <GooDigit ref={ref} data-name="countdown" digit={null} className={className} style={style} role="timer" />;
 }
 
 /* ---------- parallax ---------- */

@@ -100,7 +100,7 @@ const StepForm = ({ onSubmit, onStep, className = 'grid cols-1 gap-sm', children
     <form data-component="step-form" ref={form} className={className} aria-busy={busy || undefined} {...rest} onSubmit={submit}>
       <div className="grid fixed gap-0 divide border round" style={{ '--cols': steps.length }}>
         {steps.map((step, i) => (
-          <button key={step.props.name} type="button" aria-current={i === current ? 'step' : undefined}
+          <button data-component="button" data-name={step.props.name} key={step.props.name} type="button" aria-current={i === current ? 'step' : undefined}
             className="page-link col-center w-100 h-100"
             onClick={() => go(i)}>
             {i + 1}. {step.props.name}

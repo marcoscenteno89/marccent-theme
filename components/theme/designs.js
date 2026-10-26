@@ -19,7 +19,7 @@ const OPTIONS = [ ...DESIGNS, { id: 'none', title: 'Plain', description: 'No des
 const Select = ({ theme, update, className }) => {
   const current = theme.value('design') ?? DEFAULT_DESIGN;
   return (
-    <ExpandButton data-component="design-select" icon="swatchbook" label="Design Style" className={className}>
+    <ExpandButton data-name="design-style" icon="swatchbook" label="Design Style" className={className}>
       <select aria-label="Design Style" value={current} onChange={(e) => update({ design: e.target.value })}
         style={{ background: 'none', border: 0, color: 'inherit', font: 'inherit', cursor: 'pointer' }}>
         {/* The list in the page's colors: the select's inherited light text would otherwise sit on a white list. */}

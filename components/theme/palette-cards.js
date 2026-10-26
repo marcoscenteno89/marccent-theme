@@ -37,7 +37,7 @@ const Palettes = (props) => {
       <div data-component="palette-cards" className="bg border round shadow pad grid cols-1 gap-sm content-start h-100">
         <h3 className="h6 text-uppercase opacity-75">Palette: {current?.id}</h3>
         <Carousel slideWidth="11rem" label="Palettes">
-          <button key="add" type="button" className="bg border round shadow col-center gap-sm h-100 w-100 hover-holographic" onClick={() => setModal(true)}>
+          <button data-component="button" data-name="add" key="add" type="button" className="bg border round shadow col-center gap-sm h-100 w-100 hover-holographic" onClick={() => setModal(true)}>
             <Icon name="circle-plus" />
             <span className="fs-sm">Add palette</span>
           </button>

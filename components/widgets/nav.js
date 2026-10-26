@@ -41,7 +41,7 @@ const RadialMenu = ({ items, radius = '5rem', label = 'Quick menu', className })
         );
       })}
       {/* Its own round button, not a .btn (the design styles restyle those); the plus turns into an x as it opens. */}
-      <button type="button" className="circle bg-gradient col-center shadow" {...attrs} aria-label={label} onClick={flip}
+      <button data-component="button" data-name="toggle" type="button" className="circle bg-gradient col-center shadow" {...attrs} aria-label={label} onClick={flip}
         style={{ width: `calc(${size} * 1.25)`, aspectRatio: 1, padding: 0, border: 0, color: 'var(--light)', cursor: 'pointer',
           rotate: open ? '135deg' : '0deg', transition: `rotate ${ease}` }}>
         <Icon name="plus" className="fs-lg" />
@@ -64,7 +64,7 @@ const StepBar = ({ steps, start = 0, onChange, className }) => {
   return (
     <nav data-component="step-bar" aria-label="Steps" className={cx('grid fixed gap-0', className)} style={{ '--cols': steps.length * 3 + 1, columnGap: '.2rem' }}>
       {steps.map((step, i) => (
-        <button key={step} type="button" aria-current={i === current ? 'step' : undefined} onClick={() => go(i)}
+        <button data-component="button" data-name={step} key={step} type="button" aria-current={i === current ? 'step' : undefined} onClick={() => go(i)}
           className={cx('center gap-sm icon-only-sm', i > 0 && 'shape-chevron-right', i < current && 'bg-primary', i === current && 'bg-gradient')}
           style={{ gridRow: 1, gridColumn: `${i * 3 + 1} / span 4`, aspectRatio: 'auto', minHeight: '3rem', border: 0,
             color: i > current ? 'inherit' : 'var(--light)', cursor: 'pointer', paddingInline: '25%', clipPath: i === 0 ? point : undefined,
@@ -97,7 +97,7 @@ const TabBar = ({ tabs, className }) => {
       <div className="grid cols-1 gap-0 border-bottom">
         <div ref={list} role="tablist" className="grid fixed gap-0" style={{ '--cols': tabs.length }} onKeyDown={key}>
           {tabs.map((t, i) => (
-            <button key={t.label} type="button" role="tab" aria-selected={i === active} tabIndex={i === active ? 0 : -1}
+            <button data-component="button" data-name={t.label} key={t.label} type="button" role="tab" aria-selected={i === active} tabIndex={i === active ? 0 : -1}
               onClick={() => setActive(i)} className={cx('center gap-sm pad-sm icon-only-sm', i === active ? 'text-primary fw-bold' : 'opacity-75')}
               style={{ border: 0, background: 'none', color: i === active ? undefined : 'inherit', cursor: 'pointer', transition: 'opacity var(--duration)' }}>
               {t.icon && <Icon name={t.icon} />}<span className="btn-text">{t.label}</span>

@@ -58,9 +58,9 @@ const SliderPager = ({ pager, className, style, compact }) => {
   const icon = compact ? { width: '1.75em' } : undefined;
   return (
     <div data-component="slider-pager" className={cx('center gap-0 bg border shadow-sm hover-holographic', className)} style={{ justifySelf: 'center', marginTop: '-2rem', borderRadius: '99px', position: 'relative', zIndex: 2, ...(compact && { fontSize: 'var(--text-sm)' }), ...style }}>
-      <button ref={prev} type="button" className="col-center" style={arrow} aria-label="Previous slide"><Icon name="arrow-left" style={icon} /></button>
+      <button data-component="button" data-name="prev" ref={prev} type="button" className="col-center" style={arrow} aria-label="Previous slide"><Icon name="arrow-left" style={icon} /></button>
       <span ref={count} className={compact ? 'fw-bold' : 'fs-sm fw-bold pad-x-sm'} style={compact ? { whiteSpace: 'nowrap' } : undefined} />
-      <button ref={next} type="button" className="col-center" style={arrow} aria-label="Next slide"><Icon name="arrow-right" style={icon} /></button>
+      <button data-component="button" data-name="next" ref={next} type="button" className="col-center" style={arrow} aria-label="Next slide"><Icon name="arrow-right" style={icon} /></button>
     </div>
   );
 };

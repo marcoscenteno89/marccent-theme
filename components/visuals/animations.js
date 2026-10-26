@@ -1,6 +1,6 @@
 'use client';
 // The canvas animations (canvas.js) as a player: one large animation and, under it, a slider of all of them to pick
-// which one it plays. Every canvas is a data-canvas element (visuals/canvas-scanner.js mounts and swaps them), so the
+// which one it plays. Every canvas is an animation element (data-component="animation") (visuals/canvas-scanner.js mounts and swaps them), so the
 // player only keeps which one is picked.
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,7 +11,7 @@ import { ImageCard } from '../widgets/layout';
 import { usePager, SliderPager } from '../widgets/slider-pager';
 import { cx } from '../../lib/cx';
 
-// Every animation: its data-canvas name, title and a line on what it does.
+// Every animation: its name (data-name), title and a line on what it does.
 const ANIMATIONS = [
   { key: 'blob', name: 'Blob', about: 'Gradient shapes that merge and split' },
   { key: 'network-loop', name: 'Network Loop', about: 'Points that link up as they drift' },
@@ -53,7 +53,7 @@ const AnimPlayer = () => {
                   gradient button. */}
               <div className={cx('bg border round grid cols-1 gap-0 overflow-hidden hover-holographic', picked ? 'shadow-lg' : 'shadow')}
                 style={picked ? { borderColor: 'var(--primary)' } : undefined}>
-                <div data-canvas={anim.key} data-canvas-fps="20" className="border-bottom" style={{ height: '160px' }} />
+                <div data-component="animation" data-name={anim.key} data-fps="20" className="border-bottom" style={{ height: '160px' }} />
                 <div className="header pad">
                   <div className="grid cols-1 gap-0">
                     <span className="fw-bold">{anim.name}</span>

@@ -20,12 +20,12 @@ const TINT = 'color-mix(in srgb, var(--primary) 14%, var(--surface))';
  *   (e.g. a flower: [[0,1],[0,3],[1,0],[1,2],[1,4],[2,1],[2,3]]).
  * @param {number} [gap=.94] - Each hexagon's scale in its cell: the gap between them.
  */
-const HexGrid = ({ perRow = 5, at, gap = .94, className, style, children, 'data-component': component = 'hex-grid' }) => {
+const HexGrid = ({ perRow = 5, at, gap = .94, className, style, children, 'data-name': name }) => {
   const items = Children.toArray(children);
   const place = (i) => at ? at[i] : [ Math.floor(i / perRow), (i % perRow) * 2 + Math.floor(i / perRow) % 2 ];
   const cols = at ? Math.max(...at.map(([ , c ]) => c)) + 2 : perRow * 2 + 1;
   return (
-    <div data-component={component} className={cx('grid fixed gap-0', className)} style={{ '--cols': cols, gridAutoRows: '1fr', ...style }}>
+    <div data-component="hex-grid" data-name={name} className={cx('grid fixed gap-0', className)} style={{ '--cols': cols, gridAutoRows: '1fr', ...style }}>
       {items.map((child, i) => {
         const [ row, col ] = place(i);
         return (
@@ -64,7 +64,7 @@ const HexFlip = ({ front, back, frontClass = 'bg-gradient', backClass = 'bg-prim
  * @param {number} [perRow=4]
  */
 const HexWall = ({ people, perRow = 4, className, style }) => (
-  <HexGrid data-component="hex-wall" perRow={perRow} className={className} style={style}>
+  <HexGrid data-name="hex-wall" perRow={perRow} className={className} style={style}>
     {people.map((p, i) => (
       <HexFlip key={p.name} label={`${p.name}${p.role ? `, ${p.role}` : ''}`}
         frontClass={[ 'bg-gradient', 'bg-primary', 'bg-secondary', 'bg-gradient-darker' ][i % 4]}
@@ -190,11 +190,11 @@ const GLASS = { background: 'rgb(10 14 22 / .32)', border: '1px solid rgb(255 25
  * card's size comes from ratio (or its grid cell), not from the photo.
  * @param {Object} props
  * @param {string} props.src - The photo, e.g. "/img/blue1.webp". @param {string} [props.alt=""] - Empty: decorative.
- * @param {string} [props.canvas] - Instead of a photo, a live canvas animation by name ("blob", "snow"…: data-canvas,
- *   visuals/canvas-scanner.js), on the page surface. With src as well, it plays over the photo instead (snow falling
+ * @param {string} [props.canvas] - Instead of a photo, a live canvas animation by name ("blob", "snow"…: an animation
+ *   element, visuals/canvas-scanner.js), on the page surface. With src as well, it plays over the photo instead (snow falling
  *   on a winter photo); a soft shadow keeps light particles visible on a light photo. @param {number} [props.fps] - Its frame rate (default 30).
  * @param {string} [props.colors] - The animation's own colors instead of the theme's, comma-separated CSS colors
- *   (data-canvas-colors): "#fff" keeps snow white, "#ff3d00, #ffb300" makes fire red and amber, in any theme.
+ *   (data-colors): "#fff" keeps snow white, "#ff3d00, #ffb300" makes fire red and amber, in any theme.
  * @param {string} [props.label] - Small, uppercase, above the title (a category, a place, a date).
  * @param {React.ReactNode} [props.title]
  * @param {React.ReactNode} [props.text] - A line or two under the title.
@@ -227,7 +227,7 @@ const ImageCard = ({ src, canvas, fps, colors, alt = '', label, title, text, chi
     <article data-component="image-card" className={cx('stack round shadow overflow-hidden hover-holographic', circle && 'circle', centered && 'text-center', className)}
       style={{ aspectRatio: ratio ?? undefined, ...style }}>
       {canvas && !src
-        ? <div data-canvas={canvas} data-canvas-fps={fps} data-canvas-colors={colors} className="bg w-100 h-100" role={alt ? 'img' : undefined} aria-label={alt || undefined} />
+        ? <div data-component="animation" data-name={canvas} data-fps={fps} data-colors={colors} className="bg w-100 h-100" role={alt ? 'img' : undefined} aria-label={alt || undefined} />
         : <img src={src} alt={alt} loading="lazy" decoding="async" className="w-100 h-100" style={photo} />}
       {canvas && !src && frost && <div style={frost} />}
       {/* blur / focus: the same photo again, blurred and masked, so only part of it is soft. */}
@@ -235,7 +235,7 @@ const ImageCard = ({ src, canvas, fps, colors, alt = '', label, title, text, chi
         style={{ ...photo, filter: 'blur(14px) saturate(120%)', scale: '1.12', WebkitMaskImage: BLUR_MASK[overlay], maskImage: BLUR_MASK[overlay] }} />}
       {overlay === 'tint' && <div className="bg-gradient" style={{ opacity: .55, mixBlendMode: 'multiply' }} />}
       {/* src and canvas: the animation over the photo (and its blur / tint), under the fade and text. */}
-      {canvas && src && <div data-canvas={canvas} data-canvas-fps={fps} data-canvas-colors={colors} aria-hidden="true" className="w-100 h-100"
+      {canvas && src && <div data-component="animation" data-name={canvas} data-fps={fps} data-colors={colors} aria-hidden="true" className="w-100 h-100"
         style={{ filter: 'drop-shadow(0 0 2px rgb(0 0 0 / .45))' }} />}
       {overlay !== 'none' && overlay !== 'glass' && <div style={{ position: 'relative', background: centered ? 'rgb(0 0 0 / .35)' : overlay === 'tint' ? SOFT : FADE }} />}
       {/* The fade, badge and content are positioned (relative), so they paint above the blurred, scaled and blended

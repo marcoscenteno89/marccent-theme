@@ -9,7 +9,7 @@ import { SITE } from '../../lib/singleton';
 import { withTheme } from "./hoc";
 
 const RainbowButton = (props) => (
-  <ToggleButton data-component="rainbow-toggle" icon="wand-magic" activeIcon="wand-magic-sparkles" className={props.className} aria-label="Rainbow mode"
+  <ToggleButton data-name="rainbow" icon="wand-magic" activeIcon="wand-magic-sparkles" className={props.className} aria-label="Rainbow mode"
     open={!!props.theme.rainbow} onToggle={(rainbow) => props.update({ rainbow })} />
 );
 
@@ -17,7 +17,7 @@ const RainbowButton = (props) => (
 const ModeButton = (props) => {
   const isDark = !!props.theme.value('isDark'); // the scope's own, else the site's (Theme.scoped)
   return (
-    <ToggleButton data-component="mode-toggle" icon="moon" activeIcon="sun" activeLabel="Light" className={[isDark ? 'light' : 'dark', props.className].filter(Boolean).join(' ')}
+    <ToggleButton data-name="mode" icon="moon" activeIcon="sun" activeLabel="Light" className={[isDark ? 'light' : 'dark', props.className].filter(Boolean).join(' ')}
       open={isDark} onToggle={(isDark) => props.update({ isDark })}>
       Dark
     </ToggleButton>
@@ -52,7 +52,7 @@ const GlassButton = (props) => {
     return () => cancelAnimationFrame(frame);
   }, [ design, props.theme.scopeId ]);
   return (
-    <ToggleButton data-component="glass-toggle" icon="fa-brands fa-hornbill" className={props.className} style={{ ...GLASS, ...props.style }}
+    <ToggleButton data-name="glass" icon="fa-brands fa-hornbill" className={props.className} style={{ ...GLASS, ...props.style }}
       open={!builtIn && !!glass} onToggle={(glass) => props.update({ glass })}
       disabled={builtIn} title={builtIn ? 'Glass is built into this theme' : 'Glass'}>
       Glass
@@ -62,7 +62,7 @@ const GlassButton = (props) => {
 
 // ThemeReset: the scope back to where it started (the site: every default; a section: the site's theme).
 const ResetButton = (props) => (
-  <Button data-component="theme-reset" icon="rotate-left" className={props.className} onClick={props.reset}
+  <Button data-name="theme-reset" icon="rotate-left" className={props.className} onClick={props.reset}
     title={props.theme.scopeId === SITE ? 'Put the whole site back to the default theme' : 'Put this section back to the site theme'}>Reset</Button>
 );
 
