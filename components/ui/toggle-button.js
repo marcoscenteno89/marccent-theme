@@ -10,7 +10,7 @@ import '../../styles/components/button.css';
  * What it says it is:
  *  - panel: it opens that content itself, in a panel in front of the page under the button, like a phone menu.
  *    The panel is a popover: in the top layer, so no overflow or stacking clips it, and the browser closes it on a
- *    tap outside, on Esc or on the button. Never wider than the screen less 2rem a side, nor taller than the room
+ *    tap outside, on Esc or on the button. Never wider than 70% of the screen, nor taller than 60% of it or the room
  *    under the button (.toggle-panel, button.css), so there's always page left to tap.
  *  - controls (the id of what it opens: a nav, a menu): a disclosure (aria-expanded, aria-controls); Esc closes it.
  *  - neither: a pressed toggle (aria-pressed), unless activeLabel changes the label: then the label says the state
@@ -76,7 +76,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
     const place = () => {
       const r = button.getBoundingClientRect();
       el.style.top = `${r.bottom + 8}px`;
-      el.style.maxHeight = `calc(100dvh - ${r.bottom + 8}px - 1rem)`;
+      el.style.maxHeight = `min(60dvh, calc(100dvh - ${r.bottom + 8}px - 1rem))`;
     };
     const opening = (e) => { if (e.newState === 'open') place(); set(e.newState === 'open'); };
     const shown = (e) => e.newState === 'open' && el.querySelector('select, input, textarea, button, a[href], [tabindex]')?.focus();
