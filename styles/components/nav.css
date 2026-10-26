@@ -1,5 +1,5 @@
 @import "../layers.css";
-/* NAV (Bootstrap's navbar; the site header in components/layout/header.tsx). Markup: a .nav bar (full width, its
+/* NAV (Bootstrap's navbar: NavBar in components/widgets/navbar.js). Markup: a .nav bar (full width, its
    background) around a .wrap.grid.layout-ends row (like Bootstrap's .navbar > .container) holding the brand, a
    .btn.nav-toggle, a .nav-collapse (the menus) and the always-visible tools (.col-last).
    From 56rem (the layout-ends breakpoint) the toggle hides and .nav-collapse is display: contents, so its menus are

@@ -1,5 +1,5 @@
 @import "../layers.css";
-/* MENU (Menu in components/layout/menus.js). Layout comes from layout.css on the markup; this is the look. */
+/* MENU (Menu in components/ui/menu.js). Layout comes from layout.css on the markup; this is the look. */
 @layer components {
 .menu-link {
   display: inline-grid;
@@ -40,4 +40,32 @@
   z-index: 1000;
   min-width: max-content;
 }
+
+/* Submenu (.menu-sub: a dropdown inside a panel). Wide container: it flies out beside its row, its top lined up
+   with the row's (the panel's padding and border back up). The caret points to where it opens. */
+.menu-sub > summary::after { content: '\25B8'; } /* ▸ */
+.menu-sub[open] > summary::after { rotate: none; }
+.menu-sub > .menu-panel {
+  top: calc(-1 * (var(--pad) + var(--border-width)));
+  left: calc(100% + var(--pad));
+}
+}
+
+/* Unlayered, and two classes deep, because these take back what a panel's utility classes give it (border, round,
+   shadow, pad: unlayered too). .round clips its overflow, which would hide a submenu flying out of the panel. */
+.menu-dropdown > .menu-panel { overflow: visible; }
+
+/* Narrow container (a phone's stacked menu, a sidebar): the submenu opens in place under its row, indented, a line
+   down its side instead of a floating panel. */
+@container (width < 56rem) {
+  .menu-dropdown.menu-sub > .menu-panel {
+    position: static;
+    min-width: 0;
+    margin-inline-start: var(--space-sm);
+    padding: var(--space-xs) 0 0 var(--space-sm);
+    border-width: 0 0 0 var(--border-width);
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .menu-dropdown.menu-sub[open] > summary::after { rotate: 90deg; }
 }
