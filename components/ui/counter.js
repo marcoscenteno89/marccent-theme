@@ -60,7 +60,7 @@ const Counter = ({ active, getTime, className }) => {
     if (time) getTime?.(time);
   }, [ active ]);
   return (
-    <small className={cx('timer', className)}>
+    <small data-component="counter" className={cx('timer', className)}>
       <Icon name="stopwatch" /> <span ref={ref}>{format(splitTime(0))}</span>
     </small>
   );

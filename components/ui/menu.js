@@ -58,6 +58,7 @@ const Menu = ({ items, label, iconOnly = false, className, style, layout = 'fixe
 
 const MenuLink = ({ item, iconOnly, className }) => (
   <Link
+    data-component="menu-link"
     href={item.href}
     className={cx('menu-link', className, item.className)}
     aria-label={iconOnly ? item.label ?? item.name : undefined}
@@ -72,7 +73,7 @@ const MenuLink = ({ item, iconOnly, className }) => (
 // A dropdown; sub: it sits in another dropdown's panel (.menu-sub: the caret points sideways, menu.css places it).
 // Its children render the same way, so a child with children is a submenu of this one.
 const MenuDropdown = ({ item, sub, className, panelClassName, linkClassName }) => (
-  <details className={cx('menu-dropdown', sub && 'menu-sub', className, item.className)}>
+  <details data-component="menu-dropdown" className={cx('menu-dropdown', sub && 'menu-sub', className, item.className)}>
     <summary className={cx('menu-link', linkClassName)}>
       {item.icon && <i className={item.icon} aria-hidden="true"></i>}
       <span className="text-truncate">{item.name}</span>

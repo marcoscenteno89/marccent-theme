@@ -6,6 +6,7 @@ import { Form } from '../ui/form';
 import { Modal } from '../ui/modal';
 import { Field } from '../ui/field';
 import { Button } from '../ui/button';
+import { ToggleButton } from '../ui/toggle-button';
 import { Icon } from '../ui/icon';
 import { Carousel } from '../widgets/carousel';
 import { withTheme } from "./hoc";
@@ -33,7 +34,7 @@ const Palettes = (props) => {
 
   return (
     <>
-      <div className="bg border round shadow pad grid cols-1 gap-sm content-start h-100">
+      <div data-component="palette-cards" className="bg border round shadow pad grid cols-1 gap-sm content-start h-100">
         <h3 className="h6 text-uppercase opacity-75">Palette: {current?.id}</h3>
         <Carousel slideWidth="11rem" label="Palettes">
           <button key="add" type="button" className="bg border round shadow col-center gap-sm h-100 w-100 hover-holographic" onClick={() => setModal(true)}>
@@ -69,7 +70,7 @@ const ThemeCard = (props) => {
   const bg = `linear-gradient(to bottom, ${data.primary.hex}, ${data.secondary.hex})`;
   const colors = [ { name: 'primary', hex: data.primary.hex }, { name: 'secondary', hex: data.secondary.hex } ];
   return (
-    <div className="bg border round shadow grid cols-1 gap-0 h-100 overflow-hidden hover-holographic" style={{ gridTemplateRows: '1fr auto' }}>
+    <div data-component="palette-card" className="bg border round shadow grid cols-1 gap-0 h-100 overflow-hidden hover-holographic" style={{ gridTemplateRows: '1fr auto' }}>
       <div className="w-100" style={{ aspectRatio: '2 / 1', backgroundImage: bg }} role="img" aria-label={`palette ${id} colors`} />
       <div className="pad-sm grid auto-cols items-center gap-sm" style={{ justifyContent: 'space-between' }}>
         <ul className="grid cols-1 text-uppercase" style={{ '--gap': 'var(--space-xs)', fontSize: 'var(--text-xs)' }}>
@@ -81,8 +82,8 @@ const ThemeCard = (props) => {
           ))}
         </ul>
         <div className="grid auto-cols" style={{ '--gap': 'var(--space-xs)' }}>
-          <Button icon="fill-drip" className="success" aria-label={`Use palette ${id}`}
-            title={active ? 'Current palette' : 'Use this palette'} aria-pressed={active} onClick={update} />
+          <ToggleButton icon="fill-drip" className="success" aria-label={`Use palette ${id}`}
+            title={active ? 'Current palette' : 'Use this palette'} open={active} onToggle={(on) => on && update()} />
           <Button icon="trash-can" className="outline-danger" aria-label={`Delete palette #${id}`} title="Delete this palette"
             onClick={(event) => remove(id, event)} />
         </div>

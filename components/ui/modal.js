@@ -18,7 +18,7 @@ import '../../styles/components/modal.css';
 const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
   const close = <Button icon="xmark" className={variant === 'ticket' ? 'gradient' : undefined} onClick={onClose}>Close</Button>;
   if (variant === 'ticket') return (
-    <div className="grid cols-1 gap-0">
+    <div data-component="modal-panel" className="grid cols-1 gap-0">
       <div className="header pad bg-gradient text-center"><h4 id={titleId}>{title}</h4></div>
       <div className="modal-neck bg-gradient" />
       <div className="modal-flare bg" />
@@ -27,7 +27,7 @@ const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
     </div>
   );
   return (
-    <div className="grid cols-1 gap-0 divide">
+    <div data-component="modal-panel" className="grid cols-1 gap-0 divide">
       <div className="header pad">
         <h5 id={titleId}>{title}</h5>
         <Button icon="xmark" aria-label="Close" onClick={onClose} />
@@ -54,7 +54,7 @@ const Modal = ({ title, show, setShow, footer, variant, children }) => {
   }, [show]);
   // The dialog has no padding, so a click whose target is the dialog itself landed on the backdrop.
   return (
-    <dialog ref={ref} className={cx('modal', variant)} aria-labelledby={titleId} onClose={() => setShow(false)}
+    <dialog ref={ref} data-component="modal" className={cx('modal', variant)} aria-labelledby={titleId} onClose={() => setShow(false)}
       onClick={(e) => e.target === ref.current && setShow(false)}>
       <ModalPanel title={title} titleId={titleId} onClose={() => setShow(false)} footer={footer} variant={variant}>{children}</ModalPanel>
     </dialog>

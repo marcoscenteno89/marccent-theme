@@ -14,7 +14,7 @@ const Loading = ({ require = [], kind = 'spinner', className, children }) => {
   if (ready) return children;
   const look = kind === 'spinner' ? 'square circle spinner' : `loader-${kind}`;
   // Full width; each loader's aspect-ratio (or the bar's own height) sizes it.
-  return <div className={[look, className].filter(Boolean).join(' ')} style={{ width: '100%' }} role="status" aria-label="Loading" />;
+  return <div data-component="loading" className={[look, className].filter(Boolean).join(' ')} style={{ width: '100%' }} role="status" aria-label="Loading" />;
 }
 
 export { Loading };

@@ -29,7 +29,7 @@ const Accordion = (props) => {
 const AccordionItem = (props) => {
   const { header, children, className = '', name, defaultOpen = false } = props;
   return (
-    <details name={name} open={defaultOpen}>
+    <details data-component="accordion-item" name={name} open={defaultOpen}>
       <summary className="header pad-sm">{header}</summary>
       <div className={cx('pad-sm', className)}>{children}</div>
     </details>

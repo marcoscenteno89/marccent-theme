@@ -65,6 +65,9 @@
   justify-self: center;
   align-self: center;
 }
+/* Never less than the square, even in a crowded row: .btn's min-width: 0 and overflow would let an auto column
+   squeeze it to nothing. */
+.btn:has(> .btn-icon):not(:has(> .btn-text)) { min-width: fit-content; }
 
 /* Icon + label: as wide as its content (icon, label and its padding), centered in its slot instead of stretching
    to fill it. */
@@ -108,4 +111,21 @@
 .btn-link:disabled,
 .btn-link.disabled { opacity: .5; cursor: not-allowed; }
 :is(.btn, .btn-link).disabled { pointer-events: none; }
+
+/* ToggleButton's panel (components/ui/toggle-button.js; ExpandButton's on narrow screens): a popover in the top
+   layer, under its button (top set there) and centered on the screen, like a phone menu. As wide as its content, never wider than
+   the screen less 2rem a side, nor taller than the room under the button (max-height set there; it scrolls), so
+   there's always page around it to tap and close it. inset and margin undo the browser's centered popover. */
+.toggle-panel {
+  position: fixed;
+  inset: auto;
+  left: 50%;
+  translate: -50% 0;
+  margin: 0;
+  width: max-content;
+  max-width: calc(100vw - 4rem);
+  overflow: auto;
+  color: var(--body-color);
+}
+.toggle-panel select { max-width: 100%; }
 }

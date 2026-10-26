@@ -1,7 +1,8 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef, useId } from 'react';
 import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
+import { useToggle } from '../ui/toggle-button';
 import '../../styles/components/button.css';
 
 /*
@@ -18,16 +19,11 @@ const ease = 'var(--duration-slow) cubic-bezier(.34, 1.56, .64, 1)'; // a little
  * @param {string} [label='Quick menu'] - The button's name (aria-expanded says whether it's open).
  */
 const RadialMenu = ({ items, radius = '5rem', label = 'Quick menu', className }) => {
-  const [ open, setOpen ] = useState(false);
-  useEffect(() => {
-    if (!open) return;
-    const esc = (e) => e.key === 'Escape' && setOpen(false);
-    document.addEventListener('keydown', esc);
-    return () => document.removeEventListener('keydown', esc);
-  }, [open]);
+  const ring = useId();
+  const { on: open, set: setOpen, flip, attrs } = useToggle({ controls: ring }); // Esc closes it
   const size = '3rem';
   return (
-    <div className={cx('stack', className)} style={{ width: `calc(${radius} * 2 + ${size})`, aspectRatio: 1, placeItems: 'center' }}>
+    <div id={ring} data-component="radial-menu" className={cx('stack', className)} style={{ width: `calc(${radius} * 2 + ${size})`, aspectRatio: 1, placeItems: 'center' }}>
       {items.map((item, i) => {
         const angle = i * 360 / items.length - 90;
         const Tag = item.href ? 'a' : 'button';
@@ -44,8 +40,8 @@ const RadialMenu = ({ items, radius = '5rem', label = 'Quick menu', className })
           </Tag>
         );
       })}
-      <button type="button" className="circle bg-gradient col-center shadow" aria-expanded={open} aria-label={label}
-        onClick={() => setOpen(!open)}
+      {/* Its own round button, not a .btn (the design styles restyle those); the plus turns into an x as it opens. */}
+      <button type="button" className="circle bg-gradient col-center shadow" {...attrs} aria-label={label} onClick={flip}
         style={{ width: `calc(${size} * 1.25)`, aspectRatio: 1, padding: 0, border: 0, color: 'var(--light)', cursor: 'pointer',
           rotate: open ? '135deg' : '0deg', transition: `rotate ${ease}` }}>
         <Icon name="plus" className="fs-lg" />
@@ -66,7 +62,7 @@ const StepBar = ({ steps, start = 0, onChange, className }) => {
   const go = (i) => { setCurrent(i); onChange?.(i); };
   const point = 'polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%)'; // the first step: a flat start, the chevron's point
   return (
-    <nav aria-label="Steps" className={cx('grid fixed gap-0', className)} style={{ '--cols': steps.length * 3 + 1, columnGap: '.2rem' }}>
+    <nav data-component="step-bar" aria-label="Steps" className={cx('grid fixed gap-0', className)} style={{ '--cols': steps.length * 3 + 1, columnGap: '.2rem' }}>
       {steps.map((step, i) => (
         <button key={step} type="button" aria-current={i === current ? 'step' : undefined} onClick={() => go(i)}
           className={cx('center gap-sm icon-only-sm', i > 0 && 'shape-chevron-right', i < current && 'bg-primary', i === current && 'bg-gradient')}
@@ -97,7 +93,7 @@ const TabBar = ({ tabs, className }) => {
     list.current.children[next].focus();
   };
   return (
-    <div className={cx('grid cols-1 gap-sm', className)}>
+    <div data-component="tab-bar" className={cx('grid cols-1 gap-sm', className)}>
       <div className="grid cols-1 gap-0 border-bottom">
         <div ref={list} role="tablist" className="grid fixed gap-0" style={{ '--cols': tabs.length }} onKeyDown={key}>
           {tabs.map((t, i) => (

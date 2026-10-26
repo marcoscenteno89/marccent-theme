@@ -42,7 +42,7 @@ const Clock = ({ format = 'h:mm:ss A', className = '' }) => {
     const clock = new LiveClock(ref.current, format);
     return () => clock.destroy();
   }, [ format ]);
-  return <time ref={ref} className={className}>{' '}</time>;
+  return <time ref={ref} data-component="clock" className={className}>{' '}</time>;
 }
 
 export { Clock, LiveClock };

@@ -24,9 +24,11 @@ import '../../styles/components/button.css';
  * @example <Button icon="fa-brands fa-github" href={github}>Github</Button>
  * @example <Button onClick={reset}>Start Over</Button>  // text link
  */
-const Button = ({ icon = false, href, disabled = false, className, children, trace = false, ...rest }) => {
+const Button = ({ icon = false, href, disabled = false, className, children, trace = false, 'data-component': component = 'button', ...rest }) => {
   // A disabled link: no href (nothing to follow), out of the tab order, announced as disabled.
   const off = disabled && href ? { 'aria-disabled': true, tabIndex: -1 } : {};
+  // What it is, in the HTML: "button", or what's built on it ("toggle-button"…) passing its own name.
+  rest = { 'data-component': component, ...rest };
   if (!icon) {
     const cls = cx('btn-link', disabled && 'disabled', className);
     if (href) return disabled ? <a className={cls} {...off} {...rest}>{children}</a> : <Link href={href} className={cls} {...rest}>{children}</Link>;
@@ -40,9 +42,7 @@ const Button = ({ icon = false, href, disabled = false, className, children, tra
   };
   const content = (
     <>
-      {icon.startsWith('fa-')
-        ? <Icon family={false} className={cx(icon, 'btn-icon')} />
-        : <Icon name={icon} className="btn-icon" />}
+      <ButtonIcon icon={icon} />
       {children && <span className="btn-text">{children}</span>}
       {trace && <Trace />}
     </>
@@ -51,4 +51,9 @@ const Button = ({ icon = false, href, disabled = false, className, children, tra
   return <button type="button" disabled={disabled} {...props}>{content}</button>;
 }
 
-export { Button };
+// A Button's icon: a name ("star") or full classes ("fa-brands fa-github").
+const ButtonIcon = ({ icon }) => icon.startsWith('fa-')
+  ? <Icon family={false} className={cx(icon, 'btn-icon')} />
+  : <Icon name={icon} className="btn-icon" />;
+
+export { Button, ButtonIcon };

@@ -10,8 +10,10 @@ import { DesignSelect } from './designs';
  * MiniThemeEditor: just the row of controls, so it fits anywhere: under a section, in a header, beside a page's own
  * heading (the page places any title or text itself). One line that never wraps: the buttons keep their size and
  * the palette squares are a slider in the room that's left (minmax(min-content, max-content): all of them when
- * they fit, down to one square and a compact pill when they don't; never less, so nothing overlaps). The design style is a button that widens into a select. It
- * packs at the start; wrap it in a .grid.justify-end (or any justify-*) to place it. Scoped to an element, a ring
+ * they fit, down to one square and a compact pill when they don't; never less, so nothing overlaps). The design
+ * style is an ExpandButton (widens into a select). Phones: the design style below 40rem and the squares below 400px
+ * are icon buttons that open them in a panel in front of the page (ToggleButton's panel), so the row is five icons.
+ * It packs at the start; wrap it in a .grid.justify-end (or any justify-*) to place it. Scoped to an element, a ring
  * marks that element while the pointer is on the editor.
  * @param {Object} props
  * @param {string} props.scope - "site" or the id of the element it themes.

@@ -122,7 +122,7 @@ const Orbit = ({ items, start = 0, startAngle = 0, wheel, center, hub = true, of
   // The ring, the pointer and the items all sit on one circle, --orbit-radius from the center.
   const circle = { width: 'calc(var(--orbit-radius) * 2)', aspectRatio: 1, placeSelf: 'center' };
   return (
-    <div ref={box} className={cx('cq', className)} style={{ '--orbit-radius': '40cqi', ...style }}>
+    <div ref={box} data-component="orbit" className={cx('cq', className)} style={{ '--orbit-radius': '40cqi', ...style }}>
       <div className="stack square circle" style={{ placeItems: 'center' }}>
         {/* The pointer: a wedge aimed at the picked item, fading in from the middle so the hub's text stays clear. */}
         <div className="circle" style={{ ...circle,
@@ -181,7 +181,7 @@ const OrbitClock = ({ className }) => {
   useEffect(() => setNow(new Date()), []);
   const ring = { placeSelf: 'center', '--pointer-fade': '0%', '--pointer-solid': '0%' }; // solid hands
   return (
-    <div className={cx('stack cq', className)} style={{ aspectRatio: 1 }}>
+    <div data-component="orbit-clock" className={cx('stack cq', className)} style={{ aspectRatio: 1 }}>
       {now && <>
         <Orbit items={HOURS} hub={false} start={now.getHours() % 12} startAngle={-90}
           autoPlay sync interval={3600000} style={{ ...ring, width: '100%', '--wedge': '30deg' }} />
@@ -279,7 +279,7 @@ const SolarSystem = ({ className, style }) => {
   useSpins(box);
   const planet = active === null ? null : PLANETS[active];
   return (
-    <div className={cx('grid cols-1 gap-sm', className)} style={style}>
+    <div data-component="solar-system" className={cx('grid cols-1 gap-sm', className)} style={style}>
       <div ref={box} className="cq">
         <div className="stack square" style={{ placeItems: 'center' }}>
           <div className="circle" style={{ width: '16cqi', aspectRatio: 1,
@@ -331,7 +331,7 @@ const GooDigit = forwardRef(({ digit, className, style, ...rest }, ref) => {
   const filter = 'goo' + useId().replace(/:/g, ''); // useId's colons break url(#...)
   return (
     <>
-      <div ref={ref} className={cx('countdown', className)} data-digit={digit ?? undefined} style={{ ...style, filter: `url(#${filter})` }} {...rest}>
+      <div ref={ref} data-component="goo-digit" className={cx('countdown', className)} data-digit={digit ?? undefined} style={{ ...style, filter: `url(#${filter})` }} {...rest}>
         <i /><i /><i /><i /><i />
       </div>
       <svg className="countdown-filter" aria-hidden="true">
@@ -385,7 +385,7 @@ const Countdown = ({ from = 5, onDone, className, style }) => {
     const timer = new CountdownTimer(ref.current, from, () => done.current?.());
     return () => timer.destroy();
   }, [from]);
-  return <GooDigit ref={ref} digit={null} className={className} style={style} role="timer" />;
+  return <GooDigit ref={ref} data-component="countdown" digit={null} className={className} style={style} role="timer" />;
 }
 
 /* ---------- parallax ---------- */
@@ -453,7 +453,7 @@ const useParallax = (speed = 0.2) => {
  */
 const Parallax = ({ speed = 0.2, as: Tag = 'div', className, children }) => {
   const ref = useParallax(speed);
-  return <Tag ref={ref} className={cx('parallax', className)}>{children}</Tag>;
+  return <Tag ref={ref} data-component="parallax" className={cx('parallax', className)}>{children}</Tag>;
 }
 
 export {

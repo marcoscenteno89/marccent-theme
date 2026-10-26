@@ -108,7 +108,7 @@ const StepForm = ({ onSubmit, onStep, className = 'grid cols-1 gap-sm', children
         ))}
       </div>
       {steps.map((step, i) => (
-        <fieldset key={step.props.name} ref={el => sets.current[i] = el} hidden={i !== current} aria-label={step.props.name}
+        <fieldset data-component="step" key={step.props.name} ref={el => sets.current[i] = el} hidden={i !== current} aria-label={step.props.name}
           className={cx('grid gap-sm pairs', step.props.className)}>
           {step.props.children}
         </fieldset>

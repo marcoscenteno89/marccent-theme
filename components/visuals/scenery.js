@@ -51,7 +51,7 @@ const SceneryLayer = ({ kind, far = 0, color, flip, className, style }) => {
   // Same id for the same kind everywhere: its outline is the same, so repeats on a page don't conflict.
   const clipId = `scenery-${kind}`;
   return (
-    <div className={cx('grid cols-1 gap-0 w-100', className)} style={{ color: color ?? tone(far), '--detail': DETAIL(far).toFixed(2),
+    <div data-component="scenery-layer" className={cx('grid cols-1 gap-0 w-100', className)} style={{ color: color ?? tone(far), '--detail': DETAIL(far).toFixed(2),
       alignSelf: ground ? 'end' : 'start', translate: ground ? `0 -${LIFT(far).toFixed(1)}%` : undefined, ...style }}>
       {/* As tall as the width makes it (1440 x 320); a ground layer grows to --scenery-min if that's taller, cropping its
           sides (slice) instead of squashing, so a full-screen or phone-width scene keeps real proportions. The sky stays
@@ -80,7 +80,7 @@ const SceneryLayer = ({ kind, far = 0, color, flip, className, style }) => {
  * @param {string} [props.className] @param {Object} [props.style] @param {React.ReactNode} [props.children]
  */
 const Scenery = ({ layers, height = '22rem', parallax = true, min, className, style, children }) => (
-  <div className={cx('cq stack overflow-hidden', className)} style={{ height, '--scenery-min': min, ...style }}>
+  <div data-component="scenery" className={cx('cq stack overflow-hidden', className)} style={{ height, '--scenery-min': min, ...style }}>
     {layers.map((kind, i) => {
       const far = layers.length > 1 ? 1 - i / (layers.length - 1) : 0;
       // A kind already used further back is mirrored, so repeats don't line up.

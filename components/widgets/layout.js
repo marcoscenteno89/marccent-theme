@@ -20,12 +20,12 @@ const TINT = 'color-mix(in srgb, var(--primary) 14%, var(--surface))';
  *   (e.g. a flower: [[0,1],[0,3],[1,0],[1,2],[1,4],[2,1],[2,3]]).
  * @param {number} [gap=.94] - Each hexagon's scale in its cell: the gap between them.
  */
-const HexGrid = ({ perRow = 5, at, gap = .94, className, style, children }) => {
+const HexGrid = ({ perRow = 5, at, gap = .94, className, style, children, 'data-component': component = 'hex-grid' }) => {
   const items = Children.toArray(children);
   const place = (i) => at ? at[i] : [ Math.floor(i / perRow), (i % perRow) * 2 + Math.floor(i / perRow) % 2 ];
   const cols = at ? Math.max(...at.map(([ , c ]) => c)) + 2 : perRow * 2 + 1;
   return (
-    <div className={cx('grid fixed gap-0', className)} style={{ '--cols': cols, gridAutoRows: '1fr', ...style }}>
+    <div data-component={component} className={cx('grid fixed gap-0', className)} style={{ '--cols': cols, gridAutoRows: '1fr', ...style }}>
       {items.map((child, i) => {
         const [ row, col ] = place(i);
         return (
@@ -47,7 +47,7 @@ const HexFlip = ({ front, back, frontClass = 'bg-gradient', backClass = 'bg-prim
   const [ flipped, setFlipped ] = useState(false);
   const face = { backfaceVisibility: 'hidden', gridArea: '1 / 1' };
   return (
-    <div className="grid" tabIndex={0} aria-label={label} onMouseEnter={() => setFlipped(true)} onMouseLeave={() => setFlipped(false)}
+    <div data-component="hex-flip" className="grid" tabIndex={0} aria-label={label} onMouseEnter={() => setFlipped(true)} onMouseLeave={() => setFlipped(false)}
       onFocus={() => setFlipped(true)} onBlur={() => setFlipped(false)}
       style={{ transformStyle: 'preserve-3d', transform: `perspective(40rem) rotateY(${flipped ? 180 : 0}deg)`,
         transition: 'transform var(--duration-slow) ease-in-out', cursor: 'pointer' }}>
@@ -64,7 +64,7 @@ const HexFlip = ({ front, back, frontClass = 'bg-gradient', backClass = 'bg-prim
  * @param {number} [perRow=4]
  */
 const HexWall = ({ people, perRow = 4, className, style }) => (
-  <HexGrid perRow={perRow} className={className} style={style}>
+  <HexGrid data-component="hex-wall" perRow={perRow} className={className} style={style}>
     {people.map((p, i) => (
       <HexFlip key={p.name} label={`${p.name}${p.role ? `, ${p.role}` : ''}`}
         frontClass={[ 'bg-gradient', 'bg-primary', 'bg-secondary', 'bg-gradient-darker' ][i % 4]}
@@ -79,7 +79,7 @@ const HexWall = ({ people, perRow = 4, className, style }) => (
  * @param {{ date: string, title: string, text?: React.ReactNode, icon?: string }[]} events
  */
 const Timeline = ({ events, className, style }) => (
-  <ol className={cx('grid cols-1 gap-0', className)} style={{ margin: 0, padding: 0, listStyle: 'none', ...style }}>
+  <ol data-component="timeline" className={cx('grid cols-1 gap-0', className)} style={{ margin: 0, padding: 0, listStyle: 'none', ...style }}>
     {events.map((e, i) => (
       <li key={i} className="grid gap-0" style={{ gridTemplateColumns: '2.5rem auto minmax(0, 1fr)' }}>
         {/* The line (the full height of the row, so the rows join up) with the marker over it. */}
@@ -115,7 +115,7 @@ const Timeline = ({ events, className, style }) => (
  * @param {string} [props.ribbon] - Corner ribbon text ("Popular", "Sold out", "New").
  */
 const TicketCard = ({ label, title, note, items = [], action, ribbon, className }) => (
-  <div className={cx('stack hover-holographic', className)}>
+  <div data-component="ticket-card" className={cx('stack hover-holographic', className)}>
     <div className="shape-ticket grid cols-1 gap-0" style={{ aspectRatio: 'auto', '--notch': '1rem', gridTemplateRows: '1fr 1fr', background: TINT }}>
       {/* Two equal rows, so the tear line between them runs between the notches. */}
       <div className="grid cols-1 gap-sm pad text-center" style={{ alignContent: 'center', borderBottom: '2px dashed var(--border-color)' }}>
@@ -224,7 +224,7 @@ const ImageCard = ({ src, canvas, fps, colors, alt = '', label, title, text, chi
   const frost = BLUR_MASK[overlay] && { backdropFilter: 'blur(14px) saturate(120%)', WebkitBackdropFilter: 'blur(14px) saturate(120%)',
     WebkitMaskImage: BLUR_MASK[overlay], maskImage: BLUR_MASK[overlay] };
   return (
-    <article className={cx('stack round shadow overflow-hidden hover-holographic', circle && 'circle', centered && 'text-center', className)}
+    <article data-component="image-card" className={cx('stack round shadow overflow-hidden hover-holographic', circle && 'circle', centered && 'text-center', className)}
       style={{ aspectRatio: ratio ?? undefined, ...style }}>
       {canvas && !src
         ? <div data-canvas={canvas} data-canvas-fps={fps} data-canvas-colors={colors} className="bg w-100 h-100" role={alt ? 'img' : undefined} aria-label={alt || undefined} />

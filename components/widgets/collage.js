@@ -30,16 +30,16 @@ const BORDER = {
 };
 
 // Small pieces for the cards' content. Spinner: Loading waits for a value that never comes, so it keeps spinning.
-const Spinner = ({ kind, width = '3rem' }) => <div style={{ width, justifySelf: 'center' }}><Loading require={[ null ]} kind={kind} /></div>;
-const Light = (props) => <Button className="light" {...props} />;
-const Ghost = ({ icon, label }) => <Button icon={icon} aria-label={label} style={{ color: 'inherit', borderColor: 'rgb(255 255 255 / .5)' }} />;
+const Spinner = ({ kind, width = '3rem' }) => <div data-component="spinner" style={{ width, justifySelf: 'center' }}><Loading require={[ null ]} kind={kind} /></div>;
+const Light = (props) => <Button data-component="light" className="light" {...props} />;
+const Ghost = ({ icon, label }) => <Button data-component="ghost" icon={icon} aria-label={label} style={{ color: 'inherit', borderColor: 'rgb(255 255 255 / .5)' }} />;
 const Stars = ({ n }) => (
-  <span className="grid auto-cols gap-0" aria-label={`${n} out of 5 stars`} style={{ color: '#ffd166', justifyContent: 'inherit' }}>
+  <span data-component="stars" className="grid auto-cols gap-0" aria-label={`${n} out of 5 stars`} style={{ color: '#ffd166', justifyContent: 'inherit' }}>
     {[1, 2, 3, 4, 5].map(i => <Icon key={i} name="star" family={i <= n ? 'fa-solid' : 'fa-regular'} style={{ '--icon-size': '1.1em' }} />)}
   </span>
 );
 const Progress = ({ value, label }) => (
-  <div className="grid cols-1 gap-xs w-100">
+  <div data-component="progress" className="grid cols-1 gap-xs w-100">
     <small className="grid auto-cols" style={{ justifyContent: 'space-between' }}><span>{label}</span><strong>{value}%</strong></small>
     <div className="round" style={{ height: '.35rem', background: 'rgb(255 255 255 / .25)' }}>
       <div className="bg-gradient h-100" style={{ width: `${value}%` }} />
@@ -57,7 +57,7 @@ const Progress = ({ value, label }) => (
  *   each tile four times the area (the Animations page: fewer canvases, each one larger).
  */
 const Collage = ({ tiles, cols = 6, min = '9rem', row = '11rem' }) => (
-  <div className="grid" style={{ '--cols': cols, '--min': min, '--row': row, gridAutoRows: 'minmax(var(--row), auto)', gridAutoFlow: 'dense' }}>
+  <div data-component="collage" className="grid" style={{ '--cols': cols, '--min': min, '--row': row, gridAutoRows: 'minmax(var(--row), auto)', gridAutoFlow: 'dense' }}>
     {tiles.map(({ src, canvas, size, border, children, ...card }, i) => {
       const { style, className, ...shape } = SIZE[size];
       const edge = BORDER[border] ?? {};

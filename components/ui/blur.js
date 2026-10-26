@@ -10,7 +10,7 @@ const Blur = (props) => {
   useEffect(() => setDeviation(parseInt(5 + ref.current.parentNode.offsetWidth / 75)), []);
   
   return (
-    <svg ref={ref} className={cx('d-none', props.className)} style={style}>
+    <svg ref={ref} data-component="blur" className={cx('d-none', props.className)} style={style}>
       <defs>
         <filter id={id}>
           <feGaussianBlur in="SourceGraphic" stdDeviation={deviation} result="blur" />

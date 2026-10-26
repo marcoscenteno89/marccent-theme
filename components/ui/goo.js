@@ -6,7 +6,7 @@
  * would switch the filter off in some browsers.
  */
 const Goo = () => (
-  <svg aria-hidden="true" width="0" height="0" style={{ position: 'absolute' }}>
+  <svg data-component="goo" aria-hidden="true" width="0" height="0" style={{ position: 'absolute' }}>
     <filter id="goo">
       <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
       <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />

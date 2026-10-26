@@ -14,7 +14,7 @@ import { usePager, SliderPager } from './slider-pager';
 const Carousel = ({ slideWidth = '17rem', label = 'Carousel', className, children }) => {
   const pager = usePager();
   return (
-    <div className="grid cols-1 gap-sm">
+    <div data-component="carousel" className="grid cols-1 gap-sm">
       <Swiper
         {...pager.swiperProps}
         modules={[ ...pager.swiperProps.modules, Keyboard, A11y ]}

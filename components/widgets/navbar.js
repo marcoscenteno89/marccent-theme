@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { cx } from '../../lib/cx';
 import { useCloseMenus } from '../../lib/close-menus';
-import { Button } from '../ui/button';
+import { ToggleButton } from '../ui/toggle-button';
 import { Menu } from '../ui/menu';
 import '../../styles/components/nav.css';
 
@@ -38,13 +38,8 @@ const NavBar = ({ brand, items, path, end, last, top, onEscape, label = 'Main', 
       {top}
       <div className="wrap pad-0 grid layout-ends items-center gap-sm">
         {brand}
-        <Button
-          icon={open ? 'xmark' : 'bars-staggered'}
-          className="nav-toggle"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          aria-controls={id}
-          onClick={() => setOpen(!open)} />
+        <ToggleButton icon="bars-staggered" activeIcon="xmark" className="nav-toggle" aria-label={open ? 'Close menu' : 'Open menu'}
+          open={open} onToggle={setOpen} controls={id} />
         <div id={id} className="nav-collapse">
           {/* auto-cols: each item is its text plus the link padding (not equal columns as wide as the longest). */}
           <Menu items={items} label={label} layout="auto-cols" gap="gap-0" className="divide" />

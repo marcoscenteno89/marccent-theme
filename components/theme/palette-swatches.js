@@ -5,13 +5,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import '../../styles/components/palette-swatches.css';
 import { withTheme } from './hoc';
+import { ToggleButton } from '../ui/toggle-button';
+import { useMedia } from '../../lib/media';
 import { usePager, SliderPager } from '../widgets/slider-pager';
 
 // bare: the squares alone, no wrapper, to sit in a row of other controls and wrap one by one. slider: the squares in
-// one swiped row instead (SwatchSlider below), for a row that shouldn't wrap (the mini editor).
+// one swiped row instead (SwatchSlider below), for a row that shouldn't wrap (the mini editor); under 400px, where
+// even one square and the pill crowd the row, a palette button that opens them in a panel instead (ToggleButton).
 const Swatches = ({ theme, update, className, style, bare, slider }) => {
+  const narrow = useMedia('(width < 400px)');
   const current = theme.getPalette(theme.value('palette'))?.id;
   const squares = theme.palettes.map((t) => (
     <button key={t.id} type="button" className="border round shadow-sm hover-holographic" onClick={() => update({ palette: t.id })}
@@ -20,10 +23,14 @@ const Swatches = ({ theme, update, className, style, bare, slider }) => {
         // The theme in use: a ring in the page's text color round it.
         ...(t.id === current && { outline: '2px solid var(--body-color)', outlineOffset: '2px' }) }} />
   ));
+  if (slider && narrow) return (
+    <ToggleButton data-component="palette-swatches" icon="palette" activeIcon="xmark" aria-label="Theme colors" title="Theme colors"
+      panel={<div className="row-wrap gap-sm" style={{ padding: '4px' }}>{squares}</div>} />
+  );
   if (slider) return <SwatchSlider squares={squares} current={Math.max(theme.palettes.findIndex(t => t.id === current), 0)} />;
   if (bare) return squares;
   return (
-    <div className={['row-wrap gap-sm', className].filter(Boolean).join(' ')} role="group" aria-label="Theme colors" style={style}>
+    <div data-component="palette-swatches" className={['row-wrap gap-sm', className].filter(Boolean).join(' ')} role="group" aria-label="Theme colors" style={style}>
       {squares}
     </div>
   );
@@ -40,7 +47,6 @@ const Swatches = ({ theme, update, className, style, bare, slider }) => {
  * one square (plus that padding), so the pill always has its own room and never covers the squares or the controls
  * next to them. The pill's column is max-content, not auto: the pill clips (overflow hidden, for the holographic
  * hover), which makes its automatic minimum 0, and an auto column would let it spill over the squares.
- * Under 400px the mini editor caps the column at one square (--swatches-max, palette-swatches.css).
  */
 // current: the index of the palette in use among the squares.
 const SwatchSlider = ({ squares, current }) => {
@@ -66,8 +72,8 @@ const SwatchSlider = ({ squares, current }) => {
     return () => observer.disconnect();
   }, []);
   return (
-    <div className="grid items-center" role="group" aria-label="Theme colors"
-      style={{ '--gap': 'var(--space-xs)', gridTemplateColumns: `minmax(calc(var(--icon-size) + 8px), var(--swatches-max, max-content))${more ? ' max-content' : ''}` }}>
+    <div data-component="palette-swatches" className="grid items-center" role="group" aria-label="Theme colors"
+      style={{ '--gap': 'var(--space-xs)', gridTemplateColumns: `minmax(calc(var(--icon-size) + 8px), max-content)${more ? ' max-content' : ''}` }}>
       <Swiper {...pager.swiperProps} onSwiper={(s) => { pager.swiperProps.onSwiper(s); swiper.current = s; }}
         initialSlide={current ?? 0} slidesPerView="auto" spaceBetween={8} className="w-100" style={{ padding: '4px' }}
         onLock={() => setMore(false)} onUnlock={() => setMore(true)}>

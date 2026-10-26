@@ -15,7 +15,7 @@ import { cx } from '../../lib/cx';
 const Alert = ({ active = true, tone = 'primary', className, children }) => {
   if (!active) return null;
   const fill = /\bbg-/.test(className ?? '') ? null : `bg-${tone}`;
-  return <div role={tone === 'danger' ? 'alert' : 'status'} className={cx('pad border round', fill, className)}>{children}</div>;
+  return <div data-component="alert" role={tone === 'danger' ? 'alert' : 'status'} className={cx('pad border round', fill, className)}>{children}</div>;
 }
 
 export { Alert };

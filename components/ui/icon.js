@@ -17,7 +17,7 @@
  * @example <Icon family={false} className="fa-brands fa-linkedin" />  // full classes from data
  */
 const Icon = ({ name, family = 'fa-solid', className, ...rest }) => (
-  <i className={[family, name && `fa-${name}`, className].filter(Boolean).join(' ')} aria-hidden="true" {...rest} />
+  <i data-component="icon" className={[family, name && `fa-${name}`, className].filter(Boolean).join(' ')} aria-hidden="true" {...rest} />
 );
 
 export { Icon };

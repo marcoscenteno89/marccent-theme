@@ -76,8 +76,9 @@ const decorativeObserver = (p, node) => {
  * @param {boolean} [opts.decorative=true] - Decoration, not content: capped at DECORATIVE_FPS, drawn at pixel
  *   density 1 and paused for reduced motion. false for a canvas people read (the stock chart), which keeps
  *   full sharpness and keeps updating.
+ * @param {string} [opts.name='canvas'] - Its data-component on the div ("blob-canvas"…).
  */
-const withCanvas = (Component, { decorative = true } = {}) => {
+const withCanvas = (Component, { decorative = true, name = 'canvas' } = {}) => {
   const WithCanvasComponent = (props) => {
     const ref = useRef(null);
     const [ sketch, setSketch ] = useState(null);
@@ -114,7 +115,7 @@ const withCanvas = (Component, { decorative = true } = {}) => {
     }, []);
     return (
       <>
-        <div style={props.style} className={cx(props.className, 'canvas w-100 h-100 overflow-hidden')} ref={ref}></div>
+        <div data-component={name} style={props.style} className={cx(props.className, 'canvas w-100 h-100 overflow-hidden')} ref={ref}></div>
         <Loading require={[sketch]}>
           <Component {...props} canvasRef={ref} sketch={sketch} />
         </Loading>

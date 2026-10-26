@@ -10,7 +10,7 @@ import '../../styles/components/board.css';
  * @param {string} [gap] - space between cells, e.g. '2px'
  */
 const Board = ({ grid, gap, className, children }) => (
-  <div className={cx('board grid fixed', className)} style={{ '--cols': grid.cols, '--gap': gap }}>
+  <div data-component="board" className={cx('board grid fixed', className)} style={{ '--cols': grid.cols, '--gap': gap }}>
     {grid.cells.map(children)}
   </div>
 );

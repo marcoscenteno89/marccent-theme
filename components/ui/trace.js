@@ -7,7 +7,7 @@
  * its trace prop; anywhere else, put it inside the element.
  */
 const Trace = () => (
-  <svg className="trace" aria-hidden="true"><rect pathLength="100" /></svg>
+  <svg data-component="trace" className="trace" aria-hidden="true"><rect pathLength="100" /></svg>
 );
 
 export { Trace };

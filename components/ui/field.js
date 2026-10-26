@@ -21,7 +21,7 @@ const sentence = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 const Input = ({ name, label, as: Tag = 'input', className, children, ...rest }) => {
   const text = label ?? sentence(nameToLabel(name));
   return (
-    <Tag name={name} className={cx('input', className)} aria-label={text}
+    <Tag data-component="input" name={name} className={cx('input', className)} aria-label={text}
       placeholder={Tag === 'select' ? undefined : text} {...rest}>{children}</Tag>
   );
 }
@@ -35,7 +35,7 @@ const Input = ({ name, label, as: Tag = 'input', className, children, ...rest })
 const Field = ({ name, label, as: Tag = 'input', className, children, ...rest }) => {
   const id = useId();
   return (
-    <div className={cx('field sub-x', className)}>
+    <div data-component="field" className={cx('field sub-x', className)}>
       <label className="field-label" htmlFor={id}>{label ?? nameToLabel(name)}</label>
       <Tag id={id} name={name} className="input" {...rest}>{children}</Tag>
     </div>

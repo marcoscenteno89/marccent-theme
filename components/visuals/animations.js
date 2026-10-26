@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y } from "swiper/modules";
 import 'swiper/css';
-import { Button } from '../ui/button';
+import { ToggleButton } from '../ui/toggle-button';
 import { ImageCard } from '../widgets/layout';
 import { usePager, SliderPager } from '../widgets/slider-pager';
 import { cx } from '../../lib/cx';
@@ -31,7 +31,7 @@ const AnimPlayer = () => {
   const pager = usePager();
   const current = ANIMATIONS[active];
   return (
-    <div className="grid cols-1 gap-sm">
+    <div data-component="anim-player" className="grid cols-1 gap-sm">
       {/* The stage: the picked animation large, its name over it. */}
       <ImageCard canvas={current.key} alt={`${current.name} animation`} ratio="16 / 9" big className="border"
         label={`Now playing · ${active + 1} / ${ANIMATIONS.length}`} title={current.name} text={current.about} />
@@ -59,10 +59,10 @@ const AnimPlayer = () => {
                     <span className="fw-bold">{anim.name}</span>
                     <span className="fs-sm opacity-75 text-truncate">{anim.about}</span>
                   </div>
-                  <Button icon={picked ? 'check' : 'play'} className={picked ? 'gradient' : 'outline-primary'} aria-pressed={picked}
-                    onClick={() => setActive(i)}>
-                    {picked ? 'Playing' : 'Play'}
-                  </Button>
+                  <ToggleButton icon="play" activeIcon="check" activeLabel="Playing" className={picked ? 'gradient' : 'outline-primary'}
+                    open={picked} aria-pressed={picked} onToggle={(on) => on && setActive(i)}>
+                    Play
+                  </ToggleButton>
                 </div>
               </div>
             </SwiperSlide>
