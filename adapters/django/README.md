@@ -7,7 +7,7 @@ finds it by `data-component` and wires it up.
 ## Install
 
 ```sh
-pip install "git+https://github.com/marcoscenteno89/marccent-theme@v0.2.0#subdirectory=adapters/django"
+pip install "git+https://github.com/marcoscenteno89/marccent-theme@v0.2.1#subdirectory=adapters/django"
 ```
 
 ```python
@@ -36,7 +36,7 @@ MARCCENT = {
 
 ## Where the files come from
 
-By default from jsDelivr, at the version of this package (`v0.2.0`). To serve them yourself, install the npm package
+By default from jsDelivr, at the version of this package (`v0.2.1`). To serve them yourself, install the npm package
 at the same version and collect its `dist/`:
 
 ```python

@@ -20,13 +20,13 @@ the block editor).
 
 ## Versions
 
-Releases are git tags (`v0.2.0`); install or link a tag, never the main branch:
+Releases are git tags (`v0.2.1`); install or link a tag, never the main branch:
 
 ```sh
-npm install github:marcoscenteno89/marccent-theme#v0.2.0
+npm install github:marcoscenteno89/marccent-theme#v0.2.1
 ```
 
-A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.0/dist/marccent.css`.
+A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.1/dist/marccent.css`.
 To release: set the version in `package.json` and `adapters/django/marccent_theme/__init__.py`, `npm run build`,
 commit (dist/ included), tag `v<version>` and push the tag.
 
@@ -35,10 +35,10 @@ commit (dist/ included), tag `v<version>` and push the tag.
 ```html
 <html lang="en" data-design="modern" data-theme="light">
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.0/dist/marccent.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.0/dist/designs/modern.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.1/dist/marccent.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.1/dist/designs/modern.css">
   <script>window.marccentDefaults = { palette: 'brand', palettes: [ { id: 'brand', primary: '#046bd2', secondary: '#1e293b' } ] };</script>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.0/dist/marccent.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.1/dist/marccent.js"></script>
 </head>
 ```
 
@@ -53,7 +53,7 @@ adds your own.
 
 ## Next.js
 
-Needs `next` 14+, `react` and `react-dom` 18. The package ships source (JSX and CSS imports), so let Next compile it:
+Needs `next` 14+, `react` and `react-dom` 18 or 19. The package ships source (JSX and CSS imports), so let Next compile it:
 
 ```js
 // next.config.js
