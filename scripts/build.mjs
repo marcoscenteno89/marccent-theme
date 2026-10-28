@@ -17,12 +17,6 @@ const DIST = join(ROOT, 'dist');
 const { version } = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
 const banner = `/* marccent-theme ${version} | https://github.com/marcoscenteno89/marccent-theme */`;
 
-// The Django adapter loads this release by its own version: they move together.
-const django = readFileSync(join(ROOT, 'adapters/django/marccent_theme/__init__.py'), 'utf8').match(/__version__ = "([^"]+)"/)?.[1];
-if (django !== version) {
-  throw new Error(`adapters/django is at ${django}, package.json at ${version}: set both to the same version`);
-}
-
 const designs = readdirSync(join(ROOT, 'styles/designs')).filter((f) => f.endsWith('.css')).map((f) => basename(f, '.css')).sort();
 
 rmSync(DIST, { recursive: true, force: true });

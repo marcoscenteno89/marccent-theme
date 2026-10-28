@@ -2,4 +2,3 @@ node_modules
 .DS_Store
 __pycache__/
 *.egg-info/
-adapters/django/build/

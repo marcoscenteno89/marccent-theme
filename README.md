@@ -7,7 +7,7 @@ markup, a React UI kit and canvas animations. One repo, one version, three ways 
 | --- | --- | --- |
 | **Source** | `styles/`, `core/`, `components/` (JSX and CSS imports) | bundlers: Next, the WordPress block editor (Marccent Blocks) |
 | **dist/** | `dist/marccent.css`, `dist/designs/<id>.css`, `dist/marccent.js` | any page: plain HTML, PHP, Django templates |
-| **Adapters** | Marccent Blocks (WordPress), `adapters/django` | CMSs that serve `dist/` or the source for you |
+| **Adapters** | [Marccent Blocks](https://github.com/marcoscenteno89/marccent-blocks) (WordPress), [django-marccent](https://github.com/marcoscenteno89/django-marccent) | CMSs that serve `dist/` or the source for you |
 
 Three layers, each working without the one above: **CSS and tokens** (everywhere), the **plain-JS engine** (`core/`,
 everywhere: it finds components by `data-component` and wires them up) and the **React kit** (`components/`, Next and
@@ -27,8 +27,8 @@ npm install github:marcoscenteno89/marccent-theme#v0.2.1
 ```
 
 A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.1/dist/marccent.css`.
-To release: set the version in `package.json` and `adapters/django/marccent_theme/__init__.py`, `npm run build`,
-commit (dist/ included), tag `v<version>` and push the tag.
+To release: set the version in `package.json`, `npm run build`, commit (dist/ included), tag `v<version>` and push the
+tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-marccent's `THEME_VERSION`.
 
 ## Any page: dist/
 
@@ -103,7 +103,7 @@ To put your own styles between the theme's (overrides after the defaults, custom
 ## WordPress and Django
 
 - **WordPress**: the [Marccent Blocks](https://github.com/marcoscenteno89/marccent-blocks) plugin builds the theme from this source (pinned to a tag) and registers its CSS and JS once; the Marccent WP theme and the Local and Content plugins depend on it rather than bundling a copy, so a site loads the theme once, at one version.
-- **Django**: `adapters/django`, a small app whose template tags load `dist/` at its own version ([its README](adapters/django/README.md)).
+- **Django**: [django-marccent](https://github.com/marcoscenteno89/django-marccent), a thin app that serves `dist/` at a pinned release (a copy in its static files, or jsDelivr) with template tags, plus optional django CMS plugins.
 
 ## In the HTML
 
