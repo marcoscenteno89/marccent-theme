@@ -2,9 +2,9 @@
 
 A theme for Next.js sites: a full CSS system, a live theme engine visitors can edit, a React UI kit and canvas animations.
 
-- **CSS**: tokens, a grid layout system, utilities, hover effects and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
+- **CSS**: tokens, a grid layout system, utilities, hover effects (some follow the mouse: tilt, spotlight, magnet) and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
-- **UI kit**: Button, Icon (Font Awesome), Modal, Drawer, Form, Field, Toast, Accordion, Pagination, Loading and more; a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover) and a Footer built from the same menu data.
+- **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover), a Footer built from the same menu data, an AppShell with a collapsible sidebar, and a Dock.
 - **Animations**: canvas backgrounds on any element with `data-component="animation" data-name="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
 
 ## Install

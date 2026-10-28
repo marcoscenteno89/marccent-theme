@@ -1,0 +1,47 @@
+@import "../layers.css";
+/* FLOATING BOXES (Tooltip, LinkPreview, Popover in components/ui/popover.js). Native popovers, placed by script
+   (place(), core/place.js: left / top, and data-side, the side it took). Hidden until placed, so a box never flashes
+   in the browser's default spot (the middle of the screen). */
+@layer components {
+.float {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  width: max-content;
+  max-width: min(var(--float-width), 100vw - 1rem);
+  max-height: calc(100dvh - 1rem);
+  overflow: auto;
+  color: var(--body-color);
+}
+.float:not([data-side]) { visibility: hidden; }
+
+/* Tooltip: a small dark label (the page's colors swapped), not something to click: the pointer passes through it. */
+.tooltip {
+  --float-width: 18rem;
+  padding: var(--space-xs) var(--space-sm);
+  border: 0;
+  border-radius: var(--radius-control);
+  font-size: var(--text-sm);
+  line-height: var(--heading-line-height);
+  color: var(--body-bg);
+  background-color: var(--body-color);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+}
+
+/* LinkPreview's card and Popover's panel: a .bg box (classes on the markup); padding comes from them too. */
+.tooltip-card { --float-width: 20rem; padding: 0; }
+.popover { --float-width: 24rem; }
+.link-preview-image { display: block; width: 100%; aspect-ratio: 1.91; object-fit: cover; } /* og:image proportions */
+}
+
+/* Opening: a quick fade and a small slide away from the trigger. Unlayered (like animations.css). */
+.float:popover-open[data-side] { animation: float-in var(--duration) ease-out; }
+.float[data-side="top"] { --float-from: 0 .25rem; }
+.float[data-side="bottom"] { --float-from: 0 -.25rem; }
+.float[data-side="left"] { --float-from: .25rem 0; }
+.float[data-side="right"] { --float-from: -.25rem 0; }
+@keyframes float-in { from { opacity: 0; translate: var(--float-from, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .float:popover-open[data-side] { animation: none; }
+}

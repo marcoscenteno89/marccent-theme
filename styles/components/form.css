@@ -68,3 +68,22 @@
   /* The button's border matches the fields': in colors.css, since its .btn.primary etc. are unlayered. */
 }
 }
+
+/* FILE DROP (FileDrop in components/ui/file-drop.js): a dashed zone that is the label of a visually hidden file
+   input, so a click or the keyboard opens the picker. It lights up while files are dragged over it (.over) and
+   shows the input's focus ring. Chosen files list under it: a preview, the name and size, a remove button. */
+@layer components {
+.file-drop-zone {
+  border: calc(var(--border-width) * 2) dashed var(--border-color);
+  border-radius: var(--radius-card);
+  background-color: var(--muted-bg);
+  cursor: pointer;
+  transition: border-color var(--duration), background-color var(--duration), box-shadow var(--duration);
+}
+.file-drop-zone:hover,
+.file-drop-zone.over { border-color: var(--focus-border); background-color: color-mix(in srgb, var(--primary) 8%, var(--muted-bg)); }
+.file-drop:has(> input:focus-visible) > .file-drop-zone { border-color: var(--focus-border); box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+.file-drop:has(> input:disabled) > .file-drop-zone { opacity: .5; cursor: not-allowed; }
+.file-drop-item { grid-template-columns: var(--icon-size) minmax(0, 1fr) auto; }
+.file-drop-item > img { width: var(--icon-size); aspect-ratio: 1; object-fit: cover; }
+}

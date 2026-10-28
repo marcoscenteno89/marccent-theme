@@ -1,13 +1,17 @@
 'use client';
 import { useState, useRef, useId } from 'react';
+import Link from 'next/link';
 import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
+import { Tooltip } from '../ui/popover';
 import { useToggle } from '../ui/toggle-button';
 import '../../styles/components/button.css';
+import '../../styles/components/dock.css';
 
 /*
- * Navigation widgets: a radial menu, a step bar of chevrons and a tab bar with a sliding indicator. No CSS of their
- * own: grid, stack, shape and color classes, and inline styles for positions and motion.
+ * Navigation widgets: a radial menu, a step bar of chevrons, a tab bar with a sliding indicator and a dock. Mostly no
+ * CSS of their own: grid, stack, shape and color classes, and inline styles for positions and motion; the dock's
+ * magnifying needs sibling selectors (dock.css).
  */
 
 const ease = 'var(--duration-slow) cubic-bezier(.34, 1.56, .64, 1)'; // a little overshoot
@@ -112,4 +116,34 @@ const TabBar = ({ tabs, className }) => {
   );
 }
 
-export { RadialMenu, StepBar, TabBar };
+/**
+ * Dock: a row of round icon buttons that swell as the pointer passes, the one under it most and its neighbors a
+ * little (macOS style; CSS only, dock.css). Each item's name shows in a Tooltip above it and is its accessible name.
+ * Keyboard focus swells an item too. Reduced motion: no swelling.
+ * @param {{ icon: string, label: string, href?: string, onClick?: Function, external?: boolean }[]} items - icon: a
+ *   Button icon ("house", or full "fa-…" classes). href: a link; otherwise a button calling onClick.
+ * @param {string} [label='Dock'] - The nav's aria-label.
+ *
+ * @example <Dock items={[ { icon: 'house', label: 'Home', href: '/' }, { icon: 'fa-brands fa-github', label: 'GitHub', href: gh, external: true } ]} />
+ */
+const Dock = ({ items, label = 'Dock', className }) => (
+  <nav data-component="dock" aria-label={label} className={cx('dock bg border pill shadow', className)}>
+    <ul className="dock-items">
+      {items.map((item) => {
+        const icon = item.icon.startsWith('fa-') ? <Icon family={false} className={item.icon} /> : <Icon name={item.icon} />;
+        const props = { className: 'dock-item circle col-center', 'aria-label': item.label };
+        return (
+          <li key={item.label}>
+            <Tooltip content={item.label}>
+              {item.href
+                ? <Link href={item.href} {...props} {...(item.external && { target: '_blank', rel: 'noopener noreferrer' })}>{icon}</Link>
+                : <button type="button" onClick={item.onClick} {...props}>{icon}</button>}
+            </Tooltip>
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+);
+
+export { RadialMenu, StepBar, TabBar, Dock };

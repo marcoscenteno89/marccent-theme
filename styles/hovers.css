@@ -544,3 +544,46 @@
 @media (prefers-reduced-motion: reduce) {
   .hover-spin, .hover-flip, .hover-morph { transition: none; }
 }
+
+/* POINTER: effects that follow the mouse. A small script (watchPointer, core/pointer.js; SiteTheme or startTheme
+   starts it) writes where the pointer is on the element as --px / --py, 0 to 1 across it (.5 the middle, also the
+   resting value). While hovered, the transition is short, so the effect keeps up with the pointer; on leaving it
+   eases back with --hover-duration. */
+:where(.hover-tilt, .hover-spotlight, .hover-magnet) { --px: .5; --py: .5; }
+
+/* TILT: leans toward the pointer in 3D, as if pressed where it is. --tilt: the most it turns (default 12deg). */
+.hover-tilt { transition: transform var(--hover-duration) ease; }
+.hover-tilt.hover-tilt:hover {
+  transform: perspective(60rem) rotateX(calc((.5 - var(--py)) * var(--tilt, 12deg))) rotateY(calc((var(--px) - .5) * var(--tilt, 12deg))) scale(1.02);
+  transition-duration: var(--duration);
+}
+
+/* SPOTLIGHT: a soft light in the theme colors follows the pointer across it. The light is ::after, behind the
+   content and in front of the background (isolation, like holographic). --spot-size: its radius (default 12rem). */
+.hover-spotlight { isolation: isolate; overflow: hidden; }
+:where(.hover-spotlight) { position: relative; }
+.hover-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle var(--spot-size, 12rem) at calc(var(--px) * 100%) calc(var(--py) * 100%),
+    color-mix(in srgb, var(--hover-from) 28%, transparent), color-mix(in srgb, var(--hover-to) 10%, transparent) 50%, transparent 75%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--hover-duration) ease;
+}
+.hover-spotlight.hover-spotlight:hover::after { opacity: 1; }
+
+/* MAGNET: drawn a little toward the pointer, springing back when it leaves. --magnet: how far it can go across
+   (default 1.25rem, so up to .625rem each way). */
+.hover-magnet { transition: translate var(--hover-duration) cubic-bezier(.34, 1.56, .64, 1); }
+.hover-magnet.hover-magnet:hover {
+  translate: calc((var(--px) - .5) * var(--magnet, 1.25rem)) calc((var(--py) - .5) * var(--magnet, 1.25rem));
+  transition-duration: var(--duration);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-tilt.hover-tilt:hover { transform: none; }
+  .hover-magnet.hover-magnet:hover { translate: none; }
+}

@@ -1,0 +1,39 @@
+@import "../layers.css";
+/* APP SHELL (AppShell in components/widgets/app-shell.js): sidebar | page, the sidebar the window's height and
+   pinned while the page scrolls; .collapsed narrows it to its icons. Narrow screens (the script's 56rem) get a top
+   bar instead (.app-shell-bar) and the shell is one column. */
+@layer components {
+.app-shell { grid-template-columns: auto minmax(0, 1fr); min-height: 100dvh; }
+.app-shell:has(> .app-shell-bar) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+
+.app-sidebar {
+  position: sticky;
+  top: 0;
+  width: var(--sidebar-width);
+  height: 100dvh;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden auto;
+  border-inline-end: var(--border-width) solid var(--border-color);
+  container-type: inline-size; /* narrow, so its submenus open in place (menu.css) */
+  transition: width var(--duration-slow) ease;
+}
+.app-shell.collapsed > .app-sidebar { width: calc(var(--icon-size) + 2 * var(--space-sm)); }
+.app-sidebar > .header { min-height: var(--icon-size); }
+.app-shell.collapsed > .app-sidebar > .header { grid-template-columns: 0 auto; gap: 0; } /* the button alone, centered */
+
+/* The links (in the sidebar, or the Drawer on phones): full width, text at the start, packed at the top; dropdowns
+   open in place under their row. */
+.app-sidebar .menu { align-content: start; }
+.app-shell :is(.app-sidebar, .drawer) .menu > .menu-link,
+.app-shell :is(.app-sidebar, .drawer) .menu > .menu-dropdown > summary { justify-content: start; }
+.app-shell.collapsed .menu > .menu-link { justify-content: center; }
+.app-shell :is(.app-sidebar, .drawer) .menu-dropdown > .menu-panel { position: static; margin-top: var(--space-xs); }
+.app-shell.collapsed .menu-dropdown { display: none; } /* a dropdown has no icon-only form */
+}
+
+/* Unlayered, to take back the panel's own utility classes (border, shadow, pad) inside the sidebar. */
+.app-shell :is(.app-sidebar, .drawer) .menu-dropdown > .menu-panel { box-shadow: none; padding-block: 0; border-width: 0 0 0 var(--border-width); border-radius: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar { transition: none; }
+}

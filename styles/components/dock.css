@@ -1,0 +1,33 @@
+@import "../layers.css";
+/* DOCK (Dock in components/widgets/nav.js): a pill of round icon buttons along the bottom edge. --s is each item's
+   scale: the hovered (or focused) one grows most, the next one on each side less, the one after a little. Items
+   grow in width (the glyph in font size), not with transform, so the row widens and nothing overlaps. */
+@layer components {
+.dock { display: grid; width: max-content; max-width: 100%; justify-self: center; padding: var(--space-xs); } /* its items' width, centered in a grid */
+.dock-items { display: grid; grid-auto-flow: column; align-items: end; gap: var(--space-xs); margin: 0; padding: 0; list-style: none; }
+.dock-items > li { --s: 1; display: grid; }
+.dock-item {
+  width: calc(var(--icon-size) * var(--s));
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background-color: var(--muted-bg);
+  text-decoration: none;
+  cursor: pointer;
+  transition: width var(--duration-slow) ease, background-color var(--duration);
+}
+/* The item is the square (--icon-size reads the item's font size, so that stays put); the glyph grows inside it. */
+.dock-item > i { width: auto; aspect-ratio: auto; font-size: calc(1em * var(--s)); transition: font-size var(--duration-slow) ease; }
+.dock-item:focus-visible { outline: 0; box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+
+.dock-items > li:has(> .dock-item:is(:hover, :focus-visible)) { --s: 1.6; }
+.dock-items > li:has(+ li > .dock-item:is(:hover, :focus-visible)),
+.dock-items > li:has(> .dock-item:is(:hover, :focus-visible)) + li { --s: 1.3; }
+.dock-items > li:has(+ li + li > .dock-item:is(:hover, :focus-visible)),
+.dock-items > li:has(> .dock-item:is(:hover, :focus-visible)) + li + li { --s: 1.12; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-items > li { --s: 1 !important; }
+}

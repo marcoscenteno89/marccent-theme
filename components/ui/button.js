@@ -12,7 +12,13 @@ import '../../styles/components/button.css';
  * Renders a next/link <Link> when href is given, otherwise a <button type="button">.
  * Icon-only buttons need an aria-label.
  *
- * @param {{ icon?: string|false, href?: string, disabled?: boolean, className?: string, children?: React.ReactNode, trace?: boolean, [attr: string]: any }} props
+ * State (a button that does something that takes a while: send, save): state="loading" swaps the icon for a spinner
+ * and disables it, "done" shows a check in the success color, "error" a warning in the danger color, "idle" is the
+ * plain button. A hidden live region says so to screen readers; pass "idle" rather than nothing at rest, so the region
+ * is already there when the state changes (a region that appears with its text isn't always read). Form drives it for
+ * its submit button. Give it an icon, so nothing moves.
+ *
+ * @param {{ icon?: string|false, href?: string, disabled?: boolean, state?: 'idle'|'loading'|'done'|'error', className?: string, children?: React.ReactNode, trace?: boolean, [attr: string]: any }} props
  *   icon: an icon name, rendered with <Icon> (above): "star" → fa-solid fa-star. Starting with "fa-" it is taken
  *   as full classes instead, for other families or extra classes: "fa-brands fa-github", "fa-solid fa-plus display".
  *   href: makes it a link. disabled: can't be used (faded; a link loses its href and leaves the tab order, since
@@ -24,7 +30,21 @@ import '../../styles/components/button.css';
  * @example <Button icon="fa-brands fa-github" href={github}>Github</Button>
  * @example <Button onClick={reset}>Start Over</Button>  // text link
  */
-const Button = ({ icon = false, href, disabled = false, className, children, trace = false, 'data-component': component = 'button', ...rest }) => {
+// Each state's icon, color class and what the live region says.
+const STATES = {
+  loading: { icon: 'fa-solid fa-circle-notch fa-spin', say: 'Working…' },
+  done: { icon: 'check', color: 'success', say: 'Done' },
+  error: { icon: 'triangle-exclamation', color: 'danger', say: 'Failed' },
+};
+
+const Button = ({ icon = false, href, disabled = false, state, className, children, trace = false, 'data-component': component = 'button', ...rest }) => {
+  const now = STATES[state];
+  if (now) {
+    icon = now.icon;
+    className = cx(className, now.color);
+    disabled ||= state === 'loading';
+    rest = { 'aria-busy': state === 'loading' || undefined, 'data-state': state, ...rest };
+  }
   // A disabled link: no href (nothing to follow), out of the tab order, announced as disabled.
   const off = disabled && href ? { 'aria-disabled': true, tabIndex: -1 } : {};
   // What it is, in the HTML (README: In the HTML): "button", or what's built on it ("toggle-button"…) passing its
@@ -46,6 +66,7 @@ const Button = ({ icon = false, href, disabled = false, className, children, tra
       <ButtonIcon icon={icon} />
       {children && <span className="btn-text">{children}</span>}
       {trace && <Trace />}
+      {state !== undefined && <span role="status" className="visually-hidden">{now?.say}</span>}
     </>
   );
   if (href) return disabled ? <a {...props} {...off}>{content}</a> : <Link href={href} {...props}>{content}</Link>;

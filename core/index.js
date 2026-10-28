@@ -9,6 +9,7 @@
  */
 import { themeSI, SCOPE_KEYS, SITE } from '../lib/singleton';
 import { applySiteTheme, watchScopes } from './apply';
+import { watchPointer } from './pointer';
 
 let started = null;
 
@@ -29,6 +30,7 @@ const startTheme = ({ path = location.pathname } = {}) => {
     };
     apply();
     theme.subscribe(apply);
+    watchPointer();
     return theme;
   });
   return started;
@@ -42,3 +44,5 @@ export { toastSI, Toasts } from './toasts';
 export { watchInView } from './in-view';
 export { closeMenus, closeAll } from './close-menus';
 export { watchScrolled } from './scrolled';
+export { watchPointer } from './pointer';
+export { place, keepPlaced } from './place';

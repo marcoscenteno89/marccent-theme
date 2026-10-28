@@ -7,6 +7,7 @@
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../lib/context";
 import { applySiteTheme, watchScopes } from '../../core/apply';
+import { watchPointer } from '../../core/pointer';
 
 const Body = (props) => (
   <body data-component="body" className={props.className} suppressHydrationWarning={true}>
@@ -14,9 +15,11 @@ const Body = (props) => (
   </body>
 );
 
-// SiteTheme: applySiteTheme (core/apply.js) whenever the theme changes. Renders nothing.
+// SiteTheme: applySiteTheme (core/apply.js) whenever the theme changes, and the pointer hover effects' tracker
+// (watchPointer, core/pointer.js). Renders nothing.
 const SiteTheme = () => {
   const { theme } = useContext(ThemeContext);
+  useEffect(() => watchPointer(), []);
   useEffect(() => {
     if (theme) {
       applySiteTheme(theme);

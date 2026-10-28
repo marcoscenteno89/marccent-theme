@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { cx } from '../../lib/cx';
 import { Button } from './button';
 import '../../styles/components/form.css';
@@ -9,26 +9,40 @@ import '../../styles/components/pagination.css';
 const formValues = (form) => Object.fromEntries(new FormData(form));
 
 /*
- * Submit handler shared by Form and StepForm: stays on the page (without it the form would post to its action),
- * calls onSubmit with (values, form) and, while an async onSubmit runs, reports busy so the submit button is
- * disabled and a second click can't send the form twice.
+ * Submit handler shared by Form and StepForm: stays on the page (without it the form would post to its action) and
+ * calls onSubmit with (values, form). Its state is the submit button's (Button state): "loading" while an async
+ * onSubmit runs, so a second click can't send the form twice, then "done" or "error" for a moment (an error is
+ * thrown on, as before). Busy: loading.
  */
+const SETTLED_MS = 2500;
 const useSubmit = (onSubmit) => {
-  const [ busy, setBusy ] = useState(false);
+  const [ state, setState ] = useState();
+  const timer = useRef();
+  useEffect(() => () => clearTimeout(timer.current), []);
   const submit = async (e) => {
     e.preventDefault();
-    if (busy) return;
+    if (state === 'loading') return;
     const form = e.currentTarget;
-    setBusy(true);
-    try { await onSubmit?.(formValues(form), form); }
-    finally { setBusy(false); }
+    clearTimeout(timer.current);
+    setState('loading');
+    const settle = (end) => {
+      setState(end);
+      timer.current = setTimeout(() => setState(undefined), SETTLED_MS);
+    };
+    try {
+      await onSubmit?.(formValues(form), form);
+      settle('done');
+    } catch (err) {
+      settle('error');
+      throw err;
+    }
   };
-  return [ busy, submit ];
+  return [ state, submit ];
 }
 
-// Submit button: a spinner in place of the icon, and disabled, while the form is busy.
-const SubmitButton = ({ busy, icon = 'paper-plane', children }) => (
-  <Button type="submit" icon={busy ? 'fa-solid fa-spinner fa-spin' : icon} disabled={busy} className="primary">{children}</Button>
+// Submit button: its state follows the form's (spinner and disabled while busy, then done or failed).
+const SubmitButton = ({ state, icon = 'paper-plane', children }) => (
+  <Button type="submit" icon={icon} state={state ?? 'idle'} className="primary">{children}</Button>
 );
 
 /**
@@ -56,11 +70,11 @@ const SubmitButton = ({ busy, icon = 'paper-plane', children }) => (
  * </Form>
  */
 const Form = ({ onSubmit, submitLabel = 'Submit', submitIcon = 'paper-plane', className = 'grid gap-sm pairs', children, ...rest }) => {
-  const [ busy, submit ] = useSubmit(onSubmit);
+  const [ state, submit ] = useSubmit(onSubmit);
   return (
-    <form data-component="form" className={className} aria-busy={busy || undefined} {...rest} onSubmit={submit}>
+    <form data-component="form" className={className} aria-busy={state === 'loading' || undefined} {...rest} onSubmit={submit}>
       {children}
-      {submitLabel && <SubmitButton busy={busy} icon={submitIcon}>{submitLabel}</SubmitButton>}
+      {submitLabel && <SubmitButton state={state} icon={submitIcon}>{submitLabel}</SubmitButton>}
     </form>
   );
 }
@@ -85,7 +99,7 @@ const Form = ({ onSubmit, submitLabel = 'Submit', submitIcon = 'paper-plane', cl
 const StepForm = ({ onSubmit, onStep, className = 'grid cols-1 gap-sm', children, ...rest }) => {
   const steps = React.Children.toArray(children);
   const [ current, setCurrent ] = useState(0);
-  const [ busy, submit ] = useSubmit(onSubmit);
+  const [ state, submit ] = useSubmit(onSubmit);
   const form = useRef(null);
   const sets = useRef([]);
   const last = steps.length - 1;
@@ -97,7 +111,7 @@ const StepForm = ({ onSubmit, onStep, className = 'grid cols-1 gap-sm', children
     onStep?.(to, formValues(form.current));
   };
   return (
-    <form data-component="step-form" ref={form} className={className} aria-busy={busy || undefined} {...rest} onSubmit={submit}>
+    <form data-component="step-form" ref={form} className={className} aria-busy={state === 'loading' || undefined} {...rest} onSubmit={submit}>
       <div className="grid fixed gap-0 divide border round" style={{ '--cols': steps.length }}>
         {steps.map((step, i) => (
           <button data-component="button" data-name={step.props.name} key={step.props.name} type="button" aria-current={i === current ? 'step' : undefined}
@@ -117,7 +131,7 @@ const StepForm = ({ onSubmit, onStep, className = 'grid cols-1 gap-sm', children
         <Button disabled={current === 0} onClick={() => go(current - 1)}>Back</Button>
         {current < last
           ? <Button icon="arrow-right" onClick={() => go(current + 1)}>Next</Button>
-          : <SubmitButton busy={busy}>Submit</SubmitButton>}
+          : <SubmitButton state={state}>Submit</SubmitButton>}
       </div>
     </form>
   );

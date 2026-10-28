@@ -99,6 +99,7 @@
   --modal-width: 500px;        /* never wider than the screen minus --space-lg */
   --modal-ticket-width: 750px; /* the "ticket" modal look (Modal variant="ticket") */
   --modal-offset: 50px;        /* how far above its place the modal starts sliding in */
+  --sidebar-width: 16rem;      /* AppShell's sidebar, open; collapsed it's its icons' width */
   --drawer-width: 22rem;       /* the Drawer's panel; never wider than the screen minus --space-lg */
   --overlay-color: #000;       /* .overlay: the tint over media, so text on it reads */
   --overlay-opacity: .5;       /* .overlay-sm / .overlay-lg are multiples */
