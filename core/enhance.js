@@ -7,7 +7,9 @@
  *   define('tooltip', (el) => { …; return () => { … }; });
  *   enhance();            // the page, and everything added to it later
  *
- * Not for React pages: React wires its own components (loading both would wire them twice).
+ * Not for what React renders: React wires its own components (both would wire them twice). A page that mixes them
+ * (WordPress: Marccent Blocks' islands) marks React's parts data-island, and the engine leaves everything inside
+ * one alone.
  */
 
 const setups = new Map();    // kind → setup(el)
@@ -29,6 +31,7 @@ const upgrade = (root) => {
   const els = root.querySelectorAll ? [ ...root.querySelectorAll('[data-component]') ] : [];
   if (root.matches?.('[data-component]')) els.unshift(root);
   for (const el of els) {
+    if (el.closest('[data-island]')) continue;
     const ran = done.get(el) ?? new Map();
     for (const kind of el.dataset.component.split(/\s+/)) {
       const setup = setups.get(kind);
