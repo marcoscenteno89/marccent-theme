@@ -99,7 +99,9 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
   }, [ hasPanel, on ]);
 
   const button = (
-    <Button data-component="toggle-button" icon={on ? activeIcon : icon} {...attrs} {...rest} {...(panel && { id: toggleId })}
+    // data-icon / data-active-icon: both icons in the markup, so the plain-JS engine can swap them (core/components.js).
+    <Button data-component="toggle-button" data-icon={icon} data-active-icon={activeIcon} icon={on ? activeIcon : icon} {...attrs} {...rest}
+      {...(panel && { id: toggleId, popovertarget: id })}
       onClick={panel ? onClick : (e) => { onClick?.(e); flip(); }}>
       {on && activeLabel ? activeLabel : children}
     </Button>

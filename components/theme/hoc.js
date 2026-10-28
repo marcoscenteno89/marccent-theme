@@ -5,6 +5,7 @@ import { ThemeContext } from "../../lib/context";
 import { SITE } from "../../lib/singleton";
 import { cx } from '../../lib/cx';
 import { Loading } from '../ui/loading';
+import { decorativeObserver, DECORATIVE_FPS } from '../../core/canvas-background';
 import '../../styles/components/canvas.css';
 
 const withLoader = (Component) => {
@@ -48,24 +49,6 @@ const withTheme = (Component) => {
     );
   }
   return WiththemeComponent;
-}
-
-// Decorative animations (backgrounds, previews) run at this rate and one pixel per CSS pixel: soft shapes look
-// the same, and a 3x phone screen draws 9x fewer pixels.
-const DECORATIVE_FPS = 30;
-
-// Like canvasObserver (@marccent/util), but a decorative animation stays still while the visitor asks for
-// reduced motion (OS setting): it keeps the frame already drawn and only animates when on screen and allowed.
-// Returns a function that stops watching.
-const decorativeObserver = (p, node) => {
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let visible = false;
-  const update = () => (visible && !motion.matches ? p.loop() : p.noLoop());
-  const observer = new IntersectionObserver(([ entry ]) => { visible = entry.isIntersecting; update(); });
-  observer.observe(node);
-  motion.addEventListener('change', update);
-  update();
-  return () => { observer.disconnect(); motion.removeEventListener('change', update); };
 }
 
 /**

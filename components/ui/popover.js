@@ -1,22 +1,18 @@
 'use client';
 import { cloneElement, useEffect, useId, useRef } from 'react';
 import { cx } from '../../lib/cx';
-import { place, keepPlaced } from '../../core/place';
+import { keepPlaced } from '../../core/place';
+import { tooltip } from '../../core/tooltip';
 import '../../styles/components/popover.css';
 
 /*
  * Floating boxes beside an element: Tooltip (a hint on hover or focus), LinkPreview (a card over a link) and Popover
  * (a panel a button opens). Each is a native popover: in the top layer, so no overflow or stacking context clips
  * it, placed beside its trigger by place() (core/place.js) and kept there as the page scrolls. The trigger is the
- * one child, any element that passes on id and event props (a Button, a next/link Link, a plain tag); it keeps its
- * own id and handlers.
+ * one child, any element that passes on an id (a Button, a next/link Link, a plain tag); it keeps its own id. The
+ * markup is the contract the plain-JS engine reads too (core/components.js): the trigger's aria-describedby or
+ * popovertarget names the box, whose data-placement is the side.
  */
-
-// Props for the trigger: its id (its own, or ours) and handlers that run its own first.
-const triggerProps = (child, id, handlers) => ({
-  id,
-  ...Object.fromEntries(Object.entries(handlers).map(([ name, fn ]) => [ name, (e) => { child.props[name]?.(e); fn(e); } ])),
-});
 
 /**
  * Tooltip: a short hint over its child while the pointer is on it or it has keyboard focus; Esc hides it. The child
@@ -38,54 +34,24 @@ const Tooltip = ({ content, side = 'top', delay = 150, interactive = false, clas
   const id = useId();
   const anchorId = children.props.id ?? `${id}-anchor`;
   const box = useRef(null);
-  const timer = useRef();
 
+  // The behavior is plain JavaScript (core/tooltip.js), shared with the markup engine.
   useEffect(() => {
-    const el = box.current;
-    const stop = keepPlaced(el, () => document.getElementById(anchorId), side);
-    const esc = (e) => e.key === 'Escape' && el.matches(':popover-open') && el.hidePopover();
-    document.addEventListener('keydown', esc);
-    return () => {
-      stop();
-      document.removeEventListener('keydown', esc);
-      clearTimeout(timer.current);
-    };
-  }, [ anchorId, side ]);
-
-  // Placed at once, in the same frame it opens, so it never shows in the wrong spot.
-  const open = () => {
-    const el = box.current;
-    const anchor = document.getElementById(anchorId);
-    if (!el || !anchor || el.matches(':popover-open')) return;
-    el.showPopover();
-    place(el, anchor, side);
-  };
-  const show = (wait) => {
-    clearTimeout(timer.current);
-    timer.current = setTimeout(open, wait);
-  };
-  const hide = (wait) => {
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => box.current?.matches(':popover-open') && box.current.hidePopover(), wait);
-  };
-  const linger = interactive ? 200 : 0; // time to move the pointer from the trigger into the card
+    const trigger = document.getElementById(anchorId);
+    return trigger ? tooltip(box.current, trigger, { side, delay, interactive }) : undefined;
+  }, [ anchorId, side, delay, interactive ]);
 
   // No title: the browser's own tooltip would show on top of this one.
   const trigger = cloneElement(children, {
+    id: anchorId,
     title: undefined,
     'aria-describedby': cx(children.props['aria-describedby'], id),
-    ...triggerProps(children, anchorId, {
-      onPointerEnter: (e) => e.pointerType === 'mouse' && show(delay),
-      onPointerLeave: (e) => e.pointerType === 'mouse' && hide(linger),
-      onFocus: () => show(0),
-      onBlur: () => hide(0),
-    }),
   });
   return (
     <>
       {trigger}
-      <div ref={box} id={id} role="tooltip" popover="manual" data-component="tooltip" className={cx('float', interactive ? 'tooltip-card bg border round shadow' : 'tooltip', className)}
-        onPointerEnter={interactive ? () => clearTimeout(timer.current) : undefined} onPointerLeave={interactive ? () => hide(linger) : undefined}>
+      <div ref={box} id={id} role="tooltip" popover="manual" data-component="tooltip" data-placement={side}
+        className={cx('float', interactive ? 'tooltip-card bg border round shadow' : 'tooltip', className)}>
         {content}
       </div>
     </>
@@ -148,8 +114,8 @@ const Popover = ({ content, label, side = 'bottom', className = 'bg border round
 
   return (
     <>
-      {cloneElement(children, { id: anchorId })}
-      <div ref={box} id={id} popover="auto" role="group" aria-label={label} data-component="popover" className={cx('float popover', className)}>
+      {cloneElement(children, { id: anchorId, popovertarget: id })}
+      <div ref={box} id={id} popover="auto" role="group" aria-label={label} data-component="popover" data-placement={side} className={cx('float popover', className)}>
         {content}
       </div>
     </>

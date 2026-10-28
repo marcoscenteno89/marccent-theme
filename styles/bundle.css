@@ -1,0 +1,6 @@
+/*
+ * dist/marccent.css (npm run build): core.css and every component's stylesheet, without the design styles
+ * (dist/designs/<id>.css, or dist/designs.css for all of them).
+ */
+@import "./core.css";
+@import "./components.css";

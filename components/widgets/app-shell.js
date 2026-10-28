@@ -59,7 +59,7 @@ const AppShell = ({ brand, items, footer, label = 'Sidebar', className, children
           <div className="header">
             {folded ? <span /> : brand}
             <Button icon={folded ? 'angles-right' : 'angles-left'} aria-label={folded ? 'Expand sidebar' : 'Collapse sidebar'}
-              aria-expanded={!folded} onClick={() => collapse(!folded)} />
+              aria-expanded={!folded} data-collapse onClick={() => collapse(!folded)} />
           </div>
           {menu(folded)}
           {footer && <div className="app-sidebar-footer grid cols-1 gap-sm">{footer}</div>}

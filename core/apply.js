@@ -1,5 +1,5 @@
 import { DEFAULT_DESIGN } from '../lib/design';
-import defaults from '../lib/theme.defaults.json';
+import defaults from '../lib/defaults';
 import { applyScopes, paletteVars } from '../lib/theme-scope';
 
 /**

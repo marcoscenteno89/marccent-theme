@@ -1,0 +1,2 @@
+/* marccent-theme 0.2.0 | https://github.com/marcoscenteno89/marccent-theme */
+import{a,b,c,d,e,f,g,h,i,j,k,l}from"./chunk-LSKBPLTJ.js";import"./chunk-F3CJIBPG.js";import"./chunk-KAK2BLTN.js";import"./chunk-E5YNVZKW.js";import"./chunk-S24F25RD.js";import"./chunk-IHLJMPRC.js";import"./chunk-6XY7G57V.js";export{k as autoCloseTags,d as completionPath,l as esLint,j as javascript,f as javascriptLanguage,h as jsxLanguage,c as localCompletionSource,e as scopeCompletionSource,a as snippets,i as tsxLanguage,g as typescriptLanguage,b as typescriptSnippets};

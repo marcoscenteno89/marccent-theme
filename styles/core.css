@@ -1,0 +1,34 @@
+/*
+ * MARCCENT THEME CORE: every stylesheet but the components' own and the design styles, in cascade order, from broad
+ * to specific (ITCSS): when two rules are equally specific, the later file wins. Variables don't depend on this order:
+ * defaults and design styles are weightless (:where), so a site's own :root overrides always beat them.
+ *
+ * index.css imports it with every design style (what a Next site imports); bundle.css with every component's file
+ * (dist/marccent.css). To slot a site's own files in between (its settings after the defaults, its custom styles
+ * after the layout), import the files below one by one, in this order.
+ *
+ * Components load on their own: each component imports its file from styles/components/ (button.js imports
+ * button.css), so a page only gets the styles of what it renders. That makes their load order unpredictable, so
+ * they sit in cascade layers instead, ranked in layers.css: base (reset) < components < everything else in this
+ * file, which is unlayered. A component file wraps its rules in @layer components { … }.
+ */
+@import "./layers.css";
+
+/* Variables */
+@import "./tokens/defaults.css";      /* every variable's default */
+
+/* Elements and colors */
+@import "./base/base.css";            /* reset, typography, form elements (layer base) */
+@import "./tokens/colors.css";        /* color classes: bg-*, text-*, .btn color modifiers, .divide, surfaces */
+
+/* Layout */
+@import "./layout.css";               /* grid, wrap, stack, padding, gaps */
+
+/* Components */
+@import "./base/animations.css";      /* keyframes and open/close motion; unlayered, so it beats a component's transition */
+@import "./components/icons.css";     /* used on every page (any <i>): Font Awesome + the icon square */
+@import "./components/header.css";    /* used on every page (any box's title row: cards, modal, toast) */
+@import "./hovers.css";               /* hover effects (.hover-*); unlayered, so they replace a component's own hover */
+
+/* Utilities: last, so a single-purpose class beats a component's own rule */
+@import "./utilities.css";

@@ -1,0 +1,22 @@
+/*
+ * Every component's stylesheet at once, for pages whose markup comes from a server (PHP, Django, plain HTML) rather
+ * than React components that import their own. They sit in the components layer (layers.css), so their order
+ * doesn't matter. icons.css and header.css are in core.css already.
+ */
+@import "./layers.css";
+@import "./components/accordion.css";
+@import "./components/app-shell.css";
+@import "./components/board.css";
+@import "./components/button.css";
+@import "./components/canvas.css";
+@import "./components/clock.css";
+@import "./components/close.css";
+@import "./components/dock.css";
+@import "./components/form.css";
+@import "./components/loading.css";
+@import "./components/menu.css";
+@import "./components/modal.css";
+@import "./components/nav.css";
+@import "./components/pagination.css";
+@import "./components/popover.css";
+@import "./components/toast.css";
