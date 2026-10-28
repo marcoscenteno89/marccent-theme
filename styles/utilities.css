@@ -27,12 +27,19 @@
 
 /* BORDER */
 .border { border: var(--border-width) solid var(--border-color); }
+.border-top { border-top: var(--border-width) solid var(--border-color); }
 .border-bottom { border-bottom: var(--border-width) solid var(--border-color); }
-/* Rounded corners. Radius comes from --radius (defaults.css; settings.css can pin it). */
+/* Rounded corners: boxes (.round, --radius-card) and images or video (.round-media, --radius-media); both follow
+   --radius unless set on their own (defaults.css; settings.css can pin them). .pill: fully round ends, any height. */
 .round {
-  border-radius: var(--radius);
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
+.round-media {
+  border-radius: var(--radius-media);
+  overflow: hidden;
+}
+.pill { border-radius: 100vmax; }
 .circle {
   border-radius: 50%;
 }
@@ -59,6 +66,36 @@
 /* OVERFLOW */
 .overflow-hidden { overflow: hidden; }
 .overflow-auto { overflow: auto; }
+/* One row that scrolls sideways when it doesn't fit (pill tabs on a phone), its scrollbar hidden; centered while it
+   fits, packed at the start once it scrolls (safe center never cuts off the first item). On a .grid.auto-cols:
+   items keep their full width instead of shrinking. */
+.scroll-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  grid-auto-columns: max-content;
+  justify-content: safe center;
+}
+.scroll-x::-webkit-scrollbar { display: none; }
+
+/* MEDIA: full-bleed backgrounds. In a .stack (layout.css): the media first, then the content on top.
+   .media-cover: an <img> or <video> fills its cell, cropped to fit. .overlay: a tint of --overlay-color over what's
+   behind it, so the text on it reads (--overlay-opacity, or -sm / -lg); on the content layer itself, as a background
+   image, so a bg-* color class beside it still works.
+   <section class="stack"><video class="media-cover" autoplay muted loop playsinline …></video>
+     <div class="overlay wrap col-center">…</div></section> */
+.media-cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.overlay {
+  --_tint: color-mix(in srgb, var(--overlay-color) calc(var(--overlay-opacity) * 100%), transparent);
+  background-image: linear-gradient(var(--_tint), var(--_tint));
+}
+.overlay-sm { --overlay-opacity: var(--overlay-opacity-sm); }
+.overlay-lg { --overlay-opacity: var(--overlay-opacity-lg); }
 
 /* DISPLAY */
 .d-none { display: none; }

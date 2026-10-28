@@ -41,14 +41,16 @@ const menuLinks = (items) => items.flatMap(item => [ ...(item.href ? [ item ] : 
  * @param {string} [props.linkClassName] - Extra classes for every link (dropdown links included).
  * @param {string} [props.dropdownClassName] - Extra classes for each dropdown <details> (submenus included).
  * @param {string} [props.panelClassName] - Extra classes for each dropdown panel (submenus included).
+ * @param {boolean} [props.hover] - Dropdowns also open on mouse hover while their panel floats (data-open="hover";
+ *   the listeners are closeMenus's, so the menu must sit in an element given to it: NavBar does that).
  *
  * @example <Menu items={main} label="Main" />
  * @example <Menu items={social} label="Social" iconOnly layout="auto-cols cols-center" />
  * @example <Menu items={[ { name: 'Shop', href: '/shop', children: [ { name: 'Men', children: [ { name: 'Shirts', href: '/shop/men/shirts' } ] } ] } ]} label="Main" />
  */
 // fixed (default) splits the width into equal columns, one per item (--cols).
-const Menu = ({ items, label, iconOnly = false, className, style, layout = 'fixed', gap = 'gap-sm', linkClassName, dropdownClassName, panelClassName }) => (
-  <nav data-component="menu" className={cx('menu grid', gap, layout, className)} style={{ '--cols': items.length, ...style }} aria-label={label}>
+const Menu = ({ items, label, iconOnly = false, className, style, layout = 'fixed', gap = 'gap-sm', linkClassName, dropdownClassName, panelClassName, hover }) => (
+  <nav data-component="menu" data-open={hover ? 'hover' : undefined} className={cx('menu grid', gap, layout, className)} style={{ '--cols': items.length, ...style }} aria-label={label}>
     {items.map(item => item.children
       ? <MenuDropdown key={item.name} item={item} className={dropdownClassName} panelClassName={panelClassName} linkClassName={linkClassName} />
       : <MenuLink key={item.href} item={item} iconOnly={iconOnly} className={linkClassName} />

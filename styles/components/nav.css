@@ -12,6 +12,16 @@
 .btn.nav-toggle { display: none; }
 .nav-end { justify-self: end; }
 
+/* Floating (NavBar variant="floating"): the header is a see-through frame fixed over the page, letting clicks
+   through around the pill bar. The bar has a clear border, so it doesn't jump when it turns solid (.bg .border
+   .shadow on it, unlayered, so they win). */
+.nav[data-variant="floating"] { position: fixed; inset: 0 0 auto; z-index: 1020; pointer-events: none; }
+.nav[data-variant="floating"] > * { pointer-events: auto; }
+.nav[data-variant="floating"] > .wrap {
+  border: var(--border-width) solid transparent;
+  transition: background-color var(--duration-slow), border-color var(--duration-slow), box-shadow var(--duration-slow);
+}
+
 @container (width < 56rem) {
   /* The brand's column takes the spare room, so the toggle and tools sit at the right. It may shrink (the brand
      truncates) while a hover-expand tool button is open, so the row never runs off the screen. */

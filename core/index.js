@@ -41,3 +41,4 @@ export { Store } from './store';
 export { toastSI, Toasts } from './toasts';
 export { watchInView } from './in-view';
 export { closeMenus, closeAll } from './close-menus';
+export { watchScrolled } from './scrolled';

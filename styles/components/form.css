@@ -9,7 +9,7 @@
   min-width: 0;
   padding: var(--control-pad);
   border: var(--border-width) solid;
-  border-radius: var(--radius);
+  border-radius: var(--radius-control);
   font: inherit;
   line-height: var(--line-height);
   transition: border-color var(--duration), box-shadow var(--duration);
@@ -31,7 +31,7 @@
   padding: var(--control-pad);
   border: var(--border-width) solid;
   border-right-width: 0;
-  border-radius: var(--radius) 0 0 var(--radius);
+  border-radius: var(--radius-control) 0 0 var(--radius-control);
   white-space: nowrap;
 }
 .field-label::first-letter { text-transform: uppercase; } /* "first name" (from the name) → "First name" */

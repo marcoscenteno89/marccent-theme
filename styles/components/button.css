@@ -19,7 +19,7 @@
   padding: var(--control-pad);
   border-width: var(--border-width);
   border-style: solid;
-  border-radius: var(--radius);
+  border-radius: var(--radius-control);
   overflow: hidden; /* the icon tint follows the rounded corners */
   font: inherit;
   font-weight: var(--btn-weight); /* after font: inherit, which would reset it */

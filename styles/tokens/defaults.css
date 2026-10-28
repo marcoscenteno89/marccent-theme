@@ -59,12 +59,17 @@
   --weight-heading: 500;
   --weight-bold: 700;          /* .fw-bold */
   --small-size: .875em;        /* <small>, .fs-sm; em = relative to the surrounding text */
+  --heading-scale: 1;          /* multiplies every heading and display size (h1–h4, .display-*): 1.5 for a bolder site */
 
   /* Spacing */
   --space: 1rem;               /* base space: paragraph gaps, box padding, the gap scale */
 
-  /* Shape */
+  /* Shape. --radius rounds everything; the three below follow it unless set on their own (e.g. pill buttons,
+     --radius-control: 100vmax, with 1rem cards). */
   --radius: .375rem;
+  --radius-control: var(--radius); /* buttons, fields, menu links */
+  --radius-card: var(--radius);    /* boxes: .round, modals, drawers, menu panels */
+  --radius-media: var(--radius);   /* images and video: .round-media */
   --border-width: 1px;         /* every border and divide line */
   --focus-width: .25rem;       /* the focus ring around controls */
 
@@ -94,6 +99,9 @@
   --modal-width: 500px;        /* never wider than the screen minus --space-lg */
   --modal-ticket-width: 750px; /* the "ticket" modal look (Modal variant="ticket") */
   --modal-offset: 50px;        /* how far above its place the modal starts sliding in */
+  --drawer-width: 22rem;       /* the Drawer's panel; never wider than the screen minus --space-lg */
+  --overlay-color: #000;       /* .overlay: the tint over media, so text on it reads */
+  --overlay-opacity: .5;       /* .overlay-sm / .overlay-lg are multiples */
 
   /* Glass mode */
   --glass-blur: 20px;
@@ -117,16 +125,17 @@
   --text-md: calc(var(--font-size) * 1.25);
   --text-lg: calc(var(--font-size) * 1.5);
 
-  /* Headings grow with the viewport and stop at their desktop size. */
-  --h1: min(calc(var(--font-size) * 1.375 + 1.5vw), calc(var(--font-size) * 2.5));
-  --h2: min(calc(var(--font-size) * 1.325 + .9vw), calc(var(--font-size) * 2));
-  --h3: min(calc(var(--font-size) * 1.3 + .6vw), calc(var(--font-size) * 1.75));
-  --h4: min(calc(var(--font-size) * 1.275 + .3vw), calc(var(--font-size) * 1.5));
+  /* Headings grow with the viewport and stop at their desktop size, all times --heading-scale. */
+  --h1: calc(min(calc(var(--font-size) * 1.375 + 1.5vw), calc(var(--font-size) * 2.5)) * var(--heading-scale));
+  --h2: calc(min(calc(var(--font-size) * 1.325 + .9vw), calc(var(--font-size) * 2)) * var(--heading-scale));
+  --h3: calc(min(calc(var(--font-size) * 1.3 + .6vw), calc(var(--font-size) * 1.75)) * var(--heading-scale));
+  --h4: calc(min(calc(var(--font-size) * 1.275 + .3vw), calc(var(--font-size) * 1.5)) * var(--heading-scale));
   --h5: var(--text-md);
   --h6: var(--font-size);
   --display-sm: var(--h2);
   --display: var(--h1);
-  --display-lg: min(calc(var(--font-size) * 1.425 + 2.1vw), calc(var(--font-size) * 3));
+  --display-lg: calc(min(calc(var(--font-size) * 1.425 + 2.1vw), calc(var(--font-size) * 3)) * var(--heading-scale));
+  --display-xl: calc(min(calc(var(--font-size) * 1.5 + 3vw), calc(var(--font-size) * 3.75)) * var(--heading-scale)); /* 60px hero titles */
 
   /* Shadows */
   --shadow-sm: 0 calc(var(--shadow-size) * .25) calc(var(--shadow-size) * .5) rgb(0 0 0 / calc(var(--shadow-opacity) * .5));
@@ -136,6 +145,10 @@
   /* Containers */
   --wrap-sm: calc(var(--wrap-max) * .64);
   --wrap-lg: calc(var(--wrap-max) * 1.2);
+
+  /* Overlay */
+  --overlay-opacity-sm: calc(var(--overlay-opacity) * .6);
+  --overlay-opacity-lg: calc(var(--overlay-opacity) * 1.5);
 
   /* Motion */
   --duration-slow: calc(var(--duration) * 2); /* opening and closing: accordion, modal */

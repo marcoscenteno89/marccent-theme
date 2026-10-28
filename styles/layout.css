@@ -208,6 +208,35 @@
 .fixed > .span-9 { grid-column: span 9; }
 .fixed > .span-10 { grid-column: span 10; }
 
+/* Responsive spans on a .fixed grid (Bootstrap's col-md-* / col-lg-*): the full row in a narrow container, N columns
+   from 48rem (-md-) or 64rem (-lg-). Both on one item: -lg- wins from 64rem. Needs a container (.wrap or .cq), like
+   every container query here. */
+.fixed > :is([class*="span-md-"], [class*="span-lg-"]) { grid-column: 1 / -1; }
+@container (min-width: 48rem) {
+  .fixed > .span-md-1 { grid-column: span 1; }
+  .fixed > .span-md-2 { grid-column: span 2; }
+  .fixed > .span-md-3 { grid-column: span 3; }
+  .fixed > .span-md-4 { grid-column: span 4; }
+  .fixed > .span-md-5 { grid-column: span 5; }
+  .fixed > .span-md-6 { grid-column: span 6; }
+  .fixed > .span-md-7 { grid-column: span 7; }
+  .fixed > .span-md-8 { grid-column: span 8; }
+  .fixed > .span-md-9 { grid-column: span 9; }
+  .fixed > .span-md-10 { grid-column: span 10; }
+}
+@container (min-width: 64rem) {
+  .fixed > .span-lg-1 { grid-column: span 1; }
+  .fixed > .span-lg-2 { grid-column: span 2; }
+  .fixed > .span-lg-3 { grid-column: span 3; }
+  .fixed > .span-lg-4 { grid-column: span 4; }
+  .fixed > .span-lg-5 { grid-column: span 5; }
+  .fixed > .span-lg-6 { grid-column: span 6; }
+  .fixed > .span-lg-7 { grid-column: span 7; }
+  .fixed > .span-lg-8 { grid-column: span 8; }
+  .fixed > .span-lg-9 { grid-column: span 9; }
+  .fixed > .span-lg-10 { grid-column: span 10; }
+}
+
 /* STACK: every child in the same grid cell, layered in source order (later on top). Replaces
    position: absolute overlays and z-index. Children stretch to fill the cell. The one track is pinned
    (minmax(0, 1fr) both ways), so the cell is always the box's own size: tall content can't stretch it

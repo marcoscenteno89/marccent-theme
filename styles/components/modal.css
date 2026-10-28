@@ -7,12 +7,30 @@
   width: min(var(--modal-width), 100% - var(--space-lg));
   padding: 0;
   border: var(--border-width) solid var(--border-subtle);
-  border-radius: calc(var(--radius) * 1.5);
+  border-radius: calc(var(--radius-card) * 1.5);
   color: var(--body-color);
   background-color: var(--body-bg);
   box-shadow: var(--shadow);
 }
 .modal::backdrop { background-color: rgb(0 0 0 / .5); }
+
+/* Drawer (Drawer): the same dialog as a full-height panel at the end (or data-side="start") of the screen, sliding
+   in (animations.css). Square on the screen's edge, rounded on the inner one. */
+.modal.drawer {
+  width: min(var(--drawer-width), 100% - var(--space-lg));
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  margin-inline-start: auto;
+  border-block-width: 0;
+  border-inline-end-width: 0;
+  border-radius: calc(var(--radius-card) * 1.5) 0 0 calc(var(--radius-card) * 1.5);
+}
+.modal.drawer[data-side="start"] {
+  margin-inline: 0 auto;
+  border-inline-width: 0 var(--border-width);
+  border-radius: 0 calc(var(--radius-card) * 1.5) calc(var(--radius-card) * 1.5) 0;
+}
 
 /* Ticket (variant="ticket", after the old client's PopUp): a band in the theme gradient with the title, a "neck"
    and "flare" whose cut corners make a half-circle notch on each side, then the body. The dialog itself is

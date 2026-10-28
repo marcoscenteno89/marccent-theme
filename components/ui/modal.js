@@ -38,6 +38,17 @@ const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
   );
 };
 
+// Opens the <dialog> (as a modal: backdrop, focus kept inside, Esc closes it) while show is true.
+const useDialog = (show) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const dialog = ref.current;
+    if (show && !dialog.open) dialog.showModal();
+    if (!show && dialog.open) dialog.close();
+  }, [show]);
+  return ref;
+};
+
 /**
  * Modal: a native <dialog>, in either look (ModalPanel). The browser draws the backdrop, keeps focus inside and
  * closes it on Esc; a click on the backdrop closes it too. Both looks behave the same.
@@ -45,13 +56,8 @@ const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
  * @param {React.ReactNode} [footer] - Extra buttons, before Close. @param {"ticket"} [variant] - The look.
  */
 const Modal = ({ title, show, setShow, footer, variant, children }) => {
-  const ref = useRef(null);
+  const ref = useDialog(show);
   const titleId = useId();
-  useEffect(() => {
-    const dialog = ref.current;
-    if (show && !dialog.open) dialog.showModal();
-    if (!show && dialog.open) dialog.close();
-  }, [show]);
   // The dialog has no padding, so a click whose target is the dialog itself landed on the backdrop.
   return (
     <dialog ref={ref} data-component="modal" className={cx('modal', variant)} aria-labelledby={titleId} onClose={() => setShow(false)}
@@ -61,4 +67,31 @@ const Modal = ({ title, show, setShow, footer, variant, children }) => {
   );
 }
 
-export { Modal, ModalPanel };
+/**
+ * Drawer: Modal's <dialog> as a panel sliding in from the side (off-canvas: a phone menu, filters, a cart), full
+ * height, --drawer-width wide. The title and a ✕ on top, then the body (it scrolls when long), the footer at the
+ * bottom. Esc, the ✕ or the backdrop close it.
+ * @param {string} title @param {boolean} show @param {Function} setShow - Called with false on close.
+ * @param {"end"|"start"} [side='end'] - The screen's side it comes from.
+ * @param {React.ReactNode} [footer] - Buttons along the bottom.
+ * @example <Drawer title="Menu" show={open} setShow={setOpen} side="start"><Menu items={main} label="Main" layout="cols-1" /></Drawer>
+ */
+const Drawer = ({ title, show, setShow, side = 'end', footer, className, children }) => {
+  const ref = useDialog(show);
+  const titleId = useId();
+  return (
+    <dialog ref={ref} data-component="drawer" data-side={side} className={cx('modal drawer', className)} aria-labelledby={titleId}
+      onClose={() => setShow(false)} onClick={(e) => e.target === ref.current && setShow(false)}>
+      <div className="grid cols-1 gap-0 divide h-100" style={{ gridTemplateRows: 'auto minmax(0, 1fr)', gridAutoRows: 'auto' }}>
+        <div className="header pad">
+          <h5 id={titleId}>{title}</h5>
+          <Button icon="xmark" aria-label="Close" onClick={() => setShow(false)} />
+        </div>
+        <div className="pad grid cols-1 content-start overflow-auto">{children}</div>
+        {footer && <div className="pad grid auto-cols items-center gap-sm">{footer}</div>}
+      </div>
+    </dialog>
+  );
+};
+
+export { Modal, ModalPanel, Drawer };

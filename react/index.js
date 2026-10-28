@@ -12,3 +12,4 @@ export { toastSI } from '../core/toasts';
 export { Toast } from '../components/ui/toast';
 export { watchInView, useInView } from '../lib/in-view';
 export { useCloseMenus } from '../lib/close-menus';
+export { watchScrolled, useScrolled } from '../lib/scrolled';

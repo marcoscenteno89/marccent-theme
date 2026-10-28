@@ -4,7 +4,7 @@ A theme for Next.js sites: a full CSS system, a live theme engine visitors can e
 
 - **CSS**: tokens, a grid layout system, utilities, hover effects and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
-- **UI kit**: Button, Icon (Font Awesome), Modal, Form, Field, Toast, Accordion, Pagination, Loading and more.
+- **UI kit**: Button, Icon (Font Awesome), Modal, Drawer, Form, Field, Toast, Accordion, Pagination, Loading and more; a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover) and a Footer built from the same menu data.
 - **Animations**: canvas backgrounds on any element with `data-component="animation" data-name="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
 
 ## Install
@@ -76,6 +76,14 @@ query):
 A component with its own markup has its own `data-component`; a configured use of another (the mode toggle is a
 `ToggleButton`) keeps that kind and gets a `data-name`. `data-component` can hold several words: `"button animation"`
 is a Button with an animation behind it (select a word with `[data-component~="animation"]`).
+
+## Tokens worth knowing
+
+Every variable and its default is in `styles/tokens/defaults.css`. A few that reshape a whole site:
+
+- `--heading-scale` multiplies every heading and display size (`1.5` for a bolder site); `.display-xl` is the 60px hero title.
+- `--radius` rounds everything, unless you set `--radius-control` (buttons, fields), `--radius-card` (boxes, modals) or `--radius-media` (`.round-media`) on their own. `.pill` gives anything fully round ends.
+- `--overlay-color` and `--overlay-opacity` tint `.overlay` layers over a `.media-cover` image or video.
 
 ## Design styles
 

@@ -38,6 +38,11 @@
 .modal[open] { animation: modal-in var(--duration-slow) ease-out; }
 .modal[open]::backdrop { animation: toast-in var(--duration) linear; } /* toast-in is a plain fade */
 @keyframes modal-in { from { opacity: 0; translate: 0 calc(-1 * var(--modal-offset)); } }
+/* DRAWER OPEN (Drawer, same file): slides in from its side instead. */
+.modal.drawer[open] { animation: drawer-in var(--duration-slow) ease-out; }
+.modal.drawer[data-side="start"][open] { animation-name: drawer-in-start; }
+@keyframes drawer-in { from { translate: 100% 0; } }
+@keyframes drawer-in-start { from { translate: -100% 0; } }
 
 /* SPINNER PULSE (Loading in components/ui/loading.js). Kept under reduced
    motion (it says the page is busy), just slower. */
@@ -172,6 +177,7 @@
   .loader-pulse::before, .loader-pulse::after { animation-duration: 3s; }
   .toast,
   .modal[open],
+  .modal.drawer[open],
   .modal[open]::backdrop { animation: none; }
   .countdown > i { transition: none; }
   .collapse,
