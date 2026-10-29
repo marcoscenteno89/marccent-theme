@@ -12,14 +12,15 @@
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: var(--icon-size);
+  font-size: var(--text-lg);
+  --icon-size: 1.4em; /* a square a little over the glyph (not the default's padding round it): stars sit close */
 }
 .rating-star { cursor: pointer; transition: color var(--duration), scale var(--duration); }
 .rating:disabled .rating-star { cursor: not-allowed; opacity: .5; }
 .rating-star:hover { scale: 1.15; }
 .rating-star:has(:focus-visible) { border-radius: var(--radius-control); box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
 
-.stars { display: inline-grid; white-space: nowrap; }
+.stars { display: inline-grid; justify-self: start; width: max-content; white-space: nowrap; } /* its stars' width, not the cell's: the clip is a share of the stars */
 .stars-fill { clip-path: inset(0 calc(100% - var(--value)) 0 0); }
 
 /* Colors: empty stars muted, filled ones the secondary (the primary is the page's links and buttons). */

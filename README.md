@@ -20,13 +20,13 @@ the block editor).
 
 ## Versions
 
-Releases are git tags (`v0.3.1`); install or link a tag, never the main branch:
+Releases are git tags (`v0.3.2`); install or link a tag, never the main branch:
 
 ```sh
-npm install github:marcoscenteno89/marccent-theme#v0.3.1
+npm install github:marcoscenteno89/marccent-theme#v0.3.2
 ```
 
-A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/marccent.css`.
+A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/marccent.css`.
 To release: set the version in `package.json`, `npm run build`, commit (dist/ included), tag `v<version>` and push the
 tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-marccent's `THEME_VERSION`.
 
@@ -35,10 +35,10 @@ tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-ma
 ```html
 <html lang="en" data-design="modern" data-theme="light">
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/marccent.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/designs/modern.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/marccent.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/designs/modern.css">
   <script>window.marccentDefaults = { palette: 'brand', palettes: [ { id: 'brand', primary: '#046bd2', secondary: '#1e293b' } ] };</script>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/marccent.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/marccent.js"></script>
 </head>
 ```
 
