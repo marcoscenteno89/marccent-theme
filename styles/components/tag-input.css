@@ -14,12 +14,16 @@
 }
 .tag-list { display: contents; }
 .tag {
+  flex: none;
+  grid-auto-columns: auto; /* .center's columns would squeeze the text */
+  gap: var(--space-xs);
   padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-sm);
   line-height: 1;
 }
 .tag-remove {
   width: 1.25em;
-  aspect-ratio: 1;
+  height: 1.25em;
+  min-height: 0;
   padding: 0;
   border: 0;
   border-radius: 50%;

@@ -66,7 +66,7 @@ const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, m
       onClick={(e) => e.target === e.currentTarget && entry.current.focus()}>
       <ul className="tag-list row-wrap" aria-label="Tags">
         {tags.map((tag, i) => (
-          <li key={tag} data-component="tag" data-name={tag} className="tag center gap-sm pill">
+          <li key={tag} data-component="tag" data-name={tag} className="tag center pill">
             <span>{tag}</span>
             <button type="button" data-component="button" className="tag-remove col-center" aria-label={`Remove ${tag}`}
               onClick={() => remove(i)}>

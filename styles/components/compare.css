@@ -1,0 +1,38 @@
+@import "../layers.css";
+/* COMPARE (Compare in components/ui/compare.js).
+   Everything stacked in one cell (.stack): the after picture, the before picture cut at --pos, the corner tags
+   (data-side), the handle's line moved to --pos, and an invisible range input over all of it that takes the drags
+   and keys. */
+@layer components {
+.compare { --pos: 50%; user-select: none; }
+.compare :is(.compare-after, .compare-before) > * { width: 100%; height: 100%; object-fit: cover; }
+.compare-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+/* relative: the clip-path makes the before picture paint over plain siblings; the tags must stay above it. */
+.compare-tag { position: relative; margin: var(--space-sm); padding: var(--space-xs) var(--space-sm); pointer-events: none; }
+.compare-tag[data-side="before"] { justify-self: start; }
+.compare-tag[data-side="after"] { justify-self: end; }
+.compare-handle {
+  justify-self: start;
+  width: 2px;
+  margin-left: var(--pos);
+  translate: -50% 0;
+  display: grid;
+  grid-template-columns: 100%; /* the line's width, so the knob centers on it and overflows both sides */
+  place-items: center;
+  pointer-events: none;
+}
+.compare-knob { width: calc(var(--icon-size) * 1.75); aspect-ratio: 1; }
+.compare-range {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+/* Colors: the line and knob in the page background so they show on any picture; tags on a dark glass. */
+.compare-handle { background-color: var(--body-bg); }
+.compare-knob { color: var(--body-color); background-color: var(--body-bg); }
+.compare-tag { color: #fff; background-color: rgb(0 0 0 / .55); }
+.compare:has(.compare-range:focus-visible) .compare-knob { box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+}

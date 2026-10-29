@@ -1,6 +1,6 @@
 {
   "name": "marccent-theme",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "The Marccent theme: CSS (tokens, layout, utilities, hovers, 27 design styles), a plain-JS engine that wires up its markup, a live theme engine with editors, a React UI kit and canvas animations. Ships source for bundlers and a prebuilt dist/ for any page.",
   "author": "Marcos Centeno",
   "license": "ISC",

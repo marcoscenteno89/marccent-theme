@@ -49,7 +49,7 @@ const tagItem = (tag, remove) => {
   button.addEventListener('click', remove);
   const text = make('span', '');
   text.textContent = tag;
-  const item = make('li', 'tag center gap-sm pill', { 'data-component': 'tag', 'data-name': tag });
+  const item = make('li', 'tag center pill', { 'data-component': 'tag', 'data-name': tag });
   item.append(text, button);
   return item;
 };

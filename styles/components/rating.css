@@ -28,7 +28,7 @@
 .rating-star:has(:checked),
 .rating-star:has(~ .rating-star :checked),
 .stars-fill { color: var(--secondary); }
-.rating:hover .rating-star { color: var(--border-color); }
+.rating:not(:disabled):hover .rating-star { color: var(--border-color); }
 .rating:not(:disabled) .rating-star:hover,
 .rating:not(:disabled) .rating-star:has(~ .rating-star:hover) { color: var(--secondary); }
 }

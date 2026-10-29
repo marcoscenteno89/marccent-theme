@@ -45,12 +45,6 @@ const start = (opts) => {
     if (!document.getElementById('goo') && document.querySelector('.hover-goo, [data-hover="goo"]')) {
       document.body.insertAdjacentHTML('beforeend', GOO);
     }
-    // data-opens="<a dialog's id>": opens that Modal or Drawer.
-    document.addEventListener('click', (e) => {
-      const opener = e.target.closest?.('[data-opens]');
-      const dialog = opener && document.getElementById(opener.dataset.opens);
-      if (dialog?.showModal && !dialog.open) dialog.showModal();
-    });
     return theme;
   });
   return started;

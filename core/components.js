@@ -110,10 +110,13 @@ define('popover', (panel) => {
 });
 
 /*
- * Modal and Drawer (a <dialog>): [data-close] inside closes it, and so does a click on the backdrop. Anything with
- * data-opens="<the dialog's id>" opens it (core/browser.js listens for those page-wide).
+ * Modal and Drawer (a <dialog>): anything on the page with data-opens="<the dialog's id>" opens it (one listener per
+ * dialog, so openers added later work too); [data-close] inside closes it, and so does a click on the backdrop.
  */
 const dialog = (el) => all([
+  listen(document, 'click', (e) => {
+    if (el.id && e.target.closest?.(`[data-opens="${CSS.escape(el.id)}"]`) && !el.open) el.showModal();
+  }),
   listen(el, 'click', (e) => {
     if (e.target === el || e.target.closest('[data-close]')) el.close();
   }),
