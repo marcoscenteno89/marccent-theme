@@ -72,5 +72,235 @@
       },
       "html": "<i data-component=\"icon\" class=\"fa-brands fa-github fs-lg\" aria-hidden=\"true\"></i>"
     }
+  ],
+  "section": [
+    {
+      "case": "the defaults",
+      "fields": {
+        "tag": "section",
+        "width": "wrap",
+        "padY": "pad-y-lg",
+        "gap": "",
+        "surface": "",
+        "mode": "",
+        "center": false,
+        "minHeight": "",
+        "image": "",
+        "imageAlt": "",
+        "shade": 50,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<section class=\"wrap wrap-fluid\"><div class=\"wrap pad-y-lg grid cols-1\"><p>Inside</p></div></section>"
+    },
+    {
+      "case": "a dark band, narrow, centered",
+      "fields": {
+        "tag": "section",
+        "width": "wrap wrap-sm",
+        "padY": "pad-y",
+        "gap": "gap-sm",
+        "surface": "bg-primary-darker",
+        "mode": "dark",
+        "center": true,
+        "minHeight": "",
+        "image": "",
+        "imageAlt": "",
+        "shade": 50,
+        "classes": "hero",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<section data-theme=\"dark\" class=\"wrap wrap-fluid bg-primary-darker hero\"><div class=\"wrap wrap-sm pad-y grid cols-1 gap-sm text-center justify-center\"><p>Inside</p></div></section>"
+    },
+    {
+      "case": "a least height",
+      "fields": {
+        "tag": "div",
+        "width": "wrap",
+        "padY": "pad-y-lg",
+        "gap": "",
+        "surface": "bg",
+        "mode": "",
+        "center": false,
+        "minHeight": "60vh",
+        "image": "",
+        "imageAlt": "",
+        "shade": 50,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<div class=\"wrap wrap-fluid bg\" style=\"min-height:60vh;display:grid;grid-template-columns:minmax(0, 1fr)\"><div class=\"wrap pad-y-lg grid cols-1\" style=\"align-content:center\"><p>Inside</p></div></div>"
+    },
+    {
+      "case": "over an image",
+      "fields": {
+        "tag": "header",
+        "width": "wrap wrap-lg",
+        "padY": "pad-y-lg",
+        "gap": "",
+        "surface": "bg-gradient",
+        "mode": "",
+        "center": false,
+        "minHeight": "80vh",
+        "image": "/media/hero.jpg",
+        "imageAlt": "A field at dawn",
+        "shade": 40,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<header class=\"wrap wrap-fluid stack\" style=\"min-height:80vh\"><img class=\"cover-img\" src=\"/media/hero.jpg\" alt=\"A field at dawn\" loading=\"lazy\" decoding=\"async\"/><div aria-hidden=\"true\" style=\"background:rgb(0 0 0 / 40%)\"></div><div class=\"wrap wrap-lg pad-y-lg grid cols-1 bg-gradient\" style=\"position:relative;align-content:center;color:#fff\"><p>Inside</p></div></header>"
+    }
+  ],
+  "grid": [
+    {
+      "case": "equal columns",
+      "fields": {
+        "layout": "cols",
+        "cols": 3,
+        "min": "",
+        "gap": "",
+        "alignItems": "",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p><p>Inside</p>"
+      },
+      "html": "<div class=\"grid cols-3\"><p>Inside</p><p>Inside</p></div>"
+    },
+    {
+      "case": "equal columns, always, a narrowest width",
+      "fields": {
+        "layout": "fixed",
+        "cols": 4,
+        "min": "14rem",
+        "gap": "gap-lg",
+        "alignItems": "items-center",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p><p>Inside</p>"
+      },
+      "html": "<div class=\"grid fixed cols-4 gap-lg items-center\" style=\"--min:14rem\"><p>Inside</p><p>Inside</p></div>"
+    },
+    {
+      "case": "a wrapping row, centered",
+      "fields": {
+        "layout": "row-wrap",
+        "cols": 3,
+        "min": "",
+        "gap": "gap-sm",
+        "alignItems": "",
+        "center": true,
+        "classes": "tags",
+        "content": "<p>Inside</p><p>Inside</p>"
+      },
+      "html": "<div class=\"row-wrap gap-sm cols-center justify-center text-center tags\"><p>Inside</p><p>Inside</p></div>"
+    },
+    {
+      "case": "an uneven layout",
+      "fields": {
+        "layout": "layout-2-1",
+        "cols": 3,
+        "min": "10rem",
+        "gap": "",
+        "alignItems": "items-start",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p><p>Inside</p>"
+      },
+      "html": "<div class=\"grid layout-2-1 items-start\"><p>Inside</p><p>Inside</p></div>"
+    }
+  ],
+  "card": [
+    {
+      "case": "the defaults",
+      "fields": {
+        "surface": "bg border",
+        "round": true,
+        "pad": "pad",
+        "gap": "gap-sm",
+        "hover": "",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<article class=\"bg border round pad grid cols-1 content-start gap-sm\"><p>Inside</p></article>"
+    },
+    {
+      "case": "square, a hover, centered",
+      "fields": {
+        "surface": "bg-secondary",
+        "round": false,
+        "pad": "pad-lg",
+        "gap": "gap-0",
+        "hover": "hover-holographic",
+        "center": true,
+        "classes": "price",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<article class=\"bg-secondary pad-lg grid cols-1 content-start gap-0 hover-holographic text-center justify-center price\"><p>Inside</p></article>"
+    }
+  ],
+  "nav": [
+    {
+      "case": "links only",
+      "fields": {
+        "brand": {
+          "name": "Fernway",
+          "href": "/",
+          "logo": ""
+        },
+        "items": [
+          {
+            "name": "Home",
+            "href": "/"
+          },
+          {
+            "name": "About",
+            "href": "/about/"
+          }
+        ]
+      },
+      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Fernway, home\"><span class=\"fw-bold\">Fernway</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars-staggered\" data-active-icon=\"xmark\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars-staggered btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols divide\" style=\"--cols:2\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a></nav></div></div></header>"
+    },
+    {
+      "case": "a logo, a dropdown and a submenu",
+      "fields": {
+        "brand": {
+          "name": "Q&A Co",
+          "href": "/",
+          "logo": "/media/logo.png"
+        },
+        "items": [
+          {
+            "name": "Home",
+            "href": "/"
+          },
+          {
+            "name": "Products",
+            "href": "/products/",
+            "children": [
+              {
+                "name": "Payments",
+                "href": "/products/payments/"
+              },
+              {
+                "name": "More",
+                "href": "/products/more/",
+                "children": [
+                  {
+                    "name": "Billing",
+                    "href": "/products/more/billing/"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Contact",
+            "href": "/contact/"
+          }
+        ]
+      },
+      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Q&amp;A Co, home\"><img src=\"/media/logo.png\" alt=\"Q&amp;A Co\" style=\"height:2.5rem;width:auto\"/><span class=\"fw-bold\">Q&amp;A Co</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars-staggered\" data-active-icon=\"xmark\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars-staggered btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols divide\" style=\"--cols:3\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link\"><span class=\"text-truncate\">Products</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/payments/\" class=\"menu-link\"><span class=\"text-truncate\">Payments</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown menu-sub\"><summary class=\"menu-link\"><span class=\"text-truncate\">More</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/more/billing/\" class=\"menu-link\"><span class=\"text-truncate\">Billing</span></a></div></details></div></details><a data-component=\"menu-link\" href=\"/contact/\" class=\"menu-link\"><span class=\"text-truncate\">Contact</span></a></nav></div></div></header>"
+    }
   ]
 }

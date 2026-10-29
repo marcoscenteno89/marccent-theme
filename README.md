@@ -15,18 +15,18 @@ the block editor).
 
 - **CSS**: tokens, a grid layout system, utilities, hover effects (some follow the mouse: tilt, spotlight, magnet) and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
-- **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover), a Footer built from the same menu data, an AppShell with a collapsible sidebar, and a Dock.
+- **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; Section, Grid and Card (the layout classes as components); a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover), a Footer built from the same menu data, an AppShell with a collapsible sidebar, and a Dock.
 - **Animations**: canvas backgrounds on any element with `data-component="animation" data-name="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
 
 ## Versions
 
-Releases are git tags (`v0.2.4`); install or link a tag, never the main branch:
+Releases are git tags (`v0.3.1`); install or link a tag, never the main branch:
 
 ```sh
-npm install github:marcoscenteno89/marccent-theme#v0.2.4
+npm install github:marcoscenteno89/marccent-theme#v0.3.1
 ```
 
-A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.4/dist/marccent.css`.
+A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/marccent.css`.
 To release: set the version in `package.json`, `npm run build`, commit (dist/ included), tag `v<version>` and push the
 tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-marccent's `THEME_VERSION`.
 
@@ -35,10 +35,10 @@ tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-ma
 ```html
 <html lang="en" data-design="modern" data-theme="light">
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.4/dist/marccent.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.4/dist/designs/modern.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/marccent.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/designs/modern.css">
   <script>window.marccentDefaults = { palette: 'brand', palettes: [ { id: 'brand', primary: '#046bd2', secondary: '#1e293b' } ] };</script>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.2.4/dist/marccent.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.1/dist/marccent.js"></script>
 </head>
 ```
 
@@ -47,7 +47,8 @@ wires it up by `data-component`: the nav bar and its menus, toggle buttons, tool
 (`data-opens="<id>"` opens one, `data-close` closes it), file drops, the app shell's sidebar, code blocks, canvas
 backgrounds and the pointer hovers. `window.marccentDefaults` (optional) is the site's starting theme over the
 package's. React wires what it renders; a page that mixes both marks React's parts `data-island` and the engine leaves them alone. `Marccent.define(kind, setup)`
-adds your own.
+adds your own. `markup/` is that contract written down for Button, Icon, Section, Grid, Card and NavBar: cases and the
+HTML the components render for each, which a host's own tests compare its markup with (`markup/README.md`).
 
 `npm run build` writes `dist/` from the source (`scripts/build.mjs`).
 

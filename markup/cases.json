@@ -1,13 +1,287 @@
 {
   "button": [
-    { "case": "a link with an icon", "fields": { "label": "Message me", "href": "/contact", "icon": "message", "classes": "primary" } },
-    { "case": "full icon classes, a new tab", "fields": { "label": "Github", "href": "https://github.com/marcoscenteno89", "icon": "fa-brands fa-github", "newTab": true, "classes": "secondary hover-expand" } },
-    { "case": "with the outline for stroke hovers", "fields": { "label": "Call", "href": "tel:+12085550100", "icon": "phone", "trace": true, "classes": "primary hover-trace" } },
-    { "case": "no icon: a text link", "fields": { "label": "Read more", "href": "/about", "icon": "", "classes": "" } },
-    { "case": "a label to escape", "fields": { "label": "Q&A <now>", "href": "/faq?a=1&b=2", "icon": "circle-question", "classes": "primary" } }
+    {
+      "case": "a link with an icon",
+      "fields": {
+        "label": "Message me",
+        "href": "/contact",
+        "icon": "message",
+        "classes": "primary"
+      }
+    },
+    {
+      "case": "full icon classes, a new tab",
+      "fields": {
+        "label": "Github",
+        "href": "https://github.com/marcoscenteno89",
+        "icon": "fa-brands fa-github",
+        "newTab": true,
+        "classes": "secondary hover-expand"
+      }
+    },
+    {
+      "case": "with the outline for stroke hovers",
+      "fields": {
+        "label": "Call",
+        "href": "tel:+12085550100",
+        "icon": "phone",
+        "trace": true,
+        "classes": "primary hover-trace"
+      }
+    },
+    {
+      "case": "no icon: a text link",
+      "fields": {
+        "label": "Read more",
+        "href": "/about",
+        "icon": "",
+        "classes": ""
+      }
+    },
+    {
+      "case": "a label to escape",
+      "fields": {
+        "label": "Q&A <now>",
+        "href": "/faq?a=1&b=2",
+        "icon": "circle-question",
+        "classes": "primary"
+      }
+    }
   ],
   "icon": [
-    { "case": "a solid icon", "fields": { "name": "star", "family": "fa-solid", "classes": "" } },
-    { "case": "a brand icon, extra classes", "fields": { "name": "github", "family": "fa-brands", "classes": "fs-lg" } }
+    {
+      "case": "a solid icon",
+      "fields": {
+        "name": "star",
+        "family": "fa-solid",
+        "classes": ""
+      }
+    },
+    {
+      "case": "a brand icon, extra classes",
+      "fields": {
+        "name": "github",
+        "family": "fa-brands",
+        "classes": "fs-lg"
+      }
+    }
+  ],
+  "section": [
+    {
+      "case": "the defaults",
+      "fields": {
+        "tag": "section",
+        "width": "wrap",
+        "padY": "pad-y-lg",
+        "gap": "",
+        "surface": "",
+        "mode": "",
+        "center": false,
+        "minHeight": "",
+        "image": "",
+        "imageAlt": "",
+        "shade": 50,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      }
+    },
+    {
+      "case": "a dark band, narrow, centered",
+      "fields": {
+        "tag": "section",
+        "width": "wrap wrap-sm",
+        "padY": "pad-y",
+        "gap": "gap-sm",
+        "surface": "bg-primary-darker",
+        "mode": "dark",
+        "center": true,
+        "minHeight": "",
+        "image": "",
+        "imageAlt": "",
+        "shade": 50,
+        "classes": "hero",
+        "content": "<p>Inside</p>"
+      }
+    },
+    {
+      "case": "a least height",
+      "fields": {
+        "tag": "div",
+        "width": "wrap",
+        "padY": "pad-y-lg",
+        "gap": "",
+        "surface": "bg",
+        "mode": "",
+        "center": false,
+        "minHeight": "60vh",
+        "image": "",
+        "imageAlt": "",
+        "shade": 50,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      }
+    },
+    {
+      "case": "over an image",
+      "fields": {
+        "tag": "header",
+        "width": "wrap wrap-lg",
+        "padY": "pad-y-lg",
+        "gap": "",
+        "surface": "bg-gradient",
+        "mode": "",
+        "center": false,
+        "minHeight": "80vh",
+        "image": "/media/hero.jpg",
+        "imageAlt": "A field at dawn",
+        "shade": 40,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      }
+    }
+  ],
+  "grid": [
+    {
+      "case": "equal columns",
+      "fields": {
+        "layout": "cols",
+        "cols": 3,
+        "min": "",
+        "gap": "",
+        "alignItems": "",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p><p>Inside</p>"
+      }
+    },
+    {
+      "case": "equal columns, always, a narrowest width",
+      "fields": {
+        "layout": "fixed",
+        "cols": 4,
+        "min": "14rem",
+        "gap": "gap-lg",
+        "alignItems": "items-center",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p><p>Inside</p>"
+      }
+    },
+    {
+      "case": "a wrapping row, centered",
+      "fields": {
+        "layout": "row-wrap",
+        "cols": 3,
+        "min": "",
+        "gap": "gap-sm",
+        "alignItems": "",
+        "center": true,
+        "classes": "tags",
+        "content": "<p>Inside</p><p>Inside</p>"
+      }
+    },
+    {
+      "case": "an uneven layout",
+      "fields": {
+        "layout": "layout-2-1",
+        "cols": 3,
+        "min": "10rem",
+        "gap": "",
+        "alignItems": "items-start",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p><p>Inside</p>"
+      }
+    }
+  ],
+  "card": [
+    {
+      "case": "the defaults",
+      "fields": {
+        "surface": "bg border",
+        "round": true,
+        "pad": "pad",
+        "gap": "gap-sm",
+        "hover": "",
+        "center": false,
+        "classes": "",
+        "content": "<p>Inside</p>"
+      }
+    },
+    {
+      "case": "square, a hover, centered",
+      "fields": {
+        "surface": "bg-secondary",
+        "round": false,
+        "pad": "pad-lg",
+        "gap": "gap-0",
+        "hover": "hover-holographic",
+        "center": true,
+        "classes": "price",
+        "content": "<p>Inside</p>"
+      }
+    }
+  ],
+  "nav": [
+    {
+      "case": "links only",
+      "fields": {
+        "brand": {
+          "name": "Fernway",
+          "href": "/",
+          "logo": ""
+        },
+        "items": [
+          {
+            "name": "Home",
+            "href": "/"
+          },
+          {
+            "name": "About",
+            "href": "/about/"
+          }
+        ]
+      }
+    },
+    {
+      "case": "a logo, a dropdown and a submenu",
+      "fields": {
+        "brand": {
+          "name": "Q&A Co",
+          "href": "/",
+          "logo": "/media/logo.png"
+        },
+        "items": [
+          {
+            "name": "Home",
+            "href": "/"
+          },
+          {
+            "name": "Products",
+            "href": "/products/",
+            "children": [
+              {
+                "name": "Payments",
+                "href": "/products/payments/"
+              },
+              {
+                "name": "More",
+                "href": "/products/more/",
+                "children": [
+                  {
+                    "name": "Billing",
+                    "href": "/products/more/billing/"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Contact",
+            "href": "/contact/"
+          }
+        ]
+      }
+    }
   ]
 }

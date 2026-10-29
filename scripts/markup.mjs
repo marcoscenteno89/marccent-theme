@@ -16,7 +16,9 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Button } from './components/ui/button';
 import { Icon } from './components/ui/icon';
-export { createElement, renderToStaticMarkup, Button, Icon };
+import { Section, Grid, Card } from './components/widgets/section';
+import { NavBar } from './components/widgets/navbar';
+export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, NavBar };
 `;
 const { outputFiles } = await build({
   absWorkingDir: ROOT,
@@ -34,7 +36,12 @@ const { outputFiles } = await build({
 mkdirSync(join(ROOT, 'node_modules/.cache'), { recursive: true });
 const out = join(ROOT, 'node_modules/.cache/marccent-markup.mjs');
 writeFileSync(out, outputFiles[0].text);
-const { createElement: h, renderToStaticMarkup, Button, Icon } = await import(pathToFileURL(out).href);
+const { createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, NavBar } = await import(pathToFileURL(out).href);
+
+// A box's content (a case's content field: HTML) goes in as this token, then in its place as it is.
+const CONTENT = 'marccent-content';
+// React 19 hoists a preload link for each eager image ahead of the markup: React's, not the component's.
+const PRELOADS = /<link rel="preload" as="image"[^>]*>/g;
 
 // Each component's fields (cases.json) as its props.
 const RENDER = {
@@ -46,12 +53,31 @@ const RENDER = {
     ...(f.newTab && { target: '_blank', rel: 'noopener noreferrer' }),
   }, f.label),
   icon: (f) => h(Icon, { name: f.name, family: f.family, className: f.classes || undefined }),
+  section: (f) => h(Section, {
+    as: f.tag, width: f.width, padY: f.padY, gap: f.gap, surface: f.surface, mode: f.mode, center: f.center,
+    minHeight: f.minHeight, image: f.image, imageAlt: f.imageAlt, shade: f.shade, className: f.classes || undefined,
+  }, CONTENT),
+  grid: (f) => h(Grid, {
+    layout: f.layout, cols: f.cols, min: f.min, gap: f.gap, alignItems: f.alignItems, center: f.center,
+    className: f.classes || undefined,
+  }, CONTENT),
+  card: (f) => h(Card, {
+    surface: f.surface, round: f.round, pad: f.pad, gap: f.gap, hover: f.hover, center: f.center,
+    className: f.classes || undefined,
+  }, CONTENT),
+  // The brand is the hosts' home link: the logo (when there is one) and the site's name.
+  nav: (f) => h(NavBar, {
+    brand: h('a', { href: f.brand.href, className: 'menu-link grid auto-cols items-center gap-sm', 'aria-label': `${f.brand.name}, home` },
+      f.brand.logo && h('img', { src: f.brand.logo, alt: f.brand.name, style: { height: '2.5rem', width: 'auto' } }),
+      h('span', { className: 'fw-bold' }, f.brand.name)),
+    items: f.items,
+  }),
 };
 
 const cases = JSON.parse(readFileSync(join(ROOT, 'markup/cases.json'), 'utf8'));
 const reference = Object.fromEntries(Object.entries(cases).map(([ name, list ]) => [
   name,
-  list.map((c) => ({ ...c, html: renderToStaticMarkup(RENDER[name](c.fields)) })),
+  list.map((c) => ({ ...c, html: renderToStaticMarkup(RENDER[name](c.fields)).replace(PRELOADS, '').replace(CONTENT, () => c.fields.content ?? '') })),
 ]));
 const json = `${JSON.stringify(reference, null, 2)}\n`;
 
