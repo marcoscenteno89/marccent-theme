@@ -1,0 +1,49 @@
+@import "../layers.css";
+@import "./form.css";
+/* TAG INPUT (TagInput in components/ui/tag-input.js).
+   The box looks like an .input; the tags and the text field wrap inside it (.row-wrap), the field taking the rest
+   of the line. The box shows the focus ring while the field has focus. */
+@layer components {
+.tag-input {
+  --gap: var(--space-xs);
+  padding: var(--space-xs);
+  border: var(--border-width) solid;
+  border-radius: var(--radius-control);
+  cursor: text;
+  transition: border-color var(--duration), box-shadow var(--duration);
+}
+.tag-list { display: contents; }
+.tag {
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-sm);
+  line-height: 1;
+}
+.tag-remove {
+  width: 1.25em;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  font-size: .8em;
+  cursor: pointer;
+}
+.tag-entry {
+  flex: 1 1 8rem;
+  min-width: 0;
+  padding: var(--space-xs);
+  border: 0;
+  font: inherit;
+  line-height: var(--line-height);
+}
+.tag-entry:focus { outline: 0; }
+
+/* Neutral colors, as an .input; tags on the primary's light shade. */
+.tag-input { color: var(--body-color); background-color: var(--body-bg); border-color: var(--border-color); }
+.tag-input:focus-within { border-color: var(--focus-border); box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+.tag { color: var(--body-color); background-color: color-mix(in srgb, var(--primary) 15%, var(--body-bg)); }
+.tag-remove { color: inherit; background-color: transparent; }
+.tag-remove:hover,
+.tag-remove:focus-visible { outline: 0; color: var(--primary-mode-text); background-color: var(--primary-mode); }
+.tag-entry { color: inherit; background: none; }
+.tag-entry::placeholder { color: var(--muted-color); opacity: 1; }
+.tag-entry:disabled { cursor: not-allowed; }
+}

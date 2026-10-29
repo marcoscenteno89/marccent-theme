@@ -16,6 +16,9 @@
   min-width: 0; /* may shrink inside its grid cell */
 }
 
+/* A <button> as a menu item (it opens a dialog rather than a page): the browser's button look goes. */
+button.menu-link { border: 0; background: none; font: inherit; text-align: start; }
+
 /* Top-level menu items fill their cell with the content centered, so a .divide line sits evenly between items. */
 .menu > .menu-link { justify-content: center; }
 .menu > .menu-dropdown > summary { display: grid; justify-content: center; }

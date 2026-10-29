@@ -1,0 +1,43 @@
+@import "../layers.css";
+@import "./pagination.css";
+/* TABLE (DataTable in components/ui/data-table.js, or any <table class="table">).
+   Full width, a muted header row that sticks while its scroll box scrolls, lines between rows, figures in
+   even widths so numbers line up. The sort buttons are the headers' text with an icon after it. */
+@layer components {
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.table :is(th, td) {
+  padding: var(--control-pad);
+  text-align: start;
+  vertical-align: middle;
+}
+.table thead th {
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+}
+.sort-button {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.sort-button > .fa-solid { opacity: .4; transition: opacity var(--duration); }
+[aria-sort] > .sort-button > .fa-solid,
+.sort-button:hover > .fa-solid { opacity: 1; }
+
+/* Neutral colors: the header on a light shade, a line under it and subtler lines between rows. */
+.table thead th { background-color: var(--muted-bg); border-bottom: var(--border-width) solid var(--border-color); }
+.table tbody tr + tr > * { border-top: var(--border-width) solid var(--border-subtle); }
+.table tbody tr:hover > * { background-color: color-mix(in srgb, var(--primary) 6%, transparent); }
+.sort-button { color: inherit; background: none; }
+[aria-sort] > .sort-button { color: var(--link); }
+.sort-button:focus-visible { outline: 0; border-radius: var(--radius-control); box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+}

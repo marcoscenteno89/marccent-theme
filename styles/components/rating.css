@@ -1,0 +1,37 @@
+@import "../layers.css";
+/* RATING (Rating and Stars in components/ui/rating.js).
+   Rating: a fieldset of labels, each holding a hidden radio and an icon. The picked star and every star before it
+   fill; while the pointer is over the row, the stars up to the pointer fill instead. Stars: two rows of icons
+   stacked, the top one cut at --value. */
+@layer components {
+.rating {
+  display: inline-grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: var(--icon-size);
+}
+.rating-star { cursor: pointer; transition: color var(--duration), scale var(--duration); }
+.rating:disabled .rating-star { cursor: not-allowed; opacity: .5; }
+.rating-star:hover { scale: 1.15; }
+.rating-star:has(:focus-visible) { border-radius: var(--radius-control); box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
+
+.stars { display: inline-grid; white-space: nowrap; }
+.stars-fill { clip-path: inset(0 calc(100% - var(--value)) 0 0); }
+
+/* Colors: empty stars muted, filled ones the secondary (the primary is the page's links and buttons). */
+.rating-star,
+.stars-empty { color: var(--border-color); }
+.rating-star:has(:checked),
+.rating-star:has(~ .rating-star :checked),
+.stars-fill { color: var(--secondary); }
+.rating:hover .rating-star { color: var(--border-color); }
+.rating:not(:disabled) .rating-star:hover,
+.rating:not(:disabled) .rating-star:has(~ .rating-star:hover) { color: var(--secondary); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rating-star:hover { scale: none; }
+}

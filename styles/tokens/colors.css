@@ -264,9 +264,12 @@
   .inline-form > .btn { border-color: var(--border-color); }
 }
 
-/* Element colors: in the base layer (layers.css) like the reset, so any component's color (.menu-link inherits) wins. */
+/* Element colors: in the base layer (layers.css) like the reset, so any component's color (.menu-link inherits) wins.
+   A section with its own mode (data-theme="dark" inside a light page) takes that mode's text color too; its
+   background stays the page's unless it has one (.bg, a color class). */
 @layer base {
   body { color: var(--body-color); background-color: var(--body-bg); }
+  [data-theme] { color: var(--body-color); }
   a { color: var(--link); }
   a:hover { color: var(--link-hover); }
 }
