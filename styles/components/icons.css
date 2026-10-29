@@ -1,5 +1,4 @@
 @import "../layers.css";
-@import url("@fortawesome/fontawesome-free/css/all.css");
 
 /* ICONS: every Font Awesome icon is a perfect square of --icon-size (defaults.css), glyph centered.
    Same size everywhere, buttons included (a button's height comes from its icon). Scale one with font-size.

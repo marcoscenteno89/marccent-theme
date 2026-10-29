@@ -26,7 +26,8 @@
 
 /* Components */
 @import "./base/animations.css";      /* keyframes and open/close motion; unlayered, so it beats a component's transition */
-@import "./components/icons.css";     /* used on every page (any <i>): Font Awesome + the icon square */
+@import "./fontawesome.css";          /* Font Awesome (a host may swap this file for its own) */
+@import "./components/icons.css";     /* used on every page (any <i>): the icon square */
 @import "./components/header.css";    /* used on every page (any box's title row: cards, modal, toast) */
 @import "./hovers.css";               /* hover effects (.hover-*); unlayered, so they replace a component's own hover */
 

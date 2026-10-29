@@ -1,0 +1,13 @@
+{
+  "button": [
+    { "case": "a link with an icon", "fields": { "label": "Message me", "href": "/contact", "icon": "message", "classes": "primary" } },
+    { "case": "full icon classes, a new tab", "fields": { "label": "Github", "href": "https://github.com/marcoscenteno89", "icon": "fa-brands fa-github", "newTab": true, "classes": "secondary hover-expand" } },
+    { "case": "with the outline for stroke hovers", "fields": { "label": "Call", "href": "tel:+12085550100", "icon": "phone", "trace": true, "classes": "primary hover-trace" } },
+    { "case": "no icon: a text link", "fields": { "label": "Read more", "href": "/about", "icon": "", "classes": "" } },
+    { "case": "a label to escape", "fields": { "label": "Q&A <now>", "href": "/faq?a=1&b=2", "icon": "circle-question", "classes": "primary" } }
+  ],
+  "icon": [
+    { "case": "a solid icon", "fields": { "name": "star", "family": "fa-solid", "classes": "" } },
+    { "case": "a brand icon, extra classes", "fields": { "name": "github", "family": "fa-brands", "classes": "fs-lg" } }
+  ]
+}

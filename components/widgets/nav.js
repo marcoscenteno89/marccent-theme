@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef, useId } from 'react';
-import Link from 'next/link';
+import { Link } from '../../lib/link';
 import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
 import { Tooltip } from '../ui/popover';

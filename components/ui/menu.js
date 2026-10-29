@@ -1,5 +1,5 @@
 // Shared: no 'use client' (no hooks), so it renders on the server or in the browser, wherever it's used.
-import Link from 'next/link';
+import { Link } from '../../lib/link';
 import { cx } from '../../lib/cx';
 import '../../styles/components/menu.css';
 

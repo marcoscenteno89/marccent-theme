@@ -5,6 +5,7 @@
  * stores. The components import from their own files (components/).
  */
 export { ThemeProvider, ThemeContext } from '../lib/context';
+export { Link, LinkContext } from '../lib/link';
 export { Body, SiteTheme, ScopeThemes } from '../components/theme/core';
 export { withTheme } from '../components/theme/hoc';
 export { Store, useStore } from '../lib/store';

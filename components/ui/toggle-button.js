@@ -4,34 +4,6 @@ import { Button } from './button';
 import '../../styles/components/button.css';
 
 /**
- * ToggleButton: a Button with two states and an icon for each: icon while off, activeIcon while on (bars → xmark
- * for a nav; the same icon twice when only the fill shows it). Any Button prop and class works on it (a color,
- * hover-expand…). Its own state, or yours: pass open (with onToggle) to drive it, or defaultOpen for where it starts.
- * What it says it is:
- *  - panel: it opens that content itself, in a panel in front of the page under the button, like a phone menu.
- *    The panel is a popover: in the top layer, so no overflow or stacking clips it, and the browser closes it on a
- *    tap outside, on Esc or on the button. As big as its content, never wider than 70% of the screen nor taller than 60% of it or the room
- *    under the button (.toggle-panel, button.css), so there's always page left to tap.
- *  - controls (the id of what it opens: a nav, a menu): a disclosure (aria-expanded, aria-controls); Esc closes it.
- *  - neither: a pressed toggle (aria-pressed), unless activeLabel changes the label: then the label says the state
- *    (Dark → Light) and a pressed state on top would contradict it. An aria-pressed of your own wins (a pick-one
- *    button: Play → Playing, pressed while it's the one).
- *
- * @param {Object} props
- * @param {string} props.icon - The icon while off (a Button icon: "bars", or full "fa-…" classes).
- * @param {string} [props.activeIcon=icon] - The icon while on.
- * @param {string} [props.activeLabel] - The label while on (children while off): "Menu" → "Close".
- * @param {boolean} [props.open] - On or off, when you hold the state; leave it out for its own.
- * @param {boolean} [props.defaultOpen=false] - Where its own state starts.
- * @param {Function} [props.onToggle] - (on) each time it flips: a click, Esc, a tap outside its panel.
- * @param {string} [props.controls] - The id of the element it opens: makes it a disclosure.
- * @param {React.ReactNode} [props.panel] - Content it opens in a panel of its own (see above).
- *
- * @example <ToggleButton icon="bars" activeIcon="xmark" activeLabel="Close" controls="site-nav" onToggle={setOpen}>Menu</ToggleButton>
- * @example <ToggleButton icon="fa-regular fa-heart" activeIcon="fa-solid fa-heart" className="hover-expand">Like</ToggleButton>
- * @example <ToggleButton icon="share-nodes" activeIcon="xmark" aria-label="Share" panel={<ShareLinks />} />
- */
-/**
  * useToggle: a toggle's behavior without its look, for a button of your own (RadialMenu's round one): on or off,
  * its own state or yours (open / defaultOpen / onToggle, as ToggleButton's), Esc closing a disclosure (controls),
  * and the attributes that say its state (aria-expanded + aria-controls, or aria-pressed; pressed: false for none).
@@ -56,6 +28,36 @@ const useToggle = ({ open, defaultOpen = false, onToggle, controls, pressed = tr
   return { on, set: (next) => latest.current(next), flip: () => latest.current(!on), attrs };
 };
 
+/**
+ * ToggleButton: a Button with two states and an icon for each: icon while off, activeIcon while on (bars → xmark
+ * for a nav; the same icon twice when only the fill shows it). Any Button prop and class works on it (a color,
+ * hover-expand…). Its own state, or yours: pass open (with onToggle) to drive it, or defaultOpen for where it starts.
+ * What it says it is:
+ *  - panel: it opens that content itself, in a panel in front of the page under the button, like a phone menu.
+ *    The panel is a popover: in the top layer, so no overflow or stacking clips it, and the browser closes it on a
+ *    tap outside, on Esc or on the button. As big as its content, never wider than 70% of the screen nor taller than 60% of it or the room
+ *    under the button (.toggle-panel, button.css), so there's always page left to tap.
+ *  - controls (the id of what it opens: a nav, a menu): a disclosure (aria-expanded, aria-controls); Esc closes it.
+ *  - neither: a pressed toggle (aria-pressed), unless activeLabel changes the label: then the label says the state
+ *    (Dark → Light) and a pressed state on top would contradict it. An aria-pressed of your own wins (a pick-one
+ *    button: Play → Playing, pressed while it's the one).
+ *
+ * @param {Object} props
+ * @param {string} props.icon - The icon while off (a Button icon: "bars", or full "fa-…" classes).
+ * @param {string} [props.activeIcon=icon] - The icon while on.
+ * @param {string} [props.activeLabel] - The label while on (children while off): "Menu" → "Close".
+ * @param {boolean} [props.open] - On or off, when you hold the state; leave it out for its own.
+ * @param {boolean} [props.defaultOpen=false] - Where its own state starts.
+ * @param {Function} [props.onToggle] - (on) each time it flips: a click, Esc, a tap outside its panel.
+ * @param {string} [props.controls] - The id of the element it opens: makes it a disclosure.
+ * @param {React.ReactNode} [props.panel] - Content it opens in a panel of its own (see above).
+ * @param {React.ReactNode} [props.children] - Its label while off. @param {Function} [props.onClick] - Also called on a click.
+ * @param {string} [props.className] - Extra classes. Any other prop (data-name, aria-*…) goes on its Button.
+ *
+ * @example <ToggleButton icon="bars" activeIcon="xmark" activeLabel="Close" controls="site-nav" onToggle={setOpen}>Menu</ToggleButton>
+ * @example <ToggleButton icon="fa-regular fa-heart" activeIcon="fa-solid fa-heart" className="hover-expand">Like</ToggleButton>
+ * @example <ToggleButton icon="share-nodes" activeIcon="xmark" aria-label="Share" panel={<ShareLinks />} />
+ */
 const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen = false, onToggle, controls, panel, children, onClick, ...rest }) => {
   const id = useId();
   const toggleId = rest.id ?? `${id}-toggle`; // yours when you give one (ExpandButton finds its button by it)

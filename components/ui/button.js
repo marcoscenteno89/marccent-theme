@@ -1,15 +1,22 @@
 // Shared: no 'use client' (no state or effects), so it renders on the server or in the browser, wherever it's used.
-import Link from 'next/link';
+import { Link } from '../../lib/link';
 import { cx } from '../../lib/cx';
 import { Icon } from './icon';
 import { Trace } from './trace';
 import '../../styles/components/button.css';
 
+// Each state's icon, color class and what the live region says.
+const STATES = {
+  loading: { icon: 'fa-solid fa-circle-notch fa-spin', say: 'Working…' },
+  done: { icon: 'check', color: 'success', say: 'Done' },
+  error: { icon: 'triangle-exclamation', color: 'danger', say: 'Failed' },
+};
+
 /**
  * Button: icon on the left, label on the right (styles: .btn / .btn-text / .btn-link in styles/components/button.css).
  * With an icon it looks like a button; the label hides below 8rem, leaving the icon, so the label is also
  * its aria-label/title. Without an icon it looks like a plain text link.
- * Renders a next/link <Link> when href is given, otherwise a <button type="button">.
+ * Renders a <Link> (lib/link.js: an <a>, or the router's link) when href is given, otherwise a <button type="button">.
  * Icon-only buttons need an aria-label.
  *
  * State (a button that does something that takes a while: send, save): state="loading" swaps the icon for a spinner
@@ -30,13 +37,6 @@ import '../../styles/components/button.css';
  * @example <Button icon="fa-brands fa-github" href={github}>Github</Button>
  * @example <Button onClick={reset}>Start Over</Button>  // text link
  */
-// Each state's icon, color class and what the live region says.
-const STATES = {
-  loading: { icon: 'fa-solid fa-circle-notch fa-spin', say: 'Working…' },
-  done: { icon: 'check', color: 'success', say: 'Done' },
-  error: { icon: 'triangle-exclamation', color: 'danger', say: 'Failed' },
-};
-
 const Button = ({ icon = false, href, disabled = false, state, className, children, trace = false, 'data-component': component = 'button', ...rest }) => {
   const now = STATES[state];
   if (now) {

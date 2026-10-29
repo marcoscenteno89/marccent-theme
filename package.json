@@ -1,6 +1,6 @@
 {
   "name": "marccent-theme",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "The Marccent theme: CSS (tokens, layout, utilities, hovers, 27 design styles), a plain-JS engine that wires up its markup, a live theme engine with editors, a React UI kit and canvas animations. Ships source for bundlers and a prebuilt dist/ for any page.",
   "author": "Marcos Centeno",
   "license": "ISC",
@@ -17,13 +17,16 @@
     "react",
     "styles",
     "dist",
+    "markup",
     "scripts",
     "README.md"
   ],
   "scripts": {
     "designs": "node styles/themes/designs.gen.mjs",
     "build": "node scripts/build.mjs",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "markup": "node scripts/markup.mjs",
+    "test": "node scripts/markup.mjs --check"
   },
   "dependencies": {
     "@codemirror/lang-css": "^6.3.1",
@@ -74,14 +77,10 @@
     "swiper": "^12.2.0"
   },
   "peerDependencies": {
-    "next": ">=14",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19"
   },
   "peerDependenciesMeta": {
-    "next": {
-      "optional": true
-    },
     "react": {
       "optional": true
     },
@@ -91,6 +90,8 @@
   },
   "devDependencies": {
     "esbuild": "^0.25.11",
-    "postcss": "^8"
+    "postcss": "^8",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   }
 }

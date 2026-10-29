@@ -1,0 +1,5 @@
+/*
+ * Font Awesome, every family and icon: the one place the theme brings it in (core.css), so a host that serves icons
+ * its own way (the WordPress plugin prints only a page's) swaps this one file.
+ */
+@import url("@fortawesome/fontawesome-free/css/all.css");

@@ -53,7 +53,7 @@ adds your own.
 
 ## Next.js
 
-Needs `next` 14+, `react` and `react-dom` 18 or 19. The package ships source (JSX and CSS imports), so let Next compile it:
+Needs `react` and `react-dom` 18 or 19; nothing in the package imports Next, so the components also run in other React hosts (the WordPress blocks). On Next (14+) the package ships source (JSX and CSS imports), so let Next compile it:
 
 ```js
 // next.config.js
@@ -67,10 +67,11 @@ Import the styles once and wrap the app in `ThemeProvider` with the page path. I
 ```jsx
 // app/theme-provider.js
 'use client';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeProvider } from 'marccent-theme/lib/context';
 
-export const SiteThemeProvider = ({ children }) => <ThemeProvider path={usePathname()}>{children}</ThemeProvider>;
+export const SiteThemeProvider = ({ children }) => <ThemeProvider path={usePathname()} link={Link}>{children}</ThemeProvider>;
 ```
 
 ```jsx
@@ -96,7 +97,7 @@ export default function RootLayout({ children }) {
 }
 ```
 
-`ThemeProvider` takes an optional `notify(msg, tone)` for the theme's messages; by default they go to its toasts.
+`ThemeProvider` takes an optional `notify(msg, tone)` for the theme's messages; by default they go to its toasts. `link` is the router's link component: the links Button, Menu and the Dock render use it (`lib/link.js`); without it they are plain `<a>`s, and every link is a page load.
 
 To put your own styles between the theme's (overrides after the defaults, custom styles after the layout), import the files listed in `styles/core.css` one by one instead, in the same order, then `styles/designs.css`.
 

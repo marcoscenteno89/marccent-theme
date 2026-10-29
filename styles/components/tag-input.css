@@ -21,9 +21,7 @@
   line-height: 1;
 }
 .tag-remove {
-  width: 1.25em;
-  height: 1.25em;
-  min-height: 0;
+  --icon-size: 1.25em; /* the icon is a square of it (icons.css) and sizes the button */
   padding: 0;
   border: 0;
   border-radius: 50%;

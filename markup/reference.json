@@ -1,0 +1,76 @@
+{
+  "button": [
+    {
+      "case": "a link with an icon",
+      "fields": {
+        "label": "Message me",
+        "href": "/contact",
+        "icon": "message",
+        "classes": "primary"
+      },
+      "html": "<a href=\"/contact\" class=\"btn primary\" aria-label=\"Message me\" title=\"Message me\" data-component=\"button\"><i data-component=\"icon\" class=\"fa-solid fa-message btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Message me</span></a>"
+    },
+    {
+      "case": "full icon classes, a new tab",
+      "fields": {
+        "label": "Github",
+        "href": "https://github.com/marcoscenteno89",
+        "icon": "fa-brands fa-github",
+        "newTab": true,
+        "classes": "secondary hover-expand"
+      },
+      "html": "<a href=\"https://github.com/marcoscenteno89\" class=\"btn secondary hover-expand\" aria-label=\"Github\" title=\"Github\" data-component=\"button\" target=\"_blank\" rel=\"noopener noreferrer\"><i data-component=\"icon\" class=\"fa-brands fa-github btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Github</span></a>"
+    },
+    {
+      "case": "with the outline for stroke hovers",
+      "fields": {
+        "label": "Call",
+        "href": "tel:+12085550100",
+        "icon": "phone",
+        "trace": true,
+        "classes": "primary hover-trace"
+      },
+      "html": "<a href=\"tel:+12085550100\" class=\"btn primary hover-trace\" aria-label=\"Call\" title=\"Call\" data-component=\"button\"><i data-component=\"icon\" class=\"fa-solid fa-phone btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Call</span><svg data-component=\"trace\" class=\"trace\" aria-hidden=\"true\"><rect pathLength=\"100\"></rect></svg></a>"
+    },
+    {
+      "case": "no icon: a text link",
+      "fields": {
+        "label": "Read more",
+        "href": "/about",
+        "icon": "",
+        "classes": ""
+      },
+      "html": "<a href=\"/about\" class=\"btn-link\" data-component=\"button\">Read more</a>"
+    },
+    {
+      "case": "a label to escape",
+      "fields": {
+        "label": "Q&A <now>",
+        "href": "/faq?a=1&b=2",
+        "icon": "circle-question",
+        "classes": "primary"
+      },
+      "html": "<a href=\"/faq?a=1&amp;b=2\" class=\"btn primary\" aria-label=\"Q&amp;A &lt;now&gt;\" title=\"Q&amp;A &lt;now&gt;\" data-component=\"button\"><i data-component=\"icon\" class=\"fa-solid fa-circle-question btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Q&amp;A &lt;now&gt;</span></a>"
+    }
+  ],
+  "icon": [
+    {
+      "case": "a solid icon",
+      "fields": {
+        "name": "star",
+        "family": "fa-solid",
+        "classes": ""
+      },
+      "html": "<i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i>"
+    },
+    {
+      "case": "a brand icon, extra classes",
+      "fields": {
+        "name": "github",
+        "family": "fa-brands",
+        "classes": "fs-lg"
+      },
+      "html": "<i data-component=\"icon\" class=\"fa-brands fa-github fs-lg\" aria-hidden=\"true\"></i>"
+    }
+  ]
+}

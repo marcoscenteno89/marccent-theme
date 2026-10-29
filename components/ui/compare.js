@@ -17,16 +17,16 @@ import '../../styles/components/compare.css';
  * @param {string} [props.beforeLabel='Before'] @param {string} [props.afterLabel='After'] - Their tags in the corners.
  * @param {number} [props.start=50] - Where the handle starts, in percent from the left.
  * @param {string} [props.label='Before and after'] - The handle's name for screen readers.
- * @param {string} [props.className] - Extra classes (give it a size or an aspect-ratio).
+ * @param {string} [props.className] - Extra classes. @param {Object} [props.style] - Give it a size or an aspect-ratio.
  *
  * @example <Compare className="round" before={<img src="/old.webp" alt="The kitchen before" />} after={<img src="/new.webp" alt="The kitchen after" />} />
  */
-const Compare = ({ before, after, beforeLabel = 'Before', afterLabel = 'After', start = 50, label = 'Before and after', className }) => {
+const Compare = ({ before, after, beforeLabel = 'Before', afterLabel = 'After', start = 50, label = 'Before and after', className, style }) => {
   const root = useRef(null);
   useEffect(() => compare(root.current), []);
 
   return (
-    <div ref={root} data-component="compare" className={cx('compare stack overflow-hidden', className)} style={{ '--pos': `${start}%` }}>
+    <div ref={root} data-component="compare" className={cx('compare stack overflow-hidden', className)} style={{ '--pos': `${start}%`, ...style }}>
       <div className="compare-after stack">{after}</div>
       <div className="compare-before stack">{before}</div>
       {beforeLabel && <span className="compare-tag pill fs-sm self-start" data-side="before" aria-hidden="true">{beforeLabel}</span>}
