@@ -15,7 +15,7 @@
     --border-width: 2px;
     --shadow-opacity: 0;
   }
-  [data-theme] .bg, .btn, .input {
+  :where(:scope)[data-theme] .bg, [data-theme] .bg, .btn, .input {
     border: var(--border-width) solid var(--body-color);
     border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
   }

@@ -8,7 +8,7 @@
     --weight-heading: 700;
     --radius: .75rem;
   }
-  [data-theme] .bg {
+  :where(:scope)[data-theme] .bg, [data-theme] .bg {
     box-shadow:
       4px 4px 0 color-mix(in srgb, var(--secondary) 55%, var(--body-bg)),
       8px 8px 0 color-mix(in srgb, var(--primary) 45%, var(--body-bg));

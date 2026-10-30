@@ -20,13 +20,13 @@ the block editor).
 
 ## Versions
 
-Releases are git tags (`v1.0.0-rc.1`); install or link a tag, never the main branch:
+Releases are git tags (`v1.0.0-rc.2`); install or link a tag, never the main branch:
 
 ```sh
-npm install github:marcoscenteno89/marccent-theme#v1.0.0-rc.1
+npm install github:marcoscenteno89/marccent-theme#v1.0.0-rc.2
 ```
 
-A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/marccent.css`.
+A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/marccent.css`.
 To release: set the version in `package.json`, add it to `CHANGELOG.md`, `npm run build`, commit (dist/ included), tag
 `v<version>` and push the tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-marccent's
 `THEME_VERSION`.
@@ -49,15 +49,24 @@ A **patch** (1.0.x) fixes a bug, without changing the public part except to make
 or changes its markup so a host's own copy no longer matches, waits for the next **major** (2.0.0). How it looks (a
 color, a spacing, an animation) can be adjusted in a minor; what you write to use it can't.
 
+### Accessibility
+
+The components aim at WCAG 2.2 AA in light and dark mode and every design style: text colors that keep 4.5:1 on the
+page for any palette (the `--*-ink` tokens, the text on fills chosen by contrast), names for every control, real
+headings, rows and roles, and keyboard access to anything that scrolls. A site keeps it by using the ink tokens or
+the `.text-*` classes for colored text (not `var(--primary)`), giving each nav landmark its own label, and not
+dimming text with `opacity-50` (`opacity-75` reads on the page, not on a color fill). The demo sites check every page
+with axe-core (marccent-html: `npm run test:a11y`).
+
 ## Any page: dist/
 
 ```html
 <html lang="en" data-design="modern" data-theme="light">
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/marccent.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/designs/modern.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/marccent.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/designs/modern.css">
   <script>window.marccentDefaults = { palette: 'brand', palettes: [ { id: 'brand', primary: '#046bd2', secondary: '#1e293b' } ] };</script>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/marccent.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/marccent.js"></script>
 </head>
 ```
 

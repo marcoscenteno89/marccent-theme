@@ -23,6 +23,6 @@
   @media (prefers-reduced-motion: no-preference) {
     body::before { animation: aurora-drift 18s ease-in-out infinite alternate; }
   }
-  [data-theme] .bg { background-color: color-mix(in srgb, var(--surface) 70%, transparent); }
+  :where(:scope)[data-theme] .bg, [data-theme] .bg { background-color: color-mix(in srgb, var(--surface) 70%, transparent); }
 }
 @keyframes aurora-drift { to { transform: translate(6%, -4%) rotate(8deg) scale(1.1); } }

@@ -387,7 +387,7 @@
         "variant": "",
         "content": "<p>Inside</p>"
       },
-      "html": "<dialog data-component=\"modal\" class=\"modal\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0 divide\"><div class=\"header pad\"><h5 id=\"id-1\">Contact sales</h5><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1\"><p>Inside</p></div><div class=\"grid auto-cols items-center gap-sm pad\" style=\"justify-content:end\"><button type=\"button\" class=\"btn\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
+      "html": "<dialog data-component=\"modal\" class=\"modal\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0 divide\"><div class=\"header pad\"><h2 id=\"id-1\" class=\"h5\">Contact sales</h2><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1\"><p>Inside</p></div><div class=\"grid auto-cols items-center gap-sm pad\" style=\"justify-content:end\"><button type=\"button\" class=\"btn\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
     },
     {
       "case": "the ticket look",
@@ -396,7 +396,7 @@
         "variant": "ticket",
         "content": "<p>Inside</p>"
       },
-      "html": "<dialog data-component=\"modal\" class=\"modal ticket\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0\"><div class=\"header pad bg-gradient text-center\"><h4 id=\"id-1\">You’re in</h4></div><div class=\"modal-neck bg-gradient\"></div><div class=\"modal-flare bg\"></div><div class=\"bg pad-x grid cols-1\"><p>Inside</p></div><div class=\"bg pad grid auto-cols cols-center gap-sm\"><button type=\"button\" class=\"btn gradient\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
+      "html": "<dialog data-component=\"modal\" class=\"modal ticket\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0\"><div class=\"header pad bg-gradient text-center\"><h2 id=\"id-1\" class=\"h4\">You’re in</h2></div><div class=\"modal-neck bg-gradient\"></div><div class=\"modal-flare bg\"></div><div class=\"bg pad-x grid cols-1\"><p>Inside</p></div><div class=\"bg pad grid auto-cols cols-center gap-sm\"><button type=\"button\" class=\"btn gradient\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
     }
   ],
   "drawer": [
@@ -407,7 +407,7 @@
         "side": "start",
         "content": "<p>Inside</p>"
       },
-      "html": "<dialog data-component=\"drawer\" data-side=\"start\" class=\"modal drawer\" aria-labelledby=\"id-1\"><div class=\"grid cols-1 gap-0 divide h-100\" style=\"grid-template-rows:auto minmax(0, 1fr);grid-auto-rows:auto\"><div class=\"header pad\"><h5 id=\"id-1\">Changelog</h5><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1 content-start overflow-auto\"><p>Inside</p></div></div></dialog>"
+      "html": "<dialog data-component=\"drawer\" data-side=\"start\" class=\"modal drawer\" aria-labelledby=\"id-1\"><div class=\"grid cols-1 gap-0 divide h-100\" style=\"grid-template-rows:auto minmax(0, 1fr);grid-auto-rows:auto\"><div class=\"header pad\"><h2 id=\"id-1\" class=\"h5\">Changelog</h2><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1 content-start overflow-auto\"><p>Inside</p></div></div></dialog>"
     }
   ],
   "accordion": [

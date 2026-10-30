@@ -143,7 +143,7 @@
 .btn.info { --tone: var(--info); }
 .btn:is(.primary, .secondary, .danger, .success, .info) {
   background-color: color-mix(in srgb, var(--tone) 30%, var(--body-bg));
-  color: color-mix(in srgb, var(--tone) 40%, var(--body-color));
+  color: color-mix(in srgb, var(--tone) 25%, var(--body-color)); /* 25%: 4.5:1 or more on the fill, hovered too, for light tones */
   border-color: var(--tone);
 }
 .btn:is(.primary, .secondary, .danger, .success, .info):is(:hover, [aria-pressed="true"]) {

@@ -76,12 +76,17 @@
 /* Icon only below a width, by choice (not measured): put .icon-only-sm / -md on a button, or on any element to
    cover every button inside it. Below the step, measured on the nearest container (a .wrap or .cq, e.g. the
    header or a hero box), the label goes and the button is just its icon square. Steps match layout.css:
-   sm below 40rem, md below 56rem. */
+   sm below 40rem, md below 56rem. The label is only hidden from view (like .visually-hidden), so it stays the
+   button's name for screen readers. */
 @container (width < 40rem) {
-  :is(.icon-only-sm, .icon-only-sm .btn) > .btn-text { display: none; }
+  :is(.icon-only-sm, .icon-only-sm .btn) > .btn-text {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
 }
 @container (width < 56rem) {
-  :is(.icon-only-md, .icon-only-md .btn) > .btn-text { display: none; }
+  :is(.icon-only-md, .icon-only-md .btn) > .btn-text {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+  }
 }
 
 /* Button without an icon (components/ui/button.js): a plain text link, whether it renders <a> or <button>. */

@@ -11,7 +11,7 @@
     --shadow-opacity: .12;
   }
   .btn { border-radius: 999px; }
-  [data-theme] .bg { box-shadow: 0 .6rem 1.5rem color-mix(in srgb, var(--primary) 20%, transparent); }
+  :where(:scope)[data-theme] .bg, [data-theme] .bg { box-shadow: 0 .6rem 1.5rem color-mix(in srgb, var(--primary) 20%, transparent); }
   @media (prefers-reduced-motion: no-preference) {
     .btn { transition: transform .2s cubic-bezier(.34, 1.56, .64, 1), background-color var(--duration); }
     .btn:hover { transform: translateY(-3px) rotate(-1.5deg); }

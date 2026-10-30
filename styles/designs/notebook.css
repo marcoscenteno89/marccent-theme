@@ -11,7 +11,7 @@
     --radius: .125rem;
     --shadow-size: .25rem;
   }
-  [data-theme] .bg {
+  :where(:scope)[data-theme] .bg, [data-theme] .bg {
     background-image:
       linear-gradient(90deg, transparent 2.25rem, color-mix(in srgb, var(--secondary) 45%, transparent) 2.25rem 2.35rem, transparent 2.35rem),
       repeating-linear-gradient(to bottom, transparent 0 calc(1lh - 1px), color-mix(in srgb, var(--body-color) 12%, transparent) calc(1lh - 1px) 1lh);

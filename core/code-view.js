@@ -71,6 +71,8 @@ class CodeView {
         ].filter(Boolean),
       }),
     });
+    // The box scrolls sideways for long lines: in the tab order, so the keyboard can scroll it too.
+    this.view.scrollDOM.tabIndex = 0;
   }
 
   destroy() {

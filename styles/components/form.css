@@ -43,7 +43,7 @@
 .input:user-invalid { border-color: var(--secondary); }
 .input:user-invalid:focus { box-shadow: 0 0 0 var(--focus-width) color-mix(in srgb, var(--secondary) 25%, transparent); }
 .input:disabled { color: var(--muted-color); background-color: var(--muted-bg); cursor: not-allowed; }
-.field:has(> :required) > .field-label::after { content: ' *'; color: var(--secondary); } /* required marker */
+.field:has(> :required) > .field-label::after { content: ' *'; color: var(--secondary-ink); } /* required marker */
 
 /* INLINE FORM: the fields and the submit button on one row once the container is 40rem wide (stacked with a
    small gap below that, like the layout-* classes). In the row they are joined into one bar: no gap, every

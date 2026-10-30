@@ -13,7 +13,7 @@
     --shadow-opacity: .08;
   }
   :is(h1, h2, h3, h4, h5, h6) { text-transform: uppercase; letter-spacing: .25em; text-align: center; }
-  [data-theme] .bg {
+  :where(:scope)[data-theme] .bg, [data-theme] .bg {
     border: var(--border-width) double var(--primary);
     outline: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
     outline-offset: -.5rem;

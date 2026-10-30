@@ -17,7 +17,7 @@
   
   :is(h1, h2, h3, h4, h5, h6) { font-family: var(--font-heading); letter-spacing: .04em; }
   :is(h4, h5, h6) { text-transform: uppercase; font-size: .9em; letter-spacing: .2em; }
-  [data-theme=dark] :is(h1, h2, h3) { color: var(--primary-lighter); }
+  :where(:scope)[data-theme=dark] :is(h1, h2, h3), [data-theme=dark] :is(h1, h2, h3) { color: var(--primary-ink); }
   :where(:scope) { --btn-weight: 400; }
   .btn-text { text-transform: uppercase; letter-spacing: .14em; font-size: .85em; }
 }

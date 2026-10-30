@@ -19,7 +19,7 @@ const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
   const close = <Button icon="xmark" className={variant === 'ticket' ? 'gradient' : undefined} data-close onClick={onClose}>Close</Button>;
   if (variant === 'ticket') return (
     <div data-component="modal-panel" className="grid cols-1 gap-0">
-      <div className="header pad bg-gradient text-center"><h4 id={titleId}>{title}</h4></div>
+      <div className="header pad bg-gradient text-center"><h2 id={titleId} className="h4">{title}</h2></div>
       <div className="modal-neck bg-gradient" />
       <div className="modal-flare bg" />
       <div className="bg pad-x grid cols-1">{children}</div>
@@ -29,7 +29,7 @@ const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
   return (
     <div data-component="modal-panel" className="grid cols-1 gap-0 divide">
       <div className="header pad">
-        <h5 id={titleId}>{title}</h5>
+        <h2 id={titleId} className="h5">{title}</h2>
         <Button icon="xmark" aria-label="Close" data-close onClick={onClose} />
       </div>
       <div className="pad grid cols-1">{children}</div>
@@ -84,7 +84,7 @@ const Drawer = ({ title, show, setShow, side = 'end', footer, className, childre
       onClose={() => setShow(false)} onClick={(e) => e.target === ref.current && setShow(false)}>
       <div className="grid cols-1 gap-0 divide h-100" style={{ gridTemplateRows: 'auto minmax(0, 1fr)', gridAutoRows: 'auto' }}>
         <div className="header pad">
-          <h5 id={titleId}>{title}</h5>
+          <h2 id={titleId} className="h5">{title}</h2>
           <Button icon="xmark" aria-label="Close" data-close onClick={() => setShow(false)} />
         </div>
         <div className="pad grid cols-1 content-start overflow-auto">{children}</div>

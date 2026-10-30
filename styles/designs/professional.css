@@ -13,8 +13,6 @@
     --shadow-size: .25rem;
     --shadow-opacity: .08;
   }
-  
-  :is(h1, h2, h3) { color: var(--primary-mode-text); }
-  [data-theme=dark] :is(h1, h2, h3) { color: var(--primary-lighter); }
+  :is(h1, h2, h3) { color: var(--primary-ink); }
   :is(h5, h6) { text-transform: uppercase; letter-spacing: .06em; font-size: .85em; }
 }

@@ -20,5 +20,5 @@
     background-size: 9rem 9rem, 11rem 11rem, 3rem 3rem, 6rem 6rem;
     background-position: 0 0, 2rem 3rem, 0 0, 1rem 2rem;
   }
-  [data-theme] .bg, .btn { border: var(--border-width) solid var(--body-color); box-shadow: 6px 6px 0 var(--secondary); }
+  :where(:scope)[data-theme] .bg, [data-theme] .bg, .btn { border: var(--border-width) solid var(--body-color); box-shadow: 6px 6px 0 var(--secondary); }
 }

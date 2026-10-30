@@ -168,6 +168,8 @@ define('app-shell', (shell) => {
  */
 define('code', (box) => {
   const pre = box.querySelector('pre');
+  // Until CodeMirror swaps in, the <pre> may scroll sideways: reachable by keyboard.
+  if (pre && !pre.hasAttribute('tabindex')) pre.tabIndex = 0;
   const code = pre?.textContent ?? '';
   let view = null;
   let stopWatching = watchInView(box, async (near) => {

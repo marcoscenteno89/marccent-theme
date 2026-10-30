@@ -10,7 +10,7 @@ import { DesignCards } from './designs';
 // A small tile: a label over its one control.
 const Tile = ({ label, className = '', style, children }) => (
   <div className={`bg border round shadow pad grid cols-1 gap-sm justify-center text-center ${className}`} style={{ alignContent: 'center', ...style }}>
-    <h3 className="h6 text-uppercase opacity-75">{label}</h3>
+    <h3 className="h6 text-uppercase">{label}</h3>
     {children}
   </div>
 );

@@ -19,7 +19,7 @@
     --lg-drop: rgb(0 0 0 / .12);
     --theme-glass: 1;
   }
-  :where([data-theme=dark]) {
+  :where(:scope[data-theme=dark], [data-theme=dark]) {
     --lg-tint: 30%;
     --lg-edge: rgb(255 255 255 / .28);
     --lg-rim: rgb(255 255 255 / .12);
@@ -35,7 +35,7 @@
     background-attachment: fixed;
   }
   :is(h1, h2, .display, .display-lg) { letter-spacing: -.025em; }
-  [data-theme] :is(.bg, .menu-panel, .modal, .toast), .nav.bg {
+  :where(:scope)[data-theme] :is(.bg, .menu-panel, .modal, .toast), [data-theme] :is(.bg, .menu-panel, .modal, .toast), .nav.bg {
     background-color: color-mix(in srgb, var(--surface) var(--lg-tint), transparent);
     -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(190%);
     backdrop-filter: blur(var(--lg-blur)) saturate(190%);
@@ -64,6 +64,6 @@
     .btn:active { transform: scale(.96); }
   }
   @supports not (backdrop-filter: blur(1px)) {
-    [data-theme] :is(.bg, .menu-panel, .modal, .toast), .nav.bg { background-color: var(--surface); }
+    :where(:scope)[data-theme] :is(.bg, .menu-panel, .modal, .toast), [data-theme] :is(.bg, .menu-panel, .modal, .toast), .nav.bg { background-color: var(--surface); }
   }
 }

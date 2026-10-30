@@ -11,12 +11,12 @@
     --radius: .25rem;
     --shadow-opacity: .3;
   }
-  [data-theme] .bg {
+  :where(:scope)[data-theme] .bg, [data-theme] .bg {
     border-color: color-mix(in srgb, var(--primary) 35%, transparent);
     box-shadow: 0 0 1.5rem color-mix(in srgb, var(--primary) 12%, transparent);
   }
   :is(h1, h2, h3, h4, h5, h6) { text-transform: uppercase; letter-spacing: .08em; }
-  [data-theme=light] .bg { box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent); }
+  :where(:scope)[data-theme=light] .bg, [data-theme=light] .bg { box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent); }
   body {
     background-image:
       linear-gradient(color-mix(in srgb, var(--primary) 7%, transparent) 1px, transparent 1px),

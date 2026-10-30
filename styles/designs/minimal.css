@@ -10,7 +10,7 @@
     --radius: .125rem;
     --shadow-opacity: 0;
   }
-  [data-theme] .bg { background-color: var(--body-bg); }
+  :where(:scope)[data-theme] .bg, [data-theme] .bg { background-color: var(--body-bg); }
   :is(h1, h2, h3) { letter-spacing: -.02em; }
   
   :where(:scope) { --line-height: 1.65; --btn-weight: 500; --border-width: 1px; }

@@ -55,7 +55,7 @@ const DesignCardList = ({ theme, update }) => {
   const current = theme.value('design') ?? DEFAULT_DESIGN;
   return (
     <div data-component="design-cards" className="bg border round shadow pad grid cols-1 gap-sm content-start h-100">
-      <h3 className="h6 text-uppercase opacity-75">Design style: {designTitle(current)}</h3>
+      <h3 className="h6 text-uppercase">Design style: {designTitle(current)}</h3>
       <Carousel slideWidth="12rem" label="Design styles">
         {OPTIONS.map(d => <DesignCard key={d.id} design={d} active={d.id === current} dark={theme.value('isDark')} use={() => update({ design: d.id })} />)}
       </Carousel>

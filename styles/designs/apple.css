@@ -18,7 +18,7 @@
     --glass-opacity: .72;
     --duration: .2s;
   }
-  :where(:scope, [data-theme=light]) {
+  :where(:scope, :scope[data-theme=light], [data-theme=light]) {
     --body-color: #1d1d1f;
     --body-bg: #f5f5f7;
     --surface: #fff;
@@ -27,7 +27,7 @@
     --border-color: #d2d2d7;
     --border-subtle: rgb(0 0 0 / .08);
   }
-  :where([data-theme=dark]) {
+  :where(:scope[data-theme=dark], [data-theme=dark]) {
     --body-color: #f5f5f7;
     --body-bg: #000;
     --surface: #1c1c1e;
@@ -39,7 +39,7 @@
   body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
   :is(h1, h2, .display, .display-lg) { letter-spacing: -.025em; }
   :is(h3, h4, .display-sm) { letter-spacing: -.015em; }
-  [data-theme=light] .bg { border-color: transparent; box-shadow: 0 2px 12px rgb(0 0 0 / .04); }
+  :where(:scope)[data-theme=light] .bg, [data-theme=light] .bg { border-color: transparent; box-shadow: 0 2px 12px rgb(0 0 0 / .04); }
   .nav.bg, .menu-panel, .modal {
     -webkit-backdrop-filter: saturate(180%) blur(var(--glass-blur));
     backdrop-filter: saturate(180%) blur(var(--glass-blur));

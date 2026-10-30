@@ -10,7 +10,7 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      [data-theme] .bg { animation: kinetic-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
+      :where(:scope)[data-theme] .bg, [data-theme] .bg { animation: kinetic-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
     }
     main a:not(.btn) {
       text-decoration: none;

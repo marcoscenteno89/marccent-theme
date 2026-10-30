@@ -8,9 +8,9 @@
     --radius: 1rem;
     --border-width: 0px;
   }
-  [data-theme] .bg { background-color: var(--body-bg); }
-  [data-theme=light] :is(.bg, .btn) { box-shadow: 6px 6px 12px rgb(0 0 0 / .14), -6px -6px 12px rgb(255 255 255 / .9); }
-  [data-theme=dark] :is(.bg, .btn) { box-shadow: 6px 6px 12px rgb(0 0 0 / .5), -6px -6px 12px rgb(255 255 255 / .05); }
-  [data-theme=light] .btn:is(:hover, [aria-pressed="true"]) { box-shadow: inset 4px 4px 8px rgb(0 0 0 / .14), inset -4px -4px 8px rgb(255 255 255 / .9); }
-  [data-theme=dark] .btn:is(:hover, [aria-pressed="true"]) { box-shadow: inset 4px 4px 8px rgb(0 0 0 / .5), inset -4px -4px 8px rgb(255 255 255 / .05); }
+  :where(:scope)[data-theme] .bg, [data-theme] .bg { background-color: var(--body-bg); }
+  :where(:scope)[data-theme=light] :is(.bg, .btn), [data-theme=light] :is(.bg, .btn) { box-shadow: 6px 6px 12px rgb(0 0 0 / .14), -6px -6px 12px rgb(255 255 255 / .9); }
+  :where(:scope)[data-theme=dark] :is(.bg, .btn), [data-theme=dark] :is(.bg, .btn) { box-shadow: 6px 6px 12px rgb(0 0 0 / .5), -6px -6px 12px rgb(255 255 255 / .05); }
+  :where(:scope)[data-theme=light] .btn:is(:hover, [aria-pressed="true"]), [data-theme=light] .btn:is(:hover, [aria-pressed="true"]) { box-shadow: inset 4px 4px 8px rgb(0 0 0 / .14), inset -4px -4px 8px rgb(255 255 255 / .9); }
+  :where(:scope)[data-theme=dark] .btn:is(:hover, [aria-pressed="true"]), [data-theme=dark] .btn:is(:hover, [aria-pressed="true"]) { box-shadow: inset 4px 4px 8px rgb(0 0 0 / .5), inset -4px -4px 8px rgb(255 255 255 / .05); }
 }

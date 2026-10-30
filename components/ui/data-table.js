@@ -87,7 +87,7 @@ const DataTable = ({ columns, rows, label, pageSize = 10, search = true, classNa
         </table>
       </div>
       {pageSize > 0 && pages > 1 && (
-        <Pagination total={shown.length} pageSize={size} current={current} update={setPage} className="divide border round" />
+        <Pagination total={shown.length} pageSize={size} current={current} update={setPage} className="divide border round" label={`${label} pages`} />
       )}
       <p aria-live="polite" className="fs-sm opacity-75">{rangeText(current, size, shown.length)}</p>
     </div>

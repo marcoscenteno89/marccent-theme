@@ -12,6 +12,7 @@
     --radius: 0rem;
     --border-width: 3px;
   }
+  :where(:scope)[data-theme] .bg,
   [data-theme] .bg,
   .btn,
   .input { border: var(--border-width) solid var(--body-color); box-shadow: 6px 6px 0 var(--body-color); }

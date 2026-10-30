@@ -10,6 +10,6 @@
     --shadow-opacity: 0;
     --space: 1.125rem;
   }
-  [data-theme] .bg { border-color: transparent; }
+  :where(:scope)[data-theme] .bg, [data-theme] .bg { border-color: transparent; }
   :is(h1, h2, h3) { letter-spacing: -.03em; }
 }

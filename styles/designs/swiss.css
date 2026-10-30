@@ -12,5 +12,5 @@
     --h1: min(calc(var(--font-size) * 2 + 2.5vw), calc(var(--font-size) * 4));
   }
   :is(h1, h2, h3) { letter-spacing: -.045em; text-align: start; }
-  [data-theme] .bg { border-width: 0; border-top: .375rem solid var(--body-color); background-color: transparent; }
+  :where(:scope)[data-theme] .bg, [data-theme] .bg { border-width: 0; border-top: .375rem solid var(--body-color); background-color: transparent; }
 }

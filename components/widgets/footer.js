@@ -31,7 +31,7 @@ const Footer = ({ brand, about, columns = [], social, legal, legalLinks, id = 'f
         <div className="grid gap-lg" style={{ '--min': '10rem', '--cols': Math.max(columns.length, 1) }}>
           {columns.map(column => (
             <div key={column.name} className="grid cols-1 gap-sm content-start">
-              <h6>{column.name}</h6>
+              <h2 className="h6">{column.name}</h2>
               <Menu items={column.children} label={column.name} layout="cols-1" gap="gap-0" style={{ '--cols': 1 }} />
             </div>
           ))}
@@ -41,8 +41,8 @@ const Footer = ({ brand, about, columns = [], social, legal, legalLinks, id = 'f
     {(legal || legalLinks || social) && (
       <div className="wrap pad-0 border-top pad-y grid layout-ends items-center gap-sm" style={{ '--start': legalLinks ? 2 : 1 }}>
         <div className="fs-sm opacity-75">{legal}</div>
-        {legalLinks && <Menu items={legalLinks} label="Legal" layout="auto-cols" className="fs-sm" />}
-        {social && <Menu items={social} label="Social" iconOnly layout="auto-cols" className="col-last" />}
+        {legalLinks && <Menu items={legalLinks} label="Footer legal" layout="auto-cols" className="fs-sm" />}
+        {social && <Menu items={social} label="Footer social" iconOnly layout="auto-cols" className="col-last" />}
       </div>
     )}
   </footer>

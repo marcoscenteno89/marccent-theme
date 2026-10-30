@@ -17,16 +17,17 @@ const PageCell = ({ page, label, disabled, current, update, children }) => (
  * @param {number} current - Current page (1-based). @param {Function} update - Called with the page to show.
  * @param {string} [className] - Extra classes on the nav (default only "grid fixed gap-0"; add e.g.
  *   "divide border round" for the bar look). @param {Object} [style] - Inline styles on the nav
- *   (may override --cols).
+ *   (may override --cols). @param {string} [label='Pages'] - The nav's name: give each one on a page its own (a
+ *   page with two navs of one name can't tell them apart).
  */
-const Pagination = ({ total, pageSize, current, update, className, style }) => {
+const Pagination = ({ total, pageSize, current, update, className, style, label = 'Pages' }) => {
   const pages = Math.ceil(total / pageSize);
   const first = current === 1;
   const last = current === pages;
   const cell = { current, update };
   return (
     <nav data-component="pagination" className={cx('grid fixed gap-0', className)} style={{ '--cols': pages + 4, ...style }}
-      aria-label="Pages">
+      aria-label={label}>
       <PageCell {...cell} page={1} label="First page" disabled={first}>&laquo;</PageCell>
       <PageCell {...cell} page={current - 1} label="Previous page" disabled={first}>&lsaquo;</PageCell>
       {Array.from({ length: pages }, (_, i) => <PageCell {...cell} key={i} page={i + 1}>{i + 1}</PageCell>)}

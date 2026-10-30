@@ -2,5 +2,8 @@
 /* BOARD (Board in components/ui/board.js): cells that are buttons drop the button look (cells are made square with
    .square on the markup). */
 @layer components {
+/* Cells never narrower than 1.5rem (24px, the least a touch target should be); a board too wide for its box scrolls
+   sideways instead of shrinking them. */
+.board { grid-template-columns: repeat(var(--cols), minmax(1.5rem, 1fr)); overflow-x: auto; }
 .board > button { border: 0; padding: 0; color: inherit; font: inherit; }
 }

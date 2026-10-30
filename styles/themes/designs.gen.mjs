@@ -8,8 +8,11 @@
 // replaces the page's inside it instead of mixing with it. Selectors inside an @scope are scoped without gaining
 // weight, so specificity and order stay as they were in the file; only the root selector is rewritten:
 //   :where(:root) { … }           ->  :where(:scope) { … }
-//   :where(:root, [data-theme=x]) ->  :where(:scope, [data-theme=x])
+//   :where(:root, [data-theme=x]) ->  :where(:scope, :scope[data-theme=x], [data-theme=x])
 //   :root …                       ->  :scope …
+//   [data-theme=x] …              ->  :where(:scope)[data-theme=x] …, [data-theme=x] …
+// A selector that starts at the mode must also match the scope's root: inside an @scope a selector only reaches the
+// root through :scope, and the theme puts data-theme and data-design on the same element (<html>, a themed section).
 // @imports (the self-hosted fonts) are hoisted to the top, once each; a font file only downloads when a style uses it.
 // @keyframes move out of the scope (they can't be scoped; their names are unique per style).
 import fs from 'fs';
@@ -32,14 +35,19 @@ const splitTop = (s) => {
   return [ ...out, cur.trim() ];
 };
 
+const MODE = /^\[data-theme[^\]]*\]/;
 const scopeSelector = (sel) => {
   const m = sel.match(/^:where\((.*?)\)(.*)$/s);
   if (m) {
     const args = splitTop(m[1]);
-    if (args.includes(':root')) return `:where(${args.map(a => a === ':root' ? ':scope' : a).join(', ')})${m[2]}`;
+    if (args.includes(':root') || args.some(a => MODE.test(a))) {
+      const scoped = args.flatMap(a => (a === ':root' ? [ ':scope' ] : MODE.test(a) ? [ `:scope${a}`, a ] : [ a ]));
+      return [ `:where(${scoped.join(', ')})${m[2]}` ];
+    }
   }
-  if (sel.startsWith(':root')) return `:scope${sel.slice(5)}`;
-  return sel;
+  if (sel.startsWith(':root')) return [ `:scope${sel.slice(5)}` ];
+  if (MODE.test(sel)) return [ `:where(:scope)${sel}`, sel ];
+  return [ sel ];
 };
 
 // The style's name and one-line description from its header comment ("THEME: Terminal. Optional. A command line: …").
@@ -85,7 +93,7 @@ for (const file of files) {
     frames.push(rule.toString());
     rule.remove();
   });
-  tree.walkRules((rule) => { rule.selectors = rule.selectors.map(scopeSelector); });
+  tree.walkRules((rule) => { rule.selectors = rule.selectors.flatMap(scopeSelector); });
   tree.walkComments(c => c.remove());
   const body = tree.toString().trim().replace(/^/gm, '  ');
   const block = `@scope ([data-design="${info.id}"]) to ([data-design]:not([data-design="${info.id}"])) {\n  ${rederive}\n${body}\n}`

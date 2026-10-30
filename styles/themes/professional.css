@@ -19,10 +19,8 @@
   --shadow-opacity: .08;
 }
 
-:is(h1, h2, h3) { color: var(--primary-mode-text); }
-
-/* Headings in the primary color (its readable shade in each mode). */
-[data-theme=dark] :is(h1, h2, h3) { color: var(--primary-lighter); }
+/* Headings in the primary color, at the lightness that reads in each mode (its ink, tokens/defaults.css). */
+:is(h1, h2, h3) { color: var(--primary-ink); }
 
 /* Small headings read as labels: small caps, spaced out. */
 :is(h5, h6) { text-transform: uppercase; letter-spacing: .06em; font-size: .85em; }
