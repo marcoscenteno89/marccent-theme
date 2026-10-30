@@ -170,6 +170,36 @@
   --gradient-text: var(--light);
 }
 
+/* INK: a theme color as text on the page (links, .text-primary, code), its lightness held where it reads on the page
+   and its panels at 4.5:1 (WCAG AA) whatever the palette: at most 0.5 (OKLCH) in light mode, at least 0.75 in dark.
+   Hue and chroma stay the palette's. Browsers without relative colors use the color as it is. */
+:where(:root, [data-theme]) {
+  --primary-ink: var(--primary);
+  --secondary-ink: var(--secondary);
+  --danger-ink: var(--danger);
+  --success-ink: var(--success);
+  --info-ink: var(--info);
+  --link-ink-hover: var(--primary-darker);
+}
+@supports (color: oklch(from red l c h)) {
+  :where(:root, [data-theme=light]) {
+    --primary-ink: oklch(from var(--primary) min(l, 0.5) c h);
+    --secondary-ink: oklch(from var(--secondary) min(l, 0.5) c h);
+    --danger-ink: oklch(from var(--danger) min(l, 0.5) c h);
+    --success-ink: oklch(from var(--success) min(l, 0.5) c h);
+    --info-ink: oklch(from var(--info) min(l, 0.5) c h);
+    --link-ink-hover: oklch(from var(--primary) min(l, 0.4) c h);
+  }
+  :where([data-theme=dark]) {
+    --primary-ink: oklch(from var(--primary) max(l, 0.75) c h);
+    --secondary-ink: oklch(from var(--secondary) max(l, 0.75) c h);
+    --danger-ink: oklch(from var(--danger) max(l, 0.75) c h);
+    --success-ink: oklch(from var(--success) max(l, 0.75) c h);
+    --info-ink: oklch(from var(--info) max(l, 0.75) c h);
+    --link-ink-hover: oklch(from var(--primary) max(l, 0.85) c h);
+  }
+}
+
 /* PAGE COLORS: text, background, border, link and focus colors for light and dark mode
    (dark = data-theme="dark" on any element; Body in components/theme/core.js sets it on <body>). */
 :where(:root, [data-theme=light]) {
@@ -180,8 +210,8 @@
   --border-color: color-mix(in srgb, var(--dark) 14%, var(--light));
   --border-subtle: color-mix(in srgb, var(--dark) 18%, transparent);  /* translucent border for floating boxes (toast, modal) */
   --surface: color-mix(in srgb, var(--dark) 3%, var(--light));     /* .bg panels */
-  --link: var(--primary);
-  --link-hover: var(--primary-darker);
+  --link: var(--primary-ink);
+  --link-hover: var(--link-ink-hover);
   --focus-ring: color-mix(in srgb, var(--primary) 25%, transparent); /* glow around focused controls */
   --focus-border: color-mix(in srgb, var(--primary) 50%, #fff);
   /* Mode shades: the fill behind text (bg-danger / bg-success / bg-info, current page or step, Alert; bg-primary,
@@ -209,18 +239,19 @@
   --border-color: color-mix(in srgb, var(--light) 22%, var(--dark));
   --border-subtle: color-mix(in srgb, var(--light) 15%, transparent);
   --surface: color-mix(in srgb, var(--light) 4%, var(--dark)); /* .bg panels: a step lighter than the page */
-  --link: var(--primary-lighter);
-  --link-hover: var(--primary);
+  --link: var(--primary-ink);
+  --link-hover: var(--link-ink-hover);
   --focus-border: color-mix(in srgb, var(--primary) 50%, #000);
   --primary-mode: var(--primary-darker);
   --primary-mode-text: var(--primary-lighter);
   --secondary-mode: var(--secondary-darker);
   --secondary-mode-text: var(--secondary-lighter);
-  --danger-mode: var(--danger-darker);
+  /* The status fills a tint of the page, deep enough that the page's light text reads on them (an Alert's text). */
+  --danger-mode: color-mix(in srgb, var(--danger) 30%, var(--dark));
   --danger-mode-text: var(--danger-lighter);
-  --success-mode: var(--success-darker);
+  --success-mode: color-mix(in srgb, var(--success) 30%, var(--dark));
   --success-mode-text: var(--success-lighter);
-  --info-mode: var(--info-darker);
+  --info-mode: color-mix(in srgb, var(--info) 30%, var(--dark));
   --info-mode-text: var(--info-lighter);
   --gradient-mode: var(--gradient-darker);
   color-scheme: dark;

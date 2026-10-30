@@ -35,7 +35,7 @@ const Spinner = ({ kind, width = '3rem' }) => <div data-component="spinner" styl
 const Light = (props) => <Button data-name="light" className="light" {...props} />;
 const Ghost = ({ icon, label }) => <Button data-name="ghost" icon={icon} aria-label={label} style={{ color: 'inherit', borderColor: 'rgb(255 255 255 / .5)' }} />;
 const Stars = ({ n }) => (
-  <span data-component="stars" className="grid auto-cols gap-0" aria-label={`${n} out of 5 stars`} style={{ color: '#ffd166', justifyContent: 'inherit' }}>
+  <span data-component="stars" role="img" className="grid auto-cols gap-0" aria-label={`${n} out of 5 stars`} style={{ color: '#ffd166', justifyContent: 'inherit' }}>
     {[1, 2, 3, 4, 5].map(i => <Icon key={i} name="star" family={i <= n ? 'fa-solid' : 'fa-regular'} style={{ '--icon-size': '1.1em' }} />)}
   </span>
 );

@@ -14,8 +14,8 @@ const LANGS = {
   html: () => import('@codemirror/lang-html').then(m => m.html()),
 };
 
-// A theme color mixed toward the text color, so it stays readable on the page in light and dark mode.
-const tone = (name) => `color-mix(in srgb, var(--${name}) 70%, var(--body-color))`;
+// A theme color as text on the page (its ink, styles/tokens/defaults.css), readable in light and dark mode.
+const tone = (name) => `var(--${name}-ink)`;
 
 // Common leading indentation is removed (and blank lines at the ends), so template literals can be indented with the JSX.
 const dedent = (text) => {
@@ -54,7 +54,7 @@ class CodeView {
       '.cm-scroller': { fontFamily: MONO, lineHeight: 'var(--line-height)' },
       '.cm-content': { padding: 'var(--space-sm) 0' },
       '.cm-line': { padding: '0 var(--space-sm)' },
-      '.cm-gutters': { backgroundColor: 'transparent', color: 'inherit', opacity: .45, border: 'none' },
+      '.cm-gutters': { backgroundColor: 'transparent', color: 'var(--muted-color)', border: 'none' },
     });
     this.view = new EditorView({
       parent: this.parent,
@@ -64,6 +64,7 @@ class CodeView {
           this.code.includes('\n') && lineNumbers(), // no gutter for a one-line command
           EditorState.readOnly.of(true),
           EditorView.editable.of(false),
+          EditorView.contentAttributes.of({ 'aria-label': `Code (${this.lang})` }),
           syntaxHighlighting(highlight),
           look,
           language,

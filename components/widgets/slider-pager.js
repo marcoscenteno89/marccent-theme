@@ -15,6 +15,14 @@ import { Icon } from '../ui/icon';
  * <Swiper {...pager.swiperProps} slidesPerView="auto">…</Swiper>
  * <SliderPager pager={pager} />
  */
+// Slides out of view are inert: out of the tab order and hidden from screen readers (their buttons and links can't be
+// seen, so they shouldn't be reached), back as soon as they're in view. Swiper marks the ones in view
+// (watchSlidesProgress: .swiper-slide-visible).
+const inertHidden = (s) => {
+  if (s.destroyed) return;
+  for (const slide of s.slides) slide.inert = !slide.classList.contains('swiper-slide-visible');
+};
+
 const usePager = () => {
   const prev = useRef(null), next = useRef(null), count = useRef(null), swiper = useRef(null);
   useEffect(() => {
@@ -35,7 +43,12 @@ const usePager = () => {
       // null (not left out): Swiper then doesn't draw its own arrows and dots.
       navigation: { prevEl: null, nextEl: null, disabledClass: 'opacity-25' },
       pagination: { el: null, type: 'fraction' },
+      watchSlidesProgress: true,
       onSwiper: (s) => { swiper.current = s; },
+      onAfterInit: inertHidden,
+      onProgress: inertHidden,
+      onResize: inertHidden,
+      onSlidesUpdated: inertHidden,
     },
   };
 };

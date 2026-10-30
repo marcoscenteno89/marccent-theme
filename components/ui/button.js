@@ -45,8 +45,9 @@ const Button = ({ icon = false, href, disabled = false, state, className, childr
     disabled ||= state === 'loading';
     rest = { 'aria-busy': state === 'loading' || undefined, 'data-state': state, ...rest };
   }
-  // A disabled link: no href (nothing to follow), out of the tab order, announced as disabled.
-  const off = disabled && href ? { 'aria-disabled': true, tabIndex: -1 } : {};
+  // A disabled link: no href (nothing to follow), out of the tab order, announced as a disabled link (an <a> without
+  // an href is no longer a link to assistive tech, so the role says it is).
+  const off = disabled && href ? { role: 'link', 'aria-disabled': true, tabIndex: -1 } : {};
   // What it is, in the HTML (README: In the HTML): "button", or what's built on it ("toggle-button"…) passing its
   // own; data-name, which one, goes through with the rest.
   rest = { 'data-component': component, ...rest };

@@ -9,10 +9,15 @@
   cursor: pointer;
 }
 .page-link:disabled { cursor: default; }
-/* Neutral colors; the current page or step (aria-current, set by Pagination and StepForm) takes the mode shade. */
+/* Neutral colors; the current page or step (aria-current, set by Pagination and StepForm): a tint of the primary
+   color with its ink (the primary at a lightness that reads on the page) and a border in the color itself. */
 .page-link { color: var(--link); background-color: transparent; transition: color var(--duration), background-color var(--duration); }
 .page-link:hover:not(:disabled) { background-color: var(--muted-bg); }
 .page-link:disabled { color: var(--muted-color); }
-.page-link[aria-current] { color: var(--primary-mode-text); background-color: var(--primary-mode); }
+.page-link[aria-current] {
+  color: var(--primary-ink);
+  background-color: color-mix(in srgb, var(--primary) 15%, var(--body-bg));
+  border-color: var(--primary);
+}
 .page-link:focus-visible { outline: 0; box-shadow: inset 0 0 0 var(--focus-width) var(--focus-ring); }
 }

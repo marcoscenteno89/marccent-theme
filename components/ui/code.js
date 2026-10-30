@@ -41,7 +41,8 @@ const Code = ({ children, lang = 'jsx', className }) => {
   return (
     <div ref={box} data-component="code" data-lang={lang} className={cx('stack bg border round', className)}>
       {!ready && (
-        <pre className="fs-sm overflow-auto" style={{ margin: 0, padding: 'var(--space-sm)', fontFamily: MONO, lineHeight: 'var(--line-height)' }}>
+        // tabIndex: a box that scrolls sideways needs the keyboard too.
+        <pre tabIndex={0} className="fs-sm overflow-auto" style={{ margin: 0, padding: 'var(--space-sm)', fontFamily: MONO, lineHeight: 'var(--line-height)' }}>
           <code>{code}</code>
         </pre>
       )}

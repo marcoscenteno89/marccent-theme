@@ -10,6 +10,8 @@ import { Icon } from '../ui/icon';
 
 // A light wash of the primary over the surface: cards that sit on a .bg panel still stand out from it.
 const TINT = 'color-mix(in srgb, var(--primary) 14%, var(--surface))';
+// Text on TINT: the page's, also when the card sits in a colored band.
+const ON_TINT = 'var(--body-color)';
 
 /**
  * HexGrid: its children as interlocking hexagons, on a grid. Every row track is a quarter of a hexagon; each hexagon
@@ -69,7 +71,7 @@ const HexWall = ({ people, perRow = 4, className, style }) => (
       <HexFlip key={p.name} label={`${p.name}${p.role ? `, ${p.role}` : ''}`}
         frontClass={[ 'bg-gradient', 'bg-primary', 'bg-secondary', 'bg-gradient-darker' ][i % 4]}
         front={p.icon ? <Icon name={p.icon} className="fs-lg" /> : <strong className="fs-lg">{p.initials}</strong>}
-        back={<><strong>{p.name}</strong>{p.role && <small className="opacity-75">{p.role}</small>}</>} />
+        back={<><strong>{p.name}</strong>{p.role && <small>{p.role}</small>}</>} />
     ))}
   </HexGrid>
 );
@@ -91,7 +93,7 @@ const Timeline = ({ events, className, style }) => (
           </div>
         </div>
         <div className="shape-triangle-left self-start" style={{ width: '.75rem', marginTop: '.85rem', marginLeft: '.5rem', background: TINT }} />
-        <div className="round pad grid cols-1 gap-0" style={{ marginBottom: 'var(--space)', background: TINT }}>
+        <div className="round pad grid cols-1 gap-0" style={{ marginBottom: 'var(--space)', background: TINT, color: ON_TINT }}>
           <small className="text-primary fw-bold">{e.date}</small>
           <strong>{e.title}</strong>
           {e.text && <p className="opacity-75">{e.text}</p>}
@@ -116,7 +118,7 @@ const Timeline = ({ events, className, style }) => (
  */
 const TicketCard = ({ label, title, note, items = [], action, ribbon, className }) => (
   <div data-component="ticket-card" className={cx('stack hover-holographic', className)}>
-    <div className="shape-ticket grid cols-1 gap-0" style={{ aspectRatio: 'auto', '--notch': '1rem', gridTemplateRows: '1fr 1fr', background: TINT }}>
+    <div className="shape-ticket grid cols-1 gap-0" style={{ aspectRatio: 'auto', '--notch': '1rem', gridTemplateRows: '1fr 1fr', background: TINT, color: ON_TINT }}>
       {/* Two equal rows, so the tear line between them runs between the notches. */}
       <div className="grid cols-1 gap-sm pad text-center" style={{ alignContent: 'center', borderBottom: '2px dashed var(--border-color)' }}>
         {label && <strong className="text-uppercase opacity-75">{label}</strong>}

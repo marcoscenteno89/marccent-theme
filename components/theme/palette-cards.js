@@ -72,7 +72,8 @@ const ThemeCard = (props) => {
   return (
     <div data-component="palette-card" className="bg border round shadow grid cols-1 gap-0 h-100 overflow-hidden hover-holographic" style={{ gridTemplateRows: '1fr auto' }}>
       <div className="w-100" style={{ aspectRatio: '2 / 1', backgroundImage: bg }} role="img" aria-label={`palette ${id} colors`} />
-      <div className="pad-sm grid auto-cols items-center gap-sm" style={{ justifyContent: 'space-between' }}>
+      {/* The colors, then the buttons under them: side by side they're wider than an 11rem slide. */}
+      <div className="pad-sm grid cols-1 gap-sm">
         <ul className="grid cols-1 text-uppercase" style={{ '--gap': 'var(--space-xs)', fontSize: 'var(--text-xs)' }}>
           {colors.map(c => (
             <li key={c.name} className="grid auto-cols items-center gap-sm" title={c.name}>

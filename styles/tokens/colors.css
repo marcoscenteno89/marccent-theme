@@ -8,12 +8,12 @@
    dark or light, by the color's brightness (--*-text, defaults.css: picked for these base colors, so the fill must be
    them too). Danger, success and info follow the mode (lighter in light mode, darker in dark mode: --*-mode), so text
    on them stays readable. -lighter and -darker are fixed shades. */
-.bg-primary-lighter { background-color: var(--primary-lighter); }
+.bg-primary-lighter { background-color: var(--primary-lighter); color: var(--primary-lighter-text, var(--primary-text)); }
 .bg-primary { background-color: var(--primary); color: var(--primary-text); }
-.bg-primary-darker { background-color: var(--primary-darker); }
-.bg-secondary-lighter { background-color: var(--secondary-lighter); }
+.bg-primary-darker { background-color: var(--primary-darker); color: var(--primary-darker-text, var(--primary-text)); }
+.bg-secondary-lighter { background-color: var(--secondary-lighter); color: var(--secondary-lighter-text, var(--secondary-text)); }
 .bg-secondary { background-color: var(--secondary); color: var(--secondary-text); }
-.bg-secondary-darker { background-color: var(--secondary-darker); }
+.bg-secondary-darker { background-color: var(--secondary-darker); color: var(--secondary-darker-text, var(--secondary-text)); }
 .bg-danger-lighter { background-color: var(--danger-lighter); }
 .bg-danger { background-color: var(--danger-mode); }
 .bg-danger-darker { background-color: var(--danger-darker); }
@@ -102,20 +102,20 @@
 
 /* TEXT. The gradient versions paint the gradient through the letters. */
 .text-primary-lighter { color: var(--primary-lighter); }
-.text-primary { color: var(--primary); }
+.text-primary { color: var(--primary-ink); }
 .text-primary-darker { color: var(--primary-darker); }
 .text-secondary-lighter { color: var(--secondary-lighter); }
-.text-secondary { color: var(--secondary); }
+.text-secondary { color: var(--secondary-ink); }
 .text-secondary-darker { color: var(--secondary-darker); }
 /* On a .btn these color the icon and its tint (not the border; for that use .outline-*, below). */
 .text-danger-lighter { color: var(--danger-lighter); }
-.text-danger { color: var(--danger); }
+.text-danger { color: var(--danger-ink); }
 .text-danger-darker { color: var(--danger-darker); }
 .text-success-lighter { color: var(--success-lighter); }
-.text-success { color: var(--success); }
+.text-success { color: var(--success-ink); }
 .text-success-darker { color: var(--success-darker); }
 .text-info-lighter { color: var(--info-lighter); }
-.text-info { color: var(--info); }
+.text-info { color: var(--info-ink); }
 .text-info-darker { color: var(--info-darker); }
 :is(.text-gradient-lighter, .text-gradient, .text-gradient-darker) {
   -webkit-background-clip: text;
@@ -164,11 +164,11 @@
    in the color too (below). A .btn also gets the text and icon in the color's readable shade for the mode
    (--*-mode-text) and a wash of it on hover: <Button className="outline-primary" …>. Unlayered, so .btn.outline-*
    beats .btn and .btn:hover (components layer, layers.css). */
-.outline-primary { --outline: var(--primary); --outline-text: var(--primary-mode-text); }
-.outline-secondary { --outline: var(--secondary); --outline-text: var(--secondary-mode-text); }
-.outline-danger { --outline: var(--danger); --outline-text: var(--danger-mode-text); }
-.outline-success { --outline: var(--success); --outline-text: var(--success-mode-text); }
-.outline-info { --outline: var(--info); --outline-text: var(--info-mode-text); }
+.outline-primary { --outline: var(--primary); --outline-text: var(--primary-ink); }
+.outline-secondary { --outline: var(--secondary); --outline-text: var(--secondary-ink); }
+.outline-danger { --outline: var(--danger); --outline-text: var(--danger-ink); }
+.outline-success { --outline: var(--success); --outline-text: var(--success-ink); }
+.outline-info { --outline: var(--info); --outline-text: var(--info-ink); }
 :is(.outline-primary, .outline-secondary, .outline-danger, .outline-success, .outline-info):is(.bg, .border):not(.btn) { border-color: var(--outline); }
 .btn:is(.outline-primary, .outline-secondary, .outline-danger, .outline-success, .outline-info) {
   color: var(--outline-text);
@@ -270,9 +270,18 @@
 @layer base {
   body { color: var(--body-color); background-color: var(--body-bg); }
   [data-theme] { color: var(--body-color); }
+  /* A .bg panel: the page's text on the page's surface, also inside a colored band. */
+  [data-theme] .bg { color: var(--body-color); }
   a { color: var(--link); }
   a:hover { color: var(--link-hover); }
 }
+
+/* A link in text on a color fill (an Alert, a band): the fill's text color, underlined, since the page's link color
+   may not read on it. .bg panels inside bring the page's back. Buttons keep their own. */
+:is(.bg-primary, .bg-primary-lighter, .bg-primary-darker, .bg-secondary, .bg-secondary-lighter, .bg-secondary-darker,
+  .bg-gradient, .bg-danger, .bg-success, .bg-info) a:not(.btn, .btn-link, .menu-link) { color: inherit; text-decoration: underline; }
+:is(.bg-primary, .bg-primary-lighter, .bg-primary-darker, .bg-secondary, .bg-secondary-lighter, .bg-secondary-darker,
+  .bg-gradient, .bg-danger, .bg-success, .bg-info) .bg a:not(.btn, .btn-link, .menu-link) { color: var(--link); }
 
 /* SURFACES: .bg panels in light and dark mode; glass mode (.glass on <body>) makes them translucent and blurred. */
 [data-theme] .bg {
