@@ -302,5 +302,165 @@
       },
       "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Q&amp;A Co, home\"><img src=\"/media/logo.png\" alt=\"Q&amp;A Co\" style=\"height:2.5rem;width:auto\"/><span class=\"fw-bold\">Q&amp;A Co</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars-staggered\" data-active-icon=\"xmark\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars-staggered btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols divide\" style=\"--cols:3\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link\"><span class=\"text-truncate\">Products</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/payments/\" class=\"menu-link\"><span class=\"text-truncate\">Payments</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown menu-sub\"><summary class=\"menu-link\"><span class=\"text-truncate\">More</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/more/billing/\" class=\"menu-link\"><span class=\"text-truncate\">Billing</span></a></div></details></div></details><a data-component=\"menu-link\" href=\"/contact/\" class=\"menu-link\"><span class=\"text-truncate\">Contact</span></a></nav></div></div></header>"
     }
+  ],
+  "menu": [
+    {
+      "case": "links and a dropdown",
+      "fields": {
+        "label": "Footer",
+        "layout": "",
+        "iconOnly": false,
+        "items": [
+          {
+            "name": "About",
+            "href": "/about/"
+          },
+          {
+            "name": "Help",
+            "href": "/help/",
+            "children": [
+              {
+                "name": "FAQ",
+                "href": "/help/faq/"
+              }
+            ]
+          }
+        ]
+      },
+      "html": "<nav data-component=\"menu\" class=\"menu grid gap-sm fixed\" style=\"--cols:2\" aria-label=\"Footer\"><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link\"><span class=\"text-truncate\">Help</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/help/faq/\" class=\"menu-link\"><span class=\"text-truncate\">FAQ</span></a></div></details></nav>"
+    },
+    {
+      "case": "icon-only social links, external",
+      "fields": {
+        "label": "Social",
+        "layout": "auto-cols cols-center",
+        "iconOnly": true,
+        "items": [
+          {
+            "name": "Github",
+            "href": "https://github.com/marcoscenteno89",
+            "icon": "fa-brands fa-github",
+            "external": true
+          },
+          {
+            "name": "Email",
+            "label": "Email me",
+            "href": "mailto:hi@example.com",
+            "icon": "fa-solid fa-envelope"
+          }
+        ]
+      },
+      "html": "<nav data-component=\"menu\" class=\"menu grid gap-sm auto-cols cols-center\" style=\"--cols:2\" aria-label=\"Social\"><a data-component=\"menu-link\" href=\"https://github.com/marcoscenteno89\" class=\"menu-link\" aria-label=\"Github\" title=\"Github\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-github\" aria-hidden=\"true\"></i></a><a data-component=\"menu-link\" href=\"mailto:hi@example.com\" class=\"menu-link\" aria-label=\"Email me\" title=\"Email\"><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i></a></nav>"
+    }
+  ],
+  "toggleButton": [
+    {
+      "case": "closed, controlling a panel",
+      "fields": {
+        "label": "Filters",
+        "icon": "filter",
+        "activeIcon": "xmark",
+        "controls": "filters",
+        "open": false,
+        "classes": "secondary"
+      },
+      "html": "<button type=\"button\" class=\"btn secondary\" aria-label=\"Filters\" title=\"Filters\" data-component=\"toggle-button\" data-icon=\"filter\" data-active-icon=\"xmark\" aria-expanded=\"false\" aria-controls=\"filters\"><i data-component=\"icon\" class=\"fa-solid fa-filter btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Filters</span></button>"
+    },
+    {
+      "case": "open, one icon",
+      "fields": {
+        "label": "Menu",
+        "icon": "bars",
+        "activeIcon": "",
+        "controls": "menu",
+        "open": true,
+        "classes": ""
+      },
+      "html": "<button type=\"button\" class=\"btn\" aria-label=\"Menu\" title=\"Menu\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"bars\" aria-expanded=\"true\" aria-controls=\"menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Menu</span></button>"
+    }
+  ],
+  "modal": [
+    {
+      "case": "the default look",
+      "fields": {
+        "title": "Contact sales",
+        "variant": "",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<dialog data-component=\"modal\" class=\"modal\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0 divide\"><div class=\"header pad\"><h5 id=\"id-1\">Contact sales</h5><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1\"><p>Inside</p></div><div class=\"grid auto-cols items-center gap-sm pad\" style=\"justify-content:end\"><button type=\"button\" class=\"btn\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
+    },
+    {
+      "case": "the ticket look",
+      "fields": {
+        "title": "You’re in",
+        "variant": "ticket",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<dialog data-component=\"modal\" class=\"modal ticket\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0\"><div class=\"header pad bg-gradient text-center\"><h4 id=\"id-1\">You’re in</h4></div><div class=\"modal-neck bg-gradient\"></div><div class=\"modal-flare bg\"></div><div class=\"bg pad-x grid cols-1\"><p>Inside</p></div><div class=\"bg pad grid auto-cols cols-center gap-sm\"><button type=\"button\" class=\"btn gradient\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
+    }
+  ],
+  "drawer": [
+    {
+      "case": "from the start",
+      "fields": {
+        "title": "Changelog",
+        "side": "start",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<dialog data-component=\"drawer\" data-side=\"start\" class=\"modal drawer\" aria-labelledby=\"id-1\"><div class=\"grid cols-1 gap-0 divide h-100\" style=\"grid-template-rows:auto minmax(0, 1fr);grid-auto-rows:auto\"><div class=\"header pad\"><h5 id=\"id-1\">Changelog</h5><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1 content-start overflow-auto\"><p>Inside</p></div></div></dialog>"
+    }
+  ],
+  "accordion": [
+    {
+      "case": "the first open, one at a time",
+      "fields": {
+        "open": 0,
+        "multiple": false,
+        "items": [
+          {
+            "header": "What is it?",
+            "content": "<p>Inside</p>"
+          },
+          {
+            "header": "Q&A <here>",
+            "content": "<p>Inside</p>"
+          }
+        ]
+      },
+      "html": "<div data-component=\"accordion\" class=\"accordion grid cols-1 gap-0 divide border round\"><details data-component=\"accordion-item\" name=\"id-1\" open=\"\"><summary class=\"header pad-sm\">What is it?</summary><div class=\"pad-sm\"><p>Inside</p></div></details><details data-component=\"accordion-item\" name=\"id-1\"><summary class=\"header pad-sm\">Q&amp;A &lt;here&gt;</summary><div class=\"pad-sm\"><p>Inside</p></div></details></div>"
+    }
+  ],
+  "tooltip": [
+    {
+      "case": "on top",
+      "fields": {
+        "trigger": "Hover me",
+        "content": "Copy the link",
+        "side": "top"
+      },
+      "html": "<button type=\"button\" class=\"btn-link\" id=\"id-1-anchor\" aria-describedby=\"id-1\">Hover me</button><div id=\"id-1\" role=\"tooltip\" popover=\"manual\" data-component=\"tooltip\" data-placement=\"top\" class=\"float tooltip\">Copy the link</div>"
+    }
+  ],
+  "popover": [
+    {
+      "case": "below",
+      "fields": {
+        "trigger": "Filters",
+        "label": "Filters",
+        "side": "bottom",
+        "content": "<p>Inside</p>"
+      },
+      "html": "<button type=\"button\" class=\"btn\" id=\"id-1-anchor\" popovertarget=\"id-1\">Filters</button><div id=\"id-1\" popover=\"auto\" role=\"group\" aria-label=\"Filters\" data-component=\"popover\" data-placement=\"bottom\" class=\"float popover bg border round shadow pad-sm\"><p>Inside</p></div>"
+    }
+  ],
+  "alert": [
+    {
+      "case": "a tone",
+      "fields": {
+        "tone": "success",
+        "content": "<strong>Saved.</strong> Your changes are live."
+      },
+      "html": "<div data-component=\"alert\" role=\"status\" class=\"pad border round bg-success\"><strong>Saved.</strong> Your changes are live.</div>"
+    }
   ]
 }

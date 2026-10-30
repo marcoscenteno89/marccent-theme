@@ -283,5 +283,154 @@
         ]
       }
     }
+  ],
+  "menu": [
+    {
+      "case": "links and a dropdown",
+      "fields": {
+        "label": "Footer",
+        "layout": "",
+        "iconOnly": false,
+        "items": [
+          {
+            "name": "About",
+            "href": "/about/"
+          },
+          {
+            "name": "Help",
+            "href": "/help/",
+            "children": [
+              {
+                "name": "FAQ",
+                "href": "/help/faq/"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case": "icon-only social links, external",
+      "fields": {
+        "label": "Social",
+        "layout": "auto-cols cols-center",
+        "iconOnly": true,
+        "items": [
+          {
+            "name": "Github",
+            "href": "https://github.com/marcoscenteno89",
+            "icon": "fa-brands fa-github",
+            "external": true
+          },
+          {
+            "name": "Email",
+            "label": "Email me",
+            "href": "mailto:hi@example.com",
+            "icon": "fa-solid fa-envelope"
+          }
+        ]
+      }
+    }
+  ],
+  "toggleButton": [
+    {
+      "case": "closed, controlling a panel",
+      "fields": {
+        "label": "Filters",
+        "icon": "filter",
+        "activeIcon": "xmark",
+        "controls": "filters",
+        "open": false,
+        "classes": "secondary"
+      }
+    },
+    {
+      "case": "open, one icon",
+      "fields": {
+        "label": "Menu",
+        "icon": "bars",
+        "activeIcon": "",
+        "controls": "menu",
+        "open": true,
+        "classes": ""
+      }
+    }
+  ],
+  "modal": [
+    {
+      "case": "the default look",
+      "fields": {
+        "title": "Contact sales",
+        "variant": "",
+        "content": "<p>Inside</p>"
+      }
+    },
+    {
+      "case": "the ticket look",
+      "fields": {
+        "title": "You’re in",
+        "variant": "ticket",
+        "content": "<p>Inside</p>"
+      }
+    }
+  ],
+  "drawer": [
+    {
+      "case": "from the start",
+      "fields": {
+        "title": "Changelog",
+        "side": "start",
+        "content": "<p>Inside</p>"
+      }
+    }
+  ],
+  "accordion": [
+    {
+      "case": "the first open, one at a time",
+      "fields": {
+        "open": 0,
+        "multiple": false,
+        "items": [
+          {
+            "header": "What is it?",
+            "content": "<p>Inside</p>"
+          },
+          {
+            "header": "Q&A <here>",
+            "content": "<p>Inside</p>"
+          }
+        ]
+      }
+    }
+  ],
+  "tooltip": [
+    {
+      "case": "on top",
+      "fields": {
+        "trigger": "Hover me",
+        "content": "Copy the link",
+        "side": "top"
+      }
+    }
+  ],
+  "popover": [
+    {
+      "case": "below",
+      "fields": {
+        "trigger": "Filters",
+        "label": "Filters",
+        "side": "bottom",
+        "content": "<p>Inside</p>"
+      }
+    }
+  ],
+  "alert": [
+    {
+      "case": "a tone",
+      "fields": {
+        "tone": "success",
+        "content": "<strong>Saved.</strong> Your changes are live."
+      }
+    }
   ]
 }

@@ -11,4 +11,8 @@ The HTML the React components render, for hosts that write the same markup thems
 
 A host's test renders each case its own way and compares it with `html`: the same elements, attributes and text (the
 order of attributes and of classes, whitespace between tags, and in a `style` the spaces around `:` and `;` and a
-last `;`, don't count).
+last `;`, don't count). Ids the components generate (React's `useId`) are written `id-1`, `id-2`…: a host writes its
+own, the same one wherever the reference repeats it.
+
+The reference is also the markup that 1.x keeps: a release whose `reference.json` changes for an existing case changes
+the public markup (README, Versions).

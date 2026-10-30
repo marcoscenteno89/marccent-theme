@@ -1,6 +1,6 @@
 {
   "name": "marccent-theme",
-  "version": "0.3.2",
+  "version": "1.0.0-rc.1",
   "description": "The Marccent theme: CSS (tokens, layout, utilities, hovers, 27 design styles), a plain-JS engine that wires up its markup, a live theme engine with editors, a React UI kit and canvas animations. Ships source for bundlers and a prebuilt dist/ for any page.",
   "author": "Marcos Centeno",
   "license": "ISC",
@@ -10,6 +10,30 @@
   },
   "homepage": "https://github.com/marcoscenteno89/marccent-theme#readme",
   "main": "core/index.js",
+  "exports": {
+    ".": "./core/index.js",
+    "./core": "./core/index.js",
+    "./core/enhance": "./core/enhance.js",
+    "./core/components": "./core/components.js",
+    "./react": "./react/index.js",
+    "./components/*": "./components/*.js",
+    "./lib/cx": "./lib/cx.js",
+    "./lib/context": "./lib/context.js",
+    "./lib/link": "./lib/link.js",
+    "./lib/store": "./lib/store.js",
+    "./lib/toasts": "./lib/toasts.js",
+    "./lib/in-view": "./lib/in-view.js",
+    "./lib/scrolled": "./lib/scrolled.js",
+    "./lib/close-menus": "./lib/close-menus.js",
+    "./lib/design": "./lib/design.js",
+    "./lib/css-color": "./lib/css-color.js",
+    "./lib/theme-scope": "./lib/theme-scope.js",
+    "./lib/grid_helper": "./lib/grid_helper.js",
+    "./styles/*": "./styles/*",
+    "./dist/*": "./dist/*",
+    "./markup/*": "./markup/*",
+    "./package.json": "./package.json"
+  },
   "files": [
     "components",
     "core",
@@ -19,7 +43,8 @@
     "dist",
     "markup",
     "scripts",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "designs": "node styles/themes/designs.gen.mjs",
@@ -71,7 +96,7 @@
     "@fontsource/vt323": "^5.3.0",
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@lezer/highlight": "^1.2.5",
-    "@marccent/util": "github:marcoscenteno89/util",
+    "@marccent/util": "github:marcoscenteno89/util#v2.1.1",
     "dayjs": "^1.11.10",
     "p5": "^1.9.0",
     "swiper": "^12.2.0"

@@ -20,25 +20,44 @@ the block editor).
 
 ## Versions
 
-Releases are git tags (`v0.3.2`); install or link a tag, never the main branch:
+Releases are git tags (`v1.0.0-rc.1`); install or link a tag, never the main branch:
 
 ```sh
-npm install github:marcoscenteno89/marccent-theme#v0.3.2
+npm install github:marcoscenteno89/marccent-theme#v1.0.0-rc.1
 ```
 
-A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/marccent.css`.
-To release: set the version in `package.json`, `npm run build`, commit (dist/ included), tag `v<version>` and push the
-tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-marccent's `THEME_VERSION`.
+A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/marccent.css`.
+To release: set the version in `package.json`, add it to `CHANGELOG.md`, `npm run build`, commit (dist/ included), tag
+`v<version>` and push the tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-marccent's
+`THEME_VERSION`.
+
+### What a version promises
+
+From 1.0 the versions are [semantic](https://semver.org/). The public part, what a release keeps working:
+
+- **The markup**: each component's HTML, its `data-component` names and the `data-*` attributes the engine reads.
+  `markup/reference.json` is it written down, so a change there shows in the diff of a release.
+- **The CSS**: the class names (layout, utilities, hovers, components) and the custom properties (tokens) documented
+  here and in `styles/tokens/`, and the design style ids.
+- **The React props** of the components, and the JS of `core` (`marccent-theme`) and `react` (`marccent-theme/react`).
+- **The paths** in `package.json`'s `exports`: `components/*`, `styles/*`, `dist/*`, `markup/*`, `core/enhance`,
+  `core/components` and the `lib/` modules listed there. Anything else (`scripts/`, the rest of `lib/`) is internal and
+  can change in any release.
+
+A **patch** (1.0.x) fixes a bug, without changing the public part except to make it do what it says. A **minor**
+(1.x.0) adds to it: a component, a prop, a class, a token, a design style. Anything that renames or removes part of it,
+or changes its markup so a host's own copy no longer matches, waits for the next **major** (2.0.0). How it looks (a
+color, a spacing, an animation) can be adjusted in a minor; what you write to use it can't.
 
 ## Any page: dist/
 
 ```html
 <html lang="en" data-design="modern" data-theme="light">
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/marccent.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/designs/modern.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/marccent.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/designs/modern.css">
   <script>window.marccentDefaults = { palette: 'brand', palettes: [ { id: 'brand', primary: '#046bd2', secondary: '#1e293b' } ] };</script>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v0.3.2/dist/marccent.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.1/dist/marccent.js"></script>
 </head>
 ```
 
