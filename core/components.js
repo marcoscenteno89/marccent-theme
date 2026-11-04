@@ -5,6 +5,7 @@ import { tooltip } from './tooltip';
 import { watchScrolled } from './scrolled';
 import { watchInView } from './in-view';
 import { fileDrop } from './file-drop';
+import { watchDivider } from './divider';
 import { toastSI } from './toasts';
 
 /*
@@ -126,6 +127,9 @@ define('drawer', dialog);
 
 // FileDrop: drop zone, checks and the list of chosen files (core/file-drop.js).
 define('file-drop', fileDrop);
+
+// Section divider (Divider): one that follows the scroll; the rest is CSS.
+define('divider', watchDivider);
 
 /*
  * AppShell: [data-collapse] narrows the sidebar to its icons and back, remembered in this browser. (The phone layout,

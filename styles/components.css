@@ -11,6 +11,7 @@
 @import "./components/canvas.css";
 @import "./components/clock.css";
 @import "./components/close.css";
+@import "./components/divider.css";
 @import "./components/dock.css";
 @import "./components/form.css";
 @import "./components/loading.css";

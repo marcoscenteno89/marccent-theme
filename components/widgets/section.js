@@ -1,5 +1,6 @@
 // Shared: no 'use client' (no hooks), so it renders on the server or in the browser, wherever it's used.
 import { cx } from '../../lib/cx';
+import { Divider, dividerClasses } from './divider';
 
 /*
  * Section, Grid and Card: a page's building blocks as the theme's layout classes (styles/layout.css). The hosts that
@@ -23,12 +24,18 @@ import { cx } from '../../lib/cx';
  * @param {string} [props.image] - A background image's URL.
  * @param {string} [props.imageAlt=''] - Its alt text (empty: decorative).
  * @param {number} [props.shade=50] - How dark the shade over the image is, 0 to 100.
+ * @param {Object} [props.dividerTop] - A shape on the top edge, in the band's color, reaching into the section above:
+ *   Divider's props ({ shape: 'wave', size, motion, scroll, flip }). Needs a color, not an image.
+ * @param {Object} [props.dividerBottom] - The same on the bottom edge, reaching into the section below.
  * @param {string} [props.className] - Extra classes on the band.
  */
-const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-lg', gap, surface, mode, center, minHeight, image, imageAlt = '', shade = 50, className, children, ...rest }) => (
+const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-lg', gap, surface, mode, center, minHeight, image, imageAlt = '', shade = 50,
+  dividerTop, dividerBottom, className, children, ...rest }) => (
   // A least height makes the band a one-cell grid, so its content box can center in it (not .grid: that brings columns).
-  <Tag {...rest} data-theme={mode || undefined} className={cx('wrap wrap-fluid', image ? 'stack' : surface, className)}
+  <Tag {...rest} data-theme={mode || undefined} className={cx('wrap wrap-fluid', image ? 'stack' : surface, dividerClasses(dividerTop, dividerBottom), className)}
     style={minHeight ? { minHeight, ...(!image && { display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)' }) } : undefined}>
+    {dividerTop?.shape && <Divider {...dividerTop} edge="top" page={!surface} />}
+    {dividerBottom?.shape && <Divider {...dividerBottom} edge="bottom" page={!surface} />}
     {image && <img className="cover-img" src={image} alt={imageAlt} loading="lazy" decoding="async" />}
     {image && <div aria-hidden="true" style={{ background: `rgb(0 0 0 / ${shade}%)` }}></div>}
     <div className={cx(width, padY, 'grid cols-1', gap, center && 'text-center justify-center', image && surface)}

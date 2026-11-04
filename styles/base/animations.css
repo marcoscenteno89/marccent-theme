@@ -166,6 +166,19 @@
 /* PARALLAX (Parallax / useParallax in components/visuals/effects.js): the script sets translate every frame. */
 .parallax { will-change: translate; }
 
+/* DIVIDER MOTIONS (Divider in components/widgets/divider.js, data-motion). roll: the wave slides sideways; tide: three
+   layers at three speeds, the middle one the other way; swell: a slow roll that bobs; breathe: the dome rises and
+   settles. The rolling layers are two tiles wide (components/divider.css), so sliding by one loops. */
+@keyframes divider-roll { to { translate: -50% 0; } }
+@keyframes divider-bob { 50% { transform: translateY(10%); } }
+@keyframes divider-breathe { 50% { transform: scaleY(.45); } }
+.divider[data-motion="roll"] > i { animation: divider-roll 14s linear infinite; }
+.divider[data-motion="tide"] > i { animation: divider-roll 14s linear infinite; }
+.divider[data-motion="tide"] > i:nth-child(1) { animation-duration: 22s; animation-direction: reverse; }
+.divider[data-motion="tide"] > i:nth-child(2) { animation-duration: 9s; }
+.divider[data-motion="swell"] > i { animation: divider-roll 30s linear infinite, divider-bob 5s ease-in-out infinite; }
+.divider[data-motion="breathe"] > i { transform-origin: 50% 100%; animation: divider-breathe 6s ease-in-out infinite; }
+
 /* OFF SCREEN: PauseOffscreen (components/pause-offscreen.js) marks sections, slides and the footer data-offscreen while
    they're scrolled away; every CSS animation inside one holds still until it's back. !important: an animation
    shorthand anywhere (.loader-*, an inline one) resets play-state to running, whatever its weight. */
@@ -180,6 +193,7 @@
   .modal.drawer[open],
   .modal[open]::backdrop { animation: none; }
   .countdown > i { transition: none; }
+  .divider > i { animation: none; }
   .collapse,
   .accordion > details::details-content,
   .accordion > details > summary::after { transition: none; } /* beats the caret transition in components/accordion.css */

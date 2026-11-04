@@ -21,6 +21,7 @@
     { "id": "berry", "primary": "#662D8C", "secondary": "#ED1E79" },
     { "id": "mint", "primary": "#43ad9f", "secondary": "#a3dbd4" },
     { "id": "flame", "primary": "#f2547d", "secondary": "#ff7a59" },
-    { "id": "neon", "primary": "#FF4081", "secondary": "#40FFBE" }
+    { "id": "neon", "primary": "#FF4081", "secondary": "#40FFBE" },
+    { "id": "harbor", "primary": "#0a7594", "secondary": "#1e293b" }
   ]
 }

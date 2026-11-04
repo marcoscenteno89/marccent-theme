@@ -1,0 +1,31 @@
+@import "../layers.css";
+/* DIVIDER (Divider in components/widgets/divider.js, on a Section's top or bottom edge).
+   A strip outside its section, reaching into the neighbor, in the section's own background (inherit: any surface,
+   palette or design style; .divider-page for a section without one). Its layers are that background cut to the
+   shape by a mask (--mask, markup/dividers.json), the back ones fainter. The strip only passes the background on
+   (clipped to its text, of which it has none); the layers paint it. The section goes over its neighbors
+   (z-index), and the neighbor gets the strip's height as padding on that side, so its content isn't covered.
+   A bottom divider is the top one upside down. Its motions are in animations.css. */
+@layer components {
+:where([class*="has-divider-"]) { position: relative; z-index: 1; }
+.divider { --divider-h: 4rem; position: absolute; inset-inline: 0; height: var(--divider-h); overflow: hidden; pointer-events: none; background: inherit; background-clip: text; }
+.divider-sm { --divider-h: 2.5rem; }
+.divider-lg { --divider-h: 6rem; }
+.divider-top { bottom: calc(100% - 1px); } /* 1px over the section, so no hairline shows between them */
+.divider-bottom { top: calc(100% - 1px); scale: 1 -1; }
+.divider-page { background-color: var(--body-bg); }
+.divider > i { position: absolute; inset: 0; background: inherit; background-clip: border-box; mask: var(--mask) 0 0 / 100% 100% no-repeat; }
+.divider[data-flip] > i { scale: -1 1; }
+/* Rolling: two copies side by side (the shapes that roll tile), slid by one. */
+.divider:is([data-motion="roll"], [data-motion="tide"], [data-motion="swell"]) > i { inset-inline: 0 auto; width: 200%; mask-size: 50% 100%; mask-repeat: repeat-x; }
+/* Parallax: wider than the strip, so sliding never shows an end (core/divider.js moves them). */
+.divider[data-scroll="parallax"] > i { inset-inline: -20%; will-change: translate; }
+
+/* The neighbor's room, by the divider's size. */
+.wrap-fluid:has(+ .has-divider-top-sm) { padding-bottom: 2.5rem; }
+.wrap-fluid:has(+ .has-divider-top-md) { padding-bottom: 4rem; }
+.wrap-fluid:has(+ .has-divider-top-lg) { padding-bottom: 6rem; }
+.has-divider-bottom-sm + .wrap-fluid { padding-top: 2.5rem; }
+.has-divider-bottom-md + .wrap-fluid { padding-top: 4rem; }
+.has-divider-bottom-lg + .wrap-fluid { padding-top: 6rem; }
+}
