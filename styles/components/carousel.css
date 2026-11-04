@@ -1,0 +1,23 @@
+/* CAROUSEL: Swiper inside the theme's grids (Carousel, components/widgets/carousel.js; the palette swatches and
+   animation pickers, which share its pager). Unlayered on purpose: Swiper's own CSS is unlayered, and a layered rule
+   would always lose to it. */
+
+/* Swiper sizes its slides from its own width, so as a grid item it must be allowed to shrink: with the default
+   min-width: auto it grows to fit its slides, Swiper measures again, and the page locks up in a resize loop. */
+.swiper { min-width: 0; max-width: 100%; }
+/* One pinned column (minmax(0, 1fr)), not auto, for the same reason. */
+.swiper { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+/* Swiper's padding: 0 would beat the pad-* classes (layout layer); revert-layer falls back to them. */
+.swiper[class*="pad"] { padding: revert-layer; }
+/* Clip, not hidden (no scroll container): the slides past the edges are cut off instead of widening the page. */
+.swiper { overflow: clip; }
+
+/* Before its script runs (a carousel the server wrote, its slides in a [data-slot]: a WordPress island), the slides
+   sit in one clipped row, about as they will once Swiper takes over. */
+:is([data-component="carousel"], [data-island="carousel"]) [data-slot] {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--slide-width, 17rem);
+  gap: var(--space-md);
+  overflow: hidden;
+}

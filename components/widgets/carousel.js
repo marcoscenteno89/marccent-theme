@@ -7,7 +7,7 @@ import { usePager, SliderPager } from './slider-pager';
 
 /**
  * Carousel: its children side by side, swiped or stepped with the pager below (previous | 2 / 8 | next) or the keyboard. Built on
- * Swiper, like the footer sliders (their layout fixes are in site.css). Each slide is slideWidth wide and they all
+ * Swiper, like the footer sliders (their layout fixes: styles/components/carousel.css). Each slide is slideWidth wide and they all
  * stretch to the tallest, so cards in it line up; give a card h-100 to fill its slide.
  * @param {string} [slideWidth='17rem'] @param {string} [label='Carousel']
  */

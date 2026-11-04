@@ -20,13 +20,13 @@ the block editor).
 
 ## Versions
 
-Releases are git tags (`v1.0.0-rc.2`); install or link a tag, never the main branch:
+Releases are git tags (`v1.0.0-rc.4`); install or link a tag, never the main branch:
 
 ```sh
-npm install github:marcoscenteno89/marccent-theme#v1.0.0-rc.2
+npm install github:marcoscenteno89/marccent-theme#v1.0.0-rc.4
 ```
 
-A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/marccent.css`.
+A tag's `dist/` is on jsDelivr, pinned to it: `https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.4/dist/marccent.css`.
 To release: set the version in `package.json`, add it to `CHANGELOG.md`, `npm run build`, commit (dist/ included), tag
 `v<version>` and push the tag. Then move the adapters to it: Marccent Blocks' `package.json` and django-marccent's
 `THEME_VERSION`.
@@ -63,10 +63,10 @@ with axe-core (marccent-html: `npm run test:a11y`).
 ```html
 <html lang="en" data-design="modern" data-theme="light">
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/marccent.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/designs/modern.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.4/dist/marccent.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.4/dist/designs/modern.css">
   <script>window.marccentDefaults = { palette: 'brand', palettes: [ { id: 'brand', primary: '#046bd2', secondary: '#1e293b' } ] };</script>
-  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.2/dist/marccent.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/marcoscenteno89/marccent-theme@v1.0.0-rc.4/dist/marccent.js"></script>
 </head>
 ```
 
@@ -135,6 +135,19 @@ To put your own styles between the theme's (overrides after the defaults, custom
 - **WordPress**: the [Marccent Blocks](https://github.com/marcoscenteno89/marccent-blocks) plugin builds the theme from this source (pinned to a tag) and registers its CSS and JS once; the Marccent WP theme and the Local and Content plugins depend on it rather than bundling a copy, so a site loads the theme once, at one version.
 - **Django**: [django-marccent](https://github.com/marcoscenteno89/django-marccent), a thin app that serves `dist/` at a pinned release (a copy in its static files, or jsDelivr) with template tags, plus optional django CMS plugins.
 
+### A host's checklist
+
+What a site (or a CMS adapter) around the theme should and shouldn't do, so the theme's layout holds:
+
+- **Let the grids space things.** Zero the CMS's own flow margins and block gaps around the theme's markup (WordPress:
+  `.wp-site-blocks` and `.is-layout-flow` children); the theme spaces with `gap`, never margins.
+- **Don't set `--pad` on a band** to pad it: it inherits into every `.pad` box inside. Give the band `.pad-y` and set
+  `--pad-y` (or `--pad-x`) on it; those don't inherit.
+- **Mark React islands** `data-island`, so the plain-JS engine leaves them to React.
+- **Use the classes that exist.** There's no `.card` or `.gap` class (a card is `bg border round pad grid cols-1`, the
+  Card component's markup), and `.row-wrap` is flex, so `grid row-wrap` gets nothing from `.grid`. A list of label and
+  value rows (key facts, specs) is a `<dl class="grid pairs">` with a `.sub-x` per row.
+
 ## In the HTML
 
 Every component marks itself with two attributes, so it's easy to find in the browser's inspector (and to style or
@@ -151,6 +164,20 @@ query):
 A component with its own markup has its own `data-component`; a configured use of another (the mode toggle is a
 `ToggleButton`) keeps that kind and gets a `data-name`. `data-component` can hold several words: `"button animation"`
 is a Button with an animation behind it (select a word with `[data-component~="animation"]`).
+
+## Spacing
+
+One scale, all multiples of `--space` (so changing it resizes the site): `xs` 0.25×, `sm` 0.5×, base 1×, `md` 1.5×,
+`lg` 2×, `xl` 3×, `2xl` 4×. The grids space their children with `gap-*` (`gap-x-*` and `gap-y-*` for one axis), boxes
+pad themselves with `pad-*` (`pad-x-*`, `pad-y-*`); there are no margin classes. A section's own rhythm is
+`--section-space`, fluid from 3× to 6× `--space` with the screen: `.pad-y-section` (Section's default), `-sm` and
+`-lg`. A value between the steps goes on the element: `style="--pad-y: 5rem"` with `.pad-y`.
+
+A few small classes for what sites kept writing inline: `.text-muted` (quieter text that still reads, unlike
+`opacity-50`), `.eyebrow` (the small label over a heading), `.measure` / `-sm` / `-lg` (a readable line length),
+`.min-xs` … `.min-xl` (a grid's narrowest column), `.justify-self-*` and `.place-self-center`, `.ratio-square`,
+`-4x3`, `-3x2`, `-16x9`, `.fw-semibold`, `.fw-black`, `.tracking-tight`, `.tracking-wide`, `.icon-sm`, `.icon-lg`,
+and `.bg-page` (the page's colors on any element; a band with its own `data-theme` gets them by itself).
 
 ## Tokens worth knowing
 

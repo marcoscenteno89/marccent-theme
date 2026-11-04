@@ -3,6 +3,42 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.4
+
+From the sites' feedback: the fixes every host was patching on its own, a longer spacing scale and the classes sites
+kept writing as inline styles.
+
+### Fixed
+- `.cover-img` exists: Section's background image covers its band outside WordPress too (it was unstyled).
+- The Carousel's layout fixes ship with it (`styles/components/carousel.css`: no resize loop in a grid, slides
+  clipped, pad classes kept, a row before the script runs); sites no longer copy them.
+- Headings on a color fill take its text color, like links already did, so a design style's colored headings don't
+  vanish on `.bg-primary`.
+- A band with its own mode (`data-theme`, Section `mode`) paints that mode's page color behind it.
+- `dd`, `figure` and `blockquote` have no browser margins; the grids' margin reset also covers `.row-wrap`,
+  `.stack`, `.center` and `.col-center`.
+
+### Added
+- Spacing: `--space-md` (1.5×), `--space-xl` (3×), `--space-2xl` (4×), with `gap-xs`, `gap-md`, `gap-xl`,
+  `gap-x-*`, more `gap-y-*`, and `pad-xs` / `-md` / `-xl` / `-2xl` with their `-x-` and `-y-` forms.
+- A section rhythm: `--section-space` (fluid, 3× to 6× `--space`), `.pad-y-section`, `-sm`, `-lg`.
+- `--pad-x` / `--pad-y`: one element's padding through `.pad-x` / `.pad-y`, not inherited (unlike `--pad`).
+- Classes: `.text-muted`, `.eyebrow`, `.bg-page`, `.measure` / `-sm` / `-lg`, `.min-xs` … `.min-xl`,
+  `.justify-self-*`, `.place-self-center`, `.ratio-square` / `-4x3` / `-3x2` / `-16x9`, `.fw-semibold`, `.fw-black`,
+  `.tracking-tight`, `.tracking-wide`, `.icon-sm`, `.icon-lg`.
+- README: the spacing scale, the new classes and a host's checklist.
+
+### Changed
+- Section's default padding is `pad-y-section` (was `pad-y-lg`, 2rem): more room for a band on wide screens.
+
+## 1.0.0-rc.3
+
+### Added
+- Section dividers: a shape on a Section's top or bottom edge (`dividerTop`, `dividerBottom`; Divider in
+  `components/widgets/divider.js`, `core/divider.js`), in the band's own color, with scroll and motion effects; the
+  shapes in `markup/dividers.json`.
+- The harbor palette.
+
 ## 1.0.0-rc.2
 
 Accessibility (WCAG 2.2 AA) and SEO basics: every page of the theme's demo sites passes axe-core in light and dark

@@ -79,7 +79,7 @@
       "fields": {
         "tag": "section",
         "width": "wrap",
-        "padY": "pad-y-lg",
+        "padY": "pad-y-section",
         "gap": "",
         "surface": "",
         "mode": "",
@@ -91,7 +91,7 @@
         "classes": "",
         "content": "<p>Inside</p>"
       },
-      "html": "<section class=\"wrap wrap-fluid\"><div class=\"wrap pad-y-lg grid cols-1\"><p>Inside</p></div></section>"
+      "html": "<section class=\"wrap wrap-fluid\"><div class=\"wrap pad-y-section grid cols-1\"><p>Inside</p></div></section>"
     },
     {
       "case": "a dark band, narrow, centered",

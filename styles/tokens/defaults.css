@@ -113,9 +113,17 @@
 /* SCALES: the steps of each size family, as multiples of its base above. */
 :where(:root) {
   /* Space */
-  --space-xs: calc(var(--space) * .25);  /* component insides only (menu links, toasts); no class */
+  --space-xs: calc(var(--space) * .25);
   --space-sm: calc(var(--space) * .5);
+  --space-md: calc(var(--space) * 1.5);
   --space-lg: calc(var(--space) * 2);
+  --space-xl: calc(var(--space) * 3);
+  --space-2xl: calc(var(--space) * 4);
+  /* A section's space above and below its content (.pad-y-section, Section's default): fluid between 3 and 6 times
+     --space, so bands breathe on wide screens without crowding a phone. */
+  --section-space: clamp(calc(var(--space) * 3), 7vw, calc(var(--space) * 6));
+  --section-space-sm: calc(var(--section-space) * .5);
+  --section-space-lg: calc(var(--section-space) * 1.5);
   --control-pad-y: calc(var(--space) * .375); /* inside buttons, inputs and field labels */
   --control-pad-x: calc(var(--space) * .75);
   --control-pad: var(--control-pad-y) var(--control-pad-x);

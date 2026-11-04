@@ -72,7 +72,7 @@
       "fields": {
         "tag": "section",
         "width": "wrap",
-        "padY": "pad-y-lg",
+        "padY": "pad-y-section",
         "gap": "",
         "surface": "",
         "mode": "",

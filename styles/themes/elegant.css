@@ -25,7 +25,7 @@
 :is(h4, h5, h6) { text-transform: uppercase; font-size: .9em; letter-spacing: .2em; }
 
 /* Dark mode: headings in the primary at a light, readable lightness (its ink), like foil on a dark card. */
-[data-theme=dark] :is(h1, h2, h3) { color: var(--primary-ink); }
+:where([data-theme=dark]) :is(h1, h2, h3) { color: var(--primary-ink); } /* weightless: a color fill's headings take its text */
 
 /* Button labels set like a fashion label: small, uppercase, widely spaced, not bold. */
 :where(:root) { --btn-weight: 400; }

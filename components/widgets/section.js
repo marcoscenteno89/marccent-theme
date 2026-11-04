@@ -15,10 +15,12 @@ import { Divider, dividerClasses } from './divider';
  * @param {Object} props
  * @param {string} [props.as='section'] - The element: section, div, header, footer or aside.
  * @param {string} [props.width='wrap'] - The content's width: wrap, "wrap wrap-sm", "wrap wrap-lg", "wrap wrap-fluid".
- * @param {string} [props.padY='pad-y-lg'] - Padding above and below the content.
+ * @param {string} [props.padY='pad-y-section'] - Padding above and below the content: the section rhythm (fluid, 3 to
+ *   6 times --space), pad-y-section-sm / -lg, or a step of the space scale (pad-y-lg…).
  * @param {string} [props.gap] - The gap between the content's blocks.
  * @param {string} [props.surface] - The band's background (bg, "bg border", bg-primary…); over an image, the content's.
- * @param {"light"|"dark"} [props.mode] - The band in this mode, whatever the page's (data-theme).
+ * @param {"light"|"dark"} [props.mode] - The band in this mode, whatever the page's (data-theme): its text and,
+ *   without a surface, its background are that mode's page colors.
  * @param {boolean} [props.center] - Centers the content.
  * @param {string} [props.minHeight] - The band's least height (e.g. 60vh); the content centers in it.
  * @param {string} [props.image] - A background image's URL.
@@ -29,7 +31,7 @@ import { Divider, dividerClasses } from './divider';
  * @param {Object} [props.dividerBottom] - The same on the bottom edge, reaching into the section below.
  * @param {string} [props.className] - Extra classes on the band.
  */
-const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-lg', gap, surface, mode, center, minHeight, image, imageAlt = '', shade = 50,
+const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-section', gap, surface, mode, center, minHeight, image, imageAlt = '', shade = 50,
   dividerTop, dividerBottom, className, children, ...rest }) => (
   // A least height makes the band a one-cell grid, so its content box can center in it (not .grid: that brings columns).
   <Tag {...rest} data-theme={mode || undefined} className={cx('wrap wrap-fluid', image ? 'stack' : surface, dividerClasses(dividerTop, dividerBottom), className)}

@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useEffect } from 'react';
 import { Navigation, Pagination } from 'swiper/modules';
+import '../../styles/components/carousel.css';
 import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
 
