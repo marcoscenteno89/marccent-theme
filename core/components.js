@@ -7,6 +7,7 @@ import { watchInView } from './in-view';
 import { fileDrop } from './file-drop';
 import { watchDivider } from './divider';
 import { toastSI } from './toasts';
+import { drawMap, mapStyles } from './maps';
 
 /*
  * The components the markup engine (core/enhance.js) wires up: the same markup the React components render, so a
@@ -196,4 +197,31 @@ define('code', (box) => {
     () => view?.destroy(),
     copy && listen(copy, 'click', async () => (await import('./code-view')).copyCode(code, toastSI)),
   ]);
+});
+
+/*
+ * Map: the Google map (core/maps.js) when the box comes near the screen, so the page doesn't pay for it up front;
+ * Google's embed without a key. data-key (or the page's window.marccentMapsKey), data-lat, data-lng, data-zoom;
+ * data-marker for a pin (data-title, data-link: a Google Maps address its click opens); data-embed for the fallback.
+ * What's in the box until then (a no-script link) stays when nothing draws. A theme change (the mode, the palette, the
+ * design style, on <html> or the box's section) recolors it.
+ */
+define('map', (box) => {
+  const d = box.dataset;
+  let map = null;
+  let stopWatching = watchInView(box, async (near) => {
+    if (!near || map) return;
+    stopWatching();
+    stopWatching = null;
+    map = await drawMap(box, {
+      key: d.key || undefined, center: { lat: Number(d.lat), lng: Number(d.lng) }, zoom: Number(d.zoom) || 10,
+      marker: 'marker' in d ? { title: d.title, link: d.link } : undefined, embed: d.embed, title: d.title,
+    });
+  }, '400px');
+  const recolor = new MutationObserver(() => requestAnimationFrame(() => map?.setOptions({ styles: mapStyles(box) })));
+  const options = { attributes: true, attributeFilter: [ 'style', 'class', 'data-theme', 'data-design' ] };
+  recolor.observe(document.documentElement, options);
+  const scope = box.parentElement?.closest('[data-theme], [data-design]');
+  if (scope && scope !== document.documentElement) recolor.observe(scope, options);
+  return all([ () => stopWatching?.(), () => recolor.disconnect() ]);
 });

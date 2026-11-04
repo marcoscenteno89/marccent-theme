@@ -15,7 +15,7 @@ the block editor).
 
 - **CSS**: tokens, a grid layout system, utilities, hover effects (some follow the mouse: tilt, spotlight, magnet) and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
-- **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; Section, Grid and Card (the layout classes as components); a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover), a Footer built from the same menu data, an AppShell with a collapsible sidebar, and a Dock.
+- **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; Section, Grid and Card (the layout classes as components); a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover), a Footer built from the same menu data, an AppShell with a collapsible sidebar, a Dock, and a Map (Google, in the theme's colors).
 - **Animations**: canvas backgrounds on any element with `data-component="animation" data-name="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
 
 ## Versions

@@ -1,0 +1,13 @@
+@import "../layers.css";
+/* MAP (Map in components/widgets/map.js, or <div data-component="map" class="map"> for the markup engine). A box
+   Google fills; its height is --map-height (taller on wide screens than a phone's), or the box's own. Rounded like
+   the theme's panels; whatever is in it before the map draws (a no-script link) sits in the middle. */
+@layer components {
+.map {
+  display: grid;
+  place-items: center;
+  min-height: var(--map-height, 25rem);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+}

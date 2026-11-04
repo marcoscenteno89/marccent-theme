@@ -432,5 +432,33 @@
         "content": "<strong>Saved.</strong> Your changes are live."
       }
     }
+  ],
+  "map": [
+    {
+      "case": "a pin and an embed fallback",
+      "fields": {
+        "key": "AIza-example",
+        "lat": 43.49,
+        "lng": -112.034,
+        "zoom": 12,
+        "marker": true,
+        "title": "Our shop",
+        "link": "https://maps.google.com/?q=43.49,-112.034",
+        "embed": "https://www.google.com/maps?q=43.49,-112.034&output=embed"
+      }
+    },
+    {
+      "case": "no key: the embed only",
+      "fields": {
+        "key": "",
+        "lat": 40.7128,
+        "lng": -74.006,
+        "zoom": 10,
+        "marker": false,
+        "title": "New York",
+        "link": "",
+        "embed": "https://www.google.com/maps?q=New+York&output=embed"
+      }
+    }
   ]
 }

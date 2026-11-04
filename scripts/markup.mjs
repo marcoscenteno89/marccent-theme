@@ -24,8 +24,9 @@ import { Modal, Drawer } from './components/ui/modal';
 import { Accordion, AccordionItem } from './components/ui/accordion';
 import { Tooltip, Popover } from './components/ui/popover';
 import { Alert } from './components/ui/alert';
+import { MapView } from './components/widgets/map';
 export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, NavBar, Menu, ToggleButton, Modal, Drawer, Accordion,
-  AccordionItem, Tooltip, Popover, Alert };
+  AccordionItem, Tooltip, Popover, Alert, MapView };
 `;
 const { outputFiles } = await build({
   absWorkingDir: ROOT,
@@ -45,7 +46,7 @@ const out = join(ROOT, 'node_modules/.cache/marccent-markup.mjs');
 writeFileSync(out, outputFiles[0].text);
 const {
   createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, NavBar, Menu, ToggleButton, Modal, Drawer, Accordion,
-  AccordionItem, Tooltip, Popover, Alert,
+  AccordionItem, Tooltip, Popover, Alert, MapView,
 } = await import(pathToFileURL(out).href);
 
 // A case's HTML (its content fields) goes in as a token, then in the token's place as it is.
@@ -102,6 +103,8 @@ const RENDER = {
   tooltip: (f) => h(Tooltip, { content: f.content, side: f.side }, h('button', { type: 'button', className: 'btn-link' }, f.trigger)),
   popover: (f) => h(Popover, { label: f.label, side: f.side, content: html(f.content) }, h('button', { type: 'button', className: 'btn' }, f.trigger)),
   alert: (f) => h(Alert, { tone: f.tone }, html(f.content)),
+  map: (f) => h(MapView, { apiKey: f.key || undefined, center: { lat: f.lat, lng: f.lng }, zoom: f.zoom,
+    marker: f.marker ? { title: f.title, link: f.link || undefined } : undefined, title: f.title, embed: f.embed || undefined }),
 };
 
 const render = (name, fields) => {

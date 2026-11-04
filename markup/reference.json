@@ -462,5 +462,35 @@
       },
       "html": "<div data-component=\"alert\" role=\"status\" class=\"pad border round bg-success\"><strong>Saved.</strong> Your changes are live.</div>"
     }
+  ],
+  "map": [
+    {
+      "case": "a pin and an embed fallback",
+      "fields": {
+        "key": "AIza-example",
+        "lat": 43.49,
+        "lng": -112.034,
+        "zoom": 12,
+        "marker": true,
+        "title": "Our shop",
+        "link": "https://maps.google.com/?q=43.49,-112.034",
+        "embed": "https://www.google.com/maps?q=43.49,-112.034&output=embed"
+      },
+      "html": "<div data-component=\"map\" class=\"map\" data-key=\"AIza-example\" data-lat=\"43.49\" data-lng=\"-112.034\" data-zoom=\"12\" data-marker=\"\" data-title=\"Our shop\" data-link=\"https://maps.google.com/?q=43.49,-112.034\" data-embed=\"https://www.google.com/maps?q=43.49,-112.034&amp;output=embed\"></div>"
+    },
+    {
+      "case": "no key: the embed only",
+      "fields": {
+        "key": "",
+        "lat": 40.7128,
+        "lng": -74.006,
+        "zoom": 10,
+        "marker": false,
+        "title": "New York",
+        "link": "",
+        "embed": "https://www.google.com/maps?q=New+York&output=embed"
+      },
+      "html": "<div data-component=\"map\" class=\"map\" data-lat=\"40.7128\" data-lng=\"-74.006\" data-zoom=\"10\" data-title=\"New York\" data-embed=\"https://www.google.com/maps?q=New+York&amp;output=embed\"></div>"
+    }
   ]
 }

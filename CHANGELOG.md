@@ -3,7 +3,21 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
-## Unreleased
+## 1.0.0-rc.6
+
+A Map component, so no site keeps its own; and dropdowns that stay solid in glass.
+
+### Added
+- Map (`components/widgets/map.js`): a Google map in the theme colors of the box it sits in (land the surface, roads
+  the secondary, transit the primary, labels in the body color), recolored when the theme changes; a pin in the
+  secondary (`marker`, its click opens a Google Maps link), tile overlays, `onLoad`, `recenter`. Without a key, or
+  with one Google refuses, Google's plain embed (`embed`). `loadMapsLibrary(name, key)` for other Maps libraries
+  (geocoding). The key: `apiKey`, or the page's `window.marccentMapsKey`.
+- The engine draws the same map from `<div data-component="map" class="map" data-lat data-lng data-zoom …>`
+  (`data-key`, `data-marker`, `data-title`, `data-link`, `data-embed`) when it comes near the screen. In the markup
+  reference (`map`). `styles/components/map.css`: `.map`, its height `--map-height`.
+- `TICKETS.md`: the ecosystem's one list of what the theme doesn't do yet for its sites, and the rule that sites
+  use the theme's components only.
 
 ### Fixed
 - NavBar dropdowns are solid in glass (the Glass toggle, glassmorphism, liquid-glass): the bar is a glass panel, so it
