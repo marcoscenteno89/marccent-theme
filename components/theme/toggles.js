@@ -38,7 +38,9 @@ const GLASS = {
   '--hover-to': 'color-mix(in srgb, var(--primary) 30%, transparent)',
 };
 
-// Glass toggle. Off (disabled) when the design theme is glass already: it sets --theme-glass: 1 (styles/themes/).
+// Glass toggle: a glass of water, a drop on it while glass is on (as the mode toggle's moon and sun). Off (disabled)
+// when the design theme is glass already: it sets --theme-glass: 1 (styles/themes/). Plain solid names, so hosts that
+// ship only the icons their scripts use (Marccent Blocks reads them from the code) find them.
 const GlassButton = (props) => {
   const glass = props.theme.value('glass');
   const [ builtIn, setBuiltIn ] = useState(false);
@@ -52,7 +54,7 @@ const GlassButton = (props) => {
     return () => cancelAnimationFrame(frame);
   }, [ design, props.theme.scopeId ]);
   return (
-    <ToggleButton data-name="glass" icon="fa-brands fa-hornbill" className={props.className} style={{ ...GLASS, ...props.style }}
+    <ToggleButton data-name="glass" icon="glass-water" activeIcon="glass-water-droplet" className={props.className} style={{ ...GLASS, ...props.style }}
       open={!builtIn && !!glass} onToggle={(glass) => props.update({ glass })}
       disabled={builtIn} title={builtIn ? 'Glass is built into this theme' : 'Glass'}>
       Glass

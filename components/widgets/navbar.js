@@ -8,7 +8,8 @@ import { Menu } from '../ui/menu';
 import '../../styles/components/nav.css';
 
 /**
- * NavBar: a site's header bar (Bootstrap's navbar; the look and the narrow layout are in styles/components/nav.css).
+ * NavBar: a site's header bar, Bootstrap's navbar in layout and look (styles/components/nav.css): dimmed links, a
+ * hamburger toggle that slides the folded menu open.
  * The bar spans the screen; a .wrap inside caps its content. One row: brand | main menu | end (pushed to the end of
  * the empty column) | last. Below 56rem the menu and end fold behind a toggle at the right, next to last, and open
  * stacked as row 2. Dropdowns (and their submenus, to any depth) close after navigating, on an outside click and on
@@ -49,11 +50,11 @@ const NavBar = ({ brand, items, path, end, last, top, onEscape, label = 'Main', 
       {top}
       <div className={cx('wrap grid layout-ends items-center gap-sm', floating ? cx('pad-x pad-y-sm', open ? 'round' : 'pill', solid && 'bg border shadow') : 'pad-0')}>
         {brand}
-        <ToggleButton icon="bars-staggered" activeIcon="xmark" className="nav-toggle" aria-label={open ? 'Close menu' : 'Open menu'}
+        <ToggleButton icon="bars" className="nav-toggle" aria-label={open ? 'Close menu' : 'Open menu'}
           open={open} onToggle={setOpen} controls={id} />
         <div id={id} className="nav-collapse">
           {/* auto-cols: each item is its text plus the link padding (not equal columns as wide as the longest). */}
-          <Menu items={items} label={label} layout="auto-cols" gap="gap-0" className="divide" hover={hover} />
+          <Menu items={items} label={label} layout="auto-cols" gap="gap-0" hover={hover} />
           {end}
         </div>
         {last}

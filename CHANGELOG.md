@@ -3,6 +3,26 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.5
+
+The nav bar looks like Bootstrap's navbar, on phones and wide screens, and the glass toggle has its own icon.
+
+### Changed
+- NavBar (`styles/components/nav.css`): Bootstrap's look. Links in a dimmed text color that goes full on hover, on
+  the current page (`aria-current`) and on an open dropdown, with no hover fill; a triangle caret that doesn't turn;
+  a larger brand, flush with the bar's edge; dropdowns a bordered list without a shadow, their items full width with
+  a fill on hover and the current page in primary. Below 56rem the links sit flush with the brand and the folded menu
+  slides open and shut (its height; where the browser has `interpolate-size`, instantly elsewhere and with reduced
+  motion).
+- Markup: the toggle is a plain hamburger that stays one while open (`data-icon="bars" data-active-icon="bars"`, was
+  `bars-staggered` and `xmark`; its label still says Open or Close menu), and the main menu has no `.divide` (no lines
+  between the links). Hosts with their own copy of the NavBar markup: change those two (`markup/reference.json`).
+
+### Fixed
+- The glass toggle has a glass icon (a glass of water; a drop on it while glass is on), in place of the hornbill
+  brand logo, which said nothing about glass and never showed on hosts that ship only the icons their scripts name
+  (WordPress: Marccent Blocks).
+
 ## 1.0.0-rc.4
 
 From the sites' feedback: the fixes every host was patching on its own, a longer spacing scale and the classes sites
