@@ -76,6 +76,17 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
    shadow, pad: unlayered too). .round clips its overflow, which would hide a submenu flying out of the panel. */
 .menu-dropdown > .menu-panel { overflow: visible; }
 
+/* A submenu's panel floats inside its parent's panel. Where panels are glass (the Glass toggle's .glass, the glass
+   design styles: a see-through surface and a backdrop-filter), the parent is the only backdrop the submenu can blur,
+   so it would show through clear: it takes the solid surface. !important: .glass .bg's background is. */
+@container (width >= 56rem) {
+  .menu-panel .menu-sub > .menu-panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: var(--surface) !important;
+  }
+}
+
 /* Narrow container (a phone's stacked menu, a sidebar): the submenu opens in place under its row, indented, a line
    down its side instead of a floating panel. */
 @container (width < 56rem) {

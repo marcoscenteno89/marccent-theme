@@ -123,10 +123,21 @@
    unlayered too). Bootstrap's .dropdown-menu: padding above and below only (the items reach the sides), no gap
    between items, no shadow. A submenu's top lines up with its row, beside the panel. */
 .nav .menu-panel {
-  min-width: 10rem;
   padding: var(--space-sm) 0;
   row-gap: 0;
   box-shadow: none;
 }
 .nav .menu-sub > .menu-panel { top: calc(-1 * (var(--space-sm) + var(--border-width))); left: calc(100% + .125rem); }
 .nav > .wrap { row-gap: 0; }
+/* Floating (wide container): as wide as its widest item, and never under 10rem; and solid, like Bootstrap's. The bar
+   is a .bg panel, so where panels are glass (the Glass toggle, the glass design styles) it is the only backdrop its
+   dropdowns can blur, and they would show the page through clear. !important: .glass .bg's background is. */
+@container (width >= 56rem) {
+  .nav .menu-dropdown > .menu-panel {
+    width: max-content;
+    min-width: 10rem;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: var(--surface) !important;
+  }
+}

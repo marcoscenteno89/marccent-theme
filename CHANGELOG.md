@@ -3,6 +3,14 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## Unreleased
+
+### Fixed
+- NavBar dropdowns are solid in glass (the Glass toggle, glassmorphism, liquid-glass): the bar is a glass panel, so it
+  was the only backdrop they could blur and the page showed through them clear; a submenu inside any Menu's dropdown
+  the same. Swiss's dropdowns have the surface again (its panels are see-through rules, which a floating panel can't
+  be). A NavBar dropdown is as wide as its widest item again (rc.5 capped it at 10rem, cutting long names off).
+
 ## 1.0.0-rc.5
 
 The nav bar looks like Bootstrap's navbar, on phones and wide screens, and the glass toggle has its own icon.
