@@ -169,13 +169,21 @@ define('app-shell', (shell) => {
 
 /*
  * Code: the plain <pre> until the block comes near the screen, then CodeMirror (loaded then, its own chunk) in its
- * [data-code-host]; [data-copy] copies the code.
+ * [data-code-host]; [data-copy] copies the code. An editor (Code with onChange) when it holds a <textarea> instead:
+ * the form field, which works without JavaScript; the editor takes its place and writes every edit back into it
+ * (and fires input), so the form posts the code as usual. Its name: the textarea's label (or aria-label);
+ * data-min-lines: its height while nearly empty.
  */
 define('code', (box) => {
-  const pre = box.querySelector('pre');
+  const field = box.querySelector('textarea');
+  const pre = field ? null : box.querySelector('pre');
   // Until CodeMirror swaps in, the <pre> may scroll sideways: reachable by keyboard.
   if (pre && !pre.hasAttribute('tabindex')) pre.tabIndex = 0;
-  const code = pre?.textContent ?? '';
+  const code = field ? field.value : pre?.textContent ?? '';
+  const write = (c) => {
+    field.value = c;
+    field.dispatchEvent(new Event('input', { bubbles: true }));
+  };
   let view = null;
   let stopWatching = watchInView(box, async (near) => {
     if (!near || view) return;
@@ -185,17 +193,61 @@ define('code', (box) => {
     let host = box.querySelector('[data-code-host]');
     if (!host) {
       host = Object.assign(document.createElement('div'), { className: 'overflow-hidden' });
-      pre.after(host);
+      (field ?? pre).after(host);
     }
-    view = new CodeView(host, code, box.dataset.lang);
+    view = new CodeView(host, code, box.dataset.lang, field ? {
+      onChange: write,
+      label: field.labels?.[0]?.textContent.trim() || field.getAttribute('aria-label') || undefined,
+      minLines: Number(box.dataset.minLines) || undefined,
+    } : {});
     await view.mount();
-    if (!view.destroyed) pre?.remove();
+    if (view.destroyed) return;
+    if (field) field.hidden = true;
+    else pre?.remove();
   }, '200px');
   const copy = box.querySelector('[data-copy]');
   return all([
     () => stopWatching?.(),
     () => view?.destroy(),
+    () => field && (field.hidden = false),
     copy && listen(copy, 'click', async () => (await import('./code-view')).copyCode(code, toastSI)),
+  ]);
+});
+
+/*
+ * TabBar: its tabs pick a panel. The markup has every panel (React's renders the picked one), each after the tab list
+ * in order, the others hidden. Arrow keys move between tabs; the gradient bar slides under the picked one.
+ */
+define('tab-bar', (box) => {
+  const list = box.querySelector('[role="tablist"]');
+  if (!list) return;
+  const tabs = [ ...list.querySelectorAll(':scope > [role="tab"]') ];
+  const panels = [ ...box.querySelectorAll(':scope > [role="tabpanel"]') ];
+  const bar = list.nextElementSibling;
+  let active = Math.max(0, tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true'));
+  const pick = (i) => {
+    active = i;
+    tabs.forEach((t, n) => {
+      const on = n === i;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      t.classList.toggle('text-primary', on);
+      t.classList.toggle('fw-bold', on);
+      t.classList.toggle('opacity-75', !on);
+      t.style.color = on ? '' : 'inherit';
+    });
+    panels.forEach((p, n) => { p.hidden = n !== i; });
+    if (bar) bar.style.translate = `${i * 100}% 0`;
+  };
+  pick(active);
+  return all([
+    ...tabs.map((t, i) => listen(t, 'click', () => pick(i))),
+    listen(list, 'keydown', (e) => {
+      const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (!step) return;
+      pick((active + step + tabs.length) % tabs.length);
+      tabs[active].focus();
+    }),
   ]);
 });
 

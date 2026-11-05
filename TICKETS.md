@@ -17,6 +17,16 @@ components, classes and tokens. Period.
 - **Adapters only translate.** Marccent Blocks, django-marccent and the like render the theme's markup
   (`markup/reference.json`) and glue it to their host (WordPress, Django): they don't add looks or components of their
   own.
+- **Every theme change cascades.** A change here isn't done until every project that uses the theme has it: release it
+  (version, CHANGELOG, tag), then move each project to that release, rebuild it, and check it still works:
+  - Marccent Blocks: its `package.json` pin. marccent-wp, Marccent Local and Marccent Content get the theme through
+    it.
+  - marccent-html, marccent/next, Fernway (`html/`): their `package.json` pins.
+  - django-marccent: `marccent.THEME_VERSION` and its committed copy of the theme's `dist/`.
+
+  When the markup (`markup/reference.json`) or a component's props change, update the adapters that translate them in
+  the same pass. When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change yet
+  gets a line in its `TODO.md` saying why.
 - **Allowed in a project**: content (text, images, settings, menus), the theme's tokens set in its own settings
   (palette, fonts, spacing), and app logic that drives theme components with data (an API call, a form post).
 
@@ -58,7 +68,6 @@ move it to **Done** with the release, and remove the stopgap from the project in
 | ID | Who | Bug | Stopgap today | Fix |
 |---|---|---|---|---|
 | B-001 | Fernway | Code block: the `<pre>` margin and the copy button's place | `site.css` `[data-component="code"] > pre`, `> [data-copy]` | Code's own CSS places them |
-| B-002 | (reported) | `hover-morph` on a button does nothing (no shape, no `--hover-shape`) and drops the button's color fade | none | A default morph for plain boxes; keep `.btn`'s transitions |
 
 ### Whole projects off the theme
 
@@ -73,3 +82,4 @@ move it to **Done** with the release, and remove the stopgap from the project in
 |---|---|---|---|
 | T-001 | marccent-html, marccent/next, Marccent Local, rc-imp | Map: three own maps (two copies of the sites' `components/apps/map.js`, Marccent Local's `assets/map.js`) replaced by the theme's Map (`components/widgets/map.js`, and `data-component="map"` for the engine) | 1.0.0-rc.6 |
 | T-023 | Fernway | Its own `.eyebrow` redefined the theme's | removed, uses the theme's (1.0.0-rc.6) |
+| B-002 | (reported) | `hover-morph` on a plain box (a button) morphs its corners to `--hover-radius` (default a leaf), keeps the button's color fades, and cuts nothing unless `--hover-shape` is set | 1.0.0-rc.9 |

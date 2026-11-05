@@ -527,9 +527,20 @@
 .hover-flip.hover-flip:is(:hover, :focus-visible, [aria-pressed="true"]) { rotate: y 1turn; }
 /* MORPH: turns into --hover-shape (a clip-path, e.g. polygon(...)). It animates when both shapes are the same kind
    with the same number of points (a polygon to a polygon of as many corners); otherwise it switches at once.
-   Clip-path shapes only, not the masked ones (heart, squircle, teardrop, moon, ticket, wave, ring). */
-.hover-morph { transition: clip-path var(--hover-duration) ease-in-out; }
+   Clip-path shapes only, not the masked ones (heart, squircle, teardrop, moon, ticket, wave, ring).
+   A plain box (a button, a card: no .shape-*) morphs its corners instead, to --hover-radius (default a leaf: two
+   opposite corners round, two nearly square), so it changes on a square button and a pill alike; --hover-shape still
+   cuts it too, if set. The transition keeps a button's own color fades (button.css), doubled to beat a design's. */
+.hover-morph.hover-morph {
+  transition: clip-path var(--hover-duration) ease-in-out, border-radius var(--hover-duration) ease-in-out,
+    background-color var(--duration), border-color var(--duration), color var(--duration), box-shadow var(--duration);
+}
 .hover-morph.hover-morph:is(:hover, :focus-visible, [aria-pressed="true"]) { clip-path: var(--hover-shape, inset(0)); }
+/* No clip at all unless asked: inset(0) would cut a button's focus ring and shadow. */
+.hover-morph.hover-morph:not([class*="shape-"]):is(:hover, :focus-visible, [aria-pressed="true"]) {
+  clip-path: var(--hover-shape, none);
+  border-radius: var(--hover-radius, 1.25em .25em);
+}
 /* FLOAT: rises with a glow in the theme colors around its outline. Put it on a WRAPPER round the shape: a glow on
    the shape itself would be cut off with everything else outside it. */
 .hover-float {
@@ -542,7 +553,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hover-spin, .hover-flip, .hover-morph { transition: none; }
+  .hover-spin, .hover-flip { transition: none; }
+  /* The shape switches at once; a button's colors still fade. */
+  .hover-morph.hover-morph { transition: background-color var(--duration), border-color var(--duration), color var(--duration), box-shadow var(--duration); }
 }
 
 /* POINTER: effects that follow the mouse. A small script (watchPointer, core/pointer.js; SiteTheme or startTheme

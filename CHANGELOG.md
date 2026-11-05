@@ -3,6 +3,25 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.9
+
+Code editors that edit like a code field, in the markup engine too; `hover-morph` on buttons.
+
+### Added
+- Code as an editor edits like a code field (Elementor's Custom HTML): Enter keeps the indentation and indents inside
+  a tag or a brace, a closing one dedents, Tab / Shift+Tab indent the lines (Esc, then Tab, leaves the editor), tags,
+  brackets and quotes close as they open, undo and redo, the current line and the matching bracket shown. Two
+  spaces. New dependencies: `@codemirror/commands`, `@codemirror/autocomplete` (loaded only by an editor).
+- The markup engine's Code is an editor too: a `[data-component="code"]` holding a `<textarea>` (the form field)
+  becomes the same editor and writes every edit back into it, so the form posts it; `data-min-lines`. And TabBar
+  (`data-component="tab-bar"`), with every panel in the markup: so a server can write CodeTabs (django-marccent's
+  Custom HTML).
+
+### Fixed
+- `hover-morph` on a plain box (a button, a card: no `.shape-*`) morphs its corners, to `--hover-radius` (default a
+  leaf), keeps the button's color fades, and cuts nothing (its focus ring, its shadow) unless `--hover-shape` is set
+  (B-002).
+
 ## 1.0.0-rc.8
 
 ### Added
