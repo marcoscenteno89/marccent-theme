@@ -45,9 +45,12 @@ class CodeView {
   get editable() { return !!this.options.onChange; }
 
   async mount() {
-    const [ { EditorView, lineNumbers }, { EditorState }, { syntaxHighlighting, HighlightStyle }, { tags: t }, language ] = await Promise.all([
+    const [ { EditorView, lineNumbers, keymap, drawSelection, highlightActiveLine }, { EditorState },
+      { syntaxHighlighting, HighlightStyle, indentUnit, indentOnInput, bracketMatching }, { tags: t }, language, editing ] = await Promise.all([
       import('@codemirror/view'), import('@codemirror/state'), import('@codemirror/language'), import('@lezer/highlight'),
       LANGS[this.lang]?.() ?? null,
+      // Editing only: the keys (undo, Tab indents), brackets closed as they open.
+      this.editable ? Promise.all([ import('@codemirror/commands'), import('@codemirror/autocomplete') ]) : null,
     ]);
     if (this.destroyed) return;
     const highlight = HighlightStyle.define([
@@ -65,6 +68,10 @@ class CodeView {
       '.cm-content': { padding: 'var(--space-sm, .5rem) 0', ...(onChange && { minHeight: `calc(${minLines}lh + var(--space-sm, .5rem) * 2)`, caretColor: 'currentColor' }) },
       '.cm-line': { padding: '0 var(--space-sm, .5rem)' },
       '.cm-gutters': { backgroundColor: 'transparent', color: 'var(--muted-color, #757575)', border: 'none' },
+      // Editing: the current line, the selection and a matching bracket in the text's own color, light or dark.
+      '.cm-activeLine': { backgroundColor: 'color-mix(in srgb, currentColor 5%, transparent)' },
+      '.cm-selectionBackground, &.cm-focused .cm-selectionBackground': { backgroundColor: `color-mix(in srgb, ${tone('primary')} 25%, transparent) !important` },
+      '&.cm-focused .cm-matchingBracket': { backgroundColor: 'color-mix(in srgb, currentColor 15%, transparent)', outline: 'none' },
     });
     this.view = new EditorView({
       parent: this.parent,
@@ -76,6 +83,14 @@ class CodeView {
           EditorView.editable.of(!!onChange),
           EditorView.contentAttributes.of({ 'aria-label': label || `Code (${this.lang})` }),
           onChange && EditorView.lineWrapping,
+          // An editor the way a code field usually is (Elementor's Custom HTML): Enter keeps the line's indentation and
+          // indents inside a tag or a brace, a closing one dedents, Tab / Shift+Tab indent the lines (Esc, then Tab,
+          // leaves the editor), brackets and quotes close as they open (HTML's tags too: lang-html's autoCloseTags).
+          ...(editing ? (([ c, a ]) => [
+            indentUnit.of('  '), EditorState.tabSize.of(2),
+            c.history(), drawSelection(), highlightActiveLine(), indentOnInput(), bracketMatching(), a.closeBrackets(),
+            keymap.of([ ...a.closeBracketsKeymap, ...c.defaultKeymap, ...c.historyKeymap, c.indentWithTab ]),
+          ])(editing) : []),
           onChange && EditorView.updateListener.of((u) => u.docChanged && onChange(u.state.doc.toString())),
           syntaxHighlighting(highlight),
           look,
