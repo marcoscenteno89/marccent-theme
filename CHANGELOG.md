@@ -3,6 +3,13 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.8
+
+### Added
+- CodeTabs (`components/ui/code-tabs.js`): an editor per language (HTML, CSS, JS) under a TabBar, each the theme's
+  Code as an editor, and an optional Preview tab. The admin side of a block of hand-written code (Marccent Blocks'
+  Custom HTML).
+
 ## 1.0.0-rc.7
 
 Clustered map pins, and the Code block as an editor.
