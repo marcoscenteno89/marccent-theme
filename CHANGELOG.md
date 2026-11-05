@@ -3,6 +3,17 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.10
+
+Code editors lay code out, so what was saved on one line opens readable.
+
+### Added
+- Code as an editor lays its code out (js-beautify, loaded only by an editor): two-space indents, HTML's blocks one
+  per line, its inline elements (a, span…) and text left flowing, so the page shows the same. On opening, when the
+  code is crammed on long lines (over 120 characters: generated, or pasted minified), as an edit (saved with the
+  rest, and Ctrl+Z takes it back); any time with the Format button under the editor (`[data-format]`, the markup
+  engine's too) or Shift+Alt+F. `CodeView.format()`. New dependency: `js-beautify`.
+
 ## 1.0.0-rc.9
 
 Code editors that edit like a code field, in the markup engine too; `hover-morph` on buttons.

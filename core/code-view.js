@@ -19,6 +19,13 @@ const LANGS = {
 // Fallbacks for a page without the theme's tokens (an admin screen around the editor): highlighting still shows.
 const tone = (name) => `var(--${name}-ink, ${({ primary: '#1f64cf', secondary: '#a1306b', info: '#0b7285', success: '#2b8a3e' })[name]})`;
 
+// Code laid out (js-beautify, loaded with an editor): two-space indents, HTML's blocks one per line and its inline
+// elements (a, span…) and text left flowing as they are, so the page shows the same.
+const FORMATS = { html: 'html', css: 'css', js: 'js', jsx: 'js' };
+const LAYOUT = { indent_size: 2, wrap_line_length: 0, max_preserve_newlines: 2, end_with_newline: false };
+// Code saved crammed on long lines (generated, pasted minified): laid out when an editor opens it.
+const crammed = (code) => code.split('\n').some((line) => line.length > 120);
+
 // Common leading indentation is removed (and blank lines at the ends), so template literals can be indented with the JSX.
 const dedent = (text) => {
   const lines = text.replace(/^\n+|\s+$/g, '').split('\n');
@@ -29,7 +36,8 @@ const dedent = (text) => {
 /**
  * CodeView: a CodeMirror editor in parent. mount() loads CodeMirror and the language, then draws; destroy() removes
  * it (also when called before mount() finishes). Read-only, unless options.onChange: then it's editable, calls
- * onChange(code) on every edit, and setCode(code) replaces its text from outside (an undo elsewhere).
+ * onChange(code) on every edit, and setCode(code) replaces its text from outside (an undo elsewhere). An editor lays
+ * its code out (format(), Shift+Alt+F, an undoable edit like any other): on opening, when it's crammed on long lines.
  * @param {HTMLElement} parent @param {string} code @param {string} lang
  * @param {{ onChange?: (code: string) => void, label?: string, minLines?: number }} [options] - label: its accessible
  *   name (default "Code (lang)"); minLines: the height it keeps while nearly empty (editable).
@@ -46,12 +54,14 @@ class CodeView {
 
   async mount() {
     const [ { EditorView, lineNumbers, keymap, drawSelection, highlightActiveLine }, { EditorState },
-      { syntaxHighlighting, HighlightStyle, indentUnit, indentOnInput, bracketMatching }, { tags: t }, language, editing ] = await Promise.all([
+      { syntaxHighlighting, HighlightStyle, indentUnit, indentOnInput, bracketMatching }, { tags: t }, language, editing, beautify ] = await Promise.all([
       import('@codemirror/view'), import('@codemirror/state'), import('@codemirror/language'), import('@lezer/highlight'),
       LANGS[this.lang]?.() ?? null,
       // Editing only: the keys (undo, Tab indents), brackets closed as they open.
       this.editable ? Promise.all([ import('@codemirror/commands'), import('@codemirror/autocomplete') ]) : null,
+      this.editable && FORMATS[this.lang] ? import('js-beautify').then((m) => m.default ?? m) : null,
     ]);
+    this.beautify = beautify;
     if (this.destroyed) return;
     const highlight = HighlightStyle.define([
       { tag: [ t.keyword, t.controlKeyword, t.moduleKeyword, t.operatorKeyword, t.tagName, t.typeName, t.className ], color: tone('primary') },
@@ -89,7 +99,7 @@ class CodeView {
           ...(editing ? (([ c, a ]) => [
             indentUnit.of('  '), EditorState.tabSize.of(2),
             c.history(), drawSelection(), highlightActiveLine(), indentOnInput(), bracketMatching(), a.closeBrackets(),
-            keymap.of([ ...a.closeBracketsKeymap, ...c.defaultKeymap, ...c.historyKeymap, c.indentWithTab ]),
+            keymap.of([ { key: 'Shift-Alt-f', run: () => this.format() }, ...a.closeBracketsKeymap, ...c.defaultKeymap, ...c.historyKeymap, c.indentWithTab ]),
           ])(editing) : []),
           onChange && EditorView.updateListener.of((u) => u.docChanged && onChange(u.state.doc.toString())),
           syntaxHighlighting(highlight),
@@ -101,6 +111,17 @@ class CodeView {
     // The box scrolls sideways for long lines: in the tab order, so the keyboard can scroll it too. (An editable one is
     // reached through its text instead, and wraps.)
     if (!onChange) this.view.scrollDOM.tabIndex = 0;
+    if (onChange && crammed(this.code)) this.format();
+  }
+
+  // Lays the code out (an edit: onChange gets it, and undo takes it back). False when there's no layout for its language.
+  format() {
+    const lay = this.beautify?.[FORMATS[this.lang]];
+    if (!this.view || !lay) return false;
+    const code = this.view.state.doc.toString();
+    const laid = lay(code, LAYOUT);
+    if (laid !== code) this.view.dispatch({ changes: { from: 0, to: code.length, insert: laid } });
+    return true;
   }
 
   // Replaces the text, when it changed from outside (not on the editor's own edits: the cursor stays).
@@ -120,4 +141,4 @@ const copyCode = (code, toasts) => navigator.clipboard.writeText(code).then(
   () => toasts.add('Copied to the clipboard', 'success'),
   () => toasts.add('Could not copy: select the code instead', 'danger'));
 
-export { CodeView, dedent, copyCode, MONO };
+export { CodeView, dedent, copyCode, MONO, FORMATS };

@@ -172,7 +172,7 @@ define('app-shell', (shell) => {
  * [data-code-host]; [data-copy] copies the code. An editor (Code with onChange) when it holds a <textarea> instead:
  * the form field, which works without JavaScript; the editor takes its place and writes every edit back into it
  * (and fires input), so the form posts the code as usual. Its name: the textarea's label (or aria-label);
- * data-min-lines: its height while nearly empty.
+ * data-min-lines: its height while nearly empty; a [data-format] button lays the code out.
  */
 define('code', (box) => {
   const field = box.querySelector('textarea');
@@ -206,7 +206,9 @@ define('code', (box) => {
     else pre?.remove();
   }, '200px');
   const copy = box.querySelector('[data-copy]');
+  const format = box.querySelector('[data-format]');
   return all([
+    format && listen(format, 'click', () => view?.format()),
     () => stopWatching?.(),
     () => view?.destroy(),
     () => field && (field.hidden = false),
