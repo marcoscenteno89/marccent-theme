@@ -3,6 +3,13 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.12
+
+### Fixed
+- Swiss: a `.bg` panel in its own mode (`data-theme` on it: an inverse-mode one, a dark panel on a light page) keeps
+  its surface instead of Swiss's transparent panels, so the page no longer shows through it (light text on the light
+  page).
+
 ## 1.0.0-rc.11
 
 Inverse mode.

@@ -615,7 +615,7 @@
   }
   :is(h1, h2, h3) { letter-spacing: -.045em; text-align: start; }
   :where(:scope)[data-theme] .bg, [data-theme] .bg { border-width: 0; border-top: .375rem solid var(--body-color); background-color: transparent; }
-  :where(:scope)[data-theme] .menu-panel.bg, [data-theme] .menu-panel.bg { background-color: var(--surface); }
+  :where(:scope)[data-theme] :is(.menu-panel.bg, .bg[data-theme]), [data-theme] :is(.menu-panel.bg, .bg[data-theme]) { background-color: var(--surface); }
 }
 
 /* Techy / futuristic (styles/themes/techy.css) */

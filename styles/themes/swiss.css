@@ -19,5 +19,6 @@
 :is(h1, h2, h3) { letter-spacing: -.045em; text-align: start; }
 /* Panels are marked by a thick rule along the top instead of a box. */
 [data-theme] .bg { border-width: 0; border-top: .375rem solid var(--body-color); background-color: transparent; }
-/* Except a menu's dropdown, which floats over the page: it keeps the surface, or the page shows through it. */
-[data-theme] .menu-panel.bg { background-color: var(--surface); }
+/* Except a menu's dropdown, which floats over the page, and a panel in its own mode (data-theme on it: an inverse-mode
+   one, a dark panel on a light page): they keep the surface, or the page shows through them. */
+[data-theme] :is(.menu-panel.bg, .bg[data-theme]) { background-color: var(--surface); }
