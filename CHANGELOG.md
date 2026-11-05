@@ -3,9 +3,15 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
-## Unreleased
+## 1.0.0-rc.7
+
+Clustered map pins, and the Code block as an editor.
 
 ### Added
+- Code: an editor too (`onChange`, with `label` and `minLines`): CodeMirror editable, line numbers, wrapping, the
+  text kept in step with its value; read-only as before without it. `CodeView` takes the same as options and has
+  `setCode`. Its colors fall back to fixed ones on a page without the theme's tokens (an admin screen). For admin
+  code fields (Marccent Blocks: every block's Additional CSS, the Code block's code).
 - Map: many pins (`markers`, or `data-markers` as JSON), clustered (`cluster`, default on): pins close together at
   the zoom shown merge into a numbered disc in the theme's primary, which zooms in on them when clicked. With pins the
   map starts fitting them all (`fit`, default on). Google's MarkerClusterer (`@googlemaps/markerclusterer`), loaded only
