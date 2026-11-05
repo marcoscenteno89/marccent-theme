@@ -12,5 +12,6 @@ export { Store, useStore } from '../lib/store';
 export { toastSI } from '../core/toasts';
 export { Toast } from '../components/ui/toast';
 export { watchInView, useInView } from '../lib/in-view';
+export { watchInverseMode, useInverseMode } from '../lib/inverse-mode';
 export { useCloseMenus } from '../lib/close-menus';
 export { watchScrolled, useScrolled } from '../lib/scrolled';

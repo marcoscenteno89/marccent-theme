@@ -3,6 +3,16 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.11
+
+Inverse mode.
+
+### Added
+- Inverse mode: an element in the mode opposite its surroundings' (dark on a light page, light on a dark one),
+  switching when they do. `watchInverseMode(el)` (core), `useInverseMode(ref)` (`lib/inverse-mode`, React), and
+  `data-component="inverse-mode"` for the markup engine. Nested, it turns back: a preview inside an inverse panel
+  shows in the site's mode. Marccent Blocks' and django-marccent's Custom HTML put their editors on one.
+
 ## 1.0.0-rc.10
 
 Code editors lay code out, so what was saved on one line opens readable.

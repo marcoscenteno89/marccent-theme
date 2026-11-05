@@ -42,6 +42,7 @@ export { DESIGNS, DEFAULT_DESIGN, designTitle } from '../lib/design';
 export { Store } from './store';
 export { toastSI, Toasts } from './toasts';
 export { watchInView } from './in-view';
+export { watchInverseMode } from './inverse-mode';
 export { closeMenus, closeAll } from './close-menus';
 export { watchScrolled } from './scrolled';
 export { watchPointer } from './pointer';
