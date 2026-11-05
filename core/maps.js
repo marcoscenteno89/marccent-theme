@@ -92,16 +92,37 @@ const embedMap = (el, url, title = '') => {
   el.replaceChildren(frame);
 };
 
+// A cluster: a disc in the theme's primary, the number of pins in it in the primary's text color, larger as it holds
+// more (Google's MarkerClusterer calls render; colors read at each render, so a theme change shows on the next).
+const clusterRenderer = (el, g) => ({
+  render: ({ count, position }) => new g.Marker({
+    position,
+    icon: {
+      path: g.SymbolPath.CIRCLE, scale: 14 + Math.min(Math.log10(count) * 8, 16),
+      fillColor: readColor(el, 'var(--primary)'), fillOpacity: .9, strokeColor: readColor(el, 'var(--body-bg)'), strokeWeight: 3,
+    },
+    label: { text: String(count), color: readColor(el, 'var(--primary-text)'), fontSize: '13px', fontWeight: '700' },
+    title: `${count} places`,
+    zIndex: 1000 + count,
+  }),
+});
+
+const extras = new WeakMap(); // map → { el, g, pins, clusterer }: what restyleMap recolors
+
 /**
- * drawMap: a map in el, in the theme's colors, with a pin when marker is given (a click opens marker.link, a Google
- * Maps address). A key Google refuses (another site's, the API off) shows the embed instead. Without key, the page's
+ * drawMap: a map in el, in the theme's colors, with pins (a click on one opens its link, a Google Maps address). Many
+ * pins are clustered: those close together at the zoom shown merge into one numbered disc, which zooms in on them when
+ * clicked. With pins, the map fits them all unless fit is false (center and zoom are then where it starts). A key
+ * Google refuses (another site's, the API off) shows the embed instead. Without key, the page's
  * window.marccentMapsKey (a host sets it once, so the key stays out of the content); without either, the embed.
  * @param {HTMLElement} el
- * @param {{ key: string, center: { lat: number, lng: number }, zoom?: number, marker?: { title?: string, link?: string },
- *   embed?: string, title?: string }} options
+ * @param {{ key?: string, center: { lat: number, lng: number }, zoom?: number,
+ *   marker?: { title?: string, link?: string }, markers?: { lat: number, lng: number, title?: string, link?: string }[],
+ *   cluster?: boolean, fit?: boolean, embed?: string, title?: string }} options - marker: one pin on the center.
+ *   markers: pins anywhere; cluster (default true) groups them.
  * @returns {Promise<google.maps.Map | undefined>}
  */
-const drawMap = async (el, { key = window.marccentMapsKey, center, zoom = 10, marker, embed, title }) => {
+const drawMap = async (el, { key = window.marccentMapsKey, center, zoom = 10, marker, markers = [], cluster = true, fit = true, embed, title }) => {
   if (!key) return embedMap(el, embed, title);
   window.gm_authFailure = () => embedMap(el, embed, title);
   let g;
@@ -116,12 +137,40 @@ const drawMap = async (el, { key = window.marccentMapsKey, center, zoom = 10, ma
     center, zoom, styles: mapStyles(el),
     mapTypeControl: false, streetViewControl: false, fullscreenControl: false, clickableIcons: false,
   });
-  if (marker) {
-    const pin = new g.Marker({ map, position: center, title: marker.title, icon: pinIcon(el, g) });
-    const link = mapsUrl(marker.link);
+  const places = [ ...(marker ? [ { ...center, ...marker } ] : []), ...markers ];
+  const pins = places.map((p) => {
+    const pin = new g.Marker({ position: { lat: Number(p.lat), lng: Number(p.lng) }, title: p.title, icon: pinIcon(el, g) });
+    const link = mapsUrl(p.link);
     if (link) pin.addListener('click', () => window.open(link, '_blank', 'noopener'));
+    return pin;
+  });
+  let clusterer = null;
+  if (cluster && pins.length > 1) {
+    const { MarkerClusterer } = await import('@googlemaps/markerclusterer');
+    clusterer = new MarkerClusterer({ map, markers: pins, renderer: clusterRenderer(el, g) });
+  } else {
+    pins.forEach((pin) => pin.setMap(map));
   }
+  if (fit && markers.length) {
+    const bounds = new g.LatLngBounds();
+    pins.forEach((pin) => bounds.extend(pin.getPosition()));
+    map.fitBounds(bounds, 48);
+    if (pins.length === 1) g.event.addListenerOnce(map, 'idle', () => map.setZoom(zoom));
+  }
+  extras.set(map, { el, g, pins, clusterer });
   return map;
 };
 
-export { loadMapsLibrary, mapStyles, mapsUrl, embedMap, drawMap };
+/**
+ * restyleMap: the map's colors again from the theme where it sits (after a theme change), its pins and clusters too.
+ * @param {google.maps.Map} map
+ */
+const restyleMap = (map) => {
+  const x = extras.get(map);
+  if (!x) return;
+  map.setOptions({ styles: mapStyles(x.el) });
+  x.pins.forEach((pin) => pin.setIcon(pinIcon(x.el, x.g)));
+  x.clusterer?.render();
+};
+
+export { loadMapsLibrary, mapStyles, mapsUrl, embedMap, drawMap, restyleMap };

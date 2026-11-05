@@ -3,6 +3,14 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## Unreleased
+
+### Added
+- Map: many pins (`markers`, or `data-markers` as JSON), clustered (`cluster`, default on): pins close together at
+  the zoom shown merge into a numbered disc in the theme's primary, which zooms in on them when clicked. With pins the
+  map starts fitting them all (`fit`, default on). Google's MarkerClusterer (`@googlemaps/markerclusterer`), loaded only
+  on a map with more than one pin. Pins and clusters recolor with the theme too (`restyleMap`).
+
 ## 1.0.0-rc.6
 
 A Map component, so no site keeps its own; and dropdowns that stay solid in glass.

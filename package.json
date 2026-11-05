@@ -96,6 +96,7 @@
     "@fontsource/space-mono": "^5.3.0",
     "@fontsource/vt323": "^5.3.0",
     "@fortawesome/fontawesome-free": "^6.5.1",
+    "@googlemaps/markerclusterer": "^2.6.2",
     "@lezer/highlight": "^1.2.5",
     "@marccent/util": "github:marcoscenteno89/util#v2.1.1",
     "dayjs": "^1.11.10",

@@ -491,6 +491,39 @@
         "embed": "https://www.google.com/maps?q=New+York&output=embed"
       },
       "html": "<div data-component=\"map\" class=\"map\" data-lat=\"40.7128\" data-lng=\"-74.006\" data-zoom=\"10\" data-title=\"New York\" data-embed=\"https://www.google.com/maps?q=New+York&amp;output=embed\"></div>"
+    },
+    {
+      "case": "pins, clustered",
+      "fields": {
+        "key": "AIza-example",
+        "lat": 43.49,
+        "lng": -112.034,
+        "zoom": 8,
+        "marker": false,
+        "title": "Our locations",
+        "link": "",
+        "embed": "",
+        "markers": [
+          {
+            "lat": 43.4917,
+            "lng": -112.0339,
+            "title": "Idaho Falls"
+          },
+          {
+            "lat": 43.6135,
+            "lng": -116.2034,
+            "title": "Boise",
+            "link": "https://maps.google.com/?q=Boise"
+          },
+          {
+            "lat": 42.8713,
+            "lng": -112.4455,
+            "title": "Pocatello"
+          }
+        ],
+        "cluster": true
+      },
+      "html": "<div data-component=\"map\" class=\"map\" data-key=\"AIza-example\" data-lat=\"43.49\" data-lng=\"-112.034\" data-zoom=\"8\" data-title=\"Our locations\" data-markers=\"[{&quot;lat&quot;:43.4917,&quot;lng&quot;:-112.0339,&quot;title&quot;:&quot;Idaho Falls&quot;},{&quot;lat&quot;:43.6135,&quot;lng&quot;:-116.2034,&quot;title&quot;:&quot;Boise&quot;,&quot;link&quot;:&quot;https://maps.google.com/?q=Boise&quot;},{&quot;lat&quot;:42.8713,&quot;lng&quot;:-112.4455,&quot;title&quot;:&quot;Pocatello&quot;}]\"></div>"
     }
   ]
 }

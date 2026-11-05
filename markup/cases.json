@@ -459,6 +459,38 @@
         "link": "",
         "embed": "https://www.google.com/maps?q=New+York&output=embed"
       }
+    },
+    {
+      "case": "pins, clustered",
+      "fields": {
+        "key": "AIza-example",
+        "lat": 43.49,
+        "lng": -112.034,
+        "zoom": 8,
+        "marker": false,
+        "title": "Our locations",
+        "link": "",
+        "embed": "",
+        "markers": [
+          {
+            "lat": 43.4917,
+            "lng": -112.0339,
+            "title": "Idaho Falls"
+          },
+          {
+            "lat": 43.6135,
+            "lng": -116.2034,
+            "title": "Boise",
+            "link": "https://maps.google.com/?q=Boise"
+          },
+          {
+            "lat": 42.8713,
+            "lng": -112.4455,
+            "title": "Pocatello"
+          }
+        ],
+        "cluster": true
+      }
     }
   ]
 }

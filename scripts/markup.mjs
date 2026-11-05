@@ -104,7 +104,8 @@ const RENDER = {
   popover: (f) => h(Popover, { label: f.label, side: f.side, content: html(f.content) }, h('button', { type: 'button', className: 'btn' }, f.trigger)),
   alert: (f) => h(Alert, { tone: f.tone }, html(f.content)),
   map: (f) => h(MapView, { apiKey: f.key || undefined, center: { lat: f.lat, lng: f.lng }, zoom: f.zoom,
-    marker: f.marker ? { title: f.title, link: f.link || undefined } : undefined, title: f.title, embed: f.embed || undefined }),
+    marker: f.marker ? { title: f.title, link: f.link || undefined } : undefined, title: f.title, embed: f.embed || undefined,
+    markers: f.markers, cluster: f.cluster }),
 };
 
 const render = (name, fields) => {

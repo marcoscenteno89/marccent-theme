@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { withThemeRead } from '../theme/hoc';
 import { cx } from '../../lib/cx';
-import { drawMap, loadMapsLibrary, mapStyles } from '../../core/maps';
+import { drawMap, loadMapsLibrary, restyleMap } from '../../core/maps';
 import '../../styles/components/map.css';
 
 /*
@@ -21,6 +21,11 @@ const DEFAULT_CENTER = { lat: 43.49, lng: -112.034 }; // Idaho Falls
  * @param {{ lat: number, lng: number }} [props.center] - Idaho Falls when left out.
  * @param {number} [props.zoom=10]
  * @param {{ title?: string, link?: string }} [props.marker] - A pin on the center; link: a Google Maps address it opens.
+ * @param {{ lat: number, lng: number, title?: string, link?: string }[]} [props.markers] - Pins anywhere (stores, jobs,
+ *   locations). Set when the map is made.
+ * @param {boolean} [props.cluster=true] - Pins close together at the zoom shown merge into one numbered disc in the
+ *   theme's primary; a click on it zooms in on them.
+ * @param {boolean} [props.fit=true] - With markers, the map starts fitting them all (else at center and zoom).
  * @param {string} [props.embed] - A Google Maps embed URL, shown when there's no key or Google refuses it.
  * @param {string} [props.title] - The embed's title.
  * @param {number} [props.recenter] - Change it to put the map back on center and zoom (a Reset button), after the
@@ -30,8 +35,9 @@ const DEFAULT_CENTER = { lat: 43.49, lng: -112.034 }; // Idaho Falls
  * @param {(map: google.maps.Map) => void} [props.onLoad] - Called once with the map when it's made, to draw on it.
  *
  * @example <Map apiKey={key} center={{ lat: 40.7, lng: -74 }} zoom={12} marker={{ title: 'Our shop' }} />
+ * @example <Map apiKey={key} markers={stores.map((s) => ({ lat: s.lat, lng: s.lng, title: s.name }))} />
  */
-const Map = ({ apiKey, center = DEFAULT_CENTER, zoom = 10, marker, embed, title, recenter, overlay, onLoad, theme, className, style }) => {
+const Map = ({ apiKey, center = DEFAULT_CENTER, zoom = 10, marker, markers, cluster = true, fit = true, embed, title, recenter, overlay, onLoad, theme, className, style }) => {
   const ref = useRef(null);
   const map = useRef(null);
   const [ ready, setReady ] = useState(false);
@@ -39,7 +45,7 @@ const Map = ({ apiKey, center = DEFAULT_CENTER, zoom = 10, marker, embed, title,
 
   useEffect(() => {
     let cancelled = false;
-    drawMap(ref.current, { key: apiKey || undefined, center: position, zoom, marker, embed, title }).then((m) => {
+    drawMap(ref.current, { key: apiKey || undefined, center: position, zoom, marker, markers, cluster, fit, embed, title }).then((m) => {
       if (cancelled || !m) return;
       map.current = m;
       onLoad?.(m);
@@ -59,7 +65,7 @@ const Map = ({ apiKey, center = DEFAULT_CENTER, zoom = 10, marker, embed, title,
   }, [ ready, overlay ]);
   // After a theme change, on the next frame: the section's new colors are in the CSS by then.
   useEffect(() => {
-    const frame = requestAnimationFrame(() => map.current?.setOptions({ styles: mapStyles(ref.current) }));
+    const frame = requestAnimationFrame(() => map.current && restyleMap(map.current));
     return () => cancelAnimationFrame(frame);
   }, [ theme, theme?.version ]);
   useEffect(() => {
@@ -71,7 +77,9 @@ const Map = ({ apiKey, center = DEFAULT_CENTER, zoom = 10, marker, embed, title,
   return (
     <div data-component="map" ref={ref} className={cx('map', className)} style={style} data-key={apiKey || undefined}
       data-lat={center.lat} data-lng={center.lng} data-zoom={zoom} data-marker={marker ? '' : undefined}
-      data-title={marker?.title ?? title} data-link={marker?.link} data-embed={embed} />
+      data-title={marker?.title ?? title} data-link={marker?.link} data-markers={markers?.length ? JSON.stringify(markers) : undefined}
+      data-cluster={markers?.length && !cluster ? 'false' : undefined} data-fit={markers?.length && !fit ? 'false' : undefined}
+      data-embed={embed} />
   );
 };
 
