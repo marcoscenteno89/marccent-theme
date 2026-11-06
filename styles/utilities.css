@@ -16,6 +16,9 @@
 /* FONT. fs-sm is relative (em): a bit smaller than the text around it. */
 .fs-sm { font-size: var(--small-size); }
 .fs-lg { font-size: var(--text-lg); }
+/* A share of the text around it, whatever its size: a price's cents and period, a mark after a name. */
+.fs-50 { font-size: .5em; }
+.fs-75 { font-size: .75em; }
 .fw-light { font-weight: var(--weight-light); }
 .fw-normal { font-weight: var(--weight-normal); }
 .fw-semibold { font-weight: 600; }
@@ -126,8 +129,9 @@
 .nums-fractions { font-variant-numeric: diagonal-fractions; } /* 1/2 drawn as a fraction */
 .nums-ordinal { font-variant-numeric: ordinal; }             /* 1st with its letters raised */
 .small-caps { font-variant-caps: all-small-caps; letter-spacing: .03em; } /* acronyms and AM / PM in running text */
-/* A mark raised small after a name (™, ®, ℠: typeset() writes them so). */
-sup.mark-sup { font-size: .55em; top: -.75em; }
+/* Raised: its top level with the top of the text around it, as a price tag's sign and cents ($19⁹⁹) or a mark
+   after a name (™). Smaller with .fs-50 or .fs-75; on a sup, instead of sup's own lift. */
+.raised { position: static; vertical-align: text-top; line-height: 1; }
 
 /* DISPLAY */
 .d-none { display: none; }

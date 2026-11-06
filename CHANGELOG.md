@@ -3,6 +3,21 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.14
+
+Price made of classes that combine, like the rest of the theme.
+
+### Added
+- `.raised` (its top level with the top of the text around it) and `.fs-50`, `.fs-75` (a share of the text around
+  it, whatever its size).
+
+### Changed
+- Price is made of `.raised`, `.fs-50`, `.text-muted`, `.nums-tabular` and `<s>`: no classes or stylesheet of its own.
+- typeset's ™ ® ℠ are `<sup class="raised fs-50">`.
+
+### Removed
+- `styles/components/price.css` and its `.price-*` classes; `sup.mark-sup`.
+
 ## 1.0.0-rc.13
 
 Typography: text set the way print sets it, and prices.

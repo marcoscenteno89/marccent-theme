@@ -1,12 +1,21 @@
+import { Fragment } from 'react';
 import { cx } from '../../lib/cx';
-import '../../styles/components/price.css';
 
 /*
  * Price: an amount as price tags set it, its currency sign and cents raised and small ($19⁹⁹), a period after it
  * (/mo) and an old price struck through before it. In any currency and locale (Intl): a sign the locale puts after
- * the amount sits on the line (19⁵⁰ €). Whole amounts show no cents. Screen readers hear it whole ("$19.99, per mo,
- * was $29"). Plain markup, no script: a server writes the same (styles/components/price.css).
+ * the amount stays on the line (49⁵⁰ €). Whole amounts show no cents. Screen readers hear it whole ("$19.99, per mo,
+ * was $29"). Only the theme's classes (.raised, .fs-50, .text-muted, .nums-tabular), so a server writes the same
+ * markup and needs no stylesheet of its own.
  */
+
+// The amount's parts as shown: the sign before it and the cents raised and small, a sign after it small on the line.
+const Amount = ({ parts }) => parts.map((p, i) => {
+  if (p.type === 'decimal') return null;
+  if (p.type === 'fraction') return <span key={i} className="raised fs-50">{p.value}</span>;
+  if (p.type === 'currency') return <span key={i} className={cx('fs-50', i === 0 && 'raised')}>{p.value}</span>;
+  return <Fragment key={i}>{p.value}</Fragment>;
+});
 
 /**
  * @param {Object} props
@@ -21,18 +30,14 @@ import '../../styles/components/price.css';
  */
 const Price = ({ amount, currency = 'USD', locale = 'en-US', per, was, className }) => {
   const format = (n) => new Intl.NumberFormat(locale, { style: 'currency', currency, ...(Number.isInteger(n) && { minimumFractionDigits: 0 }) });
-  const parts = format(amount).formatToParts(amount);
   const said = [ format(amount).format(amount), per && `per ${ per }`, was != null && `was ${ format(was).format(was) }` ].filter(Boolean).join(', ');
   return (
-    <span data-component="price" className={cx('price', className)}>
+    <span data-component="price" className={cx('nums-tabular', className)}>
       <span className="visually-hidden">{said}</span>
-      {was != null && <s className="price-was" aria-hidden="true">{format(was).format(was)}</s>}
-      <span className="price-now" aria-hidden="true">
-        {parts.map((p, i) => (p.type === 'currency' ? <span key={i} className={cx('price-currency', i > 0 && 'price-currency-end')}>{p.value}</span>
-          : p.type === 'fraction' ? <span key={i} className="price-cents">{p.value}</span>
-          : p.type === 'decimal' || p.type === 'literal' ? null
-          : <span key={i} className="price-amount">{p.value}</span>))}
-        {per && <span className="price-per">/{per}</span>}
+      {was != null && <><s className="fs-50 text-muted" aria-hidden="true"><Amount parts={format(was).formatToParts(was)} /></s>{' '}</>}
+      <span aria-hidden="true">
+        <Amount parts={format(amount).formatToParts(amount)} />
+        {per && <span className="fs-50 text-muted">/{per}</span>}
       </span>
     </span>
   );

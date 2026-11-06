@@ -192,12 +192,19 @@ Hyphens are left alone (phone numbers and dates use them), and so is code (`code
 
 **Prices, with `Price`**: `<Price amount={19.99} per="mo" was={29} />` shows ~~$29~~ $19⁹⁹/mo: the sign and cents
 raised and small, the period small, the old price struck through, in any currency and locale (`currency="EUR"
-locale="de-DE"`: 49⁵⁰ €). Screen readers hear "$19.99, per mo, was $29". Plain markup and CSS
-(`styles/components/price.css`), so a server can write it too.
+locale="de-DE"`: 49⁵⁰ €). Screen readers hear "$19.99, per mo, was $29". It's made of the classes below and
+nothing of its own, so a server writes the same markup:
 
-**Everywhere, in the base styles**: `sup` and `sub` (footnotes, marks) no longer push their line away from the
-next. And the font's own features, where it has them: `.nums-tabular` (digits of one width: tables and prices line
-up), `.nums-fractions` (1/2 drawn as a fraction), `.nums-ordinal` and `.small-caps` (acronyms, AM / PM).
+```html
+<s class="fs-50 text-muted"><span class="raised fs-50">$</span>29</s>
+<span class="raised fs-50">$</span>19<span class="raised fs-50">99</span><span class="fs-50 text-muted">/mo</span>
+```
+
+**Classes that combine**: `.raised` (its top level with the text's top: a price's sign and cents, ™ after a name)
+and `.fs-50` / `.fs-75` (half or three quarters of the text around it, whatever its size). `sup` and `sub`
+(footnotes, marks) no longer push their line away from the next. And the font's own features, where it has them:
+`.nums-tabular` (digits of one width: tables and prices line up), `.nums-fractions` (1/2 drawn as a fraction),
+`.nums-ordinal` and `.small-caps` (acronyms, AM / PM).
 
 ## Spacing
 

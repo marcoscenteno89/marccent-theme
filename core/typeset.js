@@ -3,7 +3,7 @@
  *   ...  → …                                  1st, 2nd, 3rd, 4th → the letters raised
  *   10--20, Mon--Fri → 10–20, Mon–Fri (ranges)  word -- word → word—word (a break)
  *   6'2" → 6′2″ (primes, after a number)        m2, ft3 after a number → m², ft³
- *   (tm) (r) (sm) (c) → ™ ® ℠ ©                 ™ ® ℠ raised small (sup.mark-sup)
+ *   (tm) (r) (sm) (c) → ™ ® ℠ ©                 ™ ® ℠ raised small (.raised .fs-50)
  *   a number and its unit (10 kg, 72 °F, 50 %) never split across lines (a no-break space)
  *   with widow: the last two words of a paragraph kept on one line
  * Hyphens are left alone (phone numbers, dates and codes use them). typesetParts() is the rules, as plain strings and
@@ -51,7 +51,7 @@ const typesetParts = (text, { widow = false } = {}) => {
   for (const m of set.matchAll(raised)) {
     const start = m.index + (m[1] ? 1 : 0);
     if (start > at) parts.push(set.slice(at, start));
-    parts.push(m[2] ? { sup: m[2] } : { sup: m[3], className: 'mark-sup' });
+    parts.push(m[2] ? { sup: m[2] } : { sup: m[3], className: 'raised fs-50' });
     at = m.index + m[0].length;
   }
   if (at < set.length) parts.push(set.slice(at));
