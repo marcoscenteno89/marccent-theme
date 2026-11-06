@@ -2,7 +2,6 @@
 import { useRef, useEffect } from 'react';
 import { Icon } from './icon';
 import { cx } from '../../lib/cx';
-import '../../styles/components/clock.css';
 
 // Splits milliseconds into the zero-padded parts Counter shows and reports (tos = hundredths).
 const pad = (n) => String(n).padStart(2, '0');
@@ -60,7 +59,7 @@ const Counter = ({ active, getTime, className }) => {
     if (time) getTime?.(time);
   }, [ active ]);
   return (
-    <small data-component="counter" className={cx('timer', className)}>
+    <small data-component="counter" className={cx('nums-tabular text-nowrap', className)}>
       <Icon name="stopwatch" /> <span ref={ref}>{format(splitTime(0))}</span>
     </small>
   );

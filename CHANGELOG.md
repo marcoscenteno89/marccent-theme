@@ -3,6 +3,55 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.15
+
+The audit of situation-specific classes: components made of classes that combine, and the classes they needed.
+Markup changes for servers that write the theme's HTML (the markup reference has them).
+
+### Added
+- Plain starts, in the lowest layer: `.btn-plain`, `.input-plain`, `.list-plain`, `.caret`; one focus ring for
+  everything a keyboard reaches (base styles), `.focus-inset`.
+- Display and size: `.d-grid`, `.d-inline-grid`, `.d-contents`, `.w-max`, `.h-screen`, `.grow`, `.object-cover`,
+  `.text-nowrap`, `.text-break`, `.font-mono`, `.fs-xs`, `.pad-control`, `.pad-y-control`.
+- Layout: `.layout-icon`, `.rows-body`, `.cols-end`, `.cols-between`, `.content-center`, `.joined`, `.notch-top`,
+  `.notch-bottom`, `.z-1`, `.z-dropdown`, `.z-sticky`, `.z-popup`, `.z-toast`, `.pe-none`, `.pe-auto`.
+- Look: `.chip`, `.bg-muted`, `.bg-primary-tint`, `.bg-inverse`, `.bg-scrim`, `.glass-dark`, `.tint-current`,
+  `.border-start`, `.border-end`, `.border-dashed`, `.hover-muted`, `.hover-opaque`; `.menu-quiet` (a Menu variant).
+
+### Changed
+- Padding (`pad-*`) and placement (`self-*`, `justify-self-*`, `place-self-center`) are unlayered: a class put on an
+  element beats its component's own padding or place.
+- `.input` sets no display, and shows its focus ring while something inside it has focus.
+- Base styles: `pre` has no margin; `canvas` is a block.
+- Markup, by component (old → new):
+  - Menu: a dropdown's summary `menu-link` → `menu-link caret`. NavBar: the main menu adds `menu-quiet` (the look
+    nav.css gave it from outside).
+  - Accordion: the summary adds `caret hover-muted focus-inset`, the body `border-top`.
+  - Modal: the dialog adds `bg-page border round shadow` (the ticket look adds none); the ticket's `modal-neck` /
+    `modal-flare` → `notch-bottom` / `notch-top`; the footer's `style="justify-content:end"` → `cols-end`.
+  - Drawer: adds `bg-page shadow` and `border-start` (`border-end` from the start); its panel's inline rows →
+    `rows-body`.
+  - Tooltip: `float tooltip` → `float bg-inverse round fs-sm pad-xs pad-x-sm pe-none shadow-sm`. Popover: `float
+    popover …` → `float …`. LinkPreview's card: `tooltip-card` dropped.
+  - Map: `map` → `map col-center round overflow-hidden`.
+  - Field: adds `joined`. TagInput: `input row-wrap gap-xs pad-xs`, its list `[data-tags]`, its text field
+    `[data-tag-entry]`, tags `chip pill bg-primary-tint`. FileDrop: the zone `[data-drop-zone]` with `border
+    border-dashed round bg-muted`, items `layout-icon`.
+  - Pagination and StepForm's steps: `page-link …` → `btn-plain … hover-muted tint-current` (`[data-page]`).
+    DataTable's sort buttons: `sort-button` → `btn-plain …` (`[data-sort]`).
+  - Toasts, Rating, Stars, Dock, Compare's tags, Code (its `<pre>` and copy button), TabBar's tabs, Clock, Counter,
+    Price, the layout widgets: their looks as classes (see the components).
+- Board's cells: give a button cell `.btn-plain` (Board no longer strips buttons).
+
+### Removed
+- `styles/components/clock.css`, `close.css`, `canvas.css`, `pagination.css`, `accordion.css`, `tag-input.css`, and
+  their classes (`.timer`, `.btn-close`, `.page-link`, `.sort-button`, `.tag*`); `.toasts`, `.tooltip`,
+  `.tooltip-card`, `.popover`, `.link-preview-image`, `.modal-neck`, `.modal-flare`, `.compare-tag`, `.stars`,
+  `.dock`, `.file-drop-zone`, `.file-drop-item`, `.raised`.
+
+### Fixed
+- B-001: the code block's `<pre>` margin and the copy button's place (Fernway's stopgap removed).
+
 ## 1.0.0-rc.14
 
 Price made of classes that combine, like the rest of the theme.

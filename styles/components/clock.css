@@ -1,6 +1,0 @@
-@import "../layers.css";
-/* CLOCKS (Clock in components/ui/clock.js, Counter in ui/counter.js): even-width digits, so the time doesn't jiggle
-   as it ticks, and never wraps mid-time. */
-@layer components {
-:where(time, .timer) { font-variant-numeric: tabular-nums; white-space: nowrap; }
-}

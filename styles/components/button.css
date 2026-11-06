@@ -105,7 +105,6 @@
    The icon square is tinted with the text color, so it works in light and dark mode. */
 .btn:hover,
 .btn[aria-pressed="true"] { background-color: var(--muted-bg); } /* pressed: a toggle that is on (Minesweeper flag mode) */
-.btn:focus-visible { outline: 0; box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
 .btn-icon { background-color: color-mix(in srgb, currentColor 15%, transparent); }
 
 /* Disabled: faded, with a not-allowed cursor. A <button disabled> ignores clicks itself, so it still takes the

@@ -69,7 +69,6 @@ move it to **Done** with the release, and remove the stopgap from the project in
 
 | ID | Who | Bug | Stopgap today | Fix |
 |---|---|---|---|---|
-| B-001 | Fernway | Code block: the `<pre>` margin and the copy button's place | `site.css` `[data-component="code"] > pre`, `> [data-copy]` | Code's own CSS places them |
 
 ### Whole projects off the theme
 
@@ -85,3 +84,5 @@ move it to **Done** with the release, and remove the stopgap from the project in
 | T-001 | marccent-html, marccent/next, Marccent Local, rc-imp | Map: three own maps (two copies of the sites' `components/apps/map.js`, Marccent Local's `assets/map.js`) replaced by the theme's Map (`components/widgets/map.js`, and `data-component="map"` for the engine) | 1.0.0-rc.6 |
 | T-023 | Fernway | Its own `.eyebrow` redefined the theme's | removed, uses the theme's (1.0.0-rc.6) |
 | B-002 | (reported) | `hover-morph` on a plain box (a button) morphs its corners to `--hover-radius` (default a leaf), keeps the button's color fades, and cuts nothing unless `--hover-shape` is set | 1.0.0-rc.9 |
+| B-001 | Fernway | Code block: the `<pre>` has no margin (base styles), its padding and font from classes, the copy button in a padded corner box; Fernway's `site.css` stopgap removed | 1.0.0-rc.15 |
+| A-001 | every project | Audit of situation-specific classes: components made of classes that combine (about 30 general classes added, 6 component stylesheets removed, nav.css's menu look a `.menu-quiet` variant), padding and placement classes that win over a component's own | 1.0.0-rc.15 |

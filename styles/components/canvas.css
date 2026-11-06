@@ -1,6 +1,0 @@
-@import "../layers.css";
-/* withCanvas (theme/hoc.js) renders this box (w-100 h-100 overflow-hidden); the util Scene draws its <canvas> inside
-   and keeps it the box's size. */
-@layer components {
-.canvas > canvas { display: block; } /* inline canvases leave a line-height gap below */
-}

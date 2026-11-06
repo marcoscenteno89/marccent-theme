@@ -4,7 +4,7 @@ import { cx } from '../../lib/cx';
 import { useInView } from '../../lib/in-view';
 import { toastSI } from '../../lib/toasts';
 import { Button } from './button';
-import { CodeView, dedent, copyCode, MONO, FORMATS } from '../../core/code-view';
+import { CodeView, dedent, copyCode, FORMATS } from '../../core/code-view';
 
 /*
  * Code: a code block on CodeMirror 6, read-only or (with onChange) an editor for an admin's code field, highlighted
@@ -58,20 +58,20 @@ const Code = ({ children, lang = 'jsx', onChange, label, minLines, className }) 
     <div ref={box} data-component="code" data-lang={lang} className={cx(editable ? 'grid cols-1 gap-0' : 'stack', 'bg border round', className)}>
       {!ready && (
         // tabIndex: a box that scrolls sideways needs the keyboard too.
-        <pre tabIndex={0} className="fs-sm overflow-auto" style={{ margin: 0, padding: 'var(--space-sm)', fontFamily: MONO, lineHeight: 'var(--line-height)',
-          ...(editable && { minHeight: `${(minLines ?? 4) * 1.5}em` }) }}>
+        <pre tabIndex={0} className="fs-sm font-mono pad-sm overflow-auto" style={editable ? { minHeight: `${(minLines ?? 4) * 1.5}em` } : undefined}>
           <code>{code}</code>
         </pre>
       )}
       <div ref={host} data-code-host className="overflow-hidden" />
       {editable && FORMATS[lang] && (
         <div className="grid cols-1 pad-xs border-top">
-          <Button icon="wand-magic-sparkles" data-format style={{ justifySelf: 'end' }} title="Lay the code out (Shift+Alt+F)" onClick={() => view.current?.format()}>Format</Button>
+          <Button icon="wand-magic-sparkles" data-format className="justify-self-end" title="Lay the code out (Shift+Alt+F)" onClick={() => view.current?.format()}>Format</Button>
         </div>
       )}
       {!editable && (
-        <Button icon="copy" aria-label="Copy code" title="Copy" data-copy onClick={copy}
-          style={{ placeSelf: 'start end', margin: 'var(--space-xs)' }} />
+        <div className="self-start justify-self-end pad-xs">
+          <Button icon="copy" aria-label="Copy code" title="Copy" data-copy onClick={copy} />
+        </div>
       )}
     </div>
   );

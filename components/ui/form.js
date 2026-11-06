@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { cx } from '../../lib/cx';
 import { Button } from './button';
 import '../../styles/components/form.css';
-import '../../styles/components/pagination.css';
 
 // Values of a form as a plain object: { name: value }. Several fields with one name (checkboxes) keep the last.
 const formValues = (form) => Object.fromEntries(new FormData(form));
@@ -115,7 +114,7 @@ const StepForm = ({ onSubmit, onStep, className = 'grid cols-1 gap-sm', children
       <div className="grid fixed gap-0 divide border round" style={{ '--cols': steps.length }}>
         {steps.map((step, i) => (
           <button data-component="button" data-name={step.props.name} key={step.props.name} type="button" aria-current={i === current ? 'step' : undefined}
-            className="page-link col-center w-100 h-100"
+            className="btn-plain col-center w-100 h-100 pad-y-control pad-x-xs text-primary hover-muted tint-current"
             onClick={() => go(i)}>
             {i + 1}. {step.props.name}
           </button>

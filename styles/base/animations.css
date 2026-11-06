@@ -196,5 +196,5 @@
   .divider > i { animation: none; }
   .collapse,
   .accordion > details::details-content,
-  .accordion > details > summary::after { transition: none; } /* beats the caret transition in components/accordion.css */
+  .accordion > details > summary::after { transition: none; } /* beats the caret's transition (.caret, base.css) */
 }

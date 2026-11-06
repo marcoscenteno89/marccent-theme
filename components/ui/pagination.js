@@ -1,10 +1,9 @@
 'use client';
 import { cx } from '../../lib/cx';
-import '../../styles/components/pagination.css';
 
 // One pagination button. Outside Pagination, so it keeps its identity (and keyboard focus) across renders.
 const PageCell = ({ page, label, disabled, current, update, children }) => (
-  <button data-component="button" data-name={label ?? page} type="button" className="page-link col-center w-100 h-100"
+  <button data-component="button" data-name={label ?? page} type="button" data-page={page} className="btn-plain col-center w-100 h-100 pad-y-control pad-x-xs text-primary hover-muted tint-current"
     disabled={disabled} aria-label={label} aria-current={page === current && !label ? 'page' : undefined} onClick={() => update(page)}>
     {children}
   </button>
@@ -12,7 +11,8 @@ const PageCell = ({ page, label, disabled, current, update, children }) => (
 
 /**
  * Pagination: first, previous, one button per page, next, last, as one row of
- * equal cells (grid fixed, --cols = pages + 4). Layout in styles/components/pagination.css, colors in colors.css.
+ * equal cells (grid fixed, --cols = pages + 4), each a plain button (btn-plain) with the current page tinted
+ * (tint-current).
  * @param {number} total - Number of items. @param {number} pageSize - Items per page.
  * @param {number} current - Current page (1-based). @param {Function} update - Called with the page to show.
  * @param {string} [className] - Extra classes on the nav (default only "grid fixed gap-0"; add e.g.

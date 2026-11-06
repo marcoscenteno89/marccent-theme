@@ -27,14 +27,10 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 .menu-link:has(> i:only-child) { padding: 0; }
 
 .menu-link:hover { background-color: var(--muted-bg); }
-.menu-link:focus-visible { outline: 0; box-shadow: 0 0 0 var(--focus-width) var(--focus-ring); }
 
 /* Dropdown: the panel floats over the page (the one non-grid rule: an overlay can't take grid space). */
 .menu-dropdown { position: relative; }
-.menu-dropdown > summary { list-style: none; }                           /* hide the default triangle */
-.menu-dropdown > summary::-webkit-details-marker { display: none; }      /* Safari */
-.menu-dropdown > summary::after { content: '\25BE'; transition: rotate var(--duration); } /* ▾ caret */
-.menu-dropdown[open] > summary::after { rotate: 180deg; }
+/* Its summary is a .caret (base.css): ▾ after it, turned while open. */
 
 .menu-panel {
   position: absolute;
@@ -100,4 +96,62 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
     box-shadow: none;
   }
   .menu-dropdown.menu-sub[open] > summary::after { rotate: 90deg; }
+}
+
+/* QUIET (.menu-quiet on a Menu: NavBar's main menu, Bootstrap's .nav-link look). Links in a dimmed text color that
+   goes fuller on hover and full on the current page and an open dropdown, with no hover fill; a triangle caret that
+   doesn't turn; dropdowns a bordered list with padding above and below only and no shadow, their items full width and
+   square, the current one in the primary. currentColor throughout, so it works on a color fill too. */
+@layer components {
+.menu-quiet > :is(.menu-link, .menu-dropdown > summary) {
+  padding: var(--space-sm);
+  color: color-mix(in srgb, currentColor 65%, transparent);
+  transition: color var(--duration);
+}
+.menu-quiet > :is(.menu-link, .menu-dropdown > summary):is(:hover, :focus-visible) {
+  background-color: transparent;
+  color: color-mix(in srgb, currentColor 80%, transparent);
+}
+.menu-quiet > :is(.menu-link[aria-current], .menu-dropdown[open] > summary) { color: inherit; }
+.menu-quiet .menu-dropdown > summary { gap: var(--space-xs); }
+.menu-quiet .menu-dropdown > summary::after {
+  content: '';
+  border-top: .3em solid;
+  border-inline: .3em solid transparent;
+  transition: none;
+}
+.menu-quiet .menu-dropdown[open] > summary::after { rotate: none; }
+.menu-quiet .menu-sub > summary { grid-template-columns: minmax(0, 1fr) auto; }
+.menu-quiet .menu-sub > summary::after {
+  border-block: .3em solid transparent;
+  border-inline: .3em solid transparent;
+  border-inline-start-color: currentColor;
+  border-inline-end-width: 0;
+}
+.menu-quiet .menu-panel .menu-link {
+  display: grid;
+  padding: var(--space-xs) var(--space);
+  border-radius: 0;
+}
+.menu-quiet .menu-panel .menu-link[aria-current] { background-color: var(--primary); color: var(--primary-text); }
+.menu-quiet .menu-dropdown:not(.menu-sub) > .menu-panel { top: calc(100% + .125rem); }
+}
+/* Unlayered, two classes deep, to take back what the panel's utility classes give it (pad, gap-sm, shadow). A
+   submenu's top lines up with its row, beside the panel. */
+.menu-quiet .menu-panel {
+  padding: var(--space-sm) 0;
+  row-gap: 0;
+  box-shadow: none;
+}
+.menu-quiet .menu-sub > .menu-panel { top: calc(-1 * (var(--space-sm) + var(--border-width))); left: calc(100% + .125rem); }
+/* Wide container: a dropdown as wide as its widest item, and never under 10rem; and solid, so its submenus have a
+   backdrop where panels are glass. !important: .glass .bg's background is. */
+@container (width >= 56rem) {
+  .menu-quiet .menu-dropdown > .menu-panel {
+    width: max-content;
+    min-width: 10rem;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: var(--surface) !important;
+  }
 }

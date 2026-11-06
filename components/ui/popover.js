@@ -51,7 +51,7 @@ const Tooltip = ({ content, side = 'top', delay = 150, interactive = false, clas
     <>
       {trigger}
       <div ref={box} id={id} role="tooltip" popover="manual" data-component="tooltip" data-placement={side}
-        className={cx('float', interactive ? 'tooltip-card bg border round shadow' : 'tooltip', className)}>
+        className={cx(interactive ? 'float bg border round shadow' : 'float bg-inverse round fs-sm pad-xs pad-x-sm pe-none shadow-sm', className)}>
         {content}
       </div>
     </>
@@ -73,7 +73,7 @@ const Tooltip = ({ content, side = 'top', delay = 150, interactive = false, clas
 const LinkPreview = ({ image, title, text, side = 'top', children }) => (
   <Tooltip interactive side={side} delay={300} content={
     <div className="grid cols-1 gap-0">
-      {image && <img src={image} alt="" className="link-preview-image" />}
+      {image && <img src={image} alt="" className="d-block w-100 ratio-16x9 object-cover" />}
       <div className="grid cols-1 gap-sm pad-sm">
         <strong>{title}</strong>
         {text && <span className="fs-sm opacity-75">{text}</span>}
@@ -115,7 +115,7 @@ const Popover = ({ content, label, side = 'bottom', className = 'bg border round
   return (
     <>
       {cloneElement(children, { id: anchorId, popovertarget: id })}
-      <div ref={box} id={id} popover="auto" role="group" aria-label={label} data-component="popover" data-placement={side} className={cx('float popover', className)}>
+      <div ref={box} id={id} popover="auto" role="group" aria-label={label} data-component="popover" data-placement={side} className={cx('float', className)}>
         {content}
       </div>
     </>

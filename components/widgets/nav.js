@@ -102,8 +102,7 @@ const TabBar = ({ tabs, className }) => {
         <div ref={list} role="tablist" className="grid fixed gap-0" style={{ '--cols': tabs.length }} onKeyDown={key}>
           {tabs.map((t, i) => (
             <button data-component="button" data-name={t.label} key={t.label} type="button" role="tab" aria-selected={i === active} tabIndex={i === active ? 0 : -1}
-              onClick={() => setActive(i)} className={cx('center gap-sm pad-sm icon-only-sm', i === active ? 'text-primary fw-bold' : 'opacity-75')}
-              style={{ border: 0, background: 'none', color: i === active ? undefined : 'inherit', cursor: 'pointer', transition: 'opacity var(--duration)' }}>
+              onClick={() => setActive(i)} className={cx('btn-plain center gap-sm pad-sm icon-only-sm', i === active ? 'text-primary fw-bold' : 'opacity-75')}>
               {t.icon && <Icon name={t.icon} />}<span className="btn-text">{t.label}</span>
             </button>
           ))}
@@ -127,11 +126,11 @@ const TabBar = ({ tabs, className }) => {
  * @example <Dock items={[ { icon: 'house', label: 'Home', href: '/' }, { icon: 'fa-brands fa-github', label: 'GitHub', href: gh, external: true } ]} />
  */
 const Dock = ({ items, label = 'Dock', className }) => (
-  <nav data-component="dock" aria-label={label} className={cx('dock bg border pill shadow', className)}>
-    <ul className="dock-items">
+  <nav data-component="dock" aria-label={label} className={cx('d-grid w-max justify-self-center pad-xs bg border pill shadow', className)}>
+    <ul className="dock-items list-plain d-grid auto-cols items-end gap-xs">
       {items.map((item) => {
         const icon = item.icon.startsWith('fa-') ? <Icon family={false} className={item.icon} /> : <Icon name={item.icon} />;
-        const props = { className: 'dock-item circle col-center', 'aria-label': item.label };
+        const props = { className: 'dock-item btn-plain bg-muted circle col-center', 'aria-label': item.label };
         return (
           <li key={item.label}>
             <Tooltip content={item.label}>

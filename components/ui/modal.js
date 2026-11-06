@@ -20,8 +20,8 @@ const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
   if (variant === 'ticket') return (
     <div data-component="modal-panel" className="grid cols-1 gap-0">
       <div className="header pad bg-gradient text-center"><h2 id={titleId} className="h4">{title}</h2></div>
-      <div className="modal-neck bg-gradient" />
-      <div className="modal-flare bg" />
+      <div className="notch-bottom bg-gradient" />
+      <div className="notch-top bg" />
       <div className="bg pad-x grid cols-1">{children}</div>
       <div className="bg pad grid auto-cols cols-center gap-sm">{footer}{close}</div>
     </div>
@@ -33,7 +33,7 @@ const ModalPanel = ({ title, titleId, onClose, footer, variant, children }) => {
         <Button icon="xmark" aria-label="Close" data-close onClick={onClose} />
       </div>
       <div className="pad grid cols-1">{children}</div>
-      <div className="grid auto-cols items-center gap-sm pad" style={{ justifyContent: 'end' }}>{footer}{close}</div>
+      <div className="grid auto-cols cols-end items-center gap-sm pad">{footer}{close}</div>
     </div>
   );
 };
@@ -60,7 +60,7 @@ const Modal = ({ title, show, setShow, footer, variant, children }) => {
   const titleId = useId();
   // The dialog has no padding, so a click whose target is the dialog itself landed on the backdrop.
   return (
-    <dialog ref={ref} data-component="modal" className={cx('modal', variant)} aria-labelledby={titleId} onClose={() => setShow(false)}
+    <dialog ref={ref} data-component="modal" className={cx('modal', variant === 'ticket' ? 'ticket' : 'bg-page border round shadow')} aria-labelledby={titleId} onClose={() => setShow(false)}
       onClick={(e) => e.target === ref.current && setShow(false)}>
       <ModalPanel title={title} titleId={titleId} onClose={() => setShow(false)} footer={footer} variant={variant}>{children}</ModalPanel>
     </dialog>
@@ -80,9 +80,9 @@ const Drawer = ({ title, show, setShow, side = 'end', footer, className, childre
   const ref = useDialog(show);
   const titleId = useId();
   return (
-    <dialog ref={ref} data-component="drawer" data-side={side} className={cx('modal drawer', className)} aria-labelledby={titleId}
+    <dialog ref={ref} data-component="drawer" data-side={side} className={cx('modal drawer bg-page shadow', side === 'start' ? 'border-end' : 'border-start', className)} aria-labelledby={titleId}
       onClose={() => setShow(false)} onClick={(e) => e.target === ref.current && setShow(false)}>
-      <div className="grid cols-1 gap-0 divide h-100" style={{ gridTemplateRows: 'auto minmax(0, 1fr)', gridAutoRows: 'auto' }}>
+      <div className="grid cols-1 rows-body gap-0 divide h-100">
         <div className="header pad">
           <h2 id={titleId} className="h5">{title}</h2>
           <Button icon="xmark" aria-label="Close" data-close onClick={() => setShow(false)} />

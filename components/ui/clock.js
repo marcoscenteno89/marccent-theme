@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
+import { cx } from '../../lib/cx';
 import { watchInView } from '../../lib/in-view';
-import '../../styles/components/clock.css';
 
 /**
  * LiveClock: writes the time into a <time> element every second while it's on screen. format is a dayjs format
@@ -42,7 +42,7 @@ const Clock = ({ format = 'h:mm:ss A', className = '' }) => {
     const clock = new LiveClock(ref.current, format);
     return () => clock.destroy();
   }, [ format ]);
-  return <time ref={ref} data-component="clock" className={className}>{' '}</time>;
+  return <time ref={ref} data-component="clock" className={cx('nums-tabular text-nowrap', className)}>{' '}</time>;
 }
 
 export { Clock, LiveClock };

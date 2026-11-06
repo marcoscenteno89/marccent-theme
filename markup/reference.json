@@ -259,7 +259,7 @@
           }
         ]
       },
-      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Fernway, home\"><span class=\"fw-bold\">Fernway</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"bars\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols\" style=\"--cols:2\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a></nav></div></div></header>"
+      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Fernway, home\"><span class=\"fw-bold\">Fernway</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"bars\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols menu-quiet\" style=\"--cols:2\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a></nav></div></div></header>"
     },
     {
       "case": "a logo, a dropdown and a submenu",
@@ -300,7 +300,7 @@
           }
         ]
       },
-      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Q&amp;A Co, home\"><img src=\"/media/logo.png\" alt=\"Q&amp;A Co\" style=\"height:2.5rem;width:auto\"/><span class=\"fw-bold\">Q&amp;A Co</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"bars\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols\" style=\"--cols:3\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link\"><span class=\"text-truncate\">Products</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/payments/\" class=\"menu-link\"><span class=\"text-truncate\">Payments</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown menu-sub\"><summary class=\"menu-link\"><span class=\"text-truncate\">More</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/more/billing/\" class=\"menu-link\"><span class=\"text-truncate\">Billing</span></a></div></details></div></details><a data-component=\"menu-link\" href=\"/contact/\" class=\"menu-link\"><span class=\"text-truncate\">Contact</span></a></nav></div></div></header>"
+      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Q&amp;A Co, home\"><img src=\"/media/logo.png\" alt=\"Q&amp;A Co\" style=\"height:2.5rem;width:auto\"/><span class=\"fw-bold\">Q&amp;A Co</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"bars\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols menu-quiet\" style=\"--cols:3\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">Products</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/payments/\" class=\"menu-link\"><span class=\"text-truncate\">Payments</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown menu-sub\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">More</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/more/billing/\" class=\"menu-link\"><span class=\"text-truncate\">Billing</span></a></div></details></div></details><a data-component=\"menu-link\" href=\"/contact/\" class=\"menu-link\"><span class=\"text-truncate\">Contact</span></a></nav></div></div></header>"
     }
   ],
   "menu": [
@@ -327,7 +327,7 @@
           }
         ]
       },
-      "html": "<nav data-component=\"menu\" class=\"menu grid gap-sm fixed\" style=\"--cols:2\" aria-label=\"Footer\"><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link\"><span class=\"text-truncate\">Help</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/help/faq/\" class=\"menu-link\"><span class=\"text-truncate\">FAQ</span></a></div></details></nav>"
+      "html": "<nav data-component=\"menu\" class=\"menu grid gap-sm fixed\" style=\"--cols:2\" aria-label=\"Footer\"><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">Help</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/help/faq/\" class=\"menu-link\"><span class=\"text-truncate\">FAQ</span></a></div></details></nav>"
     },
     {
       "case": "icon-only social links, external",
@@ -387,7 +387,7 @@
         "variant": "",
         "content": "<p>Inside</p>"
       },
-      "html": "<dialog data-component=\"modal\" class=\"modal\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0 divide\"><div class=\"header pad\"><h2 id=\"id-1\" class=\"h5\">Contact sales</h2><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1\"><p>Inside</p></div><div class=\"grid auto-cols items-center gap-sm pad\" style=\"justify-content:end\"><button type=\"button\" class=\"btn\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
+      "html": "<dialog data-component=\"modal\" class=\"modal bg-page border round shadow\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0 divide\"><div class=\"header pad\"><h2 id=\"id-1\" class=\"h5\">Contact sales</h2><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1\"><p>Inside</p></div><div class=\"grid auto-cols cols-end items-center gap-sm pad\"><button type=\"button\" class=\"btn\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
     },
     {
       "case": "the ticket look",
@@ -396,7 +396,7 @@
         "variant": "ticket",
         "content": "<p>Inside</p>"
       },
-      "html": "<dialog data-component=\"modal\" class=\"modal ticket\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0\"><div class=\"header pad bg-gradient text-center\"><h2 id=\"id-1\" class=\"h4\">You’re in</h2></div><div class=\"modal-neck bg-gradient\"></div><div class=\"modal-flare bg\"></div><div class=\"bg pad-x grid cols-1\"><p>Inside</p></div><div class=\"bg pad grid auto-cols cols-center gap-sm\"><button type=\"button\" class=\"btn gradient\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
+      "html": "<dialog data-component=\"modal\" class=\"modal ticket\" aria-labelledby=\"id-1\"><div data-component=\"modal-panel\" class=\"grid cols-1 gap-0\"><div class=\"header pad bg-gradient text-center\"><h2 id=\"id-1\" class=\"h4\">You’re in</h2></div><div class=\"notch-bottom bg-gradient\"></div><div class=\"notch-top bg\"></div><div class=\"bg pad-x grid cols-1\"><p>Inside</p></div><div class=\"bg pad grid auto-cols cols-center gap-sm\"><button type=\"button\" class=\"btn gradient\" aria-label=\"Close\" title=\"Close\" data-component=\"button\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Close</span></button></div></div></dialog>"
     }
   ],
   "drawer": [
@@ -407,7 +407,7 @@
         "side": "start",
         "content": "<p>Inside</p>"
       },
-      "html": "<dialog data-component=\"drawer\" data-side=\"start\" class=\"modal drawer\" aria-labelledby=\"id-1\"><div class=\"grid cols-1 gap-0 divide h-100\" style=\"grid-template-rows:auto minmax(0, 1fr);grid-auto-rows:auto\"><div class=\"header pad\"><h2 id=\"id-1\" class=\"h5\">Changelog</h2><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1 content-start overflow-auto\"><p>Inside</p></div></div></dialog>"
+      "html": "<dialog data-component=\"drawer\" data-side=\"start\" class=\"modal drawer bg-page shadow border-end\" aria-labelledby=\"id-1\"><div class=\"grid cols-1 rows-body gap-0 divide h-100\"><div class=\"header pad\"><h2 id=\"id-1\" class=\"h5\">Changelog</h2><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Close\" data-close=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-xmark btn-icon\" aria-hidden=\"true\"></i></button></div><div class=\"pad grid cols-1 content-start overflow-auto\"><p>Inside</p></div></div></dialog>"
     }
   ],
   "accordion": [
@@ -427,7 +427,7 @@
           }
         ]
       },
-      "html": "<div data-component=\"accordion\" class=\"accordion grid cols-1 gap-0 divide border round\"><details data-component=\"accordion-item\" name=\"id-1\" open=\"\"><summary class=\"header pad-sm\">What is it?</summary><div class=\"pad-sm\"><p>Inside</p></div></details><details data-component=\"accordion-item\" name=\"id-1\"><summary class=\"header pad-sm\">Q&amp;A &lt;here&gt;</summary><div class=\"pad-sm\"><p>Inside</p></div></details></div>"
+      "html": "<div data-component=\"accordion\" class=\"accordion grid cols-1 gap-0 divide border round\"><details data-component=\"accordion-item\" name=\"id-1\" open=\"\"><summary class=\"header pad-sm caret hover-muted focus-inset\">What is it?</summary><div class=\"pad-sm border-top\"><p>Inside</p></div></details><details data-component=\"accordion-item\" name=\"id-1\"><summary class=\"header pad-sm caret hover-muted focus-inset\">Q&amp;A &lt;here&gt;</summary><div class=\"pad-sm border-top\"><p>Inside</p></div></details></div>"
     }
   ],
   "tooltip": [
@@ -438,7 +438,7 @@
         "content": "Copy the link",
         "side": "top"
       },
-      "html": "<button type=\"button\" class=\"btn-link\" id=\"id-1-anchor\" aria-describedby=\"id-1\">Hover me</button><div id=\"id-1\" role=\"tooltip\" popover=\"manual\" data-component=\"tooltip\" data-placement=\"top\" class=\"float tooltip\">Copy the link</div>"
+      "html": "<button type=\"button\" class=\"btn-link\" id=\"id-1-anchor\" aria-describedby=\"id-1\">Hover me</button><div id=\"id-1\" role=\"tooltip\" popover=\"manual\" data-component=\"tooltip\" data-placement=\"top\" class=\"float bg-inverse round fs-sm pad-xs pad-x-sm pe-none shadow-sm\">Copy the link</div>"
     }
   ],
   "popover": [
@@ -450,7 +450,7 @@
         "side": "bottom",
         "content": "<p>Inside</p>"
       },
-      "html": "<button type=\"button\" class=\"btn\" id=\"id-1-anchor\" popovertarget=\"id-1\">Filters</button><div id=\"id-1\" popover=\"auto\" role=\"group\" aria-label=\"Filters\" data-component=\"popover\" data-placement=\"bottom\" class=\"float popover bg border round shadow pad-sm\"><p>Inside</p></div>"
+      "html": "<button type=\"button\" class=\"btn\" id=\"id-1-anchor\" popovertarget=\"id-1\">Filters</button><div id=\"id-1\" popover=\"auto\" role=\"group\" aria-label=\"Filters\" data-component=\"popover\" data-placement=\"bottom\" class=\"float bg border round shadow pad-sm\"><p>Inside</p></div>"
     }
   ],
   "alert": [
@@ -476,7 +476,7 @@
         "link": "https://maps.google.com/?q=43.49,-112.034",
         "embed": "https://www.google.com/maps?q=43.49,-112.034&output=embed"
       },
-      "html": "<div data-component=\"map\" class=\"map\" data-key=\"AIza-example\" data-lat=\"43.49\" data-lng=\"-112.034\" data-zoom=\"12\" data-marker=\"\" data-title=\"Our shop\" data-link=\"https://maps.google.com/?q=43.49,-112.034\" data-embed=\"https://www.google.com/maps?q=43.49,-112.034&amp;output=embed\"></div>"
+      "html": "<div data-component=\"map\" class=\"map col-center round overflow-hidden\" data-key=\"AIza-example\" data-lat=\"43.49\" data-lng=\"-112.034\" data-zoom=\"12\" data-marker=\"\" data-title=\"Our shop\" data-link=\"https://maps.google.com/?q=43.49,-112.034\" data-embed=\"https://www.google.com/maps?q=43.49,-112.034&amp;output=embed\"></div>"
     },
     {
       "case": "no key: the embed only",
@@ -490,7 +490,7 @@
         "link": "",
         "embed": "https://www.google.com/maps?q=New+York&output=embed"
       },
-      "html": "<div data-component=\"map\" class=\"map\" data-lat=\"40.7128\" data-lng=\"-74.006\" data-zoom=\"10\" data-title=\"New York\" data-embed=\"https://www.google.com/maps?q=New+York&amp;output=embed\"></div>"
+      "html": "<div data-component=\"map\" class=\"map col-center round overflow-hidden\" data-lat=\"40.7128\" data-lng=\"-74.006\" data-zoom=\"10\" data-title=\"New York\" data-embed=\"https://www.google.com/maps?q=New+York&amp;output=embed\"></div>"
     },
     {
       "case": "pins, clustered",
@@ -523,7 +523,7 @@
         ],
         "cluster": true
       },
-      "html": "<div data-component=\"map\" class=\"map\" data-key=\"AIza-example\" data-lat=\"43.49\" data-lng=\"-112.034\" data-zoom=\"8\" data-title=\"Our locations\" data-markers=\"[{&quot;lat&quot;:43.4917,&quot;lng&quot;:-112.0339,&quot;title&quot;:&quot;Idaho Falls&quot;},{&quot;lat&quot;:43.6135,&quot;lng&quot;:-116.2034,&quot;title&quot;:&quot;Boise&quot;,&quot;link&quot;:&quot;https://maps.google.com/?q=Boise&quot;},{&quot;lat&quot;:42.8713,&quot;lng&quot;:-112.4455,&quot;title&quot;:&quot;Pocatello&quot;}]\"></div>"
+      "html": "<div data-component=\"map\" class=\"map col-center round overflow-hidden\" data-key=\"AIza-example\" data-lat=\"43.49\" data-lng=\"-112.034\" data-zoom=\"8\" data-title=\"Our locations\" data-markers=\"[{&quot;lat&quot;:43.4917,&quot;lng&quot;:-112.0339,&quot;title&quot;:&quot;Idaho Falls&quot;},{&quot;lat&quot;:43.6135,&quot;lng&quot;:-116.2034,&quot;title&quot;:&quot;Boise&quot;,&quot;link&quot;:&quot;https://maps.google.com/?q=Boise&quot;},{&quot;lat&quot;:42.8713,&quot;lng&quot;:-112.4455,&quot;title&quot;:&quot;Pocatello&quot;}]\"></div>"
     }
   ]
 }

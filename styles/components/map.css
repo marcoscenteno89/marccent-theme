@@ -1,13 +1,8 @@
 @import "../layers.css";
-/* MAP (Map in components/widgets/map.js, or <div data-component="map" class="map"> for the markup engine). A box
-   Google fills; its height is --map-height (taller on wide screens than a phone's), or the box's own. Rounded like
-   the theme's panels; whatever is in it before the map draws (a no-script link) sits in the middle. */
+/* MAP (Map in components/widgets/map.js, or <div data-component="map" class="map col-center round overflow-hidden">
+   for the markup engine). A box Google fills; col-center (whatever is in it before the map draws, a no-script link,
+   sits in the middle), round and overflow-hidden on the markup. Its height: --map-height (taller on wide screens than
+   a phone's), or the box's own. */
 @layer components {
-.map {
-  display: grid;
-  place-items: center;
-  min-height: var(--map-height, 25rem);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
+.map { min-height: var(--map-height, 25rem); }
 }

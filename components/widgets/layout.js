@@ -4,14 +4,10 @@ import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
 
 /*
- * Layout widgets: honeycombs (HexGrid, HexWall), a timeline and cards (TicketCard, StatCard, ImageCard). No CSS of their own: grid, stack,
- * shape and color classes, and inline styles for what only the component knows (positions, sizes, turns).
+ * Layout widgets: honeycombs (HexGrid, HexWall), a timeline and cards (TicketCard, StatCard, ImageCard). No CSS of
+ * their own: the theme's classes (grid, stack, shape, color: bg-primary-tint, glass-dark), and inline styles for what
+ * only the component knows (positions, sizes, turns, the overlays on a photo).
  */
-
-// A light wash of the primary over the surface: cards that sit on a .bg panel still stand out from it.
-const TINT = 'color-mix(in srgb, var(--primary) 14%, var(--surface))';
-// Text on TINT: the page's, also when the card sits in a colored band.
-const ON_TINT = 'var(--body-color)';
 
 /**
  * HexGrid: its children as interlocking hexagons, on a grid. Every row track is a quarter of a hexagon; each hexagon
@@ -81,7 +77,7 @@ const HexWall = ({ people, perRow = 4, className, style }) => (
  * @param {{ date: string, title: string, text?: React.ReactNode, icon?: string }[]} events
  */
 const Timeline = ({ events, className, style }) => (
-  <ol data-component="timeline" className={cx('grid cols-1 gap-0', className)} style={{ margin: 0, padding: 0, listStyle: 'none', ...style }}>
+  <ol data-component="timeline" className={cx('list-plain grid cols-1 gap-0', className)} style={style}>
     {events.map((e, i) => (
       <li key={i} className="grid gap-0" style={{ gridTemplateColumns: '2.5rem auto minmax(0, 1fr)' }}>
         {/* The line (the full height of the row, so the rows join up) with the marker over it. */}
@@ -92,8 +88,8 @@ const Timeline = ({ events, className, style }) => (
             <Icon name={e.icon ?? 'circle'} style={{ fontSize: '.8em' }} />
           </div>
         </div>
-        <div className="shape-triangle-left self-start" style={{ width: '.75rem', marginTop: '.85rem', marginLeft: '.5rem', background: TINT }} />
-        <div className="round pad grid cols-1 gap-0" style={{ marginBottom: 'var(--space)', background: TINT, color: ON_TINT }}>
+        <div className="shape-triangle-left self-start bg-primary-tint" style={{ width: '.75rem', marginTop: '.85rem', marginLeft: '.5rem' }} />
+        <div className="round pad grid cols-1 gap-0 bg-primary-tint" style={{ marginBottom: 'var(--space)' }}>
           <small className="text-primary fw-bold">{e.date}</small>
           <strong>{e.title}</strong>
           {e.text && <p className="opacity-75">{e.text}</p>}
@@ -118,14 +114,14 @@ const Timeline = ({ events, className, style }) => (
  */
 const TicketCard = ({ label, title, note, items = [], action, ribbon, className }) => (
   <div data-component="ticket-card" className={cx('stack hover-holographic', className)}>
-    <div className="shape-ticket grid cols-1 gap-0" style={{ aspectRatio: 'auto', '--notch': '1rem', gridTemplateRows: '1fr 1fr', background: TINT, color: ON_TINT }}>
+    <div className="shape-ticket grid cols-1 gap-0 bg-primary-tint" style={{ aspectRatio: 'auto', '--notch': '1rem', gridTemplateRows: '1fr 1fr' }}>
       {/* Two equal rows, so the tear line between them runs between the notches. */}
-      <div className="grid cols-1 gap-sm pad text-center" style={{ alignContent: 'center', borderBottom: '2px dashed var(--border-color)' }}>
+      <div className="grid cols-1 gap-sm pad text-center content-center border-bottom border-dashed">
         {label && <strong className="text-uppercase opacity-75">{label}</strong>}
         <div><span className="display text-primary fw-bold">{title}</span>{note && <small className="opacity-75"> {note}</small>}</div>
         {action}
       </div>
-      <ul className="grid cols-1 gap-sm pad" style={{ alignContent: 'center' }}>
+      <ul className="list-plain grid cols-1 gap-sm pad content-center">
         {items.map(item => {
           const { icon, text } = typeof item === 'string' ? { icon: 'check', text: item } : item;
           return <li key={text} className="grid auto-cols gap-sm items-center"><Icon name={icon} className="text-secondary" />{text}</li>;
@@ -133,8 +129,8 @@ const TicketCard = ({ label, title, note, items = [], action, ribbon, className 
       </ul>
     </div>
     {ribbon && (
-      <span className="shape-ribbon bg-gradient col-center fw-bold fs-sm self-start"
-        style={{ justifySelf: 'end', aspectRatio: 'auto', padding: '.3rem 1.5rem', marginTop: '1rem' }}>{ribbon}</span>
+      <span className="shape-ribbon bg-gradient col-center fw-bold fs-sm self-start justify-self-end pad-y-xs pad-x-lg"
+        style={{ aspectRatio: 'auto', marginTop: '1rem' }}>{ribbon}</span>
     )}
   </div>
 );
@@ -160,7 +156,7 @@ const StatCard = ({ icon, value, label, accent, fill, text, children, className,
   <div data-component="stat-card" data-name={name} className={cx('cq round shadow pad grid cols-1 gap-lg text-center hover-holographic', className)}
     style={{ minHeight: '7rem', color: 'var(--body-color)', gridTemplateRows: '1fr auto' }}>
     {/* Two rows: the content, then the actions pinned to the bottom, so buttons line up across a row of cards. */}
-    <div className="grid cols-1 gap-lg justify-center" style={{ alignContent: 'start' }}>
+    <div className="grid cols-1 gap-lg justify-center content-start">
       {/* The icon inside a ring (.shape-ring), 70% of the card's width (at most 12rem on wide cards): a faint full
           circle, and over it the filled part, if any. The ring is a container (.cq), so the icon scales with it. */}
       <div className="stack cq" style={{ width: 'min(70%, 12rem)', aspectRatio: 1, placeItems: 'center' }}>
@@ -170,9 +166,9 @@ const StatCard = ({ icon, value, label, accent, fill, text, children, className,
       </div>
       <div className="grid cols-1 gap-0 w-100">
         {value != null && <strong className="display-sm">{value}</strong>}
-        {label && <small className="text-truncate" style={{ opacity: .85 }}>{label}</small>}
+        {label && <small className="text-truncate opacity-75">{label}</small>}
       </div>
-      {text && <div style={{ opacity: .85 }}>{text}</div>}
+      {text && <div className="opacity-75">{text}</div>}
     </div>
     {children && <div className="row-wrap gap-sm w-100">{children}</div>}
   </div>
@@ -182,9 +178,6 @@ const StatCard = ({ icon, value, label, accent, fill, text, children, className,
 const FADE = 'linear-gradient(to top, rgb(0 0 0 / .8), rgb(0 0 0 / .35) 45%, transparent 75%)';
 const SOFT = 'linear-gradient(to top, rgb(0 0 0 / .55), transparent 60%)';
 const BLUR_MASK = { blur: 'linear-gradient(to top, #000 40%, transparent 72%)', focus: 'radial-gradient(circle at 50% 45%, transparent 28%, #000 60%)' };
-// Dark frosted glass: the light text reads on it even over a white photo (snow, sky).
-const GLASS = { background: 'rgb(10 14 22 / .32)', border: '1px solid rgb(255 255 255 / .22)', borderRadius: 'var(--radius)',
-  WebkitBackdropFilter: 'blur(14px) saturate(160%)', backdropFilter: 'blur(14px) saturate(160%)', boxShadow: 'inset 0 1px 0 rgb(255 255 255 / .35)' };
 
 /**
  * ImageCard: a photo that fills the card, with its text and buttons in front of it. The light text always sits on
@@ -242,14 +235,15 @@ const ImageCard = ({ src, canvas, fps, colors, alt = '', label, title, text, chi
       {overlay !== 'none' && overlay !== 'glass' && <div style={{ position: 'relative', background: centered ? 'rgb(0 0 0 / .35)' : overlay === 'tint' ? SOFT : FADE }} />}
       {/* The fade, badge and content are positioned (relative), so they paint above the blurred, scaled and blended
           layers, which the browser would otherwise draw on top of anything unpositioned. */}
-      {badge && <span className="fs-sm fw-bold self-start" style={{ ...GLASS, position: 'relative', justifySelf: 'end', margin: 'var(--space-sm)', padding: '.2rem .7rem', borderRadius: '99px', color: 'var(--light)' }}>{badge}</span>}
+      {badge && <span className="chip pill glass-dark fs-sm fw-bold self-start justify-self-end" style={{ position: 'relative', margin: 'var(--space-sm)' }}>{badge}</span>}
       {(label || title || text || children) && (
-        <div className={cx('grid cols-1 gap-sm pad', { start: 'self-start', center: 'self-center', end: 'self-end' }[circle ? 'center' : align])}
-          style={{ position: 'relative', color: 'var(--light)', ...(overlay === 'glass' && { ...GLASS, margin: 'var(--space-sm)' }), ...(circle && { width: '70.7%', justifySelf: 'center', padding: 0 }) }}>
-          {label && <small className="text-uppercase fw-bold" style={{ letterSpacing: '.15em', opacity: .85 }}>{label}</small>}
+        <div className={cx('grid cols-1 gap-sm pad', { start: 'self-start', center: 'self-center', end: 'self-end' }[circle ? 'center' : align],
+          overlay === 'glass' && 'glass-dark round', circle && 'justify-self-center pad-0')}
+          style={{ position: 'relative', color: 'var(--light)', ...(overlay === 'glass' && { margin: 'var(--space-sm)' }), ...(circle && { width: '70.7%' }) }}>
+          {label && <small className="text-uppercase fw-bold tracking-wide opacity-75">{label}</small>}
           {title && <h3 className={big ? 'display-sm' : 'h4'} style={{ margin: 0, textWrap: 'balance' }}>{title}</h3>}
           {text && <p style={{ margin: 0, opacity: .9 }}>{text}</p>}
-          {children && <div className="row-wrap gap-sm" style={centered ? { justifyContent: 'center' } : undefined}>{children}</div>}
+          {children && <div className={cx('row-wrap gap-sm', centered && 'cols-center')}>{children}</div>}
         </div>
       )}
     </article>

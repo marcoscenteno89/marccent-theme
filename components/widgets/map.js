@@ -75,7 +75,7 @@ const Map = ({ apiKey, center = DEFAULT_CENTER, zoom = 10, marker, markers, clus
 
   // The settings as data-*, the markup the engine draws from (a host writes the same), though React draws this one.
   return (
-    <div data-component="map" ref={ref} className={cx('map', className)} style={style} data-key={apiKey || undefined}
+    <div data-component="map" ref={ref} className={cx('map col-center round overflow-hidden', className)} style={style} data-key={apiKey || undefined}
       data-lat={center.lat} data-lng={center.lng} data-zoom={zoom} data-marker={marker ? '' : undefined}
       data-title={marker?.title ?? title} data-link={marker?.link} data-markers={markers?.length ? JSON.stringify(markers) : undefined}
       data-cluster={markers?.length && !cluster ? 'false' : undefined} data-fit={markers?.length && !fit ? 'false' : undefined}

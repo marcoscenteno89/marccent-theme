@@ -6,7 +6,6 @@ import { SITE } from "../../lib/singleton";
 import { cx } from '../../lib/cx';
 import { Loading } from '../ui/loading';
 import { decorativeObserver, DECORATIVE_FPS } from '../../core/canvas-background';
-import '../../styles/components/canvas.css';
 
 const withLoader = (Component) => {
   const WithLoaderComponent = (props) => {

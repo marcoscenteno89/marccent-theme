@@ -558,6 +558,14 @@
   .hover-morph.hover-morph { transition: background-color var(--duration), border-color var(--duration), color var(--duration), box-shadow var(--duration); }
 }
 
+/* MUTED: a light fill under the pointer, as a menu link, an accordion's row or a page number take. */
+.hover-muted { transition: background-color var(--duration); }
+.hover-muted.hover-muted:is(:hover, [aria-pressed="true"]):not(:disabled) { background-color: var(--muted-bg); }
+
+/* OPAQUE: a faded element (opacity-*) at full strength under the pointer or the keyboard: a close button. */
+.hover-opaque { transition: opacity var(--duration); }
+.hover-opaque.hover-opaque:is(:hover, :focus-visible) { opacity: 1; }
+
 /* POINTER: effects that follow the mouse. A small script (watchPointer, core/pointer.js; SiteTheme or startTheme
    starts it) writes where the pointer is on the element as --px / --py, 0 to 1 across it (.5 the middle, also the
    resting value). While hovered, the transition is short, so the effect keeps up with the pointer; on leaving it

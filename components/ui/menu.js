@@ -4,10 +4,11 @@ import { cx } from '../../lib/cx';
 import '../../styles/components/menu.css';
 
 /*
- * Menu: a site's navigation from plain data (styles: .menu-* in styles/components/menu.css). An item is a link, or a
- * dropdown when it has children; a child with children of its own is a submenu, and so on, to any depth. Built on
- * <details>, so it opens without JavaScript and works with the keyboard; a site closes open ones after navigating and
- * on an outside click or Escape (querySelectorAll('details[open]') on its header).
+ * Menu: a site's navigation from plain data (styles: .menu-* in styles/components/menu.css; .menu-quiet on it for
+ * Bootstrap's nav-link look). An item is a link, or a dropdown when it has children; a child with children of its
+ * own is a submenu, and so on, to any depth. Built on <details>, so it opens without JavaScript and works with the
+ * keyboard; a site closes open ones after navigating and on an outside click or Escape (querySelectorAll
+ * ('details[open]') on its header).
  *
  * Item: { name, href?, icon?, label?, external?, className?, children? }. name: visible text. href: where it goes (a
  * dropdown's is its "browse all" page, for the sitemap and footer). icon: full Font Awesome classes. label: aria-label
@@ -76,7 +77,7 @@ const MenuLink = ({ item, iconOnly, className }) => (
 // Its children render the same way, so a child with children is a submenu of this one.
 const MenuDropdown = ({ item, sub, className, panelClassName, linkClassName }) => (
   <details data-component="menu-dropdown" className={cx('menu-dropdown', sub && 'menu-sub', className, item.className)}>
-    <summary className={cx('menu-link', linkClassName)}>
+    <summary className={cx('menu-link caret', linkClassName)}>
       {item.icon && <i className={item.icon} aria-hidden="true"></i>}
       <span className="text-truncate">{item.name}</span>
     </summary>

@@ -29,8 +29,13 @@ const Compare = ({ before, after, beforeLabel = 'Before', afterLabel = 'After', 
     <div ref={root} data-component="compare" className={cx('compare stack overflow-hidden', className)} style={{ '--pos': `${start}%`, ...style }}>
       <div className="compare-after stack">{after}</div>
       <div className="compare-before stack">{before}</div>
-      {beforeLabel && <span className="compare-tag pill fs-sm self-start" data-side="before" aria-hidden="true">{beforeLabel}</span>}
-      {afterLabel && <span className="compare-tag pill fs-sm self-start" data-side="after" aria-hidden="true">{afterLabel}</span>}
+      {(beforeLabel || afterLabel) && (
+        // The corner tags, in a padded row over the pictures (z-1: above the before picture's clip).
+        <div className="grid fixed cols-2 pad-sm self-start pe-none z-1" aria-hidden="true">
+          {beforeLabel && <span className="chip pill fs-sm bg-scrim justify-self-start">{beforeLabel}</span>}
+          {afterLabel && <span className="chip pill fs-sm bg-scrim justify-self-end col-last">{afterLabel}</span>}
+        </div>
+      )}
       <div className="compare-handle" aria-hidden="true">
         <span className="compare-knob col-center circle shadow"><Icon name="arrows-left-right" /></span>
       </div>

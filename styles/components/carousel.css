@@ -7,8 +7,6 @@
 .swiper { min-width: 0; max-width: 100%; }
 /* One pinned column (minmax(0, 1fr)), not auto, for the same reason. */
 .swiper { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
-/* Swiper's padding: 0 would beat the pad-* classes (layout layer); revert-layer falls back to them. */
-.swiper[class*="pad"] { padding: revert-layer; }
 /* Clip, not hidden (no scroll container): the slides past the edges are cut off instead of widening the page. */
 .swiper { overflow: clip; }
 

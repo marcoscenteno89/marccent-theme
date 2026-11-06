@@ -7,10 +7,9 @@
    Below 56rem the first row is brand, then empty space, then toggle | tools at the right end; .nav-collapse (main
    menu stacked as a list, then the .nav-end group) is hidden until the toggle adds .open to the .nav, then slides
    open as row 2. .btn.nav-toggle outranks .btn's display.
-   The look is Bootstrap's too: links in a dimmed text color that goes full on hover, on the current page and on an
-   open dropdown (no hover fill); a triangle caret; dropdowns a bordered list without a shadow, their items full
-   width with a fill on hover; the toggle a bordered hamburger. Colors come from currentColor, so a bar on a color
-   fill (.bg-primary) works too. */
+   The links' look is Bootstrap's too: the main menu is a .menu-quiet (menu.css), dimmed links, a triangle caret,
+   flush dropdowns. Here: the toggle, a bordered hamburger, and the folding. Colors come from currentColor, so a bar
+   on a color fill (.bg-primary) works too. */
 @layer components {
 .nav-collapse { display: contents; }
 .btn.nav-toggle { display: none; }
@@ -23,47 +22,6 @@
   font-size: var(--text-md);
 }
 .nav > .wrap > .menu-link:first-child:hover { background-color: transparent; }
-
-/* Top-level links (Bootstrap's .nav-link). */
-.nav .nav-collapse > .menu > .menu-link,
-.nav .nav-collapse > .menu > .menu-dropdown > summary {
-  padding: var(--space-sm);
-  color: color-mix(in srgb, currentColor 65%, transparent);
-  transition: color var(--duration);
-}
-.nav .nav-collapse > .menu > .menu-link:is(:hover, :focus-visible),
-.nav .nav-collapse > .menu > .menu-dropdown > summary:is(:hover, :focus-visible) {
-  background-color: transparent;
-  color: color-mix(in srgb, currentColor 80%, transparent);
-}
-.nav .nav-collapse > .menu > .menu-link[aria-current],
-.nav .nav-collapse > .menu > .menu-dropdown[open] > summary { color: inherit; }
-
-/* Caret: a small triangle, down for a dropdown, right for a submenu; it doesn't turn when open. */
-.nav .menu-dropdown > summary { gap: var(--space-xs); }
-.nav .menu-dropdown > summary::after {
-  content: '';
-  border-top: .3em solid;
-  border-inline: .3em solid transparent;
-  transition: none;
-}
-.nav .menu-dropdown[open] > summary::after { rotate: none; }
-.nav .menu-sub > summary { grid-template-columns: minmax(0, 1fr) auto; }
-.nav .menu-sub > summary::after {
-  border-block: .3em solid transparent;
-  border-inline: .3em solid transparent;
-  border-inline-start-color: currentColor;
-  border-inline-end-width: 0;
-}
-
-/* Dropdown items (Bootstrap's .dropdown-item): full width, square, a fill on hover; the current page in primary. */
-.nav .menu-panel .menu-link {
-  display: grid;
-  padding: var(--space-xs) var(--space);
-  border-radius: 0;
-}
-.nav .menu-panel .menu-link[aria-current] { background-color: var(--primary); color: var(--primary-text); }
-.nav .menu-dropdown:not(.menu-sub) > .menu-panel { top: calc(100% + .125rem); }
 
 /* Toggle (Bootstrap's .navbar-toggler): a hamburger in a faint border, wider than tall, no hover fill. */
 .btn.nav-toggle {
@@ -108,8 +66,7 @@
   @starting-style { .nav.open .nav-collapse { height: 0; padding-block: 0; } }
   /* Main menu: one link per row, its text at the start and flush with the brand. */
   .nav .nav-collapse > .menu:not(.nav-end) { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; } /* row: undoes auto-cols' column flow */
-  .nav .nav-collapse > .menu > .menu-link,
-  .nav .nav-collapse > .menu > .menu-dropdown > summary { justify-content: start; padding-inline: 0; }
+  .nav .nav-collapse > .menu > :is(.menu-link, .menu-dropdown > summary) { justify-content: start; padding-inline: 0; }
   .nav-end { justify-self: start; }
   /* A dropdown opens in place, pushing the rest down, instead of floating over the page. */
   .nav .nav-collapse .menu-panel { position: static; margin-top: var(--space-xs); }
@@ -119,25 +76,4 @@
 }
 }
 
-/* Unlayered, two classes deep, to take back what the panel's utility classes give it (pad, gap-sm, shadow:
-   unlayered too). Bootstrap's .dropdown-menu: padding above and below only (the items reach the sides), no gap
-   between items, no shadow. A submenu's top lines up with its row, beside the panel. */
-.nav .menu-panel {
-  padding: var(--space-sm) 0;
-  row-gap: 0;
-  box-shadow: none;
-}
-.nav .menu-sub > .menu-panel { top: calc(-1 * (var(--space-sm) + var(--border-width))); left: calc(100% + .125rem); }
 .nav > .wrap { row-gap: 0; }
-/* Floating (wide container): as wide as its widest item, and never under 10rem; and solid, like Bootstrap's. The bar
-   is a .bg panel, so where panels are glass (the Glass toggle, the glass design styles) it is the only backdrop its
-   dropdowns can blur, and they would show the page through clear. !important: .glass .bg's background is. */
-@container (width >= 56rem) {
-  .nav .menu-dropdown > .menu-panel {
-    width: max-content;
-    min-width: 10rem;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background-color: var(--surface) !important;
-  }
-}

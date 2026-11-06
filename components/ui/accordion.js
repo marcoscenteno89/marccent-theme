@@ -1,12 +1,12 @@
 // Shared: no 'use client' (no state or effects), so it renders on the server or in the browser, wherever it's used.
 import React, { useId } from 'react';
 import { cx } from '../../lib/cx';
-import '../../styles/components/accordion.css';
 
 /**
  * Accordion built on <details>/<summary>. The browser opens and closes
  * items; items share a name, so opening one closes the others (pass multiple to allow several open).
- * Lines between items come from .divide; look in styles/components/accordion.css, animation in animations.css, colors in colors.css.
+ * Lines between items come from .divide; each row is a .header with a .caret, the body under a .border-top line;
+ * animation in animations.css.
  * @example
  * <Accordion defaultOpen={0}>
  *   <AccordionItem header="Title" className="grid cols-1 gap-sm">Body</AccordionItem>
@@ -30,8 +30,8 @@ const AccordionItem = (props) => {
   const { header, children, className = '', name, defaultOpen = false } = props;
   return (
     <details data-component="accordion-item" name={name} open={defaultOpen}>
-      <summary className="header pad-sm">{header}</summary>
-      <div className={cx('pad-sm', className)}>{children}</div>
+      <summary className="header pad-sm caret hover-muted focus-inset">{header}</summary>
+      <div className={cx('pad-sm border-top', className)}>{children}</div>
     </details>
   );
 }

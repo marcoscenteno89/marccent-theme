@@ -63,10 +63,11 @@ const DataTable = ({ columns, rows, label, pageSize = 10, search = true, classNa
               {columns.map((c) => (
                 <th key={c.key} scope="col" aria-sort={ariaSort(sort, c.key)} className={c.align && `text-${c.align}`}>
                   {c.sortable === false ? c.label : (
-                    <button type="button" data-component="button" data-name={c.key} className="sort-button"
+                    <button type="button" data-component="button" data-name={c.key} data-sort
+                      className={cx('btn-plain d-inline-grid auto-cols items-center gap-xs', ariaSort(sort, c.key) && 'text-primary')}
                       onClick={() => setSort(nextSort(sort, c.key))}>
                       {c.label}
-                      <Icon name={sortIcon(sort, c.key)} />
+                      <Icon name={sortIcon(sort, c.key)} className={ariaSort(sort, c.key) ? undefined : 'opacity-50'} />
                     </button>
                   )}
                 </th>

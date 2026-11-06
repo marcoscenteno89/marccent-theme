@@ -4,7 +4,8 @@ import '../../styles/components/board.css';
 
 /**
  * Board: a grid_helper Grid as a game board, one square cell per grid cell in a single `.grid fixed` (cells
- * are stored row by row, the order CSS grid fills). Give each cell .square (utilities.css) to keep it square.
+ * are stored row by row, the order CSS grid fills). Give each cell .square (utilities.css) to keep it square, and a
+ * cell that's a button .btn-plain.
  * @param {import('../../lib/grid_helper').Grid} grid
  * @param {(cell: any, index: number) => React.ReactNode} children - renders one cell (give it a key)
  * @param {string} [gap] - space between cells, e.g. '2px'

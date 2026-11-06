@@ -23,7 +23,7 @@ import '../../styles/components/rating.css';
 const Rating = ({ name, label = 'Rating', max = 5, defaultValue, icon = 'star', onChange, required, disabled, className }) => {
   const id = useId();
   return (
-    <fieldset data-component="rating" className={cx('rating', className)} disabled={disabled}>
+    <fieldset data-component="rating" className={cx('rating d-inline-grid auto-cols gap-xs fs-lg', className)} disabled={disabled}>
       <legend className="visually-hidden">{label}</legend>
       {Array.from({ length: max }, (_, i) => (
         <label key={i} htmlFor={`${id}-${i + 1}`} className="rating-star">
@@ -47,7 +47,7 @@ const Rating = ({ name, label = 'Rating', max = 5, defaultValue, icon = 'star', 
 const Stars = ({ value, max = 5, icon = 'star', className }) => {
   const row = Array.from({ length: max }, (_, i) => <Icon key={i} name={icon} />);
   return (
-    <span data-component="stars" role="img" aria-label={`${value} out of ${max}`} className={cx('stars stack', className)}
+    <span data-component="stars" role="img" aria-label={`${value} out of ${max}`} className={cx('stack d-inline-grid w-max text-nowrap justify-self-start', className)}
       style={{ '--value': `${(value / max) * 100}%` }}>
       <span className="stars-empty">{row}</span>
       <span className="stars-fill">{row}</span>

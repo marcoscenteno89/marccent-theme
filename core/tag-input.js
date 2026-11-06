@@ -44,27 +44,27 @@ const make = (tag, className, attrs = {}) => {
 // One tag as TagInput renders it: its text and a remove button.
 const tagItem = (tag, remove) => {
   const icon = make('i', 'fa-solid fa-xmark', { 'aria-hidden': 'true', 'data-component': 'icon' });
-  const button = make('button', 'tag-remove col-center', { type: 'button', 'data-component': 'button', 'aria-label': `Remove ${tag}` });
+  const button = make('button', 'btn-plain col-center circle icon-sm fs-75 hover-muted', { type: 'button', 'data-component': 'button', 'aria-label': `Remove ${tag}` });
   button.append(icon);
   button.addEventListener('click', remove);
   const text = make('span', '');
   text.textContent = tag;
-  const item = make('li', 'tag center pill', { 'data-component': 'tag', 'data-name': tag });
+  const item = make('li', 'chip pill bg-primary-tint', { 'data-component': 'tag', 'data-name': tag });
   item.append(text, button);
   return item;
 };
 
 /**
  * tagInput: TagInput's behavior on its server-rendered markup, for the plain-JS engine: a
- * [data-component="tag-input"] (data-max for the most tags) holding a .tag-list <ul>, the text <input> and a hidden
+ * [data-component="tag-input"] (data-max for the most tags) holding a [data-tags] <ul>, the text <input data-tag-entry> and a hidden
  * <input> whose value is the tags joined by commas (the starting tags). Draws the same tags and keeps the hidden
  * input in step. Says so with a marccent:tags event (detail: the tags). Returns a function that stops.
  * @param {HTMLElement} root
  * @returns {() => void}
  */
 const tagInput = (root) => {
-  const list = root.querySelector('.tag-list');
-  const entry = root.querySelector('.tag-entry');
+  const list = root.querySelector('[data-tags]');
+  const entry = root.querySelector('[data-tag-entry]');
   const hidden = root.querySelector('input[type="hidden"]');
   if (!list || !entry || !hidden) {
     return () => {};

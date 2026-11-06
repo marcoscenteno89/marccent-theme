@@ -35,7 +35,7 @@ const Input = ({ name, label, as: Tag = 'input', className, children, ...rest })
 const Field = ({ name, label, as: Tag = 'input', className, children, ...rest }) => {
   const id = useId();
   return (
-    <div data-component="field" className={cx('field sub-x', className)}>
+    <div data-component="field" className={cx('field joined sub-x', className)}>
       <label className="field-label" htmlFor={id}>{label ?? nameToLabel(name)}</label>
       <Tag id={id} name={name} className="input" {...rest}>{children}</Tag>
     </div>

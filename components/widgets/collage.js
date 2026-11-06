@@ -1,9 +1,9 @@
 // Shared: no 'use client' (no state or effects), so a collage page can render on the server.
 import { cx } from '../../lib/cx';
 import { Button } from '../ui/button';
-import { Icon } from '../ui/icon';
 import { Loading } from '../ui/loading';
 import { ImageCard } from './layout';
+import { Stars as ThemeStars } from '../ui/rating';
 
 /*
  * Collage: tiles of ImageCards of different sizes, shapes, borders and overlays on one dense grid (the Images and
@@ -31,17 +31,14 @@ const BORDER = {
 };
 
 // Small pieces for the cards' content. Spinner: Loading waits for a value that never comes, so it keeps spinning.
-const Spinner = ({ kind, width = '3rem' }) => <div data-component="spinner" style={{ width, justifySelf: 'center' }}><Loading require={[ null ]} kind={kind} /></div>;
+const Spinner = ({ kind, width = '3rem' }) => <div data-component="spinner" className="justify-self-center" style={{ width }}><Loading require={[ null ]} kind={kind} /></div>;
 const Light = (props) => <Button data-name="light" className="light" {...props} />;
 const Ghost = ({ icon, label }) => <Button data-name="ghost" icon={icon} aria-label={label} style={{ color: 'inherit', borderColor: 'rgb(255 255 255 / .5)' }} />;
-const Stars = ({ n }) => (
-  <span data-component="stars" role="img" className="grid auto-cols gap-0" aria-label={`${n} out of 5 stars`} style={{ color: '#ffd166', justifyContent: 'inherit' }}>
-    {[1, 2, 3, 4, 5].map(i => <Icon key={i} name="star" family={i <= n ? 'fa-solid' : 'fa-regular'} style={{ '--icon-size': '1.1em' }} />)}
-  </span>
-);
+// The theme's Stars, by a count out of five.
+const Stars = ({ n }) => <ThemeStars value={n} />;
 const Progress = ({ value, label }) => (
   <div data-component="progress" className="grid cols-1 gap-xs w-100">
-    <small className="grid auto-cols" style={{ justifyContent: 'space-between' }}><span>{label}</span><strong>{value}%</strong></small>
+    <small className="grid auto-cols cols-between"><span>{label}</span><strong>{value}%</strong></small>
     <div className="round" style={{ height: '.35rem', background: 'rgb(255 255 255 / .25)' }}>
       <div className="bg-gradient h-100" style={{ width: `${value}%` }} />
     </div>

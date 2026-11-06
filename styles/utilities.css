@@ -12,10 +12,14 @@
 .text-capitalize { text-transform: capitalize; }
 .text-uppercase { text-transform: uppercase; }
 .text-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.text-nowrap { white-space: nowrap; }
+.text-break { overflow-wrap: anywhere; } /* a long word or URL breaks instead of widening its box */
 
 /* FONT. fs-sm is relative (em): a bit smaller than the text around it. */
 .fs-sm { font-size: var(--small-size); }
 .fs-lg { font-size: var(--text-lg); }
+.fs-xs { font-size: var(--text-xs); }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; } /* code */
 /* A share of the text around it, whatever its size: a price's cents and period, a mark after a name. */
 .fs-50 { font-size: .5em; }
 .fs-75 { font-size: .75em; }
@@ -45,9 +49,15 @@
 .opacity-75 { opacity: .75; }
 
 /* BORDER */
-.border { border: var(--border-width) solid var(--border-color); }
-.border-top { border-top: var(--border-width) solid var(--border-color); }
-.border-bottom { border-bottom: var(--border-width) solid var(--border-color); }
+/* A line on every side, or one side. Their style is --border-style (solid), so .border-dashed beside one dashes
+   only the sides it draws (not inherited: a dashed box's children keep solid lines). */
+@property --border-style { syntax: '*'; inherits: false; }
+.border { border: var(--border-width) var(--border-style, solid) var(--border-color); }
+.border-start { border-inline-start: var(--border-width) var(--border-style, solid) var(--border-color); }
+.border-end { border-inline-end: var(--border-width) var(--border-style, solid) var(--border-color); }
+.border-top { border-top: var(--border-width) var(--border-style, solid) var(--border-color); }
+.border-bottom { border-bottom: var(--border-width) var(--border-style, solid) var(--border-color); }
+.border-dashed { --border-style: dashed; } /* a drop zone, a tear line, a placeholder */
 /* Rounded corners: boxes (.round, --radius-card) and images or video (.round-media, --radius-media); both follow
    --radius unless set on their own (defaults.css; settings.css can pin them). .pill: fully round ends, any height. */
 .round {
@@ -129,12 +139,78 @@
 .nums-fractions { font-variant-numeric: diagonal-fractions; } /* 1/2 drawn as a fraction */
 .nums-ordinal { font-variant-numeric: ordinal; }             /* 1st with its letters raised */
 .small-caps { font-variant-caps: all-small-caps; letter-spacing: .03em; } /* acronyms and AM / PM in running text */
-/* Raised: its top level with the top of the text around it, as a price tag's sign and cents ($19⁹⁹) or a mark
-   after a name (™). Smaller with .fs-50 or .fs-75; on a sup, instead of sup's own lift. */
-.raised { position: static; vertical-align: text-top; line-height: 1; }
+
+/* PADDING: inner padding for boxes (panels, cards, banners), on the space scale. Unlayered, like the placement
+   below: padding put on an element beats its component's own (.input, .btn). Space between items comes from gap, not
+   margins. The base, .pad, is --pad: the site's box padding, one token for every box. To pad one element otherwise,
+   give it .pad-x / .pad-y and set --pad-x / --pad-y on it (style="--pad-y: 4rem"): they don't inherit (registered
+   below), so a band's own padding never reaches the .pad cards inside it, as setting --pad on it would. */
+@property --pad-x { syntax: '*'; inherits: false; }
+@property --pad-y { syntax: '*'; inherits: false; }
+.pad-0 { padding: 0; } /* also clears a .wrap's side padding: these come after .wrap */
+.pad { padding: var(--pad); }
+.pad-xs { padding: var(--space-xs); }
+.pad-control { padding: var(--control-pad); } /* a button's or an input's own padding */
+.pad-y-control { padding-block: var(--control-pad-y); }
+.pad-sm { padding: var(--space-sm); }
+.pad-md { padding: var(--space-md); }
+.pad-lg { padding: var(--space-lg); }
+.pad-xl { padding: var(--space-xl); }
+.pad-2xl { padding: var(--space-2xl); }
+/* One axis only: x = left and right, y = top and bottom, in the same sizes. Safe on a .wrap: -y leaves its side
+   padding alone. */
+.pad-x-0 { padding-inline: 0; }
+.pad-x { padding-inline: var(--pad-x, var(--pad)); }
+.pad-x-xs { padding-inline: var(--space-xs); }
+.pad-x-sm { padding-inline: var(--space-sm); }
+.pad-x-md { padding-inline: var(--space-md); }
+.pad-x-lg { padding-inline: var(--space-lg); }
+.pad-x-xl { padding-inline: var(--space-xl); }
+.pad-x-2xl { padding-inline: var(--space-2xl); }
+.pad-y-0 { padding-block: 0; }
+.pad-y { padding-block: var(--pad-y, var(--pad)); }
+.pad-y-xs { padding-block: var(--space-xs); }
+.pad-y-sm { padding-block: var(--space-sm); }
+.pad-y-md { padding-block: var(--space-md); }
+.pad-y-lg { padding-block: var(--space-lg); }
+.pad-y-xl { padding-block: var(--space-xl); }
+.pad-y-2xl { padding-block: var(--space-2xl); }
+/* A section's rhythm (--section-space: fluid, 3 to 6 times --space): Section's default, and -sm / -lg around it. */
+.pad-y-section { padding-block: var(--section-space); }
+.pad-y-section-sm { padding-block: var(--section-space-sm); }
+.pad-y-section-lg { padding-block: var(--section-space-lg); }
+
+/* PLACE: an item's own place in its cell, sideways (justify-self-*) and up and down (self-*). Here, unlayered, not
+   with the grids in layout.css: a class put on an element beats where its component places it (a .btn centers
+   itself), so .justify-self-end moves a button to the end of its row. */
+.justify-self-start { justify-self: start; }
+.justify-self-center { justify-self: center; }
+.justify-self-end { justify-self: end; }
+.place-self-center { place-self: center; }
+.self-start { align-self: start; }
+.self-center { align-self: center; }
+.self-end { align-self: end; }
+.self-stretch { align-self: stretch; }
+
+/* JOINED: its children in one box, one shared border between them and only the outer corners rounded (a label and
+   its input, an input and its button, a group of buttons). A child's own first and last parts count as its corners
+   (a Field's label and input). The focused child's border stays on top. */
+.joined > :not(:first-child) { margin-inline-start: calc(-1 * var(--border-width)); }
+.joined > :focus-within { position: relative; z-index: 1; }
+.joined > :not(:last-child),
+.joined > :not(:last-child) > :last-child { border-start-end-radius: 0; border-end-end-radius: 0; }
+.joined > :not(:first-child),
+.joined > :not(:first-child) > :first-child { border-start-start-radius: 0; border-end-start-radius: 0; }
 
 /* DISPLAY */
 .d-none { display: none; }
+.d-inline-grid { display: inline-grid; }
+.d-contents { display: contents; } /* its children laid out as if it weren't there (a list of tags inside a row) */ /* a grid inside a line of text: a price, a row of stars */
+.w-max { width: max-content; max-width: 100%; } /* as wide as its content, never wider than its box */
+.h-screen { height: 100dvh; }
+.object-cover { object-fit: cover; } /* an image filling its box, cropped */
+.pe-none { pointer-events: none; } /* clicks pass through (an overlay, a corner of toasts) */
+.pe-auto { pointer-events: auto; } /* and back, for what's inside */
 /* Hidden on screen, still read by screen readers and reachable by keyboard (a file input under its drop zone, a live
    status inside a button). */
 .visually-hidden {
@@ -169,6 +245,13 @@
 }
 /* Pinned to the top of the window while its parent scrolls past (the site header); -md-: only from 768px. */
 .sticky-top { position: sticky; top: 0; z-index: 1020; }
+/* LAYERS: what goes over what, one scale for every component: a dropdown over the page, a sticky bar over that, a
+   popup panel over the bar, toasts over everything. */
+.z-1 { z-index: 1; }
+.z-dropdown { z-index: 1000; }
+.z-sticky { z-index: 1020; }
+.z-popup { z-index: 1080; }
+.z-toast { z-index: 1090; }
 @media (min-width: 768px) {
   .sticky-md-top { position: sticky; top: 0; z-index: 1020; }
 }
@@ -227,6 +310,19 @@
   mask: radial-gradient(circle var(--notch, 1rem) at 0 50%, transparent 98%, #000),
         radial-gradient(circle var(--notch, 1rem) at 100% 50%, transparent 98%, #000);
   mask-composite: intersect;
+}
+/* Notches: half circles cut from two corners, --notch their radius (default 1rem). Two boxes, one notched at the
+   bottom and the next at the top, make a ticket's tear line between them (Modal's ticket look). */
+.notch-bottom {
+  min-height: var(--notch, 1rem); /* the cut needs the height */
+  mask: radial-gradient(circle at bottom left, transparent var(--notch, 1rem), #000 var(--notch, 1rem)) left / var(--notch, 1rem) 100% no-repeat,
+    radial-gradient(circle at bottom right, transparent var(--notch, 1rem), #000 var(--notch, 1rem)) right / var(--notch, 1rem) 100% no-repeat,
+    linear-gradient(#000 0 0) center / calc(100% - 2 * var(--notch, 1rem)) 100% no-repeat;
+}
+.notch-top {
+  min-height: var(--notch, 1rem);
+  mask: radial-gradient(circle at top left, transparent var(--notch, 1rem), #000 var(--notch, 1rem)) left / 50% 100% no-repeat,
+    radial-gradient(circle at top right, transparent var(--notch, 1rem), #000 var(--notch, 1rem)) right / 50% 100% no-repeat;
 }
 .shape-slant { aspect-ratio: 4; clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); } /* a section with a sloped bottom edge */
 .shape-wave { /* a section with a wavy bottom edge; the waves stretch with the box */

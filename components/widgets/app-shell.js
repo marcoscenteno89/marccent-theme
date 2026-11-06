@@ -55,7 +55,7 @@ const AppShell = ({ brand, items, footer, label = 'Sidebar', className, children
           <Drawer title={label} show={open} setShow={setOpen} side="start" footer={footer}>{menu(false)}</Drawer>
         </>
       ) : (
-        <aside className="app-sidebar bg grid cols-1 gap-sm pad-sm" aria-label={label}>
+        <aside className="app-sidebar bg grid cols-1 gap-sm pad-sm sticky-top h-screen border-end" aria-label={label}>
           <div className="header">
             {folded ? <span /> : brand}
             <Button icon={folded ? 'angles-right' : 'angles-left'} aria-label={folded ? 'Expand sidebar' : 'Collapse sidebar'}

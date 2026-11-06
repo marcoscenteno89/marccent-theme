@@ -51,15 +51,14 @@ const el = (tag, props = {}, ...children) => {
  */
 const fileDrop = (root) => {
   const input = root.querySelector('input[type="file"]');
-  const zone = root.querySelector('.file-drop-zone');
+  const zone = root.querySelector('[data-drop-zone]');
   if (!input || !zone) return () => {};
   const rules = { accept: input.accept, maxSize: Number(root.dataset.maxSize) || 0 };
   let files = [];
   let urls = [];
   const alert = el('ul', { className: 'grid cols-1 gap-0 fs-sm text-danger', hidden: true });
   alert.setAttribute('role', 'alert');
-  const list = el('ul', { className: 'grid gap-sm', hidden: true });
-  list.style.setProperty('--min', '14rem');
+  const list = el('ul', { className: 'grid min gap-sm', hidden: true });
   list.setAttribute('aria-label', 'Chosen files');
   root.append(alert, list);
 
@@ -73,7 +72,7 @@ const fileDrop = (root) => {
       if (f.type.startsWith('image/')) {
         const url = URL.createObjectURL(f);
         urls.push(url);
-        preview = el('img', { src: url, alt: '', className: 'round' });
+        preview = el('img', { src: url, alt: '', className: 'square object-cover round' });
       } else {
         preview = el('i', { className: 'fa-solid fa-file' });
         preview.setAttribute('aria-hidden', 'true');
@@ -86,8 +85,7 @@ const fileDrop = (root) => {
       remove.addEventListener('click', () => use(files.filter((_, j) => j !== i), []));
       const name = el('span', { className: 'grid cols-1 gap-0' },
         el('span', { className: 'text-truncate', textContent: f.name }), el('span', { className: 'fs-sm opacity-75', textContent: fileSize(f.size) }));
-      name.style.minWidth = '0';
-      return el('li', { className: 'file-drop-item bg border round pad-sm grid items-center gap-sm' }, preview, name, remove);
+      return el('li', { className: 'layout-icon bg border round pad-sm' }, preview, name, remove);
     }));
     list.hidden = !files.length;
   };

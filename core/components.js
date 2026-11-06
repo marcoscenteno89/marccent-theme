@@ -238,7 +238,6 @@ define('tab-bar', (box) => {
       t.classList.toggle('text-primary', on);
       t.classList.toggle('fw-bold', on);
       t.classList.toggle('opacity-75', !on);
-      t.style.color = on ? '' : 'inherit';
     });
     panels.forEach((p, n) => { p.hidden = n !== i; });
     if (bar) bar.style.translate = `${i * 100}% 0`;

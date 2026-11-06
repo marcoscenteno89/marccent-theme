@@ -3,7 +3,6 @@ import { useId, useRef, useState } from 'react';
 import { cx } from '../../lib/cx';
 import { Icon } from './icon';
 import { addTags, isCommit } from '../../core/tag-input';
-import '../../styles/components/tag-input.css';
 
 /**
  * TagInput: a text field that turns what you type into tags (pills with a remove button), for keywords, emails,
@@ -62,20 +61,20 @@ const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, m
 
   // A click on the box (not a tag) puts the cursor in the field, as if the box were the input.
   return (
-    <div data-component="tag-input" data-max={max || undefined} className={cx('tag-input row-wrap', className)}
+    <div data-component="tag-input" data-max={max || undefined} className={cx('input row-wrap gap-xs pad-xs', className)}
       onClick={(e) => e.target === e.currentTarget && entry.current.focus()}>
-      <ul className="tag-list row-wrap" aria-label="Tags">
+      <ul data-tags className="d-contents" aria-label="Tags">
         {tags.map((tag, i) => (
-          <li key={tag} data-component="tag" data-name={tag} className="tag center pill">
+          <li key={tag} data-component="tag" data-name={tag} className="chip pill bg-primary-tint">
             <span>{tag}</span>
-            <button type="button" data-component="button" className="tag-remove col-center" aria-label={`Remove ${tag}`}
+            <button type="button" data-component="button" className="btn-plain col-center circle icon-sm fs-75 hover-muted" aria-label={`Remove ${tag}`}
               onClick={() => remove(i)}>
               <Icon name="xmark" />
             </button>
           </li>
         ))}
       </ul>
-      <input ref={entry} className="tag-entry" aria-label={label} placeholder={full ? `Up to ${max}` : label}
+      <input ref={entry} data-tag-entry className="input-plain grow pad-xs" aria-label={label} placeholder={full ? `Up to ${max}` : label}
         list={suggestions ? `${id}-list` : undefined} disabled={full} value={text}
         onChange={(e) => setText(e.target.value)} onKeyDown={key} onPaste={paste} onBlur={() => commit()} />
       {suggestions && (

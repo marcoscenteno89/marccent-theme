@@ -115,7 +115,7 @@ const make = (tag, className, attrs = {}) => {
 
 // One Pagination button (components/ui/pagination.js renders the same).
 const pageButton = (page, text, { label, disabled, current }) => {
-  const button = make('button', 'page-link col-center w-100 h-100', {
+  const button = make('button', 'btn-plain col-center w-100 h-100 pad-y-control pad-x-xs text-primary hover-muted tint-current', {
     type: 'button',
     'data-component': 'button',
     'data-name': label ?? page,
@@ -130,7 +130,7 @@ const pageButton = (page, text, { label, disabled, current }) => {
 
 /**
  * dataTable: DataTable's behavior on its server-rendered markup, for the plain-JS engine: a
- * [data-component="data-table"] holding a <table class="table"> whose sortable headers hold a .sort-button (the
+ * [data-component="data-table"] holding a <table class="table"> whose sortable headers hold a [data-sort] button (the
  * column's position is the key), and optionally an <input type="search"> (filters the rows), data-page-size on the
  * root (pages them) and an [aria-live] status line. A cell sorts by its data-value, else its text. Returns a
  * function that stops.
@@ -183,7 +183,7 @@ const dataTable = (root) => {
     page = Math.min(page, pages);
     body.replaceChildren(...shown.slice((page - 1) * size, page * size));
     headers.forEach((th, i) => {
-      const icon = th.querySelector('.sort-button .fa-solid');
+      const icon = th.querySelector('[data-sort] .fa-solid');
       if (!icon) {
         return;
       }
@@ -193,7 +193,8 @@ const dataTable = (root) => {
       } else {
         th.removeAttribute('aria-sort');
       }
-      icon.className = `fa-solid fa-${sortIcon(sort, String(i))}`;
+      icon.className = `fa-solid fa-${sortIcon(sort, String(i))}${sorted ? '' : ' opacity-50'}`;
+      icon.parentElement.classList.toggle('text-primary', !!sorted);
     });
     if (pageSize) {
       drawPager(pages);
@@ -204,7 +205,7 @@ const dataTable = (root) => {
   };
 
   const click = (e) => {
-    const button = e.target.closest('.sort-button');
+    const button = e.target.closest('[data-sort]');
     if (!button) {
       return;
     }
@@ -212,7 +213,7 @@ const dataTable = (root) => {
     draw();
   };
   const turn = (e) => {
-    const button = e.target.closest('.page-link');
+    const button = e.target.closest('[data-page]');
     if (!button || button.disabled) {
       return;
     }

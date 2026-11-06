@@ -1,0 +1,16 @@
+@import "../layers.css";
+/* CHIP: a small label in a line: a tag, a badge, a corner label on a picture, a link to a city. Its shape only (a
+   pill-ish box, an icon and text side by side); its colors from a class beside it (.bg-primary-tint, .bg-muted,
+   .glass…). */
+@layer components {
+.chip {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-control);
+  line-height: 1;
+  white-space: nowrap;
+}
+}

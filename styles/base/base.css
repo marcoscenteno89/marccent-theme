@@ -64,7 +64,7 @@ p { margin-top: 0; margin-bottom: var(--space); }
 ol, ul, dl { margin-top: 0; margin-bottom: var(--space); }
 /* The browser's indents and side margins on these (a dd's 40px, a figure's 40px, a quote's) go: inside the theme's
    grids the gap spaces them, and outside one a site lays them out itself. */
-dd, figure, blockquote { margin: 0; }
+dd, figure, blockquote, pre { margin: 0; }
 ol, ul { padding-left: var(--space-lg); }
 small { font-size: var(--small-size); }
 /* Raised and lowered text (footnote markers, ™, ordinals: typeset(), core/typeset.js) without the browser's
@@ -97,4 +97,44 @@ fieldset {
   padding: 0;
   border: 0;
 }
+canvas { display: block; } /* inline, a canvas leaves a line-height gap under it */
+
+/* FOCUS: one ring for everything a keyboard reaches, in the theme's focus color (no browser outline). A component
+   draws its own only where this one would be hidden (inset, inside a box that clips). */
+:where(a[href], button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 var(--focus-width) var(--focus-ring);
+}
+
+/* PLAIN BUTTON, PLAIN INPUT: a <button> or an <input> without the browser's look (border, fill, font, padding): it
+   reads as its content (a board's cell, a tab, a page number, a column header to sort by), or as part of the box
+   around it (a tag input's text field, whose box shows the focus). In this lowest layer, so any class on it (pad-*,
+   bg-*, a component's) adds to it. */
+/* Inset: the ring inside the edge, where a box that clips (rounded, overflow hidden) would cut one outside it. */
+.focus-inset:focus-visible { box-shadow: inset 0 0 0 var(--focus-width) var(--focus-ring); }
+
+.btn-plain,
+.input-plain {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+.input-plain { cursor: text; line-height: var(--line-height); }
+.btn-plain:disabled { opacity: .5; cursor: not-allowed; }
+.input-plain:focus-visible { box-shadow: none; }
+.input-plain::placeholder { color: var(--muted-color); opacity: 1; }
+
+/* PLAIN LIST: a <ul> or <ol> without bullets, indent or margins: a row of items laid out by the classes beside it. */
+.list-plain { margin: 0; padding: 0; list-style: none; }
+
+/* CARET: a <summary> (of a dropdown, an accordion item) with a ▾ after it instead of the browser's triangle, turned
+   while its <details> is open. */
+.caret { list-style: none; cursor: pointer; user-select: none; }
+.caret::-webkit-details-marker { display: none; } /* Safari */
+.caret::after { content: '\25BE'; transition: rotate var(--duration); }
+[open] > .caret::after { rotate: 180deg; }
 }

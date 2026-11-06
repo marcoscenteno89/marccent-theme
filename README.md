@@ -220,6 +220,33 @@ A few small classes for what sites kept writing inline: `.text-muted` (quieter t
 `-4x3`, `-3x2`, `-16x9`, `.fw-semibold`, `.fw-black`, `.tracking-tight`, `.tracking-wide`, `.icon-sm`, `.icon-lg`,
 and `.bg-page` (the page's colors on any element; a band with its own `data-theme` gets them by itself).
 
+## Classes that combine
+
+A component is mostly a combination of general classes, not classes of its own: a Pagination button is
+`btn-plain col-center pad-y-control text-primary hover-muted tint-current`, a tag is `chip pill bg-primary-tint`, a
+price `d-inline-grid auto-cols items-start` with `fs-50` parts. A component keeps its own class only for what classes
+can't say: its own part (`.btn`, `.input`, `.menu-link`), a state, or a drawing (masks, clip-paths, the dock's
+swell). The same rule for a site: build from these first.
+
+**A class on an element wins.** Padding (`pad-*`) and placement (`self-*`, `justify-self-*`) beat what a component
+gives its own element, so `.justify-self-end` moves a button and `.pad-xs` pads an `.input`. The plain starts
+(`.btn-plain`, `.input-plain`, `.list-plain`, `.caret`) are in the lowest layer, so anything adds to them.
+
+- **Plain starts**: `.btn-plain` / `.input-plain` (a button or input without the browser's look), `.list-plain` (no
+  bullets, indent or margins), `.caret` (a `summary` with ▾ after it, turned while open). One focus ring for
+  everything a keyboard reaches; `.focus-inset` draws it inside a box that clips.
+- **Display and size**: `.d-grid` (a plain grid, as wide as its content can be), `.d-inline-grid`, `.d-contents`,
+  `.w-max`, `.h-screen`, `.grow` (the rest of a row), `.object-cover`, `.text-nowrap`, `.text-break`, `.font-mono`,
+  `.fs-xs`, `.fs-50` / `.fs-75` (half or three quarters of the text around it), `.pad-control` / `.pad-y-control`.
+- **Layout**: `.layout-icon` (icon | text | anything after), `.rows-body` (a header, a body that fills, a footer),
+  `.cols-end`, `.cols-between`, `.content-center`, `.joined` (children in one box: a label and its input, a button
+  group), `.notch-top` / `.notch-bottom` (a ticket's tear), `.z-1`, `.z-dropdown`, `.z-sticky`, `.z-popup`, `.z-toast`,
+  `.pe-none` / `.pe-auto`.
+- **Look**: `.chip` (a small label: a tag, a badge), `.bg-muted`, `.bg-primary-tint`, `.bg-inverse` (the page's
+  colors swapped: a tooltip), `.bg-scrim` and `.glass-dark` (text over a photo), `.tint-current` (the `aria-current`
+  one tinted), `.border-start` / `-end`, `.border-dashed` (dashes only the sides a border class draws), `.hover-muted`,
+  `.hover-opaque`. A Menu takes `.menu-quiet` for Bootstrap's nav-link look (NavBar's main menu).
+
 ## Tokens worth knowing
 
 Every variable and its default is in `styles/tokens/defaults.css`. A few that reshape a whole site:

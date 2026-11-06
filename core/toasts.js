@@ -22,7 +22,7 @@ const create = (tag, className, text) => {
 /**
  * Toasts: the site's messages, a plain object that keeps them and shows them. Anyone adds one (toastSI.add) from
  * anywhere, in React or not; once mounted it draws them itself: a stack in the bottom-right corner, newest last
- * (styles/components/toast.css and close.css: React's <Toast /> imports them, a plain page loads them). Only the
+ * (styles/components/toast.css: React's <Toast /> imports it, a plain page loads it). Only the
  * newest max are kept. A toast stays until closed; its time ("2 minutes ago") updates every minute.
  */
 class Toasts extends Store {
@@ -61,7 +61,7 @@ class Toasts extends Store {
   mount(parent = document.body, { title = this.title, max = this.max } = {}) {
     this.title = title;
     this.max = max;
-    this.#el ??= create('div', 'toasts position-fixed bottom-0 end-0 pad');
+    this.#el ??= create('div', 'd-grid gap-xs w-max pe-none z-toast position-fixed bottom-0 end-0 pad');
     this.#el.dataset.component = 'toasts';
     parent.append(this.#el);
     this.#unsubscribe ??= this.subscribe(() => this.render());
@@ -99,7 +99,7 @@ class Toasts extends Store {
 
   // One toast: a header (title | time | close) and the message.
   #node(t) {
-    const node = create('div', 'toast round shadow');
+    const node = create('div', 'toast round shadow fs-sm pe-auto');
     node.dataset.component = 'toast';
     node.setAttribute('role', 'alert');
     node.setAttribute('aria-live', 'assertive');
@@ -109,16 +109,16 @@ class Toasts extends Store {
       node.style.color = `var(--${t.type}-mode-text)`;
     }
 
-    const close = create('button', 'btn-close col-center');
+    const close = create('button', 'btn-plain col-center round icon-sm opacity-50 hover-opaque');
     close.type = 'button';
     close.setAttribute('aria-label', 'Close');
     close.innerHTML = '<i class="fa-solid fa-xmark" aria-hidden="true"></i>';
     close.addEventListener('click', () => this.remove(t.id));
 
-    const header = create('div', 'header pad');
+    const header = create('div', 'header pad fs-xs');
     header.append(create('strong', null, this.title), create('small'), close);
 
-    node.append(header, create('div', 'pad', t.msg));
+    node.append(header, create('div', 'pad fs-xs text-break', t.msg));
     this.#el.append(node);
     this.#nodes.set(t.id, node);
     return node;

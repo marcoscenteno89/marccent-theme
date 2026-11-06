@@ -283,6 +283,26 @@
 .bg-page { background-color: var(--body-bg); color: var(--body-color); }
 /* Quieter text (captions, meta lines): the muted color, which keeps 4.5:1 on the page, unlike opacity-50. */
 .text-muted { color: var(--muted-color); }
+.bg-muted { background-color: var(--muted-bg); }
+/* A label or caption over a picture: white text on a dark see-through layer, readable on any photo. */
+.bg-scrim { background-color: rgb(0 0 0 / .55); color: #fff; }
+/* The page's colors swapped (dark on a light page, light on a dark one): a tooltip, a hint. */
+.bg-inverse { background-color: var(--body-color); color: var(--body-bg); }
+/* Dark frosted glass: light text on it reads even over a white photo (a badge or the text on a picture). Its corners
+   from .round or .pill beside it. */
+.glass-dark {
+  color: var(--light);
+  background-color: rgb(10 14 22 / .32);
+  border: 1px solid rgb(255 255 255 / .22);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .35);
+}
+/* A light tint of the primary on the page: a chip, the current page, a row under the pointer. */
+.bg-primary-tint { background-color: color-mix(in srgb, var(--primary) 15%, var(--body-bg)); color: var(--body-color); }
+/* The current one of its kind (aria-current: the page, the step, the link to where you are) on the primary's tint,
+   in its ink. */
+.tint-current[aria-current] { color: var(--primary-ink); background-color: color-mix(in srgb, var(--primary) 15%, var(--body-bg)); }
 
 /* Headings on a color fill take its text color: some design styles color h1–h3 in the primary, which vanishes on a
    primary or secondary fill (in a .bg panel inside one, that's the page's text color). */

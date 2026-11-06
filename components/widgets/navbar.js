@@ -54,7 +54,7 @@ const NavBar = ({ brand, items, path, end, last, top, onEscape, label = 'Main', 
           open={open} onToggle={setOpen} controls={id} />
         <div id={id} className="nav-collapse">
           {/* auto-cols: each item is its text plus the link padding (not equal columns as wide as the longest). */}
-          <Menu items={items} label={label} layout="auto-cols" gap="gap-0" hover={hover} />
+          <Menu items={items} label={label} layout="auto-cols" gap="gap-0" hover={hover} className="menu-quiet" />
           {end}
         </div>
         {last}

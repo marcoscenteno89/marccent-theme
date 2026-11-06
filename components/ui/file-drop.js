@@ -54,8 +54,8 @@ const FileDrop = ({ name, label = 'Drop files here or click to choose', hint, ac
   };
 
   return (
-    <div data-component="file-drop" data-max-size={maxSize} className={cx('file-drop grid cols-1 gap-sm', className)}>
-      <label htmlFor={id} className={cx('file-drop-zone col-center gap-sm pad-lg text-center', over && 'over')}
+    <div data-component="file-drop" data-max-size={maxSize} className={cx('grid cols-1 gap-sm', className)}>
+      <label htmlFor={id} data-drop-zone className={cx('col-center gap-sm pad-lg text-center border border-dashed round bg-muted', over && 'over')}
         onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)} onDrop={drop}>
         <Icon name="cloud-arrow-up" className="fs-lg" />
         <strong>{label}</strong>
@@ -67,11 +67,11 @@ const FileDrop = ({ name, label = 'Drop files here or click to choose', hint, ac
         <ul role="alert" className="grid cols-1 gap-0 fs-sm text-danger">{rejected.map(r => <li key={r}>{r}</li>)}</ul>
       )}
       {files.length > 0 && (
-        <ul className="grid gap-sm" style={{ '--min': '14rem' }} aria-label="Chosen files">
+        <ul className="grid min gap-sm" aria-label="Chosen files">
           {files.map((f, i) => (
-            <li key={`${f.name}-${f.size}-${f.lastModified}`} className="file-drop-item bg border round pad-sm grid items-center gap-sm">
-              {previews[i] ? <img src={previews[i]} alt="" className="round" /> : <Icon name="file" />}
-              <span className="grid cols-1 gap-0" style={{ minWidth: 0 }}>
+            <li key={`${f.name}-${f.size}-${f.lastModified}`} className="layout-icon bg border round pad-sm">
+              {previews[i] ? <img src={previews[i]} alt="" className="square object-cover round" /> : <Icon name="file" />}
+              <span className="grid cols-1 gap-0">
                 <span className="text-truncate">{f.name}</span>
                 <span className="fs-sm opacity-75">{fileSize(f.size)}</span>
               </span>
