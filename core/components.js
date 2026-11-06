@@ -5,6 +5,7 @@ import { tooltip } from './tooltip';
 import { watchScrolled } from './scrolled';
 import { watchInView } from './in-view';
 import { watchInverseMode } from './inverse-mode';
+import { typesetElement } from './typeset';
 import { fileDrop } from './file-drop';
 import { watchDivider } from './divider';
 import { toastSI } from './toasts';
@@ -256,6 +257,9 @@ define('tab-bar', (box) => {
 
 // Inverse mode: the element in the mode opposite its surroundings' (core/inverse-mode.js).
 define('inverse-mode', watchInverseMode);
+
+// Typeset: the text inside set the way print sets it (core/typeset.js), once.
+define('typeset', (el) => { typesetElement(el); });
 
 /*
  * Map: the Google map (core/maps.js) when the box comes near the screen, so the page doesn't pay for it up front;

@@ -43,6 +43,7 @@ export { Store } from './store';
 export { toastSI, Toasts } from './toasts';
 export { watchInView } from './in-view';
 export { watchInverseMode } from './inverse-mode';
+export { typesetParts, typesetElement } from './typeset';
 export { closeMenus, closeAll } from './close-menus';
 export { watchScrolled } from './scrolled';
 export { watchPointer } from './pointer';

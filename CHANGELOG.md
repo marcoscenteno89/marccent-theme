@@ -3,6 +3,22 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.13
+
+Typography: text set the way print sets it, and prices.
+
+### Added
+- `typeset` (`core/typeset.js`: `typesetParts`, `typesetElement`; `Typeset` in React; `data-component="typeset"` for
+  the markup engine): … for `...`, en dashes for ranges (`9--5`, `Mon--Fri`), em dashes for breaks (` -- `), raised
+  ordinals (21st) and marks (™ ® ℠, from `(tm)` `(r)` `(sm)`; © from `(c)`), m² ft³ after a number, primes (6′2″),
+  a no-break space between a number and its unit, and no one-word last line. Hyphens and code are left alone.
+- Price (`components/ui/price.js`, `styles/components/price.css`): the currency sign and cents raised and small, a
+  period (`per`), an old price struck through (`was`), any currency and locale; read whole by screen readers.
+- `.nums-tabular`, `.nums-fractions`, `.nums-ordinal`, `.small-caps`: the font's OpenType features.
+
+### Changed
+- `sup` and `sub` no longer push their line away from the next (base styles).
+
 ## 1.0.0-rc.12
 
 ### Fixed

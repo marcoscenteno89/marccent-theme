@@ -67,6 +67,11 @@ ol, ul, dl { margin-top: 0; margin-bottom: var(--space); }
 dd, figure, blockquote { margin: 0; }
 ol, ul { padding-left: var(--space-lg); }
 small { font-size: var(--small-size); }
+/* Raised and lowered text (footnote markers, ™, ordinals: typeset(), core/typeset.js) without the browser's
+   vertical-align, which pushes its line away from the next. */
+sup, sub { position: relative; font-size: .75em; line-height: 0; vertical-align: baseline; }
+sup { top: -.5em; }
+sub { bottom: -.25em; }
 
 img, svg { vertical-align: middle; }
 /* Images never overflow their box and keep their proportions (no class needed; Bootstrap's was .img-fluid). Weightless,

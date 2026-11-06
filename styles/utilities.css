@@ -121,6 +121,14 @@
 .overlay-sm { --overlay-opacity: var(--overlay-opacity-sm); }
 .overlay-lg { --overlay-opacity: var(--overlay-opacity-lg); }
 
+/* TYPOGRAPHY: the font's own OpenType features, where it has them (a font without one shows the text as it is). */
+.nums-tabular { font-variant-numeric: tabular-nums; }        /* digits of one width: tables, prices and counters line up */
+.nums-fractions { font-variant-numeric: diagonal-fractions; } /* 1/2 drawn as a fraction */
+.nums-ordinal { font-variant-numeric: ordinal; }             /* 1st with its letters raised */
+.small-caps { font-variant-caps: all-small-caps; letter-spacing: .03em; } /* acronyms and AM / PM in running text */
+/* A mark raised small after a name (™, ®, ℠: typeset() writes them so). */
+sup.mark-sup { font-size: .55em; top: -.75em; }
+
 /* DISPLAY */
 .d-none { display: none; }
 /* Hidden on screen, still read by screen readers and reachable by keyboard (a file input under its drop zone, a live

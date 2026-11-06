@@ -16,6 +16,7 @@ the block editor).
 - **CSS**: tokens, a grid layout system, utilities, hover effects (some follow the mouse: tilt, spotlight, magnet) and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
 - **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; Section, Grid and Card (the layout classes as components); a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover), a Footer built from the same menu data, an AppShell with a collapsible sidebar, a Dock, and a Map (Google, in the theme's colors).
+- **Typography**: text set the way print sets it, by itself: real dashes and ellipses, raised ordinals and ™ ®, m², primes, numbers that never split from their units, no one-word last lines; prices with the currency sign and cents raised (`$19⁹⁹/mo`). See [Typography](#typography).
 - **Animations**: canvas backgrounds on any element with `data-component="animation" data-name="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
 
 ## Versions
@@ -164,6 +165,39 @@ query):
 A component with its own markup has its own `data-component`; a configured use of another (the mode toggle is a
 `ToggleButton`) keeps that kind and gets a `data-name`. `data-component` can hold several words: `"button animation"`
 is a Button with an animation behind it (select a word with `[data-component~="animation"]`).
+
+## Typography
+
+Print has rules for symbols that keyboards ignore: a price's dollar sign sits small and high, "21st" raises its
+letters, a range takes an en dash, "10 kg" never breaks between the number and the unit. Most sites get them wrong
+because authors would have to type special characters. Here, authors type what's on their keyboard and the theme
+sets it.
+
+**Automatically, with `typeset`** (`<Typeset as="p">…</Typeset>` in React, `data-component="typeset"` on any
+server-written element, or `typesetParts(text)` / `typesetElement(el)` from `core`):
+
+| Typed | Set | |
+| --- | --- | --- |
+| `...` | … | one character, not three periods |
+| `9--5`, `Mon--Fri` | 9–5, Mon–Fri | an en dash for ranges |
+| `fast -- and right` | fast—and right | an em dash for a break |
+| `21st`, `2nd` | 21ˢᵗ, 2ⁿᵈ | the letters raised |
+| `Marccent(tm)`, `(r)`, `(sm)`, `(c)` | Marccent™, ®, ℠, © | marks raised small (© stays on the line) |
+| `1,200 ft2`, `200 m2` | 1,200 ft², 200 m² | after a number |
+| `6'2"` | 6′2″ | primes, not quotes (after a number) |
+| `10 kg`, `72 °F`, `40 psi` | the same, never split across lines | a no-break space |
+| a paragraph's last word | kept with the one before | no one-word last line |
+
+Hyphens are left alone (phone numbers and dates use them), and so is code (`code`, `pre`, `kbd`, `.no-typeset`).
+
+**Prices, with `Price`**: `<Price amount={19.99} per="mo" was={29} />` shows ~~$29~~ $19⁹⁹/mo: the sign and cents
+raised and small, the period small, the old price struck through, in any currency and locale (`currency="EUR"
+locale="de-DE"`: 49⁵⁰ €). Screen readers hear "$19.99, per mo, was $29". Plain markup and CSS
+(`styles/components/price.css`), so a server can write it too.
+
+**Everywhere, in the base styles**: `sup` and `sub` (footnotes, marks) no longer push their line away from the
+next. And the font's own features, where it has them: `.nums-tabular` (digits of one width: tables and prices line
+up), `.nums-fractions` (1/2 drawn as a fraction), `.nums-ordinal` and `.small-caps` (acronyms, AM / PM).
 
 ## Spacing
 

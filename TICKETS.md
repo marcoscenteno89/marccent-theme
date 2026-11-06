@@ -62,6 +62,8 @@ move it to **Done** with the release, and remove the stopgap from the project in
 | T-020 | rc-imp | Buttons aligned to the start of their cell | `content/site.css` `.btn:has(> .btn-text)` | A button alignment option (class and block setting) |
 | T-021 | rc-imp | Links on colored bands take the band's text color | `content/site.css` | Check whether rc.4's fill colors already cover it; then remove |
 | T-022 | Marccent Blocks, marccent-wp, Marccent Content | Admin and editor screens (theme options page, editor panels, content admin) are hand-built | marccent-wp `inc/theme-options.php` inline CSS + `assets/theme-options.js`; Marccent Content `assets/admin.js`, `editor.js` | An admin/editor template: each component's front-end version plus its editing version (settings panel) |
+| T-024 | Marccent Blocks, django-marccent | Typography set on the server, not after the page loads (no shift as it changes) | none: `data-component="typeset"` sets it in the browser | `typeset` in PHP and Python with the same rules, checked against cases from `core/typeset.js` (as the markup reference does); WordPress: on rendered blocks' text; Django: a `typeset` template filter |
+| T-025 | Marccent Blocks, django-marccent | Prices | none | Price in `markup/reference.json` (cases: currency, locale, per, was); a Price block and a `marccent_price` tag |
 
 ### Theme bugs (found because a site patched around them)
 

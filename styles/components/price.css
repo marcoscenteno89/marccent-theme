@@ -1,0 +1,15 @@
+@import "../layers.css";
+/* PRICE (Price in components/ui/price.js, or the same markup from a server: no script). The amount at the element's
+   own size; the currency sign and the cents raised at half of it, the period (/mo) small on the line, an old price
+   struck through before it. Digits of one width, so prices in a row line up. */
+@layer components {
+  .price { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: .35em; font-variant-numeric: tabular-nums; }
+  .price-now { display: inline-flex; align-items: flex-start; line-height: 1; }
+  .price-currency, .price-cents { font-size: .5em; line-height: 1; padding-top: .12em; }
+  .price-currency { margin-inline-end: .06em; }
+  .price-cents { margin-inline-start: .06em; }
+  /* A sign after the amount (19,99 € in German): on the line after a space, not raised beside the cents. */
+  .price-currency-end { align-self: flex-end; margin-inline: .25em 0; padding-top: 0; font-size: .6em; }
+  .price-per { align-self: flex-end; margin-inline-start: .2em; font-size: max(.4em, var(--small-size)); color: var(--muted-color); }
+  .price-was { font-size: .5em; color: var(--muted-color); }
+}
