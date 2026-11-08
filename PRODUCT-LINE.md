@@ -41,7 +41,7 @@ changed deliberately, here first.
 
 | # | Stage | Home (its list) | An entry has | Check (the gate to the next stage) | State |
 |---|---|---|---|---|---|
-| 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date | a decision to build it (none before 1.0 but product-line work) | exists |
+| 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date (section 8's item shape) | `npm run todos`: every list in the template's shape, every ticket linked from the projects it names; then a decision to build it (none before 1.0 but product-line work) | exists, checked |
 | 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | 15 of ~45 components |
 | 3 | **Settings** | `markup/settings.json` | the kinds of admin data it needs (`admin`, from `outputs.json`'s pattern); each setting: full-word name, type, choices, default; rules (items from rows, one per page) (T-029) | `npm run conformance`: every kind defined, every admin output has a tool for it, settings written | 56 components' admin needs listed; their settings not written yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
@@ -135,7 +135,71 @@ changed deliberately, here first.
 
 Not repeated here, only named (no custom assets and gaps going to the theme are in section 4): Marccent's blocks first; what repeats is data; full words in every name; only the tools people have; data
 into field groups first; two plugins plus kits; everything visitors see built in the block editor until handover;
-every image search-ready; a TODO.md in every project.
+every image search-ready; a TODO.md in every project (its rules are section 8).
+
+## 8. Work lists: TICKETS.md and each project's TODO.md
+
+Every project keeps a `TODO.md` (the theme's is `TICKETS.md`). They are the Wanted stage's lists, and they follow
+these rules strictly; `npm run todos` checks them (below), and a list that fails it is fixed before anything else.
+
+1. **A ticket lives in the project that fixes it.** What the theme has to fix (a missing or broken component, class
+   or token) is a ticket in `TICKETS.md`, never in a project's TODO.md. What only one project fixes (its own bug, its
+   own cleanup) is in that project's TODO.md and nowhere else.
+2. **Others link, never copy.** A project waiting on another project's ticket has one line under **Waiting on**
+   that links to it by ID and says what it unblocks here, nothing more. The ticket's details stay in its one home.
+3. **Every ticket is linked from every project it names.** An open ticket in `TICKETS.md` whose Who names a
+   project has a Waiting on line in that project's TODO.md; a Waiting on line links only to a ticket that's still
+   open. When a ticket ships (moves to Done), the projects delete its line and the stopgap in the same round.
+4. **The feature freeze sorts the list** (section 3): new features, blocks, settings or functionality go under
+   **After 1.0**, never Requests. Requests are only debugging, fixing and finishing what exists.
+5. **One shape for every item**, so nothing is "a special case":
+   `- [ ] **What** — details (found YYYY-MM-DD)`. Ticked when done (`- [x]`, with its done date), then deleted when
+   the release that has it is out (the CHANGELOG or README keeps the record). Details can continue on indented lines
+   or sub-bullets.
+6. **Only these sections, in this order**: Bugs, Requests, Waiting on, After 1.0, Notes. An empty one stays, with
+   its heading. Notes are ideas not decided yet and measurements, without checkboxes; once one is decided it becomes
+   an item in Bugs, Requests or After 1.0.
+7. **Claude doesn't add work on its own.** Something found while working on another item is added to the list
+   (rules 1 to 6) and said in the reply; it isn't done in the same change unless it was asked for.
+
+### The template
+
+```markdown
+# To do: <project>
+
+The rules for this list are in [PRODUCT-LINE.md §8](https://github.com/marcoscenteno89/marccent-theme/blob/master/PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd):
+work fixed here only; anything the theme fixes is a ticket in marccent-theme's TICKETS.md, linked under Waiting on.
+
+## Bugs
+
+- [ ] **What's broken** — where, how it shows (found YYYY-MM-DD)
+
+## Requests
+
+- [ ] **What to fix or finish** — details (found YYYY-MM-DD)
+
+## Waiting on
+
+- [ ] **[T-000](https://github.com/marcoscenteno89/marccent-theme/blob/master/TICKETS.md)** — what it unblocks here: the stopgap that goes (found YYYY-MM-DD)
+
+## After 1.0
+
+- [ ] **A new feature** — details (found YYYY-MM-DD)
+
+## Notes
+
+- An idea not decided yet, or a measurement.
+```
+
+### The check
+
+`npm run todos` (in the theme; `node scripts/todos.mjs [--root <folder>]`) reads `TICKETS.md` and the TODO.md of
+every project it finds next to the theme (a project not there is skipped and said so) and fails when:
+
+- a section is missing, out of order or not one of the five, or the rules line is missing;
+- an item in Bugs, Requests, Waiting on or After 1.0 isn't in the item shape, or has no found date;
+- a Waiting on line doesn't link a ticket ID, or links one that isn't open in `TICKETS.md`;
+- an open ticket names a project whose TODO.md has no Waiting on line for it.
 
 ## To finish the product line
 

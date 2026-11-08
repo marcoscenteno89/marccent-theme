@@ -14,13 +14,17 @@ their one home. This file is only the list: the Wanted stage for the theme.
 One line in **Open** per gap: `ID | who | what's wrong | the stopgap (file) | what the theme needs`. When it ships,
 move it to **Done** with the release, and remove the stopgap from the project in the same round.
 
+Every project named in **Who** links the ticket from its own `TODO.md`, under Waiting on, one line, never a copy; when
+the ticket moves to Done, those lines go. The rules and the TODO.md template: [PRODUCT-LINE.md section
+8](PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd); `npm run todos` checks them.
+
 ## Open
 
 ### Theme gaps (components the sites need)
 
 | ID | Who | Need | Stopgap today | Theme needs |
 |---|---|---|---|---|
-| T-002 | Marccent Local | Cookie consent banner | `inc/consent.php`: inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
+| T-002 | marccent-wp | Cookie consent banner | marccent-wp's `inc/tracking.php` (moved from Marccent Local): inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
 | T-003 | Marccent WP (a Call bar pattern), rc-imp | Call bar fixed to the bottom on phones: a pattern of the theme's own blocks (a group with Call and Get a quote buttons), not a component of its own | Marccent Local's `inc/callbar.php` (inline CSS, printed in PHP) | Utilities only (`.position-fixed`, `.bottom-0` exist): phone-only display (`.d-md-none`, hidden from 768px), full width (`.start-0` / `.inset-x-0`), a z-index above the page, bottom padding for the safe area (`env(safe-area-inset-bottom)`), and room under the page while it shows |
 | T-004 | Marccent Local, Marccent Blocks | Opening hours table, open/closed label, closures | `inc/hours.php` inline CSS (`.mcl-hours`, `.mcl-open`) | `.table` compact variant; a status badge; an Opening hours block (open now from the site's time zone, hours from field rows) |
 | T-005 | Marccent Local, Marccent Blocks | Breadcrumbs | `assets/site.css` `.breadcrumbs` | A Breadcrumbs component (markup + css); a Breadcrumbs block built from where the page sits |
