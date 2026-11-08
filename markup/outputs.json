@@ -1,0 +1,64 @@
+{
+  "admin": {
+    "menu": {
+      "about": "A menu of links people edit (the main menu, a footer's columns, a sidebar).",
+      "wp": "Appearance → Menus (any menu, picked by the block)",
+      "django": "django CMS's pages and menus (menu_nodes)"
+    },
+    "rows": {
+      "about": "Items that repeat (FAQ questions, team, steps, slides, places): a field group's rows or posts.",
+      "wp": "Marccent Content: Fields → Field groups (rows) or Fields → Post types, shown with a Loop",
+      "django": null
+    },
+    "site": {
+      "about": "The site's own details: name, logo, phone, email, address, opening hours.",
+      "wp": "Site content (Marccent Content) and Settings → General / Site Identity",
+      "django": null
+    },
+    "theme": {
+      "about": "The site's theme (palette, mode, design style) and what visitors may change.",
+      "wp": "Appearance → Marccent theme",
+      "django": null
+    },
+    "keys": {
+      "about": "Keys for outside services (Google Maps, Turnstile).",
+      "wp": "Appearance → Marccent settings (or a MARCCENT_KEY_<ID> constant)",
+      "django": null
+    },
+    "entries": {
+      "about": "What visitors send (a form's entries), kept and looked at later.",
+      "wp": "Forms → Entries, or a post type made in Fields (\"Keep entries in\")",
+      "django": null
+    }
+  },
+  "outputs": {
+    "wp": {
+      "host": "WordPress",
+      "admin": true,
+      "adapters": {
+        "marccent-blocks": {
+          "path": "../wp/wp-content/plugins/marccent-blocks",
+          "render": ["docker", "run", "--rm", "-i", "-v", "./:/app", "-w", "/app", "--entrypoint", "php", "wordpress:cli", "tools/markup-render.php"]
+        }
+      }
+    },
+    "html": {
+      "host": "plain HTML and Next (React)",
+      "admin": false,
+      "adapters": {
+        "marccent-html": { "path": "../marccent-html", "uses": "the theme's React components, so its markup is the reference's" },
+        "marccent-next": { "path": "../marccent/next", "uses": "the theme's React components, so its markup is the reference's" }
+      }
+    },
+    "django": {
+      "host": "Django (django CMS)",
+      "admin": true,
+      "adapters": {
+        "django-marccent": {
+          "path": "../django-marccent",
+          "render": [".venv/bin/python", "-m", "tests.render_markup"]
+        }
+      }
+    }
+  }
+}

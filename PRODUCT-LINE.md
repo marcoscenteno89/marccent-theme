@@ -12,6 +12,12 @@ service**: a defined, repeatable result, each new client a new entry, not a new 
 - **Domain engineering** builds and fixes the core assets; **application engineering** builds sites from them. Until
   1.0 the work is domain engineering.
 - **The reference architecture** is the flow below: the part that lasts.
+- **Outputs**: the kinds of site a product can be, a list that can grow (`markup/outputs.json`): today **wp**
+  (WordPress), **html** (plain HTML and Next) and **django**. Each says whether it has an **admin** (wp and django:
+  people edit the data in an admin; html: the data comes with the page). Every output with an admin follows the same
+  **admin pattern**: the same kinds of admin data (menu, rows, site, theme, keys, entries), each provided by one of
+  its tools, and each component says which kinds it needs (`markup/settings.json`). A new output is one more entry
+  there, with its adapters and, if it has an admin, its tool for every kind.
 
 ## 1. The flow (the reference architecture)
 
@@ -37,8 +43,8 @@ changed deliberately, here first.
 |---|---|---|---|---|---|
 | 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date | a decision to build it (none before 1.0 but product-line work) | exists |
 | 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | 15 of ~45 components |
-| 3 | **Settings** | `markup/settings.json` (T-029) | each setting: full-word name, type, choices, default; rules (needs admin data, items from rows, one per page) | adapters compared with it | missing |
-| 4 | **Adapters** | README.md's table | which components it covers, its test against the reference | every Component and Setting covered by every adapter (the kitchen-sink page's "Not shown yet" for Marccent Blocks) | Marccent Blocks: 47 blocks, its own names; django-marccent, marccent/next: unchecked |
+| 3 | **Settings** | `markup/settings.json` | the kinds of admin data it needs (`admin`, from `outputs.json`'s pattern); each setting: full-word name, type, choices, default; rules (items from rows, one per page) (T-029) | `npm run conformance`: every kind defined, every admin output has a tool for it, settings written | 56 components' admin needs listed; their settings not written yet |
+| 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
 | 5 | **Kits** | to decide (Marccent Content's export format) | name, field groups, post types, patterns, starter pages, which components it uses | imports cleanly on a new site | missing |
 | 6 | **Sites** | to decide (one list of every site) | name, host, adapter, address, kits, stage (building, live) | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | missing: folders in `wp/sites/` and `marccent/`, no list |
 | 7 | **Live** | the Sites list's stage | address, launch date | the site's checks keep passing | none live yet |
@@ -68,19 +74,38 @@ changed deliberately, here first.
 
 ## 4. Components: what belongs in the theme and what in an adapter
 
-1. **The theme is classes that combine.** A component is made of general classes (`.raised`, `.fs-50`,
+1. **No project ships custom assets.** Sites (marccent-html, marccent/next, Fernway, the WordPress sites,
+   parallax-html) and adapters (Marccent Blocks, Marccent Content, marccent-wp, django-marccent) use marccent-theme's
+   components, classes and tokens. Period. No own CSS or JS for the look or the behavior of a page: no `site.css`
+   rules, no inline `<style>` or `wp_add_inline_style`, no plugin `assets/*.js`, no copied or forked components, no
+   overrides of a theme class.
+2. **When the theme can't do it, don't work around it.** A component missing, broken or not fitting: add a ticket to
+   [TICKETS.md](TICKETS.md) (who needs it, what for, which file holds the stopgap) and fix it in the theme. The
+   stopgap is removed when the ticket ships.
+3. **Allowed in a project**: content (text, images, settings, menus), the theme's tokens set in its own settings
+   (palette, fonts, spacing), and app logic that drives theme components with data (an API call, a form post).
+4. **Every theme change cascades.** A change isn't done until every project that uses the theme has it: release it
+   (version, CHANGELOG, tag), then move each project to that release, rebuild it and check it still works:
+   - Marccent Blocks: its `package.json` pin (marccent-wp and Marccent Content get the theme through it);
+   - marccent-html, marccent/next, Fernway (`html/`): their `package.json` pins;
+   - django-marccent: `marccent.THEME_VERSION` and its committed copy of the theme's `dist/`.
+
+   When the markup (`markup/reference.json`) or a component's props change, update the adapters that translate them
+   in the same pass. When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
+   yet gets a line in its `TODO.md` saying why.
+5. **The theme is classes that combine.** A component is made of general classes (`.raised`, `.fs-50`,
    `.text-muted`, padding, placement); no component when classes already do it (a price needs no theme component).
-2. **Adapters only translate.** An adapter's block, tag or component writes the theme's markup
+6. **Adapters only translate.** An adapter's block, tag or component writes the theme's markup
    (`markup/reference.json`) and nothing else: no CSS or JS of its own, no copied components.
-3. **Block or pattern** (in WordPress; the same split elsewhere):
+7. **Block or pattern** (in WordPress; the same split elsewhere):
    - a stack of whole blocks (a section heading, a call bar, a hero, a call to action) → a **pattern**;
    - one line or small unit with mixed styling inside it, or a little logic (formatting, links built from a field,
      dates, a time zone) → a **block**: Price, Date, Contact line, Opening hours, Breadcrumbs (T-004, T-005,
      T-025 to T-027);
    - styling on part of a line of text (raised, muted, a badge) → a **text format** (T-028).
-4. **One block per kind; looks are patterns.** One Card block: an image card or an icon card is a pattern of Card,
+8. **One block per kind; looks are patterns.** One Card block: an image card or an icon card is a pattern of Card,
    not a block of its own. The same for any "X card".
-5. **No block for what a list of links already does.** No Social links block: social links are a menu.
+9. **No block for what a list of links already does.** No Social links block: social links are a menu.
 
 ## 5. Settings: one standard everywhere
 
@@ -96,8 +121,9 @@ changed deliberately, here first.
    admin (wp-admin, Django's admin), never typed into a block's settings.
 2. **Containers take a Loop.** Accordion, Tabs and Carousel accept a Loop of their items, so a FAQ stored as rows can
    be an Accordion.
-3. **Components that need the admin say so** in their settings (rule: needs admin data), and every adapter gives
-   them an admin screen or reads the one that exists:
+3. **Components that need the admin say so** (`admin` in `markup/settings.json`), and every output with an admin
+   provides each kind with one of its tools (`markup/outputs.json`, the admin pattern; an output without an admin,
+   html, gets the data with the page). The kinds and who needs them:
    - menus: Navbar, Nav, Menu, Footer (WordPress: Appearance → Menus; Django: a menu model). A nav picks any menu
      made in the admin and can go anywhere;
    - forms (entries, who's emailed, the spam check), Map (key, places), the theme editors (the site's theme and what
@@ -107,8 +133,7 @@ changed deliberately, here first.
 
 ## 7. The ecosystem rules (their home is the workspace's CLAUDE.md and `wp/RULES.md`)
 
-Not repeated here, only named: no custom assets (marccent-theme is the core); gaps go to `TICKETS.md`, not around the
-theme; Marccent's blocks first; what repeats is data; full words in every name; only the tools people have; data
+Not repeated here, only named (no custom assets and gaps going to the theme are in section 4): Marccent's blocks first; what repeats is data; full words in every name; only the tools people have; data
 into field groups first; two plugins plus kits; everything visitors see built in the block editor until handover;
 every image search-ready; a TODO.md in every project.
 
@@ -116,7 +141,7 @@ every image search-ready; a TODO.md in every project.
 
 - [ ] Component: cases for every component, not only the 15 in `reference.json`.
 - [ ] Settings: `markup/settings.json` (T-029), and Marccent Blocks reading it.
-- [ ] Adapters: each adapter's coverage of Components and Settings, as a check.
+- [x] Adapters: each adapter's markup against the reference, as a check (`npm run conformance`); Settings once they exist.
 - [ ] Kits: where kits are kept and listed, and their check.
 - [ ] Sites: one list of every site (rc-imp, rimrock, cr-landscape, marccent-web, marccent.com) with its stage.
 - [ ] Live: the four WordPress sites, marccent.com and marccent-theme 1.0.0.

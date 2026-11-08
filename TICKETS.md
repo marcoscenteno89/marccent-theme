@@ -3,32 +3,11 @@
 marccent-theme is the core of every Marccent site and adapter. This is the one list of what the theme doesn't do yet
 for them, and of every place a project still carries its own code instead of the theme's.
 
-## The rule
+## The rules
 
-**No project ships custom assets.** Sites (marccent-html, marccent/next, Fernway, the WordPress sites, parallax-html)
-and adapters (Marccent Blocks, Marccent Local, Marccent Content, marccent-wp, django-marccent) use marccent-theme's
-components, classes and tokens. Period.
-
-- **No own CSS or JS for the look or the behavior of a page**: no `site.css` rules, no inline `<style>` or
-  `wp_add_inline_style`, no plugin `assets/*.js`, no copied or forked components, no overrides of a theme class.
-- **When the theme can't do it** (a component is missing, broken, or doesn't fit), **don't work around it**: add a ticket
-  below (who needs it, what for, which file holds the stopgap) and fix it in the theme. The stopgap is removed when the
-  ticket ships.
-- **Adapters only translate.** Marccent Blocks, django-marccent and the like render the theme's markup
-  (`markup/reference.json`) and glue it to their host (WordPress, Django): they don't add looks or components of their
-  own.
-- **Every theme change cascades.** A change here isn't done until every project that uses the theme has it: release it
-  (version, CHANGELOG, tag), then move each project to that release, rebuild it, and check it still works:
-  - Marccent Blocks: its `package.json` pin. marccent-wp, Marccent Local and Marccent Content get the theme through
-    it.
-  - marccent-html, marccent/next, Fernway (`html/`): their `package.json` pins.
-  - django-marccent: `marccent.THEME_VERSION` and its committed copy of the theme's `dist/`.
-
-  When the markup (`markup/reference.json`) or a component's props change, update the adapters that translate them in
-  the same pass. When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change yet
-  gets a line in its `TODO.md` saying why.
-- **Allowed in a project**: content (text, images, settings, menus), the theme's tokens set in its own settings
-  (palette, fonts, spacing), and app logic that drives theme components with data (an API call, a form post).
+The rules this list serves (no custom assets, gaps fixed in the theme, adapters only translate, every theme change
+cascades) are in [PRODUCT-LINE.md](PRODUCT-LINE.md#4-components-what-belongs-in-the-theme-and-what-in-an-adapter),
+their one home. This file is only the list: the Wanted stage for the theme.
 
 ## How a ticket works
 
