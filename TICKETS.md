@@ -14,13 +14,17 @@ their one home. This file is only the list: the Wanted stage for the theme.
 One line in **Open** per gap: `ID | who | what's wrong | the stopgap (file) | what the theme needs`. When it ships,
 move it to **Done** with the release, and remove the stopgap from the project in the same round.
 
+Every project named in **Who** links the ticket from its own `TODO.md`, under Waiting on, one line, never a copy; when
+the ticket moves to Done, those lines go. The rules and the TODO.md template: [PRODUCT-LINE.md section
+8](PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd); `npm run todos` checks them.
+
 ## Open
 
 ### Theme gaps (components the sites need)
 
 | ID | Who | Need | Stopgap today | Theme needs |
 |---|---|---|---|---|
-| T-002 | the WordPress sites (Marccent Local, removed 2026-11-09, had one) | Cookie consent banner | `inc/consent.php`: inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
+| T-002 | marccent-wp | Cookie consent banner | marccent-wp's `inc/tracking.php` (moved from Marccent Local): inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
 | T-003 | Marccent WP (a Call bar pattern), rc-imp | Call bar fixed to the bottom on phones: a pattern of the theme's own blocks (a group with Call and Get a quote buttons), not a component of its own | Marccent Local's `inc/callbar.php` (inline CSS, printed in PHP) | Utilities only (`.position-fixed`, `.bottom-0` exist): phone-only display (`.d-md-none`, hidden from 768px), full width (`.start-0` / `.inset-x-0`), a z-index above the page, bottom padding for the safe area (`env(safe-area-inset-bottom)`), and room under the page while it shows |
 | T-009 | Fernway, marccent-html | Badges, avatars | Fernway `site.css` `.badge`, `.avatar` | Badge and Avatar classes |
 | T-010 | Fernway | Section heading block (eyebrow, title, text, centered) | `site.css` `.section-head` | A SectionHead component |
