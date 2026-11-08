@@ -106,6 +106,15 @@ changed deliberately, here first.
 8. **One block per kind; looks are patterns.** One Card block: an image card or an icon card is a pattern of Card,
    not a block of its own. The same for any "X card".
 9. **No block for what a list of links already does.** No Social links block: social links are a menu.
+10. **A component fills its parent's width; the parent decides it.** A component never sets its own width or
+    max-width: the layout it sits in does (a grid cell, `.wrap`, a column, `.measure` on the parent), so the
+    same component fits a sidebar, a card and a full-width section unchanged. It fills by being a block or grid item
+    that stretches, not by `width: 100%` (which overflows once it has a margin). Two kinds are sized otherwise, by
+    what they are:
+    - **inline controls** (Button, Icon, Chip, Rating's stars, toggles) are as wide as their content and never wider
+      than the parent (`max-width: 100%`); the parent stretches one with a class (`.w-100`, `.self-stretch`);
+    - **overlays** (Modal, Drawer, Popover, Tooltip, Toast, a Menu's panel) sit outside the flow, so they're sized
+      against the screen or what they're attached to, with a cap that keeps them on screen.
 
 ## 5. Settings: one standard everywhere
 
