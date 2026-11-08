@@ -1,9 +1,9 @@
 /*
  * The theme without React: for plain JS pages (a WordPress theme, server-rendered templates). React uses the same
- * pieces through marccent-theme/react (ThemeProvider and the hooks). The styles load on their own
+ * pieces through @marccent/theme/react (ThemeProvider and the hooks). The styles load on their own
  * (styles/index.css).
  *
- *   import { startTheme } from 'marccent-theme/core';
+ *   import { startTheme } from '@marccent/theme/core';
  *   const theme = await startTheme();
  *   theme.update({ palette: 'mint' }); // the page follows
  */

@@ -12,7 +12,7 @@
  *
  *   node scripts/conformance.mjs [--strict] [--adapter <name>] [--reference <file>] [--render <command…>]
  *
- * An adapter's own test runs it against its pinned reference: --reference node_modules/marccent-theme/markup/
+ * An adapter's own test runs it against its pinned reference: --reference node_modules/@marccent/theme/markup/
  * reference.json --render php tools/markup-render.php. An adapter whose folder isn't here is skipped (said so);
  * one that "uses" the theme's components writes their markup by construction and has nothing to render.
  */

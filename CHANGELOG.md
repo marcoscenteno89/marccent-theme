@@ -3,6 +3,21 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.16
+
+The package is `@marccent/theme` (was `marccent-theme`), before anything live depends on the old name. Nothing else
+changes: the same files, classes and markup.
+
+### Changed
+- `package.json`'s name: `@marccent/theme`. Imports become `@marccent/theme/…` (`import { Button } from
+  '@marccent/theme/components/ui/button'`); a host installs it the same way (`npm install
+  github:marcoscenteno89/marccent-theme#v1.0.0-rc.16`) and its dependency key is `@marccent/theme`. The repo keeps its
+  name until it moves to the `marccent` organization.
+- `dist/`'s banner names the package.
+
+### Added
+- Work lists: PRODUCT-LINE.md section 8 (the rules and the TODO.md template) and `npm run todos` (in `npm test`).
+
 ## 1.0.0-rc.15
 
 The audit of situation-specific classes: components made of classes that combine, and the classes they needed.

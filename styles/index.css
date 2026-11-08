@@ -1,6 +1,6 @@
 /*
  * MARCCENT THEME: every stylesheet in cascade order, from broad to specific (ITCSS): when two rules are equally
- * specific, the later file wins. A site imports this once (import 'marccent-theme/styles/index.css').
+ * specific, the later file wins. A site imports this once (import '@marccent/theme/styles/index.css').
  *
  * core.css: tokens, elements, colors, layout, hovers and utilities. Components load on their own in a bundler (each
  * component imports its file from styles/components/), or all at once from components.css where markup comes from a

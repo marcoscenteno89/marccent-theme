@@ -1,6 +1,6 @@
 'use client';
 /*
- * The theme in React: the plain-JS core (marccent-theme/core) handed down and rendered. ThemeProvider loads the theme
+ * The theme in React: the plain-JS core (@marccent/theme/core) handed down and rendered. ThemeProvider loads the theme
  * and re-renders on its changes, SiteTheme and ScopeThemes put it on the page, and the hooks subscribe to the core's
  * stores. The components import from their own files (components/).
  */
