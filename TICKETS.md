@@ -43,10 +43,10 @@ move it to **Done** with the release, and remove the stopgap from the project in
 |---|---|---|---|---|
 | T-002 | Marccent Local | Cookie consent banner | `inc/consent.php`: inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
 | T-003 | Marccent WP (a Call bar pattern), rc-imp | Call bar fixed to the bottom on phones: a pattern of the theme's own blocks (a group with Call and Get a quote buttons), not a component of its own | Marccent Local's `inc/callbar.php` (inline CSS, printed in PHP) | Utilities only (`.position-fixed`, `.bottom-0` exist): phone-only display (`.d-md-none`, hidden from 768px), full width (`.start-0` / `.inset-x-0`), a z-index above the page, bottom padding for the safe area (`env(safe-area-inset-bottom)`), and room under the page while it shows |
-| T-004 | Marccent Local | Opening hours table, open/closed label, closures | `inc/hours.php` inline CSS (`.mcl-hours`, `.mcl-open`) | `.table` compact variant; a status badge |
-| T-005 | Marccent Local | Breadcrumbs | `assets/site.css` `.breadcrumbs` | A Breadcrumbs component (markup + css) |
+| T-004 | Marccent Local, Marccent Blocks | Opening hours table, open/closed label, closures | `inc/hours.php` inline CSS (`.mcl-hours`, `.mcl-open`) | `.table` compact variant; a status badge; an Opening hours block (open now from the site's time zone, hours from field rows) |
+| T-005 | Marccent Local, Marccent Blocks | Breadcrumbs | `assets/site.css` `.breadcrumbs` | A Breadcrumbs component (markup + css); a Breadcrumbs block built from where the page sits |
 | T-006 | Marccent Local | Link chips (cities, services) | `assets/site.css` `.link-list` | Chip links (`.tag` exists only inside TagInput) |
-| T-007 | Marccent Local | Key facts (label / value rows) | `assets/site.css` `.facts` | A description-list class |
+| T-007 | Marccent Local, Marccent Blocks | Key facts (label / value rows) | `assets/site.css` `.facts` | A description-list class; maybe a Fact block (one label / value pair, a Loop wraps them in the list) |
 | T-008 | Marccent Local, Marccent Blocks | Tables in WordPress content | `assets/site.css` `.wp-block-table` | Nothing new: Marccent Blocks should put the theme's `.table` on core table blocks, then the CSS goes |
 | T-009 | Fernway, marccent-html | Badges, avatars | Fernway `site.css` `.badge`, `.avatar` | Badge and Avatar classes |
 | T-010 | Fernway | Section heading block (eyebrow, title, text, centered) | `site.css` `.section-head` | A SectionHead component |
@@ -64,6 +64,10 @@ move it to **Done** with the release, and remove the stopgap from the project in
 | T-022 | Marccent Blocks, marccent-wp, Marccent Content | Admin and editor screens (theme options page, editor panels, content admin) are hand-built | marccent-wp `inc/theme-options.php` inline CSS + `assets/theme-options.js`; Marccent Content `assets/admin.js`, `editor.js` | An admin/editor template: each component's front-end version plus its editing version (settings panel) |
 | T-024 | Marccent Blocks, django-marccent | Typography set on the server, not after the page loads (no shift as it changes) | none: `data-component="typeset"` sets it in the browser | `typeset` in PHP and Python with the same rules, checked against cases from `core/typeset.js` (as the markup reference does); WordPress: on rendered blocks' text; Django: a `typeset` template filter |
 | T-025 | Marccent Blocks, django-marccent | Prices | none | Price in `markup/reference.json` (cases: currency, locale, per, was); a Price block and a `marccent_price` tag |
+| T-026 | Marccent Blocks, django-marccent | Dates and times (an event's date, a range like Nov 6–8, posted 3 days ago) | none | Date in `markup/reference.json` (`<time datetime>`, locale, ranges, relative); a Date block and a tag |
+| T-027 | Marccent Blocks, django-marccent | Contact line: a phone, email or address as a link | none | Contact in `markup/reference.json` (`tel:` and `mailto:` from one field, `<address>`); a Contact block and a tag |
+| T-028 | Marccent Blocks | Mixed styles inside one line of text (a raised currency, a muted unit, a badge or chip) | none | Text formats in the block editor (Raised, Muted, Badge) putting the theme's classes on part of a line |
+| T-029 | every adapter (Marccent Blocks, django-marccent, marccent/next, marccent-html) | One standard set of settings per component, the same names, choices and defaults wherever it's used | each adapter defines its own (WP's `block.json` and `src/shared/options.js`, Django's plugin forms) and they drift (`lat`/`lng`, options copied by hand) | A settings file in the theme beside `markup/reference.json`: per component, each setting's full-word name, type, choices (value + label), default, and rules (needs admin data, items from rows, one per page); adapters read it instead of copying it, and a check fails when one differs |
 
 ### Theme bugs (found because a site patched around them)
 
