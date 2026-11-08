@@ -56,6 +56,7 @@ the ticket moves to Done, those lines go. The rules and the TODO.md template: [P
 
 | ID | Who | Bug | Stopgap today | Fix |
 |---|---|---|---|---|
+| B-003 | marccent-theme | Loading sets its own width (PRODUCT-LINE.md section 4, rule 10): `.loader-bar { width: 100% }` in `styles/components/loading.css`, and `style={{ width: '100%' }}` on every loader in `components/ui/loading.js` | excused in `scripts/conformance.mjs` (`SIZING_EXCEPTIONS`) | Drop both, so a loader fills as a block; a flex parent that shrinks it stretches it (`.self-stretch`, `.w-100`). Check the Loading cases in `markup/reference.json` and each adapter's output in the same round |
 
 ### Whole projects off the theme
 

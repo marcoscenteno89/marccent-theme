@@ -17,6 +17,8 @@ changes: the same files, classes and markup.
 
 ### Added
 - Work lists: PRODUCT-LINE.md section 8 (the rules and the TODO.md template) and `npm run todos` (in `npm test`).
+- Sizing: PRODUCT-LINE.md section 4, rule 10 (a component sets no width and no outer margin; its container decides
+  both), checked by `npm run conformance` on the roots in `styles/components`. Loading breaks it today (B-003).
 
 ## 1.0.0-rc.15
 

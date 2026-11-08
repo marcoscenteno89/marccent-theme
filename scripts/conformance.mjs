@@ -10,6 +10,11 @@
  * output with an admin says which of its tools provides each kind. Fails on a kind that isn't defined; reports (and
  * with --strict fails on) a kind an admin output has no tool for yet, and components whose settings aren't written.
  *
+ * Sizing (PRODUCT-LINE.md section 4, rule 10): no component in styles/components sets its own width or outer margin.
+ * Fails on a width, max-width, min-width or margin on a component's root (the selector is the root itself, with no
+ * part after it) that its kind doesn't allow: a block fills its parent, an inline control fits its content, an
+ * overlay is exempt. ROOTS below names each root's kind; SIZING_EXCEPTIONS each open ticket that excuses one.
+ *
  *   node scripts/conformance.mjs [--strict] [--adapter <name>] [--reference <file>] [--render <command…>]
  *
  * An adapter's own test runs it against its pinned reference: --reference node_modules/@marccent/theme/markup/
@@ -17,7 +22,7 @@
  * one that "uses" the theme's components writes their markup by construction and has nothing to render.
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFragment } from 'parse5';
@@ -125,5 +130,79 @@ if (option('--render')) {
     missing += unwritten.length;
     if (unwritten.length) console.log(`todo settings: ${unwritten.length} of ${Object.keys(settings).length} components' settings not written yet (T-029)`);
   }
+}
+
+// Sizing: each component root's kind. A file in styles/components with none of these fails, so a new component has
+// to say what it is. Other classes (parts, modifiers, states) aren't roots: a rule on a part is sized inside its root.
+const ROOTS = {
+  block: ['app-shell', 'board', 'swiper', 'compare', 'divider', 'dock-items', 'field', 'inline-form', 'pairs', 'header',
+    'map', 'menu', 'nav', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
+    'loader-pulse', 'loader-ring'],
+  replaced: ['input', 'table'], // a form control or a table: auto doesn't fill, so 100% is how they fill (it's the parent's width)
+  inline: ['btn', 'chip', 'rating', 'fa', 'fa-solid', 'fa-regular', 'fa-brands'],
+  overlay: ['modal', 'float', 'toast', 'toggle-panel', 'menu-panel'], // outside the flow: sized against the screen
+};
+// What each kind may set on its root. Anything else (a fixed width, a margin) is the parent's to decide.
+const ALLOWED = {
+  block: { width: ['auto'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
+  replaced: { width: ['auto', '100%'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
+  // An icon is a square glyph: --icon-size is its content's size, set by the text it sits in.
+  inline: { width: ['auto', 'fit-content', 'max-content', 'min-content', 'var(--icon-size)'], 'max-width': ['100%', 'none'],
+    'min-width': ['0', 'auto', 'fit-content', 'max-content', 'min-content'], margin: ['0'] },
+};
+// Open tickets that excuse a declaration until they ship: "root property" → ticket. Delete the line with the fix.
+const SIZING_EXCEPTIONS = { 'loader-bar width': 'B-003' };
+
+if (!option('--adapter') && !option('--render')) {
+  const kindOf = Object.fromEntries(Object.entries(ROOTS).flatMap(([kind, roots]) => roots.map((r) => [r, kind])));
+  const dir = join(ROOT, 'styles/components');
+  const before = failed;
+  let checked = 0;
+  // Split on a character outside parentheses (a selector list's commas, a compound's combinators).
+  const split = (text, at) => {
+    const out = [''];
+    let depth = 0;
+    for (const ch of text) {
+      if (ch === '(') depth++;
+      if (ch === ')') depth--;
+      if (!depth && at.test(ch)) out.push('');
+      else out[out.length - 1] += ch;
+    }
+    return out.map((p) => p.trim()).filter(Boolean);
+  };
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.css')).sort()) {
+    const css = readFileSync(join(dir, file), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    if (![...css.matchAll(/\.([a-z][a-z0-9-]*)/g)].some((m) => kindOf[m[1]])) {
+      console.log(`FAIL sizing ${file}: none of its classes is in ROOTS (scripts/conformance.mjs): say what kind it is`);
+      failed++;
+    }
+    for (const [, selectors, body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      for (const selector of split(selectors.trim().replace(/\s+/g, ' '), /,/)) {
+        if (selector.startsWith('@')) continue;
+        const classes = [...selector.matchAll(/\.([a-z][a-z0-9-]*)/g)].map((m) => m[1]);
+        if (split(selector, /[ >+~]/).length > 1 || selector.includes('::')) continue; // a part, sized inside the root
+        const root = classes.find((c) => kindOf[c]);
+        const kind = kindOf[root];
+        if (!root || kind === 'overlay') continue;
+        checked++;
+        for (const declaration of body.split(';')) {
+          const [name, ...rest] = declaration.split(':');
+          const value = rest.join(':').replace(/!important/, '').trim();
+          const property = name.trim().replace(/^inline-size$/, 'width').replace(/^(max|min)-inline-size$/, '$1-width')
+            .replace(/^margin-.*$/, 'margin');
+          const allowed = ALLOWED[kind][property];
+          if (!allowed || allowed.includes(value) || (property === 'margin' && /^0( 0)*$/.test(value))) continue;
+          const ticket = SIZING_EXCEPTIONS[`${root} ${property}`];
+          if (ticket) {
+            console.log(`todo sizing ${file}: ${selector} { ${name.trim()}: ${value} } until ${ticket}`);
+            continue;
+          }
+          console.log(`FAIL sizing ${file}: ${selector} { ${name.trim()}: ${value} }: .${root} is ${kind}, so its ${property} is its parent's to decide (PRODUCT-LINE.md section 4, rule 10)`);
+          failed++;
+        }
+      }
+    }
+  }
+  if (failed === before) console.log(`ok   sizing: ${checked} root rules set no width or margin of their own`);
 }
 process.exit(failed || (strict && missing) ? 1 : 0);
