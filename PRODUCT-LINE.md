@@ -105,7 +105,8 @@ changed deliberately, here first.
    - styling on part of a line of text (raised, muted, a badge) → a **text format** (T-028).
 8. **One block per kind; looks are patterns.** One Card block: an image card or an icon card is a pattern of Card,
    not a block of its own. The same for any "X card".
-9. **No block for what a list of links already does.** No Social links block: social links are a menu.
+9. **No block for what a list of links already does.** No Social links block: social links are data (Site content →
+   Profiles rows: name, icon, link), shown with a Loop of Button blocks.
 
 ## 5. Settings: one standard everywhere
 

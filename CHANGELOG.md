@@ -3,6 +3,20 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.16
+
+The nav on its own, so a header is a pattern (a brand, a folding Menu, a call button, theme controls) instead of one
+component; and the checks that keep every adapter's markup the same as the theme's.
+
+### Added
+- `Menu fold`: the menu behind a menu button where its container (the nearest `.wrap`, a header's width) is under
+  56rem, a phone menu stacked in the button's panel (ToggleButton's panel); from 56rem it shows in place and the
+  button hides (`.menu-fold`, `.menu-fold-toggle`, menu.css). A new markup case: Menu, "folded behind a menu button".
+- `npm run conformance` (also in `npm test`): every adapter's markup against the reference, and what each doesn't
+  cover (`markup/outputs.json`); the admin pattern every output with an admin follows, and each component's admin
+  needs (`markup/settings.json`).
+- `PRODUCT-LINE.md`: Marccent as a product line, its stages, gates and rules (TICKETS.md links to them).
+
 ## 1.0.0-rc.15
 
 The audit of situation-specific classes: components made of classes that combine, and the classes they needed.

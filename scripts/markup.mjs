@@ -91,7 +91,7 @@ const RENDER = {
       h('span', { className: 'fw-bold' }, f.brand.name)),
     items: f.items,
   }),
-  menu: (f) => h(Menu, { items: f.items, label: f.label, layout: f.layout || undefined, iconOnly: f.iconOnly }),
+  menu: (f) => h(Menu, { items: f.items, label: f.label, layout: f.layout || undefined, iconOnly: f.iconOnly, fold: f.fold }),
   toggleButton: (f) => h(ToggleButton, {
     icon: f.icon, activeIcon: f.activeIcon || undefined, controls: f.controls, defaultOpen: f.open, className: f.classes || undefined,
   }, f.label),

@@ -351,6 +351,36 @@
         ]
       },
       "html": "<nav data-component=\"menu\" class=\"menu grid gap-sm auto-cols cols-center\" style=\"--cols:2\" aria-label=\"Social\"><a data-component=\"menu-link\" href=\"https://github.com/marcoscenteno89\" class=\"menu-link\" aria-label=\"Github\" title=\"Github\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-github\" aria-hidden=\"true\"></i></a><a data-component=\"menu-link\" href=\"mailto:hi@example.com\" class=\"menu-link\" aria-label=\"Email me\" title=\"Email\"><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i></a></nav>"
+    },
+    {
+      "case": "folded behind a menu button",
+      "fields": {
+        "label": "Main",
+        "layout": "auto-cols",
+        "iconOnly": false,
+        "fold": true,
+        "items": [
+          {
+            "name": "Services",
+            "href": "/services/"
+          },
+          {
+            "name": "About",
+            "href": "/about/",
+            "children": [
+              {
+                "name": "Team",
+                "href": "/about/team/"
+              }
+            ]
+          },
+          {
+            "name": "Contact",
+            "href": "/contact/"
+          }
+        ]
+      },
+      "html": "<div data-component=\"menu-fold\" class=\"menu-fold\"><button type=\"button\" class=\"btn menu-fold-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"xmark\" aria-expanded=\"false\" aria-controls=\"id-1\" aria-label=\"Main menu\" id=\"id-1-toggle\" popovertarget=\"id-1\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"id-1\" data-component=\"toggle-panel\" popover=\"auto\" role=\"group\" aria-label=\"Main menu\" class=\"toggle-panel bg border round shadow pad-sm\"><nav data-component=\"menu\" class=\"menu grid gap-sm auto-cols\" style=\"--cols:3\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/services/\" class=\"menu-link\"><span class=\"text-truncate\">Services</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">About</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/about/team/\" class=\"menu-link\"><span class=\"text-truncate\">Team</span></a></div></details><a data-component=\"menu-link\" href=\"/contact/\" class=\"menu-link\"><span class=\"text-truncate\">Contact</span></a></nav></div></div>"
     }
   ],
   "toggleButton": [

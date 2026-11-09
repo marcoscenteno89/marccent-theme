@@ -1,6 +1,7 @@
 // Shared: no 'use client' (no hooks), so it renders on the server or in the browser, wherever it's used.
 import { Link } from '../../lib/link';
 import { cx } from '../../lib/cx';
+import { ToggleButton } from './toggle-button';
 import '../../styles/components/menu.css';
 
 /*
@@ -44,13 +45,26 @@ const menuLinks = (items) => items.flatMap(item => [ ...(item.href ? [ item ] : 
  * @param {string} [props.panelClassName] - Extra classes for each dropdown panel (submenus included).
  * @param {boolean} [props.hover] - Dropdowns also open on mouse hover while their panel floats (data-open="hover";
  *   the listeners are closeMenus's, so the menu must sit in an element given to it: NavBar does that).
+ * @param {boolean} [props.fold] - Folds behind a menu button where there's no room (Bootstrap's navbar toggler and
+ *   collapse, on its own): in a container under 56rem (the nearest .wrap: a header's width) the menu is a phone menu,
+ *   stacked in the button's panel (ToggleButton panel); from 56rem it shows in place and the button hides
+ *   (.menu-fold, menu.css). A header is then a pattern: a brand, a folding Menu, a call button, theme controls.
  *
  * @example <Menu items={main} label="Main" />
  * @example <Menu items={social} label="Social" iconOnly layout="auto-cols cols-center" />
  * @example <Menu items={[ { name: 'Shop', href: '/shop', children: [ { name: 'Men', children: [ { name: 'Shirts', href: '/shop/men/shirts' } ] } ] } ]} label="Main" />
+ * @example <Menu items={main} label="Main" layout="auto-cols" fold />
  */
+const Menu = ({ fold, ...props }) => fold
+  ? (
+    <div data-component="menu-fold" className="menu-fold">
+      <ToggleButton icon="bars" activeIcon="xmark" aria-label={`${props.label} menu`} className="menu-fold-toggle" panel={<MenuNav {...props} />} />
+    </div>
+  )
+  : <MenuNav {...props} />;
+
 // fixed (default) splits the width into equal columns, one per item (--cols).
-const Menu = ({ items, label, iconOnly = false, className, style, layout = 'fixed', gap = 'gap-sm', linkClassName, dropdownClassName, panelClassName, hover }) => (
+const MenuNav = ({ items, label, iconOnly = false, className, style, layout = 'fixed', gap = 'gap-sm', linkClassName, dropdownClassName, panelClassName, hover }) => (
   <nav data-component="menu" data-open={hover ? 'hover' : undefined} className={cx('menu grid', gap, layout, className)} style={{ '--cols': items.length, ...style }} aria-label={label}>
     {items.map(item => item.children
       ? <MenuDropdown key={item.name} item={item} className={dropdownClassName} panelClassName={panelClassName} linkClassName={linkClassName} />

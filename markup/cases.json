@@ -330,6 +330,35 @@
           }
         ]
       }
+    },
+    {
+      "case": "folded behind a menu button",
+      "fields": {
+        "label": "Main",
+        "layout": "auto-cols",
+        "iconOnly": false,
+        "fold": true,
+        "items": [
+          {
+            "name": "Services",
+            "href": "/services/"
+          },
+          {
+            "name": "About",
+            "href": "/about/",
+            "children": [
+              {
+                "name": "Team",
+                "href": "/about/team/"
+              }
+            ]
+          },
+          {
+            "name": "Contact",
+            "href": "/contact/"
+          }
+        ]
+      }
     }
   ],
   "toggleButton": [
