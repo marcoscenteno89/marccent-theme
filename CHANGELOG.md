@@ -17,6 +17,9 @@ changes: the same files, classes and markup.
 
 ### Added
 - Work lists: PRODUCT-LINE.md section 8 (the rules and the TODO.md template) and `npm run todos` (in `npm test`).
+- How Claude works: PRODUCT-LINE.md section 9 (grey areas asked in one shape and written down in its Decisions;
+  no claim without output; one goal per change; nothing removed without a ticket), section 2 rules 7 and 8 (which
+  rule wins; every rule has a check or says why not), and rule 7 in CLAUDE.md.
 - Sizing: PRODUCT-LINE.md section 4, rule 10 (a component sets no width and no outer margin; its container decides
   both), checked by `npm run conformance` on the roots in `styles/components`. Loading breaks it today (B-003).
 
