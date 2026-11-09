@@ -20,7 +20,7 @@ move it to **Done** with the release, and remove the stopgap from the project in
 
 | ID | Who | Need | Stopgap today | Theme needs |
 |---|---|---|---|---|
-| T-002 | Marccent Local | Cookie consent banner | `inc/consent.php`: inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
+| T-002 | the WordPress sites (Marccent Local, removed 2026-11-09, had one) | Cookie consent banner | `inc/consent.php`: inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
 | T-003 | Marccent WP (a Call bar pattern), rc-imp | Call bar fixed to the bottom on phones: a pattern of the theme's own blocks (a group with Call and Get a quote buttons), not a component of its own | Marccent Local's `inc/callbar.php` (inline CSS, printed in PHP) | Utilities only (`.position-fixed`, `.bottom-0` exist): phone-only display (`.d-md-none`, hidden from 768px), full width (`.start-0` / `.inset-x-0`), a z-index above the page, bottom padding for the safe area (`env(safe-area-inset-bottom)`), and room under the page while it shows |
 | T-009 | Fernway, marccent-html | Badges, avatars | Fernway `site.css` `.badge`, `.avatar` | Badge and Avatar classes |
 | T-010 | Fernway | Section heading block (eyebrow, title, text, centered) | `site.css` `.section-head` | A SectionHead component |
@@ -62,11 +62,11 @@ move it to **Done** with the release, and remove the stopgap from the project in
 
 | ID | Who | What | Release |
 |---|---|---|---|
-| T-004 | Marccent Local, Marccent Content | Opening hours table, open / closed label: Marccent Content's Opening hours field type shows the week in the theme's `.table` (today in bold) and "Open now · until 5 PM" as text; Marccent Local's `.mcl-hours` / `.mcl-open` CSS retired | no theme change (2026-11-09) |
-| T-005 | Marccent Local, rc-imp | Breadcrumbs: no component needed; the markup uses existing classes (`row-wrap gap-xs list-plain fs-sm`, a `/` hidden from screen readers, the current page `fw-bold`); Marccent Local's `.breadcrumbs` CSS retired with it | no theme change (2026-11-09) |
+| T-004 | Marccent Content | Opening hours table, open / closed label: Marccent Content's Opening hours field type shows the week in the theme's `.table` (today in bold) and "Open now · until 5 PM" as text; Marccent Local's `.mcl-hours` / `.mcl-open` CSS retired | no theme change (2026-11-09) |
+| T-005 | rc-imp | Breadcrumbs: no component needed; the markup uses existing classes (`row-wrap gap-xs list-plain fs-sm`, a `/` hidden from screen readers, the current page `fw-bold`); Marccent Local's `.breadcrumbs` CSS retired with it | no theme change (2026-11-09) |
 | T-006 | Marccent Local | Link chips (`.link-list`): unused on every site; dropped with Marccent Local | no theme change (2026-11-09) |
-| T-007 | Marccent Local, rc-imp | Key facts: `.pairs` (layout.css) already does it, a `<dl class="grid gap-sm pairs">` with each row a `.sub-x` (`<dt class="fw-bold">`, `<dd class="pad-x-sm">`); `.facts` CSS retired | no theme change (2026-11-09) |
-| T-008 | Marccent Local, Marccent Blocks | Tables in WordPress content: Marccent Blocks puts the theme's `.table` on a core Table block's `<table>` and `.overflow-auto` on its figure (`inc/markup.php`); `.wp-block-table` CSS retired | no theme change (2026-11-09) |
+| T-007 | rc-imp | Key facts: `.pairs` (layout.css) already does it, a `<dl class="grid gap-sm pairs">` with each row a `.sub-x` (`<dt class="fw-bold">`, `<dd class="pad-x-sm">`); `.facts` CSS retired | no theme change (2026-11-09) |
+| T-008 | Marccent Blocks | Tables in WordPress content: Marccent Blocks puts the theme's `.table` on a core Table block's `<table>` and `.overflow-auto` on its figure (`inc/markup.php`); `.wp-block-table` CSS retired | no theme change (2026-11-09) |
 | T-001 | marccent-html, marccent/next, Marccent Local, rc-imp | Map: three own maps (two copies of the sites' `components/apps/map.js`, Marccent Local's `assets/map.js`) replaced by the theme's Map (`components/widgets/map.js`, and `data-component="map"` for the engine) | 1.0.0-rc.6 |
 | T-023 | Fernway | Its own `.eyebrow` redefined the theme's | removed, uses the theme's (1.0.0-rc.6) |
 | B-002 | (reported) | `hover-morph` on a plain box (a button) morphs its corners to `--hover-radius` (default a leaf), keeps the button's color fades, and cuts nothing unless `--hover-shape` is set | 1.0.0-rc.9 |
