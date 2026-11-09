@@ -40,7 +40,7 @@ From 1.0 the versions are [semantic](https://semver.org/). The public part, what
   `markup/reference.json` is it written down, so a change there shows in the diff of a release.
 - **The CSS**: the class names (layout, utilities, hovers, components) and the custom properties (tokens) documented
   here and in `styles/tokens/`, and the design style ids.
-- **The React props** of the components, and the JS of `core` (`@marccent/theme`) and `react` (`@marccent/theme/react`).
+- **The React props** of the components, and the JS of `core` (`marccent`) and `react` (`marccent/react`).
 - **The paths** in `package.json`'s `exports`: `components/*`, `styles/*`, `dist/*`, `markup/*`, `core/enhance`,
   `core/components` and the `lib/` modules listed there. Anything else (`scripts/`, the rest of `lib/`) is internal and
   can change in any release.
@@ -87,7 +87,7 @@ Needs `react` and `react-dom` 18 or 19; nothing in the package imports Next, so 
 
 ```js
 // next.config.js
-module.exports = { transpilePackages: ['@marccent/theme'] };
+module.exports = { transpilePackages: ['marccent'] };
 ```
 
 ## Set up
@@ -99,16 +99,16 @@ Import the styles once and wrap the app in `ThemeProvider` with the page path. I
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ThemeProvider } from '@marccent/theme/lib/context';
+import { ThemeProvider } from 'marccent/lib/context';
 
 export const SiteThemeProvider = ({ children }) => <ThemeProvider path={usePathname()} link={Link}>{children}</ThemeProvider>;
 ```
 
 ```jsx
 // app/layout.js
-import '@marccent/theme/styles/index.css';
-import { Body, SiteTheme, ScopeThemes } from '@marccent/theme/components/theme/core';
-import { Toast } from '@marccent/theme/components/ui/toast';
+import 'marccent/styles/index.css';
+import { Body, SiteTheme, ScopeThemes } from 'marccent/components/theme/core';
+import { Toast } from 'marccent/components/ui/toast';
 import { SiteThemeProvider } from './theme-provider';
 
 export default function RootLayout({ children }) {

@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
 const { version } = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8'));
-const banner = `/* @marccent/theme ${version} | https://github.com/marcoscenteno89/marccent-theme */`;
+const banner = `/* marccent ${version} | https://github.com/marcoscenteno89/marccent-theme */`;
 
 const designs = readdirSync(join(ROOT, 'styles/designs')).filter((f) => f.endsWith('.css')).map((f) => basename(f, '.css')).sort();
 
@@ -61,4 +61,4 @@ writeFileSync(join(DIST, 'manifest.json'), `${JSON.stringify({
   allDesigns: 'designs.css',
 }, null, 2)}\n`);
 
-console.log(`dist/ built: @marccent/theme ${version}, ${designs.length} design styles`);
+console.log(`dist/ built: marccent ${version}, ${designs.length} design styles`);

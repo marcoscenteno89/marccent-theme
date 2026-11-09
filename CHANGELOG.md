@@ -5,13 +5,13 @@ README (Versions → What a version promises).
 
 ## 1.0.0-rc.16
 
-The package is `@marccent/theme` (was `marccent-theme`), before anything live depends on the old name. Nothing else
-changes: the same files, classes and markup.
+The package is `marccent` (was `marccent-theme`), like `bootstrap`: the product's own name, before anything live
+depends on the old one. Nothing else changes: the same files, classes and markup.
 
 ### Changed
-- `package.json`'s name: `@marccent/theme`. Imports become `@marccent/theme/…` (`import { Button } from
-  '@marccent/theme/components/ui/button'`); a host installs it the same way (`npm install
-  github:marcoscenteno89/marccent-theme#v1.0.0-rc.16`) and its dependency key is `@marccent/theme`. The repo keeps its
+- `package.json`'s name: `marccent`. Imports become `marccent/…` (`import { Button } from
+  'marccent/components/ui/button'`); a host installs it the same way (`npm install
+  github:marcoscenteno89/marccent-theme#v1.0.0-rc.16`) and its dependency key is `marccent`. The repo keeps its
   name until it moves to the `marccent` organization.
 - `dist/`'s banner names the package.
 
