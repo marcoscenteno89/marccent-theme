@@ -3,6 +3,14 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## Unreleased
+
+### Added
+- Work lists: PRODUCT-LINE.md section 8 (the rules and the TODO.md template) and `npm run todos` (in `npm test`).
+- How Claude works: PRODUCT-LINE.md section 9 (grey areas asked in one shape and written down in its Decisions;
+  no claim without output; one goal per change; nothing removed without a ticket), section 2 rules 7 and 8, and
+  CLAUDE.md.
+
 ## 1.0.0-rc.22
 
 ### Added

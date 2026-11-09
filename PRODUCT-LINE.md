@@ -59,6 +59,12 @@ changed deliberately, here first.
 5. **The structure changes only by adding** after 1.0. Before 1.0, change it here first, then in the projects.
 6. **Product line before entries.** Until it's complete, work goes into its stages, shapes and checks and into fixing
    what already exists; new entries wait in Wanted.
+7. **Which rule wins:** this document, then a project's `CLAUDE.md`, then its `TODO.md`. What Marcos says in a
+   conversation beats all three, and is written down in the same round (a rule here, or a line in Decisions, section
+   9), or the next session won't know it.
+8. **Every rule has a check, or says why it can't.** A rule nothing checks is the one that drifts: it gets a check in
+   `npm test` (as the work lists and component sizing have), or a line saying what checks it instead (the feature
+   freeze: Claude, and Marcos's review).
 
 ## 3. The feature freeze (until 1.0 is live)
 
@@ -255,6 +261,48 @@ every project it finds next to the theme (a project not there is skipped and sai
 - an item in Bugs, Requests, Waiting on or After 1.0 isn't in the item shape, or has no found date;
 - a Waiting on line doesn't link a ticket ID, or links one that isn't open in `TICKETS.md`;
 - an open ticket names a project whose TODO.md has no Waiting on line for it.
+
+## 9. How Claude works: grey areas, proof and decisions
+
+Every project's `CLAUDE.md` points here. These keep projects from drifting apart when something comes up that no
+rule settles.
+
+### When no rule covers it
+
+1. **Look first**, in this order: this document, the project's `CLAUDE.md`, the work lists (`TICKETS.md`, the
+   project's `TODO.md`), Decisions (below), and how the other projects already do the same thing.
+2. **A rule covers it:** follow it, and name the rule in the reply.
+3. **No rule covers it, two rules conflict, or one reads two ways:** stop that part (keep doing the rest) and ask
+   Marcos, in this shape:
+
+   ```
+   No rule for: <the situation, in one line>.
+   Options: A) <…>  B) <…>
+   I recommend A, because <the fact: a rule, a file, a standard>.
+   A rule for every project, or a one-off?
+   ```
+4. **Write the answer down in the same round.** A rule goes into this document (and its check, rule 2.8); a one-off
+   goes into Decisions as one dated line. The next session, in any project, finds it there instead of guessing.
+5. **Never settle it in one project alone:** no convention of one repo's own, no copying another project's
+   workaround, and "it's small" is no reason to skip asking.
+
+### Proof and scope
+
+1. **No claim without output.** Claude says a check passed only when it ran it and saw it pass, and names the
+   command; what wasn't run is said as not run.
+2. **One goal per change.** A branch or PR does one thing; a fix and a cleanup are two changes.
+3. **Nothing is removed without a ticket or Marcos's OK:** no feature, setting, file or list item deleted on
+   Claude's own. A cleanup found while working goes on the list (section 8, rule 7).
+
+### Decisions
+
+Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
+everywhere becomes a rule above and its line goes.
+
+- 2026-11-10: a business schema from a Business field group (Marccent Local's `inc/schema.php`): no plugin builds
+  one; every field group makes its own schema (Marccent Content's `schema`), so a group without one adds none.
+- 2026-11-08: a `site.css` for custom styles: section 4, rule 1 holds for every Marccent project (the sites and the
+  adapters); someone using the theme on a site of their own writes whatever CSS they need.
 
 ## The 1.0 checklist
 
