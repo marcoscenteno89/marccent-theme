@@ -71,6 +71,12 @@ changed deliberately, here first.
    doing anything else.
 4. **Test tools are allowed** when they find bugs and are thrown away after (the kitchen-sink page,
    `wp/sites/wp/content/kitchen-sink.php`).
+5. **Django is frozen too** (2026-11-09): no work on the django output or django-marccent until 1.0 is live; its gaps
+   aren't counted (`"frozen"` in `markup/outputs.json`, which the conformance check skips). Until then the outputs
+   are wp and html.
+6. **Every component is tested where people use it:** in WordPress on wp.localhost, both in the admin (the block in
+   the editor, its settings, the admin data it needs) and on the page (the kitchen-sink page); in html on
+   marccent.com (the page). A component isn't done until it works in all three.
 
 ## 4. Components: what belongs in the theme and what in an adapter
 

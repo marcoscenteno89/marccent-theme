@@ -89,6 +89,10 @@ if (option('--render')) {
 } else {
   const { admin, outputs } = JSON.parse(readFileSync(join(ROOT, 'markup/outputs.json'), 'utf8'));
   for (const [output, o] of Object.entries(outputs)) {
+    if (o.frozen) {
+      console.log(`skip ${output}: frozen (${o.frozen})`);
+      continue;
+    }
     for (const [name, a] of Object.entries(o.adapters)) {
       if (option('--adapter') && option('--adapter') !== name) continue;
       const cwd = resolve(ROOT, a.path);
@@ -116,6 +120,7 @@ if (option('--render')) {
         console.log(`ok   admin ${output}: no admin (data comes with the page)`);
         continue;
       }
+      if (o.frozen) continue;
       const lacking = Object.keys(needs).filter((kind) => !admin[kind]?.[output]);
       missing += lacking.length;
       console.log(`${lacking.length ? 'todo' : 'ok  '} admin ${output}: ${Object.keys(needs).length - lacking.length} of ${Object.keys(needs).length} kinds have a tool`);

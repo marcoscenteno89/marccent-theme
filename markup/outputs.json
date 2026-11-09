@@ -53,6 +53,7 @@
     "django": {
       "host": "Django (django CMS)",
       "admin": true,
+      "frozen": "until 1.0 is live: no work on it, its gaps aren't counted",
       "adapters": {
         "django-marccent": {
           "path": "../django-marccent",
