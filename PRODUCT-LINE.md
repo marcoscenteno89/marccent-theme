@@ -108,7 +108,8 @@ changed deliberately, here first.
 6. **Adapters only translate.** An adapter's block, tag or component writes the theme's markup
    (`markup/reference.json`) and nothing else: no CSS or JS of its own, no copied components.
 7. **Block or pattern** (in WordPress; the same split elsewhere):
-   - a stack of whole blocks (a section heading, a call bar, a hero, a call to action) → a **pattern**;
+   - a stack of whole blocks (a section heading, a call bar, a hero, a call to action, a header, a footer) → a
+     **pattern**, listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component;
    - one line or small unit with mixed styling inside it, or a little logic (formatting, links built from a field,
      dates, a time zone) → a **block**: Price, Date, Contact line, Opening hours, Breadcrumbs (T-004, T-005,
      T-025 to T-027);
@@ -135,7 +136,7 @@ changed deliberately, here first.
 3. **Components that need the admin say so** (`admin` in `markup/settings.json`), and every output with an admin
    provides each kind with one of its tools (`markup/outputs.json`, the admin pattern; an output without an admin,
    html, gets the data with the page). The kinds and who needs them:
-   - menus: Navbar, Nav, Menu, Footer (WordPress: Appearance → Menus; Django: a menu model). A nav picks any menu
+   - menus: Navbar, Menu, and the Header and Footer patterns (WordPress: Appearance → Menus; Django: a menu model). A nav picks any menu
      made in the admin and can go anywhere;
    - forms (entries, who's emailed, the spam check), Map (key, places), the theme editors (the site's theme and what
      visitors may change), Typeset, Opening hours, Contact line (the business details), cookie consent, the

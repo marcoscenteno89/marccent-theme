@@ -21,7 +21,6 @@
   "ExpandButton": { "admin": [], "settings": null },
   "Field": { "admin": [], "settings": null },
   "FileDrop": { "admin": [], "settings": null },
-  "Footer": { "admin": ["menu", "site"], "settings": null },
   "Form": { "admin": ["entries", "keys"], "settings": null },
   "Goo": { "admin": [], "settings": null },
   "Grid": { "admin": [], "settings": null },

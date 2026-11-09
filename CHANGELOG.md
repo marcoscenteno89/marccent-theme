@@ -3,6 +3,19 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.17
+
+Patterns: what a site arranges its own way from the components is a pattern, listed with its parts and markup in
+PATTERNS.md, not a component.
+
+### Removed
+- `Footer` (components/widgets/footer.js): it only arranged Menus in the grid classes. It's the Footer pattern now
+  (PATTERNS.md has its markup); a site builds it from Menu and the classes, as marccent.com's own footer does.
+
+### Added
+- `PATTERNS.md`: the pattern list (the Footer; the Header to come, T-032) and the audit of which components only
+  arrange others (T-033).
+
 ## 1.0.0-rc.16
 
 The nav on its own, so a header is a pattern (a brand, a folding Menu, a call button, theme controls) instead of one
