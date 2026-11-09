@@ -63,8 +63,10 @@ changed deliberately, here first.
 ## 3. The feature freeze (until 1.0 is live)
 
 1. **No new features, widgets, blocks, settings or functionality until 1.0 is live:** only debugging, fixing and
-   finishing what exists. 1.0 is live when marccent-theme 1.0.0 is released, marccent.com is live and rc-imp,
-   rimrock, cr-landscape and marccent-web are live (all of it).
+   finishing what exists. 1.0 is live when marccent-theme 1.0.0 is released, marccent.com is live and the wp site
+   (wp.localhost) works with every component (all of it). Then the changes are frozen and the other sites (rc-imp,
+   rimrock, cr-landscape, marccent-web) and outputs (django) are brought up to 1.0 once, instead of after every
+   change.
 2. **The first item is completing the product line** (this document): its stages, shapes and checks. That isn't a
    new feature; it's what makes new features fit.
 3. **Anything new asked for goes to Wanted** (TICKETS.md, TODO.md), marked after 1.0, and Claude says so before
@@ -153,4 +155,4 @@ every image search-ready; a TODO.md in every project.
 - [x] Adapters: each adapter's markup against the reference, as a check (`npm run conformance`); Settings once they exist.
 - [ ] Kits: where kits are kept and listed, and their check.
 - [ ] Sites: one list of every site (rc-imp, rimrock, cr-landscape, marccent-web, marccent.com) with its stage.
-- [ ] Live: the four WordPress sites, marccent.com and marccent-theme 1.0.0.
+- [ ] Live: marccent-theme 1.0.0, marccent.com and the wp site; then the other sites, brought up to 1.0 once.
