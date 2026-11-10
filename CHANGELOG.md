@@ -3,6 +3,20 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.19
+
+The rules that tell a component from a container, variant, class or pattern, and the lists that track them. No
+change to styles, components or markup.
+
+### Changed
+- PRODUCT-LINE.md 4.5: six questions (rule 3, parts that make one thing, folded into 1 and 2); children: a component
+  that only exists inside another is marked with its parent. 6.1: a component's list of content is children, admin
+  data or settings.
+- `markup/settings.json`: each component's `kind` and `parent`, HexGrid, HexFlip, AccordionItem, StepForm, Step
+  listed; six children `planned` (T-034). `npm run conformance` checks kinds, parents and variants, and reports
+  what's waiting.
+- PATTERNS.md: Collage a pattern; HexWall and ImageCard to remove; CodeTabs and Timeline components.
+
 ## 1.0.0-rc.18
 
 Variants: one class that gives an item a shape of its own. The first is the ticket, which replaces TicketCard.
