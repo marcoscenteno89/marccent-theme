@@ -6,8 +6,10 @@ A site arranges a pattern its own way, so the theme doesn't ship it as a compone
 made of, the admin data it needs, and its markup as the reference, and each output builds it from its own parts
 (WordPress: a block pattern of Marccent blocks; html: the markup, or the components in JSX).
 
-One entry per pattern: what it's for, its parts, the admin data it needs (`markup/outputs.json`'s kinds), its markup,
-and where it's built (wp, html).
+One entry per pattern: what it's for, its parts, the admin data it needs (`markup/outputs.json`'s kinds), its markup
+(a file in `patterns/`: `npm run patterns`, in `npm test`, fails on a class the theme doesn't define) and where it's
+built (wp, html). A repository of its own, with a converter to each output's blocks and tags: after 1.0 (TICKETS.md
+T-037).
 
 ## Footer
 
@@ -23,28 +25,7 @@ It was a component (Footer) until 1.0.0-rc.17.
 - **Built in:** html (marccent.com's own footer, `marccent/next/components/layout/footer.tsx`); wp: a Footer block
   pattern (TICKETS.md T-032).
 
-```html
-<footer id="footer" data-component="footer" class="wrap wrap-fluid pad-y-lg grid cols-1 gap-lg bg">
-  <div class="wrap pad-0 grid layout-1-2 gap-lg">
-    <div class="grid cols-1 gap-sm content-start">
-      <a href="/">Brand</a>
-      <p class="opacity-75">A line about the site.</p>
-    </div>
-    <div class="grid gap-lg" style="--min:10rem;--cols:2">
-      <div class="grid cols-1 gap-sm content-start">
-        <h2 class="h6">Design</h2>
-        <nav data-component="menu" class="menu grid gap-0 cols-1" style="--cols:1" aria-label="Design">…links…</nav>
-      </div>
-      <!-- …a column per menu… -->
-    </div>
-  </div>
-  <div class="wrap pad-0 border-top pad-y grid layout-ends items-center gap-sm" style="--start:2">
-    <div class="fs-sm opacity-75"><small>© 2026 Site</small></div>
-    <nav data-component="menu" class="menu grid gap-sm auto-cols fs-sm" aria-label="Footer legal">…links…</nav>
-    <nav data-component="menu" class="menu grid gap-sm auto-cols col-last" aria-label="Footer social">…icon links…</nav>
-  </div>
-</footer>
-```
+Markup: [patterns/footer.html](../patterns/footer.html).
 
 ## Image card
 
@@ -58,16 +39,7 @@ component; it becomes this pattern once the theme has its overlays as classes (T
 - **Built in:** html (marccent.com's cards, today with the component); wp: a block pattern of Card, Image and text
   blocks.
 
-```html
-<article class="bg round shadow overflow-hidden stack" style="aspect-ratio:4/5">
-  <img class="media-cover" src="…" alt="…">
-  <div class="overlay"></div>
-  <div class="grid cols-1 gap-sm pad self-end">
-    <small class="text-uppercase">Seychelles</small>
-    <strong class="fs-lg">Turquoise bays</strong>
-  </div>
-</article>
-```
+Markup: [patterns/image-card.html](../patterns/image-card.html).
 
 ## Collage
 
@@ -91,21 +63,7 @@ under 56rem (Menu `fold`), a call to action and the theme controls. Sticky at th
 - **Built in:** wp (marccent-wp's Header block pattern, the header template part); html: marccent.com (frozen; it
   still uses NavBar, T-032).
 
-```html
-<header class="wrap wrap-fluid pad-y-sm bg border-bottom sticky-top">
-  <div class="wrap pad-0 grid auto-cols cols-between items-center gap-sm">
-    <a href="/" class="menu-link grid auto-cols items-center gap-sm" aria-label="Site, home"><img src="…" alt="Site" style="height:2.5rem;width:auto"><span class="fw-bold">Site</span></a>
-    <div class="grid auto-cols items-center gap-sm">
-      <div data-component="menu-fold" class="menu-fold">
-        <button data-component="toggle-button" class="btn menu-fold-toggle" aria-label="Main menu" aria-expanded="false">…</button>
-        <div class="toggle-panel …"><nav data-component="menu" class="menu grid gap-0 auto-cols menu-quiet" aria-label="Main">…links…</nav></div>
-      </div>
-      <a href="tel:…" class="btn primary">…Call…</a>
-      <div data-component="mini-theme-editor" …>…</div>
-    </div>
-  </div>
-</header>
-```
+Markup: [patterns/header.html](../patterns/header.html).
 
 ## Floating header
 
@@ -118,13 +76,18 @@ starts under it. It was NavBar's floating variant (removed 2026-11-10).
 - **Admin data:** the Header's.
 - **Built in:** wp (marccent-wp's Floating header block pattern).
 
-```html
-<header class="fixed-top pe-none wrap wrap-fluid pad-y-sm">
-  <div class="wrap pill pad-x pad-y-sm bg border shadow solid-on-scroll pe-auto grid auto-cols cols-between items-center gap-sm">
-    <!-- the brand, then the menu (fold), a button and the theme controls: as the Header -->
-  </div>
-</header>
-```
+Markup: [patterns/header-floating.html](../patterns/header-floating.html).
+
+## App frame
+
+An app or docs page: a Sidebar down the side, the page beside it; below 56rem the Sidebar is a top bar and the page
+under it. Was the AppShell component (removed 2026-11-10).
+
+- **Parts:** Grid (`layout-ends` with `--start: 1`, in a `.cq`), Sidebar (its content a Menu with `cols-1` and
+  `.menu-vertical`, then anything for the bottom), the page.
+- **Admin data:** menu (the sidebar's links), site (the brand).
+
+Markup: [patterns/app-frame.html](../patterns/app-frame.html).
 
 ## To check: components that may be patterns (TICKETS.md T-033)
 

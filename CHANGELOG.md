@@ -26,6 +26,9 @@ README (Versions → What a version promises).
   of its own; its width is its state (rule 9). Menu's `.menu-vertical` (a column of links whose dropdowns open in
   place), which AppShell's stylesheet used to force on the Menu from outside. PATTERNS.md: the App frame pattern.
 
+- `patterns/*.html`: each pattern's markup as a file (Footer, Image card, Header, Floating header, App frame), and `npm
+  run patterns` (in `npm test`): fails on a class the theme doesn't define or a `data-component` nothing writes.
+
 ### Changed
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
   What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
