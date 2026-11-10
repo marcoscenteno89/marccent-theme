@@ -177,9 +177,21 @@ if (option('--render')) {
       missing += waiting.length;
       if (waiting.length) console.log(`todo kind: ${waiting.length} still components, to become ${{ pattern: 'patterns (PATTERNS.md)', variant: 'variants (T-030)', remove: 'nothing (a container, or a component with its children, already does it)' }[kind]}: ${waiting.join(', ')}`);
     }
-    const unwritten = Object.entries(settings).filter(([, s]) => s.settings === null).map(([c]) => c);
+    // Each component's settings (PRODUCT-LINE.md 5): a type, a sanitize rule, choices only from a fixed list, a version.
+    const TYPES = [ 'text', 'number', 'boolean', 'list', 'object', 'content' ];
+    const SANITIZE = [ 'text', 'html', 'url', 'class', 'number', 'boolean', 'each item', 'each field' ];
+    for (const [component, s] of Object.entries(settings)) {
+      if (!s.settings) continue;
+      if (!Number.isInteger(s.version)) { console.log(`FAIL settings: ${component} has no version`); failed++; }
+      for (const [key, v] of Object.entries(s.settings)) {
+        const wrong = !TYPES.includes(v.type) ? `type "${v.type}"` : !SANITIZE.includes(v.sanitize) ? `sanitize "${v.sanitize}"`
+          : v.validate && v.validate !== 'required' ? `validate "${v.validate}"` : v.choices && !Array.isArray(v.choices) ? 'choices' : '';
+        if (wrong) { console.log(`FAIL settings: ${component}.${key}: ${wrong}`); failed++; }
+      }
+    }
+    const unwritten = Object.entries(settings).filter(([, s]) => s.settings === null && [ 'component', 'container' ].includes(s.kind) && !s.planned).map(([c]) => c);
     missing += unwritten.length;
-    if (unwritten.length) console.log(`todo settings: ${unwritten.length} of ${Object.keys(settings).length} components' settings not written yet (T-029)`);
+    console.log(unwritten.length ? `todo settings: ${unwritten.join(', ')} not written yet (T-029)` : `ok   settings: every component that stays (${Object.values(settings).filter((s) => s.settings).length}), ${Object.values(settings).reduce((n, s) => n + Object.keys(s.settings ?? {}).length, 0)} settings`);
   }
 }
 process.exit(failed || (strict && missing) ? 1 : 0);

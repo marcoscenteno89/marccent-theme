@@ -43,7 +43,7 @@ changed deliberately, here first.
 |---|---|---|---|---|---|
 | 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date | a decision to build it (none before 1.0 but product-line work) | exists |
 | 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component that stays (52); the pending ones once built |
-| 3 | **Settings** | `markup/settings.json` | the kinds of admin data it needs (`admin`, from `outputs.json`'s pattern); each setting: full-word name, type, choices, default; rules (items from rows, one per page) (T-029) | `npm run conformance`: every kind defined, every admin output has a tool for it, settings written | 56 components' admin needs listed; their settings not written yet |
+| 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 54 components, 204 settings; Marccent Blocks doesn't read them yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
 | 5 | **Kits** | to decide (Marccent Content's export format) | name, field groups, post types, patterns, starter pages, which components it uses | imports cleanly on a new site | missing |
 | 6 | **Sites** | to decide (one list of every site) | name, host, adapter, address, kits, stage (building, live) | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | missing: folders in `wp/sites/` and `marccent/`, no list |
@@ -144,10 +144,21 @@ changed deliberately, here first.
 
 ## 5. Settings: one standard everywhere
 
-1. **The same settings wherever a component goes** (WordPress, Django, Next): the same names, choices and defaults,
-   from the theme's settings file (T-029), never copied by hand into an adapter.
-2. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`.
-3. **A setting is a look or a choice, never content.** Text, items and lists that repeat aren't settings.
+1. **The same settings wherever a component goes** (WordPress, Next, later Django): the same names, choices and
+   defaults, from `markup/settings.json` (T-029), never copied by hand into an adapter.
+2. **What a setting says** (the shape borrows Editor.js's block contract, 2026-11-09): `type` (text, number, boolean,
+   list, object, content), `about`, `default`, `choices` (a fixed list, the theme's own: its surfaces, hovers,
+   paddings, sides, variants), `sanitize` (what it may hold, the same in every output: text, html, url, class,
+   number, boolean, each item, each field) and `validate` (`required`). Each component has a `version`; after 1.0 its
+   settings change only by adding (2.5), and a version up says so, so saved content can be upgraded.
+3. **Tunes:** settings every component and container takes, listed once in `markup/tunes.json`, not per component:
+   extra classes (a variant, a utility), an anchor, Show if (on an output with an admin).
+4. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`. Still short in the
+   theme's props (to rename, T-029): `href`, `pad`, `padY`, `cols`, `min`, `max`, `lang`, Map's `center.lat` and
+   `center.lng`; `href` may stay, the web's own word for a link.
+5. **A setting is a look or a choice, never content.** Text, items and lists that repeat aren't settings (6.1).
+6. **Checked:** `npm run conformance` fails on a setting without a known type or sanitize rule, or a component without
+   a version, and lists the components that stay without their settings.
 
 ## 6. Data: content comes from the admin, not from a block
 
@@ -190,7 +201,10 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
   Step, SliderPager in Carousel); Toast has none (browser only: nothing until a message, `markup` in settings.json).
   Pending, a case once built (T-034, T-033): Timeline item, Dock item, Radial menu item, Step bar step, Orbit item,
   Tab; StatCard without its box. None for what's leaving (AppShell, Collage, ImageCard, HexWall).
-- [ ] **Settings stage (T-029):** each component's settings in `markup/settings.json`; Marccent Blocks reads them.
+- [x] **Settings stage, written (T-029):** every component that stays (54) has its settings in `markup/settings.json`,
+  204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
+- [ ] **Settings stage, used:** Marccent Blocks reads them (its block.json attributes and editor choices from
+  settings.json, not its own copy); the short names renamed (5.4).
 - [ ] **Sites:** one list of every site and its stage.
 - [ ] **Kits:** where they live and their check, or moved to after 1.0.
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).

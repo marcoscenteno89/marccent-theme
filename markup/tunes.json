@@ -1,0 +1,20 @@
+{
+  "classes": {
+    "about": "Extra classes on the component's own element (a variant, a utility).",
+    "type": "text",
+    "sanitize": "class",
+    "on": "every component and container"
+  },
+  "anchor": {
+    "about": "An id, so a link can jump to it (#faq).",
+    "type": "text",
+    "sanitize": "class",
+    "on": "every component and container"
+  },
+  "showIf": {
+    "about": "A where on the current row's, post's or site's values (price>0): it renders only when it passes.",
+    "type": "text",
+    "sanitize": "text",
+    "on": "every component and container, on an output with an admin (WordPress: Marccent Content's Show if)"
+  }
+}
