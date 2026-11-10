@@ -61,6 +61,7 @@ the ticket moves to Done, those lines go. The rules and the TODO.md template: [P
 
 | ID | Who | Bug | Stopgap today | Fix |
 |---|---|---|---|---|
+| B-004 | marccent-theme | Menu styles ToggleButton's panel from outside (PRODUCT-LINE.md section 4, rule 10): `.menu-fold > .toggle-panel` in `styles/components/menu.css` (`display: contents` from 56rem, its `min-width` below), found by the new check 2026-11-10 | excused in `scripts/conformance.mjs` (`STYLES_EXCEPTIONS`) | The fold's panel as ToggleButton's own setting (a panel that becomes its contents where there's room), or Menu's own fold markup instead of a ToggleButton; then the exception goes |
 
 ### Whole projects off the theme
 

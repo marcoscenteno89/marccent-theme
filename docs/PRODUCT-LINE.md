@@ -113,6 +113,10 @@ changed deliberately, here first.
    yet gets a line in its `TODO.md` saying why.
 5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
    first if it doesn't hold). Ask in order; the first yes decides:
+   First, **whose state is it?** (2026-11-10) When the behavior belongs to one of its parts (a menu's fold, a
+   sidebar's collapse), that part is the component, and what's left is decided on its own (usually a pattern). Claude
+   asks this at review; no script can.
+
    1. It needs behavior or logic (state, events, timers, observers, formatting, data turned into markup; parts
       combined into one value or one state count) → a **component** (Modal, Menu's fold, Map, Price, Counter,
       CodeTabs: its editors are one value).
@@ -159,10 +163,17 @@ changed deliberately, here first.
      `--icon-size`) and never wider than the parent (`max-width: 100%`), with no margin; the parent stretches one with
      a class (`.w-100`, `.self-stretch`);
    - **overlays** (Modal, Drawer, Popover, Tooltip, Toast, a Menu's panel) sit outside the flow, so they're sized
-     against the screen or what they're attached to, with a cap that keeps them on screen.
+     against the screen or what they're attached to, with a cap that keeps them on screen;
+   - **sized by their state** (Sidebar: open and collapsed; something that expands) set their own width, because
+     changing it is their job (2026-11-10): one width per state, from tokens, on the root and its state class only.
 
    Parts inside a component (a knob, a handle, an icon slot) are sized within it. `npm run conformance` checks the
    roots in `styles/components`; one that breaks the rule is a ticket, excused by ID in the check until it ships.
+10. **A component styles only itself** (2026-11-10). No rule in a component's stylesheet reaches another component's
+    root from outside (`.app-shell .menu`, `.nav .menu-panel`): a different look is that component's variant or
+    setting, and its parts are its own. A component whose settings take two or more named pieces of content (a
+    brand, items, a footer) is reported as a probable pattern (4.5): a page frame. `npm run conformance` fails on the
+    first and reports the second; a reviewed one is listed in the check with why it stays (Modal: dialog markup).
 
 ## 5. Settings: one standard everywhere
 
