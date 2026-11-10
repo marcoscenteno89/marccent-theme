@@ -2,14 +2,14 @@
  * npm run cases: the cases page, to see every component's cases in a browser as the markup check runs them. Each
  * case's markup (markup/reference.json) live on the page, with the theme's CSS and plain-JS engine (dist/), beside each
  * adapter's markup for it (run fresh: npm run conformance --save), marked same or different the way the check compares
- * them. Then it serves the theme folder and prints the address; run it again after a change and reload.
+ * them. Then it serves the page and dist/ on this computer only (127.0.0.1) and prints the address; run it again after a change and reload.
  *
  *   npm run cases [-- --port 4321] [-- --no-adapters]
  */
 import { spawnSync } from 'node:child_process';
 import { createServer } from 'node:http';
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { extname, join, normalize } from 'node:path';
+import { extname, isAbsolute, join, normalize, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..');
@@ -60,9 +60,13 @@ writeFileSync(join(ROOT, 'node_modules/.cache/cases.html'), `<!doctype html>
 </main><script type="module" src="/dist/marccent.js"></script></body></html>`);
 
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
+// Only this computer (127.0.0.1), and only the page and dist/ (the theme's CSS, engine and fonts): nothing else in the
+// folder is served.
+const DIST = join(ROOT, 'dist');
 createServer((req, res) => {
   const path = decodeURIComponent(req.url.split('?')[0]);
   const file = path === '/' ? join(ROOT, 'node_modules/.cache/cases.html') : normalize(join(ROOT, path));
-  if (!file.startsWith(ROOT) || !existsSync(file)) { res.writeHead(404).end(); return; }
+  const inDist = !relative(DIST, file).startsWith('..') && !isAbsolute(relative(DIST, file));
+  if ((path !== '/' && !inDist) || !existsSync(file)) { res.writeHead(404).end(); return; }
   res.writeHead(200, { 'content-type': TYPES[extname(file)] ?? 'application/octet-stream' }).end(readFileSync(file));
-}).listen(port, () => console.log(`The cases page: http://localhost:${port}/ (Ctrl+C to stop)`));
+}).listen(port, '127.0.0.1', () => console.log(`The cases page: http://localhost:${port}/ (Ctrl+C to stop)`));
