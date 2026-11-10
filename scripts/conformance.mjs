@@ -165,7 +165,10 @@ if (option('--render')) {
         failed++;
       }
     }
-    console.log(`ok   children: ${children.map(([c, s]) => `${c} in ${s.parent}`).join(', ')}`);
+    console.log(`ok   children: ${children.filter(([, s]) => !s.planned).map(([c, s]) => `${c} in ${s.parent}`).join(', ')}`);
+    const planned = Object.entries(settings).filter(([, s]) => s.planned);
+    missing += planned.length;
+    if (planned.length) console.log(`todo planned: ${planned.length} to build: ${planned.map(([c, s]) => `${c} in ${s.parent}`).join(', ')}`);
     for (const kind of [ 'pattern', 'variant', 'remove' ]) {
       const waiting = Object.entries(settings).filter(([, s]) => s.kind === kind).map(([c]) => c);
       missing += waiting.length;

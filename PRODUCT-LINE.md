@@ -151,11 +151,18 @@ changed deliberately, here first.
 
 ## 6. Data: content comes from the admin, not from a block
 
-1. **What repeats is data.** A component's items (Orbit's, Dock's, Step bar's, Hex wall's, Timeline's, Collage's,
-   Ticket card's list, Radial menu's, Data table's rows, Map's places) are a field group's rows or posts, edited in the
-   admin (wp-admin, Django's admin), never typed into a block's settings.
-2. **Containers take a Loop.** Accordion, Tabs and Carousel accept a Loop of their items, so a FAQ stored as rows can
-   be an Accordion.
+1. **What repeats is data, never typed into a component's settings.** A component's list of content is one of three
+   things (decided 2026-11-09):
+   - **children**: each item a child component marked with its parent (4.5), so in WordPress a Loop of a field
+     group's rows can be them: Timeline → Timeline item, Dock → Dock item, Radial menu → Radial menu item, Step bar →
+     Step bar step, Orbit → Orbit item, Tab bar → Tab; already so: Accordion → Accordion item, Step form → Step, Hex
+     grid → Hex flip (in WordPress Form → Field, Tabs → Tab);
+   - **admin data** read whole: a menu (Menu, the Header and Footer patterns) from Appearance → Menus; a Data table's
+     rows and a Map's places from a field group's rows or posts;
+   - **settings** when it's a choice made once, not content: Scenery's layers, a Tag input's suggestions, Code tabs'
+     languages, Hex grid's positions, a Data table's columns, a form field's choices.
+2. **Parents take a Loop.** Accordion, Tabs, Carousel and every parent above accept a Loop of their children, so a FAQ
+   stored as rows can be an Accordion.
 3. **Components that need the admin say so** (`admin` in `markup/settings.json`), and every output with an admin
    provides each kind with one of its tools (`markup/outputs.json`, the admin pattern; an output without an admin,
    html, gets the data with the page). The kinds and who needs them:
