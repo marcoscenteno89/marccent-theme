@@ -56,7 +56,8 @@
     "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs && node scripts/todos.mjs",
     "conformance": "node scripts/conformance.mjs",
     "cases": "node scripts/cases.mjs",
-    "todos": "node scripts/todos.mjs"
+    "todos": "node scripts/todos.mjs",
+    "affected": "node scripts/affected.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.4",

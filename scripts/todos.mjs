@@ -15,17 +15,8 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const LISTS = join(ROOT, 'docs', 'todo');
 
-// Every project with a list (docs/todo/<repo>.md): its repo and the names TICKETS.md's Who
-// column calls it by. A new project is one more entry.
-const PROJECTS = [
-  { repo: 'marccent-blocks', names: ['Marccent Blocks', 'marccent-blocks'] },
-  { repo: 'marccent-content', names: ['Marccent Content', 'marccent-content'] },
-  { repo: 'marccent-local', names: ['Marccent Local', 'marccent-local'] },
-  { repo: 'marccent-wp', names: ['Marccent WP', 'marccent-wp'] },
-  { repo: 'django-marccent', names: ['django-marccent'] },
-  { repo: 'marccent', names: ['marccent/next', 'marccent.com'] },
-  { repo: 'marccent-html', names: ['marccent-html'] },
-];
+// Every project (docs/projects.json): its repo and the names TICKETS.md's Who column calls it by.
+const PROJECTS = JSON.parse(readFileSync(join(ROOT, 'docs', 'projects.json'), 'utf8')).projects;
 
 const SECTIONS = ['Bugs', 'Requests', 'Waiting on', 'After 1.0', 'Notes'];
 const RULES_LINK = 'PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd';

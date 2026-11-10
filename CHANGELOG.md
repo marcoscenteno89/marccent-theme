@@ -5,6 +5,11 @@ README (Versions → What a version promises).
 
 ## Unreleased
 
+### Added
+- `docs/projects.json`: every project on the theme, what it reads from it, how it pins it and its stage; `npm run
+  affected` lists the projects a change reaches (directly or through Marccent Blocks). `npm run todos` takes its
+  project list from it.
+
 ### Changed
 - `docs/`: PRODUCT-LINE.md, TICKETS.md, PATTERNS.md and SITES.md moved there, and every project's work list with them
   (`docs/todo/<repo>.md`); the projects keep no TODO.md of their own, only links. `npm run todos` reads them there

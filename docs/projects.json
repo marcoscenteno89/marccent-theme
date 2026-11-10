@@ -1,0 +1,71 @@
+{
+  "about": "Every project that builds on marccent-theme: what it reads from the theme, how it pins it, and its stage. `npm run affected` reads this to say which projects to check after a theme change; `npm run todos` reads it for the work lists (docs/todo/<repo>.md). A new project is one more entry. Stages: active (worked on now), frozen (no work until 1.0, PRODUCT-LINE.md 3.5), retired (being removed).",
+  "projects": [
+    {
+      "repo": "marccent-blocks",
+      "names": ["Marccent Blocks", "marccent-blocks"],
+      "role": "WordPress plugin: the WordPress adapter (blocks, runtime, styles)",
+      "output": "wp",
+      "stage": "active",
+      "pins": "package.json, marccent-theme by commit (github:…#<sha>)",
+      "uses": ["components/", "core/", "lib/", "react/", "styles/", "dist/", "markup/reference.json", "markup/cases.json", "markup/settings.json", "markup/tunes.json", "scripts/conformance.mjs"]
+    },
+    {
+      "repo": "marccent-content",
+      "names": ["Marccent Content", "marccent-content"],
+      "role": "WordPress plugin: field groups, post types, Loop, schema",
+      "output": "wp",
+      "stage": "active",
+      "pins": "nothing of its own: through Marccent Blocks (Requires Plugins)",
+      "uses": [],
+      "via": ["marccent-blocks"]
+    },
+    {
+      "repo": "marccent-wp",
+      "names": ["Marccent WP", "marccent-wp"],
+      "role": "WordPress block theme: the page frame, patterns",
+      "output": "wp",
+      "stage": "active",
+      "pins": "nothing of its own: through Marccent Blocks (Requires Plugins)",
+      "uses": ["styles/tokens", "docs/PATTERNS.md"],
+      "via": ["marccent-blocks"]
+    },
+    {
+      "repo": "django-marccent",
+      "names": ["django-marccent"],
+      "role": "Django app + django CMS plugins: the Django adapter",
+      "output": "django",
+      "stage": "frozen",
+      "pins": "marccent.THEME_VERSION, a release tag (scripts/sync_theme.py copies dist/ and markup/reference.json)",
+      "uses": ["dist/", "styles/designs/", "markup/reference.json", "markup/cases.json"]
+    },
+    {
+      "repo": "marccent",
+      "names": ["marccent/next", "marccent.com"],
+      "role": "marccent.com: the Next app, on the theme's React components",
+      "output": "html",
+      "stage": "active",
+      "pins": "package.json, marccent-theme by tag",
+      "uses": ["components/", "core/", "lib/", "react/", "styles/", "dist/"]
+    },
+    {
+      "repo": "marccent-html",
+      "names": ["marccent-html"],
+      "role": "plain HTML sites, on the theme's components",
+      "output": "html",
+      "stage": "frozen",
+      "pins": "to confirm",
+      "uses": ["components/", "core/", "styles/", "dist/"]
+    },
+    {
+      "repo": "marccent-local",
+      "names": ["Marccent Local", "marccent-local"],
+      "role": "WordPress plugin, retired (2026-11-06): its work moved to Blocks, Content and WP",
+      "output": "wp",
+      "stage": "retired",
+      "pins": "nothing",
+      "uses": [],
+      "via": ["marccent-blocks"]
+    }
+  ]
+}
