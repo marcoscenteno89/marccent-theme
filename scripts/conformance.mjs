@@ -169,7 +169,7 @@ if (option('--render')) {
     for (const kind of [ 'pattern', 'variant', 'remove' ]) {
       const waiting = Object.entries(settings).filter(([, s]) => s.kind === kind).map(([c]) => c);
       missing += waiting.length;
-      if (waiting.length) console.log(`todo kind: ${waiting.length} still components, to become ${{ pattern: 'patterns (PATTERNS.md)', variant: 'variants (T-030)', remove: 'nothing (a container already does it)' }[kind]}: ${waiting.join(', ')}`);
+      if (waiting.length) console.log(`todo kind: ${waiting.length} still components, to become ${{ pattern: 'patterns (PATTERNS.md)', variant: 'variants (T-030)', remove: 'nothing (a container, or a component with its children, already does it)' }[kind]}: ${waiting.join(', ')}`);
     }
     const unwritten = Object.entries(settings).filter(([, s]) => s.settings === null).map(([c]) => c);
     missing += unwritten.length;
