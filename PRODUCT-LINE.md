@@ -205,8 +205,13 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
   Tab; StatCard without its box. None for what's leaving (AppShell, Collage, ImageCard, HexWall).
 - [x] **Settings stage, written (T-029):** every component that stays (54) has its settings in `markup/settings.json`,
   204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
-- [ ] **Settings stage, used:** Marccent Blocks reads them (its block.json attributes and editor choices from
-  settings.json, not its own copy); the short names renamed (5.4).
+- [x] **Settings stage, used by Marccent Blocks** (2026-11-10): its block.json attributes are written from
+  settings.json (`npm run test:settings` fails on any difference without a reason in `tools/settings-map.json`), the
+  short names are the settings' full words there (padding, columns, verticalPadding, language; content saved before is
+  upgraded by its version), its editor choices are settings.json's, and Marccent Content's Loop is a Grid. Left, each
+  listed in that map: 31 settings not offered yet, 12 kept in the block's own shape (the sample items until T-034).
+- [ ] **The short props renamed** (5.4): the components' own `pad`, `padY`, `cols`, `min`, `row`, `max`, `lang`.
+- [ ] **Countdown, Parallax and Stars** have blocks but no entry in settings.json: they stay (an entry, a case) or go.
 - [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).
 - [ ] **Kits:** where they live and their check, or moved to after 1.0.
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).

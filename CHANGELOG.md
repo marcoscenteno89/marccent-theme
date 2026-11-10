@@ -3,6 +3,14 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.22
+
+### Added
+- Menu's settings: `label`, `iconOnly`, `layout`, `gap` and `hover` beside `fold` (Menu's version 2).
+
+### Changed
+- The conformance check reads the props a component hands on whole (Menu's `...props` to its nav) as its own.
+
 ## 1.0.0-rc.21
 
 Toward 1.0: what the restructuring needed from the theme, the settings written, the Sites list.
