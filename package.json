@@ -53,9 +53,12 @@
     "prepublishOnly": "npm run build",
     "markup": "node scripts/markup.mjs",
     "dividers": "node lib/dividers.gen.mjs",
-    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs",
+    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs && node scripts/todos.mjs",
     "conformance": "node scripts/conformance.mjs",
-    "cases": "node scripts/cases.mjs"
+    "cases": "node scripts/cases.mjs",
+    "todos": "node scripts/todos.mjs",
+    "affected": "node scripts/affected.mjs",
+    "status": "node scripts/status.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.4",

@@ -1,5 +1,8 @@
 # Marccent ecosystem tickets
 
+**Belongs to: marccent-theme.** Every ticket here is fixed in the marccent-theme repo; **Who** names the projects
+waiting on it.
+
 marccent-theme is the core of every Marccent site and adapter. This is the one list of what the theme doesn't do yet
 for them, and of every place a project still carries its own code instead of the theme's.
 
@@ -14,13 +17,17 @@ their one home. This file is only the list: the Wanted stage for the theme.
 One line in **Open** per gap: `ID | who | what's wrong | the stopgap (file) | what the theme needs`. When it ships,
 move it to **Done** with the release, and remove the stopgap from the project in the same round.
 
+Every project named in **Who** links the ticket from its own `TODO.md`, under Waiting on, one line, never a copy; when
+the ticket moves to Done, those lines go. The rules and the TODO.md template: [PRODUCT-LINE.md section
+8](PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd); `npm run todos` checks them.
+
 ## Open
 
 ### Theme gaps (components the sites need)
 
 | ID | Who | Need | Stopgap today | Theme needs |
 |---|---|---|---|---|
-| T-002 | the WordPress sites (Marccent Local, removed 2026-11-09, had one) | Cookie consent banner | `inc/consent.php`: inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
+| T-002 | marccent-wp | Cookie consent banner | marccent-wp's `inc/tracking.php` (moved from Marccent Local): inline CSS and two inline scripts | A consent/banner component (fixed corner panel, accept/reject, remembers) |
 | T-003 | Marccent WP (a Call bar pattern), rc-imp | Call bar fixed to the bottom on phones: a pattern of the theme's own blocks (a group with Call and Get a quote buttons), not a component of its own | Marccent Local's `inc/callbar.php` (inline CSS, printed in PHP) | Utilities only (`.position-fixed`, `.bottom-0` exist): phone-only display (`.d-md-none`, hidden from 768px), full width (`.start-0` / `.inset-x-0`), a z-index above the page, bottom padding for the safe area (`env(safe-area-inset-bottom)`), and room under the page while it shows |
 | T-009 | Fernway, marccent-html | Badges, avatars | Fernway `site.css` `.badge`, `.avatar` | Badge and Avatar classes |
 | T-010 | Fernway | Section heading block (eyebrow, title, text, centered) | `site.css` `.section-head` | A SectionHead component |
@@ -72,6 +79,7 @@ move it to **Done** with the release, and remove the stopgap from the project in
 | T-008 | Marccent Blocks | Tables in WordPress content: Marccent Blocks puts the theme's `.table` on a core Table block's `<table>` and `.overflow-auto` on its figure (`inc/markup.php`); `.wp-block-table` CSS retired | no theme change (2026-11-09) |
 | T-001 | marccent-html, marccent/next, Marccent Local, rc-imp | Map: three own maps (two copies of the sites' `components/apps/map.js`, Marccent Local's `assets/map.js`) replaced by the theme's Map (`components/widgets/map.js`, and `data-component="map"` for the engine) | 1.0.0-rc.6 |
 | T-023 | Fernway | Its own `.eyebrow` redefined the theme's | removed, uses the theme's (1.0.0-rc.6) |
+| B-003 | marccent-theme | Loading sets its own width (PRODUCT-LINE.md section 4, rule 9): `.loader-bar { width: 100% }` in `styles/components/loading.css`, and `style={{ width: '100%' }}` on every loader in `components/ui/loading.js` | excused in `scripts/conformance.mjs` (`SIZING_EXCEPTIONS`) | Drop both, so a loader fills as a block; a flex parent that shrinks it stretches it (`.self-stretch`, `.w-100`). Check the Loading cases in `markup/reference.json` and each adapter's output in the same round |
 | B-002 | (reported) | `hover-morph` on a plain box (a button) morphs its corners to `--hover-radius` (default a leaf), keeps the button's color fades, and cuts nothing unless `--hover-shape` is set | 1.0.0-rc.9 |
 | B-001 | Fernway | Code block: the `<pre>` has no margin (base styles), its padding and font from classes, the copy button in a padded corner box; Fernway's `site.css` stopgap removed | 1.0.0-rc.15 |
 | A-001 | every project | Audit of situation-specific classes: components made of classes that combine (about 30 general classes added, 6 component stylesheets removed, nav.css's menu look a `.menu-quiet` variant), padding and placement classes that win over a component's own | 1.0.0-rc.15 |

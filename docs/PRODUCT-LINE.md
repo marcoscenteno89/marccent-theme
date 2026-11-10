@@ -41,7 +41,7 @@ changed deliberately, here first.
 
 | # | Stage | Home (its list) | An entry has | Check (the gate to the next stage) | State |
 |---|---|---|---|---|---|
-| 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date | a decision to build it (none before 1.0 but product-line work) | exists |
+| 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date (section 8's item shape) | `npm run todos`: every list in the template's shape, every ticket linked from the projects it names; then a decision to build it (none before 1.0 but product-line work) | exists, checked |
 | 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component that stays (52); the pending ones once built |
 | 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 54 components, 204 settings; Marccent Blocks doesn't read them yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
@@ -59,6 +59,12 @@ changed deliberately, here first.
 5. **The structure changes only by adding** after 1.0. Before 1.0, change it here first, then in the projects.
 6. **Product line before entries.** Until it's complete, work goes into its stages, shapes and checks and into fixing
    what already exists; new entries wait in Wanted.
+7. **Which rule wins:** this document, then a project's `CLAUDE.md`, then its `TODO.md`. What Marcos says in a
+   conversation beats all three, and is written down in the same round (a rule here, or a line in Decisions, section
+   9), or the next session won't know it.
+8. **Every rule has a check, or says why it can't.** A rule nothing checks is the one that drifts: it gets a check in
+   `npm test` (as the work lists and component sizing have), or a line saying what checks it instead (the feature
+   freeze: Claude, and Marcos's review).
 
 ## 3. The feature freeze (until 1.0 is live)
 
@@ -101,7 +107,9 @@ changed deliberately, here first.
    - django-marccent: `marccent.THEME_VERSION` and its committed copy of the theme's `dist/`.
 
    When the markup (`markup/reference.json`) or a component's props change, update the adapters that translate them
-   in the same pass. When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
+   in the same pass; `npm run affected` lists which projects read what changed (every project, what it uses from
+   the theme and its stage: [projects.json](projects.json)), and `npm run status` which ones are still behind the theme
+   (their pin against what changed since in what they use; an active project behind fails it). When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
    yet gets a line in its `TODO.md` saying why.
 5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
    first if it doesn't hold). Ask in order; the first yes decides:
@@ -141,6 +149,20 @@ changed deliberately, here first.
    format** (T-028).
 8. **No block for what a list of links already does.** No Social links block: social links are a menu, shown with
    the Menu block (rc-imp's Social menu, built from its Profiles rows).
+9. **A component sets no width and no outer margin; its container decides both.** The layout it sits in (a grid
+   cell, `.wrap`, a column, `.measure`, a gap or a spacing class on the parent) sizes and spaces it, so the same
+   component fits a sidebar, a card and a full-width section unchanged. On a component's root, by kind:
+   - **block components** (Card, Nav, Menu, Map, Carousel, Form fields, loaders) fill their parent by being a block
+     or grid item that stretches: no `width` but `auto`, no `max-width` but `100%`, no `min-width` but `0`, no margin
+     but `0`. Form controls and tables are the one case of `width: 100%`, because `auto` doesn't stretch them;
+   - **inline controls** (Button, Icon, Chip, Rating) are as wide as their content (`fit-content`, an icon's
+     `--icon-size`) and never wider than the parent (`max-width: 100%`), with no margin; the parent stretches one with
+     a class (`.w-100`, `.self-stretch`);
+   - **overlays** (Modal, Drawer, Popover, Tooltip, Toast, a Menu's panel) sit outside the flow, so they're sized
+     against the screen or what they're attached to, with a cap that keeps them on screen.
+
+   Parts inside a component (a knob, a handle, an icon slot) are sized within it. `npm run conformance` checks the
+   roots in `styles/components`; one that breaks the rule is a ticket, excused by ID in the check until it ships.
 
 ## 5. Settings: one standard everywhere
 
@@ -190,7 +212,118 @@ changed deliberately, here first.
 
 Not repeated here, only named (no custom assets and gaps going to the theme are in section 4): Marccent's blocks first; what repeats is data; full words in every name; only the tools people have; data
 into field groups first; two plugins plus kits; everything visitors see built in the block editor until handover;
-every image search-ready; a TODO.md in every project.
+every image search-ready; a TODO.md for every project, kept in marccent-theme's `docs/todo/` (section 8).
+
+## 8. Work lists: TICKETS.md and each project's TODO.md
+
+Every project has a `TODO.md` (the theme's is `TICKETS.md`). **All of them live in marccent-theme's `docs/`**: a
+project's TODO.md is `docs/todo/<repo>.md` (`docs/todo/marccent-blocks.md`…), next to this document, `TICKETS.md`,
+`PATTERNS.md` and `SITES.md`. A project keeps no list or rules of its own: its `docs/README.md` and `CLAUDE.md` only
+link here, so one repo holds every list and rule and they can't drift apart. A fix in a project ticks its item here
+in the same round. They are the Wanted stage's lists, and they follow these rules strictly; `npm run todos` checks them (below), and a list that fails it is fixed before anything else.
+
+1. **A ticket lives in the project that fixes it.** What the theme has to fix (a missing or broken component, class
+   or token) is a ticket in `TICKETS.md`, never in a project's TODO.md. What only one project fixes (its own bug, its
+   own cleanup) is in that project's TODO.md and nowhere else.
+2. **Others link, never copy.** A project waiting on another project's ticket has one line under **Waiting on**
+   that links to it by ID and says what it unblocks here, nothing more. The ticket's details stay in its one home.
+3. **Every ticket is linked from every project it names.** An open ticket in `TICKETS.md` whose Who names a
+   project has a Waiting on line in that project's TODO.md; a Waiting on line links only to a ticket that's still
+   open. When a ticket ships (moves to Done), the projects delete its line and the stopgap in the same round.
+4. **The feature freeze sorts the list** (section 3): new features, blocks, settings or functionality go under
+   **After 1.0**, never Requests. Requests are only debugging, fixing and finishing what exists.
+5. **One shape for every item**, so nothing is "a special case":
+   `- [ ] **What** — details (found YYYY-MM-DD)`. Ticked when done (`- [x]`, with its done date), then deleted when
+   the release that has it is out (the CHANGELOG or README keeps the record). Details can continue on indented lines
+   or sub-bullets.
+6. **Only these sections, in this order**: Bugs, Requests, Waiting on, After 1.0, Notes. An empty one stays, with
+   its heading. Notes are ideas not decided yet and measurements, without checkboxes; once one is decided it becomes
+   an item in Bugs, Requests or After 1.0.
+7. **Claude doesn't add work on its own.** Something found while working on another item is added to the list
+   (rules 1 to 6) and said in the reply; it isn't done in the same change unless it was asked for.
+
+### The template
+
+```markdown
+# To do: <project>
+
+**Belongs to: <project>.** Every item here is fixed in the <project> repo.
+
+The rules for this list are in [PRODUCT-LINE.md §8](../PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd):
+work fixed in <project> only; anything the theme fixes is a ticket in [TICKETS.md](../TICKETS.md), linked under Waiting on.
+
+## Bugs
+
+- [ ] **What's broken** — where, how it shows (found YYYY-MM-DD)
+
+## Requests
+
+- [ ] **What to fix or finish** — details (found YYYY-MM-DD)
+
+## Waiting on
+
+- [ ] **[T-000](TICKETS.md)** — what it unblocks here: the stopgap that goes (found YYYY-MM-DD)
+
+## After 1.0
+
+- [ ] **A new feature** — details (found YYYY-MM-DD)
+
+## Notes
+
+- An idea not decided yet, or a measurement.
+```
+
+### The check
+
+`npm run todos` (in the theme; `node scripts/todos.mjs`) reads `docs/TICKETS.md` and every list in `docs/todo/`
+(a project without one yet is skipped and said so) and fails when:
+
+- a section is missing, out of order or not one of the five, or the Belongs to line or the rules line is missing;
+- an item in Bugs, Requests, Waiting on or After 1.0 isn't in the item shape, or has no found date;
+- a Waiting on line doesn't link a ticket ID, or links one that isn't open in `TICKETS.md`;
+- an open ticket names a project whose TODO.md has no Waiting on line for it.
+
+## 9. How Claude works: grey areas, proof and decisions
+
+Every project's `CLAUDE.md` points here. These keep projects from drifting apart when something comes up that no
+rule settles.
+
+### When no rule covers it
+
+1. **Look first**, in this order: this document, the project's `CLAUDE.md`, the work lists (`TICKETS.md`, the
+   project's `TODO.md`), Decisions (below), and how the other projects already do the same thing.
+2. **A rule covers it:** follow it, and name the rule in the reply.
+3. **No rule covers it, two rules conflict, or one reads two ways:** stop that part (keep doing the rest) and ask
+   Marcos, in this shape:
+
+   ```
+   No rule for: <the situation, in one line>.
+   Options: A) <…>  B) <…>
+   I recommend A, because <the fact: a rule, a file, a standard>.
+   A rule for every project, or a one-off?
+   ```
+4. **Write the answer down in the same round.** A rule goes into this document (and its check, rule 2.8); a one-off
+   goes into Decisions as one dated line. The next session, in any project, finds it there instead of guessing.
+5. **Never settle it in one project alone:** no convention of one repo's own, no copying another project's
+   workaround, and "it's small" is no reason to skip asking.
+
+### Proof and scope
+
+1. **No claim without output.** Claude says a check passed only when it ran it and saw it pass, and names the
+   command; what wasn't run is said as not run.
+2. **One goal per change.** A branch or PR does one thing; a fix and a cleanup are two changes.
+3. **Nothing is removed without a ticket or Marcos's OK:** no feature, setting, file or list item deleted on
+   Claude's own. A cleanup found while working goes on the list (section 8, rule 7).
+
+### Decisions
+
+Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
+everywhere becomes a rule above and its line goes.
+
+- 2026-11-10: a business schema from a Business field group (Marccent Local's `inc/schema.php`): no plugin builds
+  one; every field group makes its own schema (Marccent Content's `schema`), so a group without one adds none.
+- 2026-11-08: a `site.css` for custom styles: section 4, rule 1 holds for every Marccent project (the sites and the
+  adapters); someone using the theme on a site of their own writes whatever CSS they need.
 
 ## The 1.0 checklist
 
