@@ -3,6 +3,8 @@
 The one home for the product line's rules and every project's work list. The other projects keep none of their
 own: their `docs/README.md` and `CLAUDE.md` link here.
 
+- [WORKING.md](WORKING.md): how Claude works in every project; each project's `CLAUDE.md` imports it and holds
+  only its work list, so a change to how Claude works is one edit here.
 - [PRODUCT-LINE.md](PRODUCT-LINE.md): the rules (stages, the freeze, components, settings, work lists, how Claude works).
 - [TICKETS.md](TICKETS.md): belongs to marccent-theme: what the theme fixes, and the tickets the projects wait on.
 - [PATTERNS.md](PATTERNS.md): the patterns, with their parts and markup.

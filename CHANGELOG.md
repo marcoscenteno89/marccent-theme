@@ -19,6 +19,9 @@ README (Versions → What a version promises).
   both), checked by `npm run conformance` on the roots in `styles/components`. Loading breaks it today (B-003).
 
 ### Changed
+- `docs/WORKING.md`: how Claude works, one copy for every project. Each `CLAUDE.md` imports it (`@docs/WORKING.md`)
+  and names only its work list, so a rule change is one commit here instead of one per repo. marccent.com is
+  frozen in `docs/projects.json`: only wp and the theme are active.
 - `docs/`: PRODUCT-LINE.md, TICKETS.md, PATTERNS.md and SITES.md moved there, and every project's work list with them
   (`docs/todo/<repo>.md`); the projects keep no TODO.md of their own, only links. `npm run todos` reads them there
   (no `--root`); the lists were brought into section 8's shape on the way (found dates, shipped tickets' lines gone).

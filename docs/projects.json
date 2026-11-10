@@ -96,7 +96,7 @@
       ],
       "role": "marccent.com: the Next app, on the theme's React components",
       "output": "html",
-      "stage": "active",
+      "stage": "frozen",
       "path": "marccent",
       "pins": "package.json, marccent-theme by tag",
       "pin": {
