@@ -237,6 +237,21 @@
         "content": "<p>Inside</p>"
       },
       "html": "<article class=\"bg-secondary pad-lg grid cols-1 content-start gap-0 hover-holographic text-center justify-center price\"><p>Inside</p></article>"
+    },
+    {
+      "case": "the ticket variant",
+      "fields": {
+        "surface": "bg-primary-tint",
+        "round": true,
+        "pad": "pad",
+        "gap": "gap-sm",
+        "hover": "",
+        "center": true,
+        "variant": "ticket",
+        "classes": "",
+        "content": "<p>Admit one</p>"
+      },
+      "html": "<article class=\"bg-primary-tint round pad grid cols-1 content-start gap-sm text-center justify-center variant-ticket\"><p>Admit one</p></article>"
     }
   ],
   "nav": [

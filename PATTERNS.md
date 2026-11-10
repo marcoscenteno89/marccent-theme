@@ -61,14 +61,14 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 
 | Component | Made of | Note |
 |---|---|---|
+| CodeTabs | TabBar, Code | decided: a component (the tabs and the code make one thing, 4.5.3) |
 | AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
-| CodeTabs | TabBar, Code | |
 | Collage | Grid classes, ImageCard | its tile sizes are classes |
 | HexWall | a hex grid, HexFlip | a Loop of HexFlip in WordPress |
-| ImageCard | Card, an image, overlay classes | PRODUCT-LINE.md 4.8: a look of Card |
+| ImageCard | Card, an image, overlay classes | decided: removed, not a pattern; a Card with an image in it does it |
 | StatCard | Card, Icon, text | |
-| TicketCard | Card, `.shape-ticket`, a list | decided: Card + the ticket variant (T-030), not a pattern |
-| Timeline | a list, Icon, Button, classes | a Loop of rows in WordPress |
+| TicketCard | Card, `.shape-ticket`, a list | done: Card + the ticket variant (1.0.0-rc.18) |
+| Timeline | a list, Icon, Button, classes | decided: a component (its line and dots make one thing, 4.5.3) |
 
 Borderline, kept as components for now: Dock (a Menu of icons with a magnify effect; maybe a Menu look),
 ThemeEditor and MiniThemeEditor (arrangements of the theme controls, but used whole).

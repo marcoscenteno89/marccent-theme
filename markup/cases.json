@@ -220,6 +220,20 @@
         "classes": "price",
         "content": "<p>Inside</p>"
       }
+    },
+    {
+      "case": "the ticket variant",
+      "fields": {
+        "surface": "bg-primary-tint",
+        "round": true,
+        "pad": "pad",
+        "gap": "gap-sm",
+        "hover": "",
+        "center": true,
+        "variant": "ticket",
+        "classes": "",
+        "content": "<p>Admit one</p>"
+      }
     }
   ],
   "nav": [

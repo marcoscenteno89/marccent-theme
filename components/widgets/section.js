@@ -83,11 +83,12 @@ const Grid = ({ layout = 'cols', cols = 3, min, gap, alignItems, center, classNa
  * @param {string} [props.hover] - A hover effect class (hover-holographic…).
  * @param {boolean} [props.center] - Centers the content.
  * @param {number} [props.rows] - Spans this many of the parent's rows (a subgrid).
+ * @param {string} [props.variant] - A variant's name (markup/variants.json): "ticket" gives it .variant-ticket.
  * @param {string} [props.className] - Extra classes.
  */
-const Card = ({ surface = 'bg border', round = true, pad = 'pad', gap = 'gap-sm', hover, center, rows, className, children, ...rest }) => (
+const Card = ({ surface = 'bg border', round = true, pad = 'pad', gap = 'gap-sm', hover, center, rows, variant, className, children, ...rest }) => (
   <article {...rest} className={cx(surface, round && 'round', pad, rows ? `sub rows-${rows}` : cx('grid cols-1 content-start', gap), hover,
-    center && 'text-center justify-center', className)}>
+    center && 'text-center justify-center', variant && `variant-${variant}`, className)}>
     {children}
   </article>
 );

@@ -31,5 +31,8 @@
 @import "./components/header.css";    /* used on every page (any box's title row: cards, modal, toast) */
 @import "./hovers.css";               /* hover effects (.hover-*); unlayered, so they replace a component's own hover */
 
+/* Variants: an item's shape or frame (variants.css); before the utilities, so a utility still beats them */
+@import "./variants.css";
+
 /* Utilities: last, so a single-purpose class beats a component's own rule */
 @import "./utilities.css";

@@ -130,17 +130,37 @@ if (option('--render')) {
       for (const kind of lacking) console.log(`     no tool for ${kind} (${needs[kind].join(', ')})`);
     }
     // Each one's kind (PRODUCT-LINE.md 4.5): a component or container stays; a pattern or a variant is waiting to leave.
-    const KINDS = [ 'component', 'container', 'pattern', 'variant' ];
+    const KINDS = [ 'component', 'container', 'pattern', 'variant', 'remove' ];
     for (const [component, s] of Object.entries(settings)) {
       if (!KINDS.includes(s.kind)) {
         console.log(`FAIL kind: ${component} is "${s.kind ?? ''}", not one of ${KINDS.join(', ')}`);
         failed++;
       }
     }
-    for (const kind of [ 'pattern', 'variant' ]) {
+    // The variants (markup/variants.json): each on components that exist and can take one, and each component's
+    // variants in the list.
+    const variants = JSON.parse(readFileSync(join(ROOT, 'markup/variants.json'), 'utf8'));
+    for (const [name, v] of Object.entries(variants)) {
+      for (const on of v.on) {
+        if (![ 'component', 'container' ].includes(settings[on]?.kind) || !settings[on].variants?.includes(name)) {
+          console.log(`FAIL variant ${name}: on ${on}, which isn't a component or container listing it in its variants`);
+          failed++;
+        }
+      }
+    }
+    for (const [component, s] of Object.entries(settings)) {
+      for (const name of s.variants ?? []) {
+        if (!variants[name]) {
+          console.log(`FAIL variant: ${component} lists "${name}", which markup/variants.json doesn't have`);
+          failed++;
+        }
+      }
+    }
+    console.log(`ok   variants: ${Object.keys(variants).join(', ')}`);
+    for (const kind of [ 'pattern', 'variant', 'remove' ]) {
       const waiting = Object.entries(settings).filter(([, s]) => s.kind === kind).map(([c]) => c);
       missing += waiting.length;
-      if (waiting.length) console.log(`todo kind: ${waiting.length} still components, to become ${kind === 'pattern' ? 'patterns (PATTERNS.md)' : 'variants (T-030)'}: ${waiting.join(', ')}`);
+      if (waiting.length) console.log(`todo kind: ${waiting.length} still components, to become ${{ pattern: 'patterns (PATTERNS.md)', variant: 'variants (T-030)', remove: 'nothing (a container already does it)' }[kind]}: ${waiting.join(', ')}`);
     }
     const unwritten = Object.entries(settings).filter(([, s]) => s.settings === null).map(([c]) => c);
     missing += unwritten.length;

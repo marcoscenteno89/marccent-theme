@@ -81,7 +81,7 @@ const RENDER = {
     className: f.classes || undefined,
   }, html(f.content)),
   card: (f) => h(Card, {
-    surface: f.surface, round: f.round, pad: f.pad, gap: f.gap, hover: f.hover, center: f.center,
+    surface: f.surface, round: f.round, pad: f.pad, gap: f.gap, hover: f.hover, center: f.center, variant: f.variant || undefined,
     className: f.classes || undefined,
   }, html(f.content)),
   // The brand is the hosts' home link: the logo (when there is one) and the site's name.

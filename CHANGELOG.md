@@ -3,6 +3,22 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.18
+
+Variants: one class that gives an item a shape of its own. The first is the ticket, which replaces TicketCard.
+Markup changes for servers that write the theme's HTML (the markup reference has them).
+
+### Added
+- `.variant-ticket` (styles/variants.css): a stub torn off at the bottom, a notch on each side and a perforated tear
+  line, --stub above the bottom edge (the item's last block keeps it clear); all mask, so any background, mode or
+  hover works. Card's `variant` prop ("ticket"). The list of variants: `markup/variants.json`; a new markup case:
+  Card, "the ticket variant".
+- PRODUCT-LINE.md 4.5: one rule for component, container, variant, class or pattern (provisional); each component's
+  kind in `markup/settings.json`, checked by `npm run conformance`.
+
+### Removed
+- `TicketCard`: a Card with the ticket variant and its own content does it.
+
 ## 1.0.0-rc.17
 
 Patterns: what a site arranges its own way from the components is a pattern, listed with its parts and markup in

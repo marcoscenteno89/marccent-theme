@@ -1,0 +1,13 @@
+{
+  "ticket": {
+    "class": "variant-ticket",
+    "about": "A ticket with a stub torn off at the bottom: a notch on each side and a perforated tear line across, --stub above the bottom edge; the item's last block keeps that space clear. Was the TicketCard component until 1.0.0-rc.18.",
+    "on": [
+      "Card"
+    ],
+    "properties": {
+      "--notch": "the notches' radius (1rem)",
+      "--stub": "the stub's height under the tear line (2.5rem)"
+    }
+  }
+}

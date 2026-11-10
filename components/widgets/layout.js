@@ -4,7 +4,7 @@ import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
 
 /*
- * Layout widgets: honeycombs (HexGrid, HexWall), a timeline and cards (TicketCard, StatCard, ImageCard). No CSS of
+ * Layout widgets: honeycombs (HexGrid, HexWall), a timeline and cards (StatCard, ImageCard). No CSS of
  * their own: the theme's classes (grid, stack, shape, color: bg-primary-tint, glass-dark), and inline styles for what
  * only the component knows (positions, sizes, turns, the overlays on a photo).
  */
@@ -97,42 +97,6 @@ const Timeline = ({ events, className, style }) => (
       </li>
     ))}
   </ol>
-);
-
-/**
- * TicketCard: a card shaped as a ticket (.shape-ticket, notches at mid-height), split by a dashed tear line: the top
- * half has a small label, a big title, a note and the action; the bottom half a list. A pricing plan, an event pass,
- * a feature, a coupon… ribbon adds a corner ribbon with any text.
- * @param {Object} props
- * @param {string} [props.label] - Small, uppercase, above the title (a plan name, a date, a category).
- * @param {React.ReactNode} props.title - The big line (a price, an event name, a number).
- * @param {React.ReactNode} [props.note] - Small, after the title ("a month", a place).
- * @param {(string|{ icon: string, text: string })[]} [props.items] - The list under the tear line; a string gets a
- *   check icon.
- * @param {React.ReactNode} [props.action] - e.g. a <Button>.
- * @param {string} [props.ribbon] - Corner ribbon text ("Popular", "Sold out", "New").
- */
-const TicketCard = ({ label, title, note, items = [], action, ribbon, className }) => (
-  <div data-component="ticket-card" className={cx('stack hover-holographic', className)}>
-    <div className="shape-ticket grid cols-1 gap-0 bg-primary-tint" style={{ aspectRatio: 'auto', '--notch': '1rem', gridTemplateRows: '1fr 1fr' }}>
-      {/* Two equal rows, so the tear line between them runs between the notches. */}
-      <div className="grid cols-1 gap-sm pad text-center content-center border-bottom border-dashed">
-        {label && <strong className="text-uppercase opacity-75">{label}</strong>}
-        <div><span className="display text-primary fw-bold">{title}</span>{note && <small className="opacity-75"> {note}</small>}</div>
-        {action}
-      </div>
-      <ul className="list-plain grid cols-1 gap-sm pad content-center">
-        {items.map(item => {
-          const { icon, text } = typeof item === 'string' ? { icon: 'check', text: item } : item;
-          return <li key={text} className="grid auto-cols gap-sm items-center"><Icon name={icon} className="text-secondary" />{text}</li>;
-        })}
-      </ul>
-    </div>
-    {ribbon && (
-      <span className="shape-ribbon bg-gradient col-center fw-bold fs-sm self-start justify-self-end pad-y-xs pad-x-lg"
-        style={{ aspectRatio: 'auto', marginTop: '1rem' }}>{ribbon}</span>
-    )}
-  </div>
 );
 
 /**
@@ -250,4 +214,4 @@ const ImageCard = ({ src, canvas, fps, colors, alt = '', label, title, text, chi
   );
 };
 
-export { HexGrid, HexFlip, HexWall, Timeline, TicketCard, StatCard, ImageCard };
+export { HexGrid, HexFlip, HexWall, Timeline, StatCard, ImageCard };

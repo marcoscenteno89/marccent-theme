@@ -109,20 +109,24 @@ changed deliberately, here first.
       a **component** (Modal, Menu's fold, Map, Price, Counter).
    2. It needs markup a layout of other things can't write (a dialog's, tabs' or disclosure's structure for screen
       readers, SVG, canvas) → a **component** (Accordion, Divider, Animation).
-   3. It's one box that holds whatever content is put in it, its settings only classes (layout, spacing, background,
+   3. Its parts make one thing and depend on each other (take one away and the rest doesn't work or mean anything:
+      the tabs and the code they switch, a timeline's line and its dots), even when each part is HTML, CSS or JS
+      another component could write → a **component** (CodeTabs, Timeline).
+   4. It's one box that holds whatever content is put in it, its settings only classes (layout, spacing, background,
       alignment) → a **container** (Section, Grid, Card). One block or tag in every output; Section's dividers and
       background image are settings of that one box.
-   4. It only changes how one item looks (its shape, its frame), and could do it to other items → a **variant**: one
+   5. It only changes how one item looks (its shape, its frame), and could do it to other items → a **variant**: one
       class, the theme's tokens only, scoped to the item, one at a time (the ticket; TICKETS.md T-030). A component or
       container that takes variants has a `variant` setting (as Modal's).
-   5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
+   6. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
       `.raised`); the theme is classes that combine, so no component when classes already do it.
-   6. It arranges several specific parts → a **pattern** (a header, a footer, a stat card, a hero, a call to
+   7. It arranges several specific parts, each of which works on its own → a **pattern** (a header, a footer, a stat card, a hero, a call to
       action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
       block pattern of Marccent blocks, never a block.
 
    So two components that differ only in looks are one component and its variants (Card + the ticket variant, not
-   TicketCard), and a component whose only job is to lay out others is a pattern. Each component's kind is its
+   TicketCard); a component whose only job is to lay out others is a pattern; and what a container already does with
+   its ordinary content is neither (an image card is a Card with an image in it: no ImageCard). Each component's kind is its
    `kind` in `markup/settings.json`; the conformance check lists the ones still waiting to become a pattern or a
    variant.
 6. **Adapters only translate.** An adapter's block, tag or component writes the theme's markup

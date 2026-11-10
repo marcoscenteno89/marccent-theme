@@ -1,0 +1,21 @@
+/*
+ * VARIANTS (PRODUCT-LINE.md 4.5; the list: markup/variants.json): one class that gives an item a shape or a frame of
+ * its own, on top of whatever it is (a Card, a Section, an Alert…). The theme's tokens only, nothing outside the item,
+ * one variant at a time. Unlayered, before the utilities, so a variant beats a component's own rule and a utility
+ * still beats the variant.
+ */
+
+/* Ticket: a stub torn off at the bottom. A notch cut from each side and a row of small holes across, --stub above the
+   bottom edge, the perforation where a ticket tears; the card's last block keeps --stub clear under it, so the line
+   never crosses its content. All mask, no color or pseudo-element: it works on any background, in either mode, under
+   any hover. --notch: the notches' radius. */
+.variant-ticket {
+  --notch: 1rem;
+  --stub: 2.5rem;
+  mask:
+    radial-gradient(circle var(--notch) at 0 calc(100% - var(--stub)), transparent 98%, #000),
+    radial-gradient(circle var(--notch) at 100% calc(100% - var(--stub)), transparent 98%, #000),
+    radial-gradient(circle .15rem at 50% calc(100% - var(--stub)), transparent 98%, #000) 0 0 / .6rem 100% repeat-x;
+  mask-composite: intersect;
+}
+.variant-ticket > :last-child { margin-block-end: var(--stub); }
