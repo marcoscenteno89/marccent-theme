@@ -197,7 +197,15 @@ if (option('--render')) {
       const source = sources.find((t) => new RegExp(`^(?:export )?(?:const|function) ${component} = \\(\\{`, 'm').test(t));
       if (!source) continue; // no props to read (an element, a filter): written by hand
       const head = source.match(new RegExp(`^(?:export )?(?:const|function) ${component} = \\(\\{([\\s\\S]*?)\\}\\) =>`, 'm'))?.[1] ?? '';
-      const props = new Set(head.split(/,(?![^{[]*[}\]])/).map((p) => p.split('=')[0].split(':')[0].trim().replace(/'/g, '')));
+      const names = (h) => h.split(/,(?![^{[]*[}\]])/).map((p) => p.split('=')[0].split(':')[0].trim().replace(/'/g, ''));
+      const props = new Set(names(head));
+      // A rest prop handed whole to another component in the same file (Menu's ...props to MenuNav): its props count too.
+      for (const rest of [ ...props ].filter((p) => p.startsWith('...')).map((p) => p.slice(3))) {
+        for (const [ , inner ] of source.matchAll(new RegExp(`<(\\w+) \\{\\.\\.\\.${rest}\\}`, 'g'))) {
+          const innerHead = source.match(new RegExp(`^(?:export )?(?:const|function) ${inner} = \\(\\{([\\s\\S]*?)\\}\\) =>`, 'm'))?.[1];
+          if (innerHead) names(innerHead).forEach((p) => props.add(p));
+        }
+      }
       for (const [key, v] of Object.entries(s.settings)) {
         const prop = key === 'content' ? 'children' : v.prop ?? key;
         if (!props.has(prop)) { console.log(`FAIL settings: ${component}.${key} isn't one of its props (${prop})`); failed++; }
