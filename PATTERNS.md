@@ -63,7 +63,7 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 |---|---|---|
 | CodeTabs | TabBar, Code | decided: a component (its editors are one value: 4.5.1) |
 | AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
-| Collage | Grid classes, ImageCard | its tile sizes are classes |
+| Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | decided 2026-11-09: a pattern; Grid needs dense packing and a row height, the theme a row-span class, before the component retires |
 | HexWall | a hex grid, HexFlip | a Loop of HexFlip in WordPress |
 | ImageCard | Card, an image, overlay classes | decided: removed, not a pattern; a Card with an image in it does it |
 | StatCard | Card, Icon, text | |
