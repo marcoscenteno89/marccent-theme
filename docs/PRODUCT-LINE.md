@@ -320,6 +320,8 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-10: marccent.com frozen (projects.json) while 1.0 needs it live (3.1): it stays in 1.0 and unfreezes
+  in phase 3 of the 1.0 checklist's order, once the wp stack passes its gate.
 - 2026-11-10: a business schema from a Business field group (Marccent Local's `inc/schema.php`): no plugin builds
   one; every field group makes its own schema (Marccent Content's `schema`), so a group without one adds none.
 - 2026-11-08: a `site.css` for custom styles: section 4, rule 1 holds for every Marccent project (the sites and the
@@ -342,8 +344,8 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
    retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
    shows every component in the admin and on the page.
-3. **marccent.com** (section 4) and safe to go live (section 5). Open: it's frozen in projects.json, but 1.0 needs it
-   live (3.1) and T-033 rebuilds its pages; Marcos decides when it unfreezes.
+3. **marccent.com** (section 4) and safe to go live (section 5). It stays in 1.0 (3.1) and frozen in projects.json
+   until phase 2 passes its gate; then it's unfrozen (Decisions, 2026-11-10).
 4. **1.0.0 released** (section 6). The freeze ends; the frozen sites and outputs are brought up to 1.0 once (3.1).
 
 **1. The product line**
