@@ -24,6 +24,8 @@
   "Form": {"kind": "component", "admin": ["entries", "keys"], "settings": null},
   "Goo": {"kind": "component", "admin": [], "settings": null},
   "Grid": {"kind": "container", "admin": [], "settings": null},
+  "HexFlip": {"kind": "component", "admin": [], "settings": null},
+  "HexGrid": {"kind": "component", "admin": [], "settings": null},
   "HexWall": {"kind": "pattern", "admin": ["rows"], "settings": null},
   "Icon": {"kind": "component", "admin": [], "settings": null},
   "ImageCard": {"kind": "remove", "admin": [], "settings": null},
