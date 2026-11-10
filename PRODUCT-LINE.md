@@ -46,7 +46,7 @@ changed deliberately, here first.
 | 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 54 components, 204 settings; Marccent Blocks doesn't read them yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
 | 5 | **Kits** | to decide (Marccent Content's export format) | name, field groups, post types, patterns, starter pages, which components it uses | imports cleanly on a new site | missing |
-| 6 | **Sites** | to decide (one list of every site) | name, host, adapter, address, kits, stage (building, live) | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | missing: folders in `wp/sites/` and `marccent/`, no list |
+| 6 | **Sites** | [SITES.md](SITES.md) | site, output, built with, address, stage (building, test, live, frozen), notes | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | 8 sites listed: one building (marccent.com), one test (the wp site), six frozen |
 | 7 | **Live** | the Sites list's stage | address, launch date | the site's checks keep passing | none live yet |
 
 ## 2. Rules of the product line
@@ -207,7 +207,7 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
   204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
 - [ ] **Settings stage, used:** Marccent Blocks reads them (its block.json attributes and editor choices from
   settings.json, not its own copy); the short names renamed (5.4).
-- [ ] **Sites:** one list of every site and its stage.
+- [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).
 - [ ] **Kits:** where they live and their check, or moved to after 1.0.
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
 
