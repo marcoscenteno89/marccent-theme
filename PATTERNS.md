@@ -64,7 +64,7 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 | CodeTabs | TabBar, Code | decided: a component (its editors are one value: 4.5.1) |
 | AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
 | Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | decided 2026-11-09: a pattern; Grid needs dense packing and a row height, the theme a row-span class, before the component retires |
-| HexWall | HexGrid (a component: it places each child by its place, every other row shifted), HexFlip (a component: the flip) | decided 2026-11-09: a pattern; in WordPress a Loop of HexFlip inside HexGrid, once both are blocks |
+| HexWall | HexGrid (a component: it places each child by its place), its HexFlip children | decided 2026-11-09: removed, not a pattern; a HexGrid with HexFlip children (marked with their parent) is the wall; in WordPress a Loop of HexFlip inside HexGrid |
 | ImageCard | Card, an image, overlay classes | decided: removed, not a pattern; a Card with an image in it does it |
 | StatCard | Card, Icon, text | |
 | TicketCard | Card, `.shape-ticket`, a list | done: Card + the ticket variant (1.0.0-rc.18) |
