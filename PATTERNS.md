@@ -46,6 +46,38 @@ It was a component (Footer) until 1.0.0-rc.17.
 </footer>
 ```
 
+## Image card
+
+A photo filling a card, its text and buttons in front, always readable: a fade up from the bottom, a tint, frosted
+glass, or a blur on part of the photo; or a live animation instead of (or over) the photo. It was the ImageCard
+component; it becomes this pattern once the theme has its overlays as classes (TICKETS.md T-033).
+
+- **Parts:** Card (`pad-0`, `.stack`: the layers on one cell), the image (`.media-cover`), an overlay (`.overlay`,
+  and the blur, focus and tint ones to add as classes), the content (`self-end`, a badge as `.chip`).
+- **Admin data:** none (the image from the Media Library, like any image).
+- **Built in:** html (marccent.com's cards, today with the component); wp: a block pattern of Card, Image and text
+  blocks.
+
+```html
+<article class="bg round shadow overflow-hidden stack" style="aspect-ratio:4/5">
+  <img class="media-cover" src="…" alt="…">
+  <div class="overlay"></div>
+  <div class="grid cols-1 gap-sm pad self-end">
+    <small class="text-uppercase">Seychelles</small>
+    <strong class="fs-lg">Turquoise bays</strong>
+  </div>
+</article>
+```
+
+## Collage
+
+Tiles of different sizes packed on one grid: photos, animations, cards. It was the Collage component.
+
+- **Parts:** Grid (dense packing, a minimum row height: to add, T-033), Cards or Image cards with size classes
+  (`span-2`, `span-3`, a row span to add), border variants (a frame, an accent ring) when needed.
+- **Admin data:** rows (the tiles, when they're data).
+- **Built in:** html (marccent.com's Images and Animations pages, today with the component); wp: a Grid of Cards.
+
 ## Header (to do: TICKETS.md T-032)
 
 A site's header: the brand, the main menu folding behind a menu button on narrow screens (Menu `fold`), a call to
@@ -65,8 +97,8 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 | AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
 | Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | decided 2026-11-09: a pattern; Grid needs dense packing and a row height, the theme a row-span class, before the component retires |
 | HexWall | HexGrid (a component: it places each child by its place), its HexFlip children | decided 2026-11-09: removed, not a pattern; a HexGrid with HexFlip children (marked with their parent) is the wall; in WordPress a Loop of HexFlip inside HexGrid |
-| ImageCard | Card, an image, overlay classes | decided: removed, not a pattern; a Card with an image in it does it |
-| StatCard | Card, Icon, text | |
+| ImageCard | Card, an image, overlay classes | decided 2026-11-09: a pattern (the Image card, above); the component retires once the theme has its overlays as classes |
+| StatCard | a ring (progress), Icon, the number, a label | decided 2026-11-09: a component, without a box of its own: it goes inside a Card (the Card is the box) |
 | TicketCard | Card, `.shape-ticket`, a list | done: Card + the ticket variant (1.0.0-rc.18) |
 | Timeline | a list, Icon, Button, classes | decided: a component (its line depends on each row's place: 4.5.2), and its events become children: a Timeline item component, marked with Timeline as its parent; in WordPress a Loop of them (to build) |
 
