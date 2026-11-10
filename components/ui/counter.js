@@ -45,6 +45,9 @@ class Stopwatch {
 /**
  * Counter: a Stopwatch that runs while active is true. When active turns false it reports the time to getTime
  * and resets to zero.
+ * @param {boolean} [active] - Runs while true; false stops it, reports the time and resets it.
+ * @param {(time: number) => void} [getTime] - Called with the time, in milliseconds, when it stops.
+ * @param {string} [className] - Extra classes.
  */
 const Counter = ({ active, getTime, className }) => {
   const ref = useRef(null);

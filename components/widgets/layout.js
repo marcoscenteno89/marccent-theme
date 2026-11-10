@@ -40,6 +40,7 @@ const HexGrid = ({ perRow = 5, at, gap = .94, className, style, children, 'data-
  * HexFlip: a hexagon that turns over on hover or focus, front to back (a card flip in 3D).
  * @param {React.ReactNode} front @param {React.ReactNode} back
  * @param {string} [frontClass='bg-gradient'] @param {string} [backClass='bg-primary-darker'] - Their colors.
+ * @param {string} [label] - Its name for screen readers (a person's name and role): what both faces say, read once.
  */
 const HexFlip = ({ front, back, frontClass = 'bg-gradient', backClass = 'bg-primary-darker', label }) => {
   const [ flipped, setFlipped ] = useState(false);

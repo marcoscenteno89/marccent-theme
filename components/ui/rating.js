@@ -16,6 +16,8 @@ import '../../styles/components/rating.css';
  * @param {number} [props.defaultValue] - The star picked at first.
  * @param {string} [props.icon='star'] - Any Font Awesome solid icon: "heart", "fire"…
  * @param {(value: number) => void} [props.onChange]
+ * @param {boolean} [props.required] - A star must be picked before the form sends.
+ * @param {boolean} [props.disabled] - Can't be changed (the fieldset is disabled).
  * @param {string} [props.className] - Extra classes on the fieldset.
  *
  * @example <Rating name="score" label="Rate the talk" defaultValue={4} />

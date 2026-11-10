@@ -22,7 +22,7 @@
  * one that "uses" the theme's components writes their markup by construction and has nothing to render.
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFragment } from 'parse5';
@@ -187,6 +187,20 @@ if (option('--render')) {
         const wrong = !TYPES.includes(v.type) ? `type "${v.type}"` : !SANITIZE.includes(v.sanitize) ? `sanitize "${v.sanitize}"`
           : v.validate && v.validate !== 'required' ? `validate "${v.validate}"` : v.choices && !Array.isArray(v.choices) ? 'choices' : '';
         if (wrong) { console.log(`FAIL settings: ${component}.${key}: ${wrong}`); failed++; }
+      }
+    }
+    // Each setting is a prop of its component (by its prop name, when the setting's full-word name differs; content is
+    // its children), read from the component's source: the settings can't drift from the code.
+    const sources = readdirSync(join(ROOT, 'components'), { recursive: true }).filter((f) => f.endsWith('.js')).map((f) => readFileSync(join(ROOT, 'components', f), 'utf8'));
+    for (const [component, s] of Object.entries(settings)) {
+      if (!s.settings || !Object.keys(s.settings).length) continue;
+      const source = sources.find((t) => new RegExp(`^(?:export )?(?:const|function) ${component} = \\(\\{`, 'm').test(t));
+      if (!source) continue; // no props to read (an element, a filter): written by hand
+      const head = source.match(new RegExp(`^(?:export )?(?:const|function) ${component} = \\(\\{([\\s\\S]*?)\\}\\) =>`, 'm'))?.[1] ?? '';
+      const props = new Set(head.split(/,(?![^{[]*[}\]])/).map((p) => p.split('=')[0].split(':')[0].trim().replace(/'/g, '')));
+      for (const [key, v] of Object.entries(s.settings)) {
+        const prop = key === 'content' ? 'children' : v.prop ?? key;
+        if (!props.has(prop)) { console.log(`FAIL settings: ${component}.${key} isn't one of its props (${prop})`); failed++; }
       }
     }
     const unwritten = Object.entries(settings).filter(([, s]) => s.settings === null && [ 'component', 'container' ].includes(s.kind) && !s.planned).map(([c]) => c);

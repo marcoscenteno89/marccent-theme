@@ -153,12 +153,14 @@ changed deliberately, here first.
    settings change only by adding (2.5), and a version up says so, so saved content can be upgraded.
 3. **Tunes:** settings every component and container takes, listed once in `markup/tunes.json`, not per component:
    extra classes (a variant, a utility), an anchor, Show if (on an output with an admin).
-4. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`. Still short in the
-   theme's props (to rename, T-029): `href`, `pad`, `padY`, `cols`, `min`, `max`, `lang`, Map's `center.lat` and
-   `center.lng`; `href` may stay, the web's own word for a link.
+4. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`. The settings use
+   full words (`padding`, `verticalPadding`, `columns`, `minimumColumnWidth`, `minimumHeight`, `maximum`,
+   `language`); where a component's prop is still short, the setting names it (`prop`) until the prop is renamed
+   (T-029). `href` stays, the web's own word for a link; Map's `center` is `{ lat, lng }`, Google's own shape.
 5. **A setting is a look or a choice, never content.** Text, items and lists that repeat aren't settings (6.1).
-6. **Checked:** `npm run conformance` fails on a setting without a known type or sanitize rule, or a component without
-   a version, and lists the components that stay without their settings.
+6. **Checked:** `npm run conformance` fails on a setting that isn't one of its component's props (read from the
+   component's source, by `prop` when the name differs), a setting without a known type or sanitize rule, or a
+   component without a version, and lists the components that stay without their settings.
 
 ## 6. Data: content comes from the admin, not from a block
 

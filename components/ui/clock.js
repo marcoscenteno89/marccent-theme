@@ -34,8 +34,12 @@ class LiveClock {
   }
 }
 
-// Live clock (LiveClock). Empty until it runs in the browser: a time rendered on the server would already be a
-// second off when the page hydrates.
+/**
+ * Clock: a live clock (LiveClock). Empty until it runs in the browser: a time rendered on the server would already be
+ * a second off when the page hydrates.
+ * @param {string} [format='h:mm:ss A'] - How the time reads, a dayjs format: "dddd, h:mm A", "HH:mm".
+ * @param {string} [className] - Extra classes on the <time>.
+ */
 const Clock = ({ format = 'h:mm:ss A', className = '' }) => {
   const ref = useRef(null);
   useEffect(() => {
