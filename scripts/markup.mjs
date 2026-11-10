@@ -110,7 +110,7 @@ const RENDER = {
     minHeight: f.minHeight, image: f.image, imageAlt: f.imageAlt, shade: f.shade, className: f.classes || undefined,
   }, html(f.content)),
   grid: (f) => h(Grid, {
-    layout: f.layout, cols: f.cols, min: f.min, gap: f.gap, alignItems: f.alignItems, center: f.center,
+    layout: f.layout, cols: f.cols, min: f.min, gap: f.gap, alignItems: f.alignItems, center: f.center, dense: f.dense, row: f.row || undefined,
     className: f.classes || undefined,
   }, html(f.content)),
   card: (f) => h(Card, {
@@ -151,7 +151,7 @@ const RENDER = {
   codeTabs: (f) => h(CodeTabs, { value: f.value, onChange: () => {}, langs: f.langs }),
   compare: (f) => h(Compare, { before: h('img', { src: f.before, alt: f.beforeAlt }), after: h('img', { src: f.after, alt: f.afterAlt }),
     beforeLabel: f.beforeLabel, afterLabel: f.afterLabel, start: f.start, label: f.label }),
-  counter: (f) => h(Counter, { active: false }),
+  counter: (f) => h(Counter, { active: false, controls: f.controls }),
   dataTable: (f) => h(DataTable, { columns: f.columns, rows: f.rows, label: f.label, pageSize: f.pageSize, search: f.search }),
   divider: (f) => h(Divider, { shape: f.shape, edge: f.edge, size: f.size, motion: f.motion || undefined, scroll: f.scroll || undefined, flip: f.flip }),
   dock: (f) => h(Dock, { items: f.items, label: f.label }),

@@ -266,6 +266,14 @@
    position: absolute overlays and z-index. Children stretch to fill the cell. The one track is pinned
    (minmax(0, 1fr) both ways), so the cell is always the box's own size: tall content can't stretch it
    (a canvas reads its size once, so a taller cell would draw an oval). */
+/* Dense packing: items of different spans fill the holes the earlier ones left (a collage). .rows-min: every row at
+   least --row tall (the Grid's minimum row height), growing to fit its content. .row-span-N: an item over N rows. */
+.dense { grid-auto-flow: dense; }
+.rows-min { grid-auto-rows: minmax(var(--row, 10rem), auto); }
+.row-span-2 { grid-row: span 2; }
+.row-span-3 { grid-row: span 3; }
+.row-span-4 { grid-row: span 4; }
+
 .stack { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
 /* Each layer positioned, so they paint in source order, each over the one before, even when one has a filter, a mask
    or a backdrop filter (which would otherwise paint it over the plain layers after it): text after an .overlay-blur

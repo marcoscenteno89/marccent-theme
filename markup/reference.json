@@ -207,6 +207,22 @@
         "content": "<p>Inside</p><p>Inside</p>"
       },
       "html": "<div class=\"grid layout-2-1 items-start\"><p>Inside</p><p>Inside</p></div>"
+    },
+    {
+      "case": "dense, rows at least 10rem (a collage)",
+      "fields": {
+        "layout": "cols",
+        "cols": 4,
+        "min": "8rem",
+        "gap": "",
+        "alignItems": "",
+        "center": false,
+        "dense": true,
+        "row": "10rem",
+        "classes": "",
+        "content": "<div class=\"span-2 row-span-2\">Big</div><div>Small</div><div>Small</div>"
+      },
+      "html": "<div class=\"grid cols-4 dense rows-min\" style=\"--min:8rem;--row:10rem\"><div class=\"span-2 row-span-2\">Big</div><div>Small</div><div>Small</div></div>"
     }
   ],
   "card": [
@@ -687,6 +703,13 @@
       "case": "stopped",
       "fields": {},
       "html": "<small data-component=\"counter\" class=\"nums-tabular text-nowrap\"><i data-component=\"icon\" class=\"fa-solid fa-stopwatch\" aria-hidden=\"true\"></i> <span>00:00:00.00</span></small>"
+    },
+    {
+      "case": "with its own controls (a stopwatch)",
+      "fields": {
+        "controls": true
+      },
+      "html": "<div data-component=\"stopwatch\" class=\"grid auto-cols items-center gap-sm\"><button type=\"button\" class=\"btn primary\" aria-label=\"Start\" title=\"Start\" data-component=\"button\"><i data-component=\"icon\" class=\"fa-solid fa-play btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Start</span></button><small data-component=\"counter\" class=\"nums-tabular text-nowrap\"><i data-component=\"icon\" class=\"fa-solid fa-stopwatch\" aria-hidden=\"true\"></i> <span>00:00:00.00</span></small></div>"
     }
   ],
   "dataTable": [

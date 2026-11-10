@@ -58,14 +58,16 @@ const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-section', 
  * @param {string} [props.gap] - The gap class (gap-0, gap-sm, gap-lg; none: the default gap).
  * @param {string} [props.alignItems] - items-start, items-center or items-end (none: stretch).
  * @param {boolean} [props.center] - Centers the columns and their content.
+ * @param {boolean} [props.dense] - Packs items of different spans densely, filling holes (a collage: .dense).
+ * @param {string} [props.row] - Every row at least this tall, growing to fit (.rows-min, --row): "11rem".
  * @param {string} [props.className] - Extra classes.
  */
-const Grid = ({ layout = 'cols', cols = 3, min, gap, alignItems, center, className, children, ...rest }) => {
+const Grid = ({ layout = 'cols', cols = 3, min, gap, alignItems, center, dense, row, className, children, ...rest }) => {
   const equal = layout === 'cols' || layout === 'fixed';
   const shape = equal ? cx('grid', layout === 'fixed' && 'fixed', `cols-${cols}`) : layout === 'row-wrap' ? 'row-wrap' : cx('grid', layout);
   return (
-    <div {...rest} className={cx(shape, gap, alignItems, center && 'cols-center justify-center text-center', className)}
-      style={equal && min ? { '--min': min } : undefined}>
+    <div {...rest} className={cx(shape, gap, alignItems, center && 'cols-center justify-center text-center', dense && 'dense', row && 'rows-min', className)}
+      style={(equal && min) || row ? { ...(equal && min && { '--min': min }), ...(row && { '--row': row }) } : undefined}>
       {children}
     </div>
   );

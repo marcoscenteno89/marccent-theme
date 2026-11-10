@@ -4,7 +4,7 @@ import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
 
 /*
- * Layout widgets: honeycombs (HexGrid, HexWall), a timeline and cards (StatCard, ImageCard). No CSS of
+ * Layout widgets: honeycombs (HexGrid with HexFlip children: a team wall), a timeline and cards (StatCard, ImageCard). No CSS of
  * their own: the theme's classes (grid, stack, shape, color: bg-primary-tint, glass-dark), and inline styles for what
  * only the component knows (positions, sizes, turns, the overlays on a photo).
  */
@@ -55,23 +55,6 @@ const HexFlip = ({ front, back, frontClass = 'bg-gradient', backClass = 'bg-prim
     </div>
   );
 }
-
-/**
- * HexWall: a team or skills wall: a honeycomb of HexFlips, each showing an icon (or initials) and turning over to
- * the name and role.
- * @param {{ name: string, role?: string, icon?: string, initials?: string }[]} people
- * @param {number} [perRow=4]
- */
-const HexWall = ({ people, perRow = 4, className, style }) => (
-  <HexGrid data-name="hex-wall" perRow={perRow} className={className} style={style}>
-    {people.map((p, i) => (
-      <HexFlip key={p.name} label={`${p.name}${p.role ? `, ${p.role}` : ''}`}
-        frontClass={[ 'bg-gradient', 'bg-primary', 'bg-secondary', 'bg-gradient-darker' ][i % 4]}
-        front={p.icon ? <Icon name={p.icon} className="fs-lg" /> : <strong className="fs-lg">{p.initials}</strong>}
-        back={<><strong>{p.name}</strong>{p.role && <small>{p.role}</small>}</>} />
-    ))}
-  </HexGrid>
-);
 
 /**
  * Timeline: events down a gradient line, each marked by a hexagon with its icon and told in a card that points at it.
@@ -215,4 +198,4 @@ const ImageCard = ({ src, canvas, fps, colors, alt = '', label, title, text, chi
   );
 };
 
-export { HexGrid, HexFlip, HexWall, Timeline, StatCard, ImageCard };
+export { HexGrid, HexFlip, Timeline, StatCard, ImageCard };

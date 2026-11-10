@@ -3,6 +3,25 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.21
+
+Toward 1.0: what the restructuring needed from the theme, the settings written, the Sites list.
+
+### Added
+- `.overlay-tint` (the theme's gradient multiplied over a photo, an Image card's tint).
+- Grid: `dense` (packs items of different spans, `.dense`) and `row` (a minimum row height, `.rows-min` with --row);
+  `.row-span-2` to `-4`. A new markup case: Grid, "dense, rows at least 10rem".
+- Counter: `controls`, its own Start / Stop button and the last time (a stopwatch). A new markup case.
+- `markup/settings.json`: every component's settings (54, with sanitize, validate and a version); `markup/tunes.json`;
+  the conformance check reads each component's props so a setting can't drift from the code. `SITES.md`.
+- The cases page (`npm run cases`): every case live in a browser beside each adapter's.
+
+### Changed
+- `parse5` is a dependency (not a dev one), so an adapter can run `scripts/conformance.mjs` from its copy.
+
+### Removed
+- `HexWall`: a HexGrid with HexFlip children is the wall.
+
 ## 1.0.0-rc.20
 
 ### Added

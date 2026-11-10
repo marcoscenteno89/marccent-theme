@@ -96,7 +96,7 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 | CodeTabs | TabBar, Code | decided: a component (its editors are one value: 4.5.1) |
 | AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
 | Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | decided 2026-11-09: a pattern; Grid needs dense packing and a row height, the theme a row-span class, before the component retires |
-| HexWall | HexGrid (a component: it places each child by its place), its HexFlip children | decided 2026-11-09: removed, not a pattern; a HexGrid with HexFlip children (marked with their parent) is the wall; in WordPress a Loop of HexFlip inside HexGrid |
+| HexWall | HexGrid (a component: it places each child by its place), its HexFlip children | removed (1.0.0-rc.21): not a pattern; a HexGrid with HexFlip children (marked with their parent) is the wall; in WordPress a Loop of HexFlip inside HexGrid |
 | ImageCard | Card, an image, overlay classes | decided 2026-11-09: a pattern (the Image card, above); the component retires once the theme has its overlays as classes |
 | StatCard | a ring (progress), Icon, the number, a label | decided 2026-11-09: a component, without a box of its own: it goes inside a Card (the Card is the box) |
 | TicketCard | Card, `.shape-ticket`, a list | done: Card + the ticket variant (1.0.0-rc.18) |

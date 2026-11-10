@@ -144,6 +144,9 @@
 }
 .overlay-blur { mask-image: linear-gradient(to top, #000 40%, transparent 72%); }
 .overlay-focus { mask-image: radial-gradient(circle at 50% 45%, transparent 28%, #000 60%); }
+/* The theme's gradient over what's behind a layer, multiplied, so the photo takes the palette's colors (an Image card's
+   tint). */
+.overlay-tint { background-image: var(--gradient); opacity: .55; mix-blend-mode: multiply; }
 
 /* TYPOGRAPHY: the font's own OpenType features, where it has them (a font without one shows the text as it is). */
 .nums-tabular { font-variant-numeric: tabular-nums; }        /* digits of one width: tables, prices and counters line up */

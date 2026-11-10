@@ -192,6 +192,21 @@
         "classes": "",
         "content": "<p>Inside</p><p>Inside</p>"
       }
+    },
+    {
+      "case": "dense, rows at least 10rem (a collage)",
+      "fields": {
+        "layout": "cols",
+        "cols": 4,
+        "min": "8rem",
+        "gap": "",
+        "alignItems": "",
+        "center": false,
+        "dense": true,
+        "row": "10rem",
+        "classes": "",
+        "content": "<div class=\"span-2 row-span-2\">Big</div><div>Small</div><div>Small</div>"
+      }
     }
   ],
   "card": [
@@ -642,6 +657,12 @@
     {
       "case": "stopped",
       "fields": {}
+    },
+    {
+      "case": "with its own controls (a stopwatch)",
+      "fields": {
+        "controls": true
+      }
     }
   ],
   "dataTable": [
