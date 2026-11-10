@@ -49,8 +49,8 @@ It was a component (Footer) until 1.0.0-rc.17.
 ## Header (to do: TICKETS.md T-032)
 
 A site's header: the brand, the main menu folding behind a menu button on narrow screens (Menu `fold`), a call to
-action, the theme controls. Today the NavBar component; it becomes this pattern, and the WordPress Navbar block a Header
-block pattern.
+action, the theme controls. Today the NavBar component; it becomes this pattern (decided: the navbar is the header, a pattern; the nav is the
+Menu component with fold), and the WordPress Navbar block a Header block pattern.
 
 - **Parts:** Grid (`layout-ends`), Menu (`fold`), Button, ToggleButton or MiniThemeEditor.
 - **Admin data:** menu (the main menu), site (the brand), theme (what visitors may change).
@@ -61,14 +61,14 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 
 | Component | Made of | Note |
 |---|---|---|
-| CodeTabs | TabBar, Code | decided: a component (the tabs and the code make one thing, 4.5.3) |
+| CodeTabs | TabBar, Code | decided: a component (its editors are one value: 4.5.1) |
 | AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
 | Collage | Grid classes, ImageCard | its tile sizes are classes |
 | HexWall | a hex grid, HexFlip | a Loop of HexFlip in WordPress |
 | ImageCard | Card, an image, overlay classes | decided: removed, not a pattern; a Card with an image in it does it |
 | StatCard | Card, Icon, text | |
 | TicketCard | Card, `.shape-ticket`, a list | done: Card + the ticket variant (1.0.0-rc.18) |
-| Timeline | a list, Icon, Button, classes | decided: a component (its line and dots make one thing, 4.5.3) |
+| Timeline | a list, Icon, Button, classes | decided: a component (its line depends on each row's place: 4.5.2) |
 
 Borderline, kept as components for now: Dock (a Menu of icons with a magnify effect; maybe a Menu look),
 ThemeEditor and MiniThemeEditor (arrangements of the theme controls, but used whole).

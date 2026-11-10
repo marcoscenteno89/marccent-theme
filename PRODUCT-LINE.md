@@ -105,23 +105,22 @@ changed deliberately, here first.
    yet gets a line in its `TODO.md` saying why.
 5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
    first if it doesn't hold). Ask in order; the first yes decides:
-   1. It needs behavior or logic (state, events, timers, observers, formatting, data turned into markup) →
-      a **component** (Modal, Menu's fold, Map, Price, Counter).
+   1. It needs behavior or logic (state, events, timers, observers, formatting, data turned into markup; parts
+      combined into one value or one state count) → a **component** (Modal, Menu's fold, Map, Price, Counter,
+      CodeTabs: its editors are one value).
    2. It needs markup a layout of other things can't write (a dialog's, tabs' or disclosure's structure for screen
-      readers, SVG, canvas) → a **component** (Accordion, Divider, Animation).
-   3. Its parts make one thing and depend on each other (take one away and the rest doesn't work or mean anything:
-      the tabs and the code they switch, a timeline's line and its dots), even when each part is HTML, CSS or JS
-      another component could write → a **component** (CodeTabs, Timeline).
-   4. It's one box that holds whatever content is put in it, its settings only classes (layout, spacing, background,
+      readers, SVG, canvas; markup that depends on an item's place among the others) → a **component** (Accordion,
+      Divider, Animation, Timeline: its line runs through every row, trimmed at the first and the last).
+   3. It's one box that holds whatever content is put in it, its settings only classes (layout, spacing, background,
       alignment) → a **container** (Section, Grid, Card). One block or tag in every output; Section's dividers and
       background image are settings of that one box.
-   5. It only changes how one item looks (its shape, its frame), and could do it to other items → a **variant**: one
+   4. It only changes how one item looks (its shape, its frame), and could do it to other items → a **variant**: one
       class, the theme's tokens only, scoped to the item, one at a time (the ticket; TICKETS.md T-030). A component or
       container that takes variants has a `variant` setting (as Modal's).
-   6. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
+   5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
       `.raised`); the theme is classes that combine, so no component when classes already do it.
-   7. It arranges several specific parts, each of which works on its own → a **pattern** (a header, a footer, a stat card, a hero, a call to
-      action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
+   6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which the
+      NavBar is today; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
       block pattern of Marccent blocks, never a block.
 
    So two components that differ only in looks are one component and its variants (Card + the ticket variant, not
