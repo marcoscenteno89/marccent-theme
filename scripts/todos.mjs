@@ -59,6 +59,7 @@ for (const project of PROJECTS) {
   const lines = text.split('\n');
 
   if (!/^# To do: \S/.test(lines[0])) fail(where, 'its first line is "# To do: <project>"');
+  if (!text.includes(`**Belongs to: ${project.repo}.**`)) fail(where, `the line "**Belongs to: ${project.repo}.**" is missing`);
   if (!text.includes(RULES_LINK)) fail(where, `the rules line linking ${RULES_LINK} is missing`);
 
   const headings = lines.filter((l) => l.startsWith('## ')).map((l) => l.slice(3).trim());

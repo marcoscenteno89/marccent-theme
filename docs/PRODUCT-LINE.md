@@ -245,6 +245,8 @@ in the same round. They are the Wanted stage's lists, and they follow these rule
 ```markdown
 # To do: <project>
 
+**Belongs to: <project>.** Every item here is fixed in the <project> repo.
+
 The rules for this list are in [PRODUCT-LINE.md §8](../PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd):
 work fixed in <project> only; anything the theme fixes is a ticket in [TICKETS.md](../TICKETS.md), linked under Waiting on.
 
@@ -274,7 +276,7 @@ work fixed in <project> only; anything the theme fixes is a ticket in [TICKETS.m
 `npm run todos` (in the theme; `node scripts/todos.mjs`) reads `docs/TICKETS.md` and every list in `docs/todo/`
 (a project without one yet is skipped and said so) and fails when:
 
-- a section is missing, out of order or not one of the five, or the rules line is missing;
+- a section is missing, out of order or not one of the five, or the Belongs to line or the rules line is missing;
 - an item in Bugs, Requests, Waiting on or After 1.0 isn't in the item shape, or has no found date;
 - a Waiting on line doesn't link a ticket ID, or links one that isn't open in `TICKETS.md`;
 - an open ticket names a project whose TODO.md has no Waiting on line for it.

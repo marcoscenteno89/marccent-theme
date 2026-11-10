@@ -1,5 +1,8 @@
 # Marccent ecosystem tickets
 
+**Belongs to: marccent-theme.** Every ticket here is fixed in the marccent-theme repo; **Who** names the projects
+waiting on it.
+
 marccent-theme is the core of every Marccent site and adapter. This is the one list of what the theme doesn't do yet
 for them, and of every place a project still carries its own code instead of the theme's.
 

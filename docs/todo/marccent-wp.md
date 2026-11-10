@@ -1,5 +1,7 @@
 # To do: marccent-wp
 
+**Belongs to: marccent-wp.** Every item here is fixed in the marccent-wp repo.
+
 The rules for this list are in [PRODUCT-LINE.md §8](../PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd):
 work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 [TICKETS.md](../TICKETS.md), linked under Waiting on.
