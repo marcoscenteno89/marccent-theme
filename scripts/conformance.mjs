@@ -229,18 +229,20 @@ if (option('--render')) {
 // Sizing: each component root's kind. A file in styles/components with none of these fails, so a new component has
 // to say what it is. Other classes (parts, modifiers, states) aren't roots: a rule on a part is sized inside its root.
 const ROOTS = {
-  block: ['app-shell', 'board', 'swiper', 'compare', 'divider', 'dock-items', 'field', 'inline-form', 'pairs', 'header',
+  block: ['board', 'swiper', 'compare', 'divider', 'dock-items', 'field', 'inline-form', 'pairs', 'header',
     'map', 'menu', 'nav', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
     'loader-pulse', 'loader-ring'],
   replaced: ['input', 'table'], // a form control or a table: auto doesn't fill, so 100% is how they fill (it's the parent's width)
   inline: ['btn', 'chip', 'rating', 'fa', 'fa-solid', 'fa-regular', 'fa-brands'],
   overlay: ['modal', 'float', 'toast', 'toggle-panel', 'menu-panel'], // outside the flow: sized against the screen
+  state: ['sidebar'], // its width is its state (open, collapsed): one width per state, from tokens
 };
 // What each kind may set on its root. Anything else (a fixed width, a margin) is the parent's to decide.
 const ALLOWED = {
   block: { width: ['auto'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
   replaced: { width: ['auto', '100%'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
   // An icon is a square glyph: --icon-size is its content's size, set by the text it sits in.
+  state: { width: ['var(--sidebar-width)', 'calc(var(--icon-size) + 2 * var(--space-sm))'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
   inline: { width: ['auto', 'fit-content', 'max-content', 'min-content', 'var(--icon-size)'], 'max-width': ['100%', 'none'],
     'min-width': ['0', 'auto', 'fit-content', 'max-content', 'min-content'], margin: ['0'] },
 };
@@ -303,7 +305,6 @@ if (!option('--adapter') && !option('--render')) {
 // outside. A root belongs to the files that style it as their own (it leads a selector there); a selector in another
 // file that names it after a combinator fails. STYLES_EXCEPTIONS: open tickets that excuse one, "file root" → ticket.
 const STYLES_EXCEPTIONS = {
-  'app-shell.css menu': 'T-033', 'app-shell.css menu-panel': 'T-033', // AppShell becomes Sidebar + a pattern
   'nav.css menu': 'T-032', 'nav.css menu-panel': 'T-032', // NavBar becomes the Header pattern
   'menu.css toggle-panel': 'B-004',
 };

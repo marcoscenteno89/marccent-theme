@@ -87,6 +87,27 @@ Menu component with fold), and the WordPress Navbar block a Header block pattern
 - **Parts:** Grid (`layout-ends`), Menu (`fold`), Button, ToggleButton or MiniThemeEditor.
 - **Admin data:** menu (the main menu), site (the brand), theme (what visitors may change).
 
+## App frame
+
+An app or docs page: a Sidebar down the side, the page beside it; below 56rem the Sidebar is a top bar and the page
+under it. Was the AppShell component (removed 2026-11-10).
+
+- **Parts:** Grid (`layout-ends` with `--start: 1`, in a `.cq`), Sidebar (its content a Menu with `cols-1` and
+  `.menu-vertical`, then anything for the bottom), the page.
+- **Admin data:** menu (the sidebar's links), site (the brand).
+
+```html
+<div class="cq">
+  <div class="grid gap-0 layout-ends" style="--start: 1">
+    <aside data-component="sidebar" class="sidebar bg grid cols-1 gap-sm pad-sm sticky-top h-screen border-end" aria-label="Sidebar">
+      <div class="header"><a href="/">Brand</a><button class="btn" data-collapse aria-expanded="true" aria-label="Collapse sidebar">…</button></div>
+      <nav data-component="menu" class="menu grid gap-sm cols-1 menu-vertical" style="--cols: 1" aria-label="Sidebar">…</nav>
+    </aside>
+    <main>…</main>
+  </div>
+</div>
+```
+
 ## To check: components that may be patterns (TICKETS.md T-033)
 
 The audit of 2026-11-09 (every component in `markup/settings.json`): these only arrange other components and classes.
@@ -94,7 +115,7 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 | Component | Made of | Note |
 |---|---|---|
 | CodeTabs | TabBar, Code | decided: a component (its editors are one value: 4.5.1) |
-| AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
+| AppShell | Sidebar, a Menu, the page, Grid classes | done 2026-11-10: removed; its collapse is the Sidebar component's, the frame the App frame pattern (above) |
 | Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | decided 2026-11-09: a pattern; Grid needs dense packing and a row height, the theme a row-span class, before the component retires |
 | HexWall | HexGrid (a component: it places each child by its place), its HexFlip children | removed (1.0.0-rc.21): not a pattern; a HexGrid with HexFlip children (marked with their parent) is the wall; in WordPress a Loop of HexFlip inside HexGrid |
 | ImageCard | Card, an image, overlay classes | decided 2026-11-09: a pattern (the Image card, above); the component retires once the theme has its overlays as classes |

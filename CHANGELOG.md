@@ -22,6 +22,10 @@ README (Versions → What a version promises).
   styles only itself, and one taking two or more named pieces of content is a probable pattern), checked by `npm run
   conformance` (it found Menu reaching ToggleButton's panel: B-004); rule 9's components sized by their state (Sidebar).
 
+- `Sidebar` (components/widgets/sidebar.js, `data-component="sidebar"`): AppShell's collapsing sidebar as a component
+  of its own; its width is its state (rule 9). Menu's `.menu-vertical` (a column of links whose dropdowns open in
+  place), which AppShell's stylesheet used to force on the Menu from outside. PATTERNS.md: the App frame pattern.
+
 ### Changed
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
   What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
@@ -31,6 +35,9 @@ README (Versions → What a version promises).
 - `docs/`: PRODUCT-LINE.md, TICKETS.md, PATTERNS.md and SITES.md moved there, and every project's work list with them
   (`docs/todo/<repo>.md`); the projects keep no TODO.md of their own, only links. `npm run todos` reads them there
   (no `--root`); the lists were brought into section 8's shape on the way (found dates, shipped tickets' lines gone).
+
+### Removed
+- `AppShell`: a Sidebar beside the page (the App frame pattern, PATTERNS.md).
 
 ## 1.0.0-rc.22
 

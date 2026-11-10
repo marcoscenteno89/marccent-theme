@@ -22,6 +22,7 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 
 ## Requests
 
+- [ ] **The engine's component list names `app-shell`** (`inc/assets.php`): the theme replaced AppShell with Sidebar (`data-component="sidebar"`, unreleased 2026-11-10); swap it when Blocks moves to the release that has it. (found 2026-11-10)
 - [ ] **Commit and release the work not committed yet** — listed for 0.5.0 (found 2026-10-31):
   - Container blocks registered with `skip_inner_blocks`: they render their blocks themselves (`marccent_blocks_inner`),
     and WordPress rendered them first too, unused, doubling with each nested container (crm-sample's Accounts page:

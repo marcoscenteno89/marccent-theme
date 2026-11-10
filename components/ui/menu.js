@@ -6,7 +6,8 @@ import '../../styles/components/menu.css';
 
 /*
  * Menu: a site's navigation from plain data (styles: .menu-* in styles/components/menu.css; .menu-quiet on it for
- * Bootstrap's nav-link look). An item is a link, or a dropdown when it has children; a child with children of its
+ * Bootstrap's nav-link look; .menu-vertical with layout cols-1 for a column of links whose dropdowns open in
+ * place). An item is a link, or a dropdown when it has children; a child with children of its
  * own is a submenu, and so on, to any depth. Built on <details>, so it opens without JavaScript and works with the
  * keyboard; a site closes open ones after navigating and on an outside click or Escape (querySelectorAll
  * ('details[open]') on its header).

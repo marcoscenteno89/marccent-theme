@@ -135,21 +135,22 @@ define('file-drop', fileDrop);
 define('divider', watchDivider);
 
 /*
- * AppShell: [data-collapse] narrows the sidebar to its icons and back, remembered in this browser. (The phone layout,
- * a top bar with the sidebar in a Drawer, is the server's to render.)
+ * Sidebar: [data-collapse] narrows it to its icons and back, remembered in this browser: its links' names hidden (into
+ * aria-label and title, like Menu iconOnly) and its dropdowns hidden (no icon-only form). (The phone layout, a top
+ * bar with the content in a Drawer, is the server's to render.)
  */
 const SAVED = 'marccent-sidebar-collapsed';
-define('app-shell', (shell) => {
-  const button = shell.querySelector('[data-collapse]');
+define('sidebar', (sidebar) => {
+  const button = sidebar.querySelector('[data-collapse]');
   if (!button) return;
   const set = (on) => {
-    shell.classList.toggle('collapsed', on);
+    sidebar.classList.toggle('collapsed', on);
     button.setAttribute('aria-expanded', !on);
     button.setAttribute('aria-label', on ? 'Expand sidebar' : 'Collapse sidebar');
     const i = button.querySelector('.btn-icon');
     if (i) i.className = iconClass(on ? 'angles-right' : 'angles-left');
-    // Icons only, like Menu iconOnly: the name moves into aria-label and title.
-    shell.querySelectorAll('.app-sidebar .menu-link > .text-truncate').forEach((t) => {
+    sidebar.querySelectorAll('.menu-dropdown').forEach((d) => { d.hidden = on; });
+    sidebar.querySelectorAll('.menu-link > .text-truncate').forEach((t) => {
       const link = t.parentElement;
       t.hidden = on;
       if (on) {
@@ -163,7 +164,7 @@ define('app-shell', (shell) => {
   };
   try { if (localStorage.getItem(SAVED) === '1') set(true); } catch {}
   return listen(button, 'click', () => {
-    const on = !shell.classList.contains('collapsed');
+    const on = !sidebar.classList.contains('collapsed');
     set(on);
     try { localStorage.setItem(SAVED, on ? '1' : '0'); } catch {}
   });

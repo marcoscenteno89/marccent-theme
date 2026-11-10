@@ -364,7 +364,7 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
   that stays: 52 components, 76 cases (2026-11-09). A child is covered by its parent's case (AccordionItem,
   Step, SliderPager in Carousel); Toast has none (browser only: nothing until a message, `markup` in settings.json).
   Pending, a case once built (T-034, T-033): Timeline item, Dock item, Radial menu item, Step bar step, Orbit item,
-  Tab; StatCard without its box. None for what's leaving (AppShell, Collage, ImageCard, HexWall).
+  Tab; StatCard without its box. None for what's leaving (Collage, ImageCard, HexWall). AppShell is gone (2026-11-10): Sidebar and the App frame pattern.
 - [x] **Settings stage, written (T-029):** every component that stays (54) has its settings in `markup/settings.json`,
   204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
 - [x] **Settings stage, used by Marccent Blocks** (2026-11-10): its block.json attributes are written from
@@ -383,7 +383,7 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [ ] T-033: done in 1.0.0-rc.21: `.overlay-tint`, `.overlay-blur`, `.overlay-focus`; Grid's dense packing and row
   height, `.row-span-N`; HexWall gone; the Stopwatch block is Counter's controls. Left: ImageCard and Collage retire
   (their pages on marccent.com rebuilt as the patterns), StatCard drops its box (about 15 uses on marccent.com wrap
-  in a Card), AppShell decided.
+  in a Card). AppShell done 2026-11-10 (the Sidebar component, the App frame pattern).
 - [ ] T-034: the six children (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab); their
   parents take them and a Loop of them.
 - [ ] The WordPress blocks these replace retire: Image card, Collage, Hex wall.

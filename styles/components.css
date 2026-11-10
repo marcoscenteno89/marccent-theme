@@ -4,7 +4,6 @@
  * doesn't matter. icons.css and header.css are in core.css already.
  */
 @import "./layers.css";
-@import "./components/app-shell.css";
 @import "./components/board.css";
 @import "./components/button.css";
 @import "./components/chip.css";
@@ -19,3 +18,4 @@
 @import "./components/nav.css";
 @import "./components/popover.css";
 @import "./components/toast.css";
+@import "./components/sidebar.css";
