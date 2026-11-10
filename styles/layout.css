@@ -267,5 +267,8 @@
    (minmax(0, 1fr) both ways), so the cell is always the box's own size: tall content can't stretch it
    (a canvas reads its size once, so a taller cell would draw an oval). */
 .stack { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
-.stack > * { grid-area: 1 / 1; }
+/* Each layer positioned, so they paint in source order, each over the one before, even when one has a filter, a mask
+   or a backdrop filter (which would otherwise paint it over the plain layers after it): text after an .overlay-blur
+   stays sharp. A component's or a utility's position still wins (this is the layout layer). */
+.stack > * { grid-area: 1 / 1; position: relative; }
 }

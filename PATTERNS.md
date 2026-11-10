@@ -53,7 +53,7 @@ glass, or a blur on part of the photo; or a live animation instead of (or over) 
 component; it becomes this pattern once the theme has its overlays as classes (TICKETS.md T-033).
 
 - **Parts:** Card (`pad-0`, `.stack`: the layers on one cell), the image (`.media-cover`), an overlay (`.overlay`,
-  and the blur, focus and tint ones to add as classes), the content (`self-end`, a badge as `.chip`).
+  `.overlay-blur` for the lower part blurred, `.overlay-focus` for all but the middle; a tint still to add), the content (`self-end`, a badge as `.chip`).
 - **Admin data:** none (the image from the Media Library, like any image).
 - **Built in:** html (marccent.com's cards, today with the component); wp: a block pattern of Card, Image and text
   blocks.

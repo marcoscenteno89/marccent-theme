@@ -133,6 +133,17 @@
 }
 .overlay-sm { --overlay-opacity: var(--overlay-opacity-sm); }
 .overlay-lg { --overlay-opacity: var(--overlay-opacity-lg); }
+/* Blur part of what's behind a layer (a layer of a .stack, over the media): .overlay-blur the lower part, fading out
+   going up; .overlay-focus everything but a circle in the middle. A backdrop filter, so it blurs a photo, a video or
+   a live animation alike, with no second copy of the image. --overlay-blur: how soft. The Image card pattern
+   (PATTERNS.md): the photo, an .overlay-blur layer, an .overlay layer, then the text. */
+.overlay-blur,
+.overlay-focus {
+  -webkit-backdrop-filter: blur(var(--overlay-blur)) saturate(120%);
+  backdrop-filter: blur(var(--overlay-blur)) saturate(120%);
+}
+.overlay-blur { mask-image: linear-gradient(to top, #000 40%, transparent 72%); }
+.overlay-focus { mask-image: radial-gradient(circle at 50% 45%, transparent 28%, #000 60%); }
 
 /* TYPOGRAPHY: the font's own OpenType features, where it has them (a font without one shows the text as it is). */
 .nums-tabular { font-variant-numeric: tabular-nums; }        /* digits of one width: tables, prices and counters line up */
