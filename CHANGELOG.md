@@ -10,6 +10,8 @@ README (Versions → What a version promises).
 - How Claude works: PRODUCT-LINE.md section 9 (grey areas asked in one shape and written down in its Decisions;
   no claim without output; one goal per change; nothing removed without a ticket), section 2 rules 7 and 8, and
   CLAUDE.md.
+- Sizing: PRODUCT-LINE.md section 4, rule 9 (a component sets no width and no outer margin; its container decides
+  both), checked by `npm run conformance` on the roots in `styles/components`. Loading breaks it today (B-003).
 
 ## 1.0.0-rc.22
 

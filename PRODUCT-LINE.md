@@ -147,6 +147,20 @@ changed deliberately, here first.
    format** (T-028).
 8. **No block for what a list of links already does.** No Social links block: social links are a menu, shown with
    the Menu block (rc-imp's Social menu, built from its Profiles rows).
+9. **A component sets no width and no outer margin; its container decides both.** The layout it sits in (a grid
+   cell, `.wrap`, a column, `.measure`, a gap or a spacing class on the parent) sizes and spaces it, so the same
+   component fits a sidebar, a card and a full-width section unchanged. On a component's root, by kind:
+   - **block components** (Card, Nav, Menu, Map, Carousel, Form fields, loaders) fill their parent by being a block
+     or grid item that stretches: no `width` but `auto`, no `max-width` but `100%`, no `min-width` but `0`, no margin
+     but `0`. Form controls and tables are the one case of `width: 100%`, because `auto` doesn't stretch them;
+   - **inline controls** (Button, Icon, Chip, Rating) are as wide as their content (`fit-content`, an icon's
+     `--icon-size`) and never wider than the parent (`max-width: 100%`), with no margin; the parent stretches one with
+     a class (`.w-100`, `.self-stretch`);
+   - **overlays** (Modal, Drawer, Popover, Tooltip, Toast, a Menu's panel) sit outside the flow, so they're sized
+     against the screen or what they're attached to, with a cap that keeps them on screen.
+
+   Parts inside a component (a knob, a handle, an icon slot) are sized within it. `npm run conformance` checks the
+   roots in `styles/components`; one that breaks the rule is a ticket, excused by ID in the check until it ships.
 
 ## 5. Settings: one standard everywhere
 
