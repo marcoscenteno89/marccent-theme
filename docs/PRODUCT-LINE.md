@@ -108,7 +108,8 @@ changed deliberately, here first.
 
    When the markup (`markup/reference.json`) or a component's props change, update the adapters that translate them
    in the same pass; `npm run affected` lists which projects read what changed (every project, what it uses from
-   the theme and its stage: [projects.json](projects.json)). When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
+   the theme and its stage: [projects.json](projects.json)), and `npm run status` which ones are still behind the theme
+   (their pin against what changed since in what they use; an active project behind fails it). When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
    yet gets a line in its `TODO.md` saying why.
 5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
    first if it doesn't hold). Ask in order; the first yes decides:

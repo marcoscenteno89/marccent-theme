@@ -8,7 +8,8 @@ README (Versions → What a version promises).
 ### Added
 - `docs/projects.json`: every project on the theme, what it reads from it, how it pins it and its stage; `npm run
   affected` lists the projects a change reaches (directly or through Marccent Blocks). `npm run todos` takes its
-  project list from it.
+  project list from it. `npm run status`: every project's pin against the theme, and what each is behind on (fails
+  when an active project is behind).
 
 - Work lists: PRODUCT-LINE.md section 8 (the rules and the TODO.md template) and `npm run todos` (in `npm test`).
 - How Claude works: PRODUCT-LINE.md section 9 (grey areas asked in one shape and written down in its Decisions;

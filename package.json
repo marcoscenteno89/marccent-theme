@@ -57,7 +57,8 @@
     "conformance": "node scripts/conformance.mjs",
     "cases": "node scripts/cases.mjs",
     "todos": "node scripts/todos.mjs",
-    "affected": "node scripts/affected.mjs"
+    "affected": "node scripts/affected.mjs",
+    "status": "node scripts/status.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.4",

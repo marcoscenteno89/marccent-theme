@@ -15,4 +15,5 @@ own: their `docs/README.md` and `CLAUDE.md` link here.
   [marccent-wp](todo/marccent-wp.md), [django-marccent](todo/django-marccent.md),
   [marccent-local](todo/marccent-local.md) (retired).
 
-`npm run affected` lists the projects a change reaches; `npm run todos` checks the lists; `npm run conformance` the markup and settings. Both are in `npm test`.
+`npm run status` says which projects are behind the theme (from each one's pin) and on what; `npm run affected`
+lists the projects a change reaches; `npm run todos` checks the lists; `npm run conformance` the markup and settings. Both are in `npm test`.
