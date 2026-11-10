@@ -107,7 +107,7 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
   .menu-dropdown.menu-sub[open] > summary::after { rotate: 90deg; }
 }
 
-/* QUIET (.menu-quiet on a Menu: NavBar's main menu, Bootstrap's .nav-link look). Links in a dimmed text color that
+/* QUIET (.menu-quiet on a Menu: the Header pattern's main menu, Bootstrap's .nav-link look). Links in a dimmed text color that
    goes fuller on hover and full on the current page and an open dropdown, with no hover fill; a triangle caret that
    doesn't turn; dropdowns a bordered list with padding above and below only and no shadow, their items full width and
    square, the current one in the primary. currentColor throughout, so it works on a color fill too. */

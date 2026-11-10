@@ -15,7 +15,7 @@ the block editor).
 
 - **CSS**: tokens, a grid layout system, utilities, hover effects (some follow the mouse: tilt, spotlight, magnet) and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
-- **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; Section, Grid and Card (the layout classes as components); a NavBar (a bar, or a pill floating over the hero; dropdowns on click or hover), a Sidebar that collapses to its icons (the App frame pattern), a Dock, and a Map (Google, in the theme's colors).
+- **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; Section, Grid and Card (the layout classes as components); a Menu that folds behind a menu button on narrow screens (the Header pattern), a Sidebar that collapses to its icons (the App frame pattern), a Dock, and a Map (Google, in the theme's colors).
 - **Patterns** ([docs/PATTERNS.md](docs/PATTERNS.md)): what a site arranges its own way from the components (a footer, a header), with their markup, instead of components.
 - **Typography**: text set the way print sets it, by itself: real dashes and ellipses, raised ordinals and ™ ®, m², primes, numbers that never split from their units, no one-word last lines; prices with the currency sign and cents raised (`$19⁹⁹/mo`). See [Typography](#typography).
 - **Animations**: canvas backgrounds on any element with `data-component="animation" data-name="snow"` (blob, snow…), effects and scenery. They only run while on screen and respect reduced motion.
@@ -77,7 +77,7 @@ wires it up by `data-component`: the nav bar and its menus, toggle buttons, tool
 (`data-opens="<id>"` opens one, `data-close` closes it), file drops, the app shell's sidebar, code blocks, canvas
 backgrounds and the pointer hovers. `window.marccentDefaults` (optional) is the site's starting theme over the
 package's. React wires what it renders; a page that mixes both marks React's parts `data-island` and the engine leaves them alone. `Marccent.define(kind, setup)`
-adds your own. `markup/` is that contract written down for Button, Icon, Section, Grid, Card and NavBar: cases and the
+adds your own. `markup/` is that contract written down for Button, Icon, Section, Grid, Card, Menu and more: cases and the
 HTML the components render for each, which a host's own tests compare its markup with (`markup/README.md`).
 
 `npm run build` writes `dist/` from the source (`scripts/build.mjs`).
@@ -246,7 +246,7 @@ gives its own element, so `.justify-self-end` moves a button and `.pad-xs` pads 
 - **Look**: `.chip` (a small label: a tag, a badge), `.bg-muted`, `.bg-primary-tint`, `.bg-inverse` (the page's
   colors swapped: a tooltip), `.bg-scrim` and `.glass-dark` (text over a photo), `.tint-current` (the `aria-current`
   one tinted), `.border-start` / `-end`, `.border-dashed` (dashes only the sides a border class draws), `.hover-muted`,
-  `.hover-opaque`. A Menu takes `.menu-quiet` for Bootstrap's nav-link look (NavBar's main menu).
+  `.hover-opaque`. A Menu takes `.menu-quiet` for Bootstrap's nav-link look (the Header pattern's main menu).
 
 ## Tokens worth knowing
 

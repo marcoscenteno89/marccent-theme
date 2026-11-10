@@ -252,14 +252,8 @@
 }
 
 /* Component lines that change the ones above. Here, not in the component's file, because components sit in a
-   lower layer (layers.css) and couldn't beat them. Nav (nav.css): below 56rem the main menu is stacked, so the
-   line goes below each link. Inline form (form.css): from 40rem the button's border matches the fields'. */
-@container (width < 56rem) {
-  .nav .nav-collapse > .menu.divide:not(.nav-end) > :not(:last-child) {
-    border-right-width: 0;
-    border-bottom-width: var(--border-width);
-  }
-}
+   lower layer (layers.css) and couldn't beat them. Inline form (form.css): from 40rem the button's border matches the
+   fields'. */
 @container (min-width: 40rem) {
   .inline-form > .btn { border-color: var(--border-color); }
 }

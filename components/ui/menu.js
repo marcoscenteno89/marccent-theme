@@ -45,7 +45,7 @@ const menuLinks = (items) => items.flatMap(item => [ ...(item.href ? [ item ] : 
  * @param {string} [props.dropdownClassName] - Extra classes for each dropdown <details> (submenus included).
  * @param {string} [props.panelClassName] - Extra classes for each dropdown panel (submenus included).
  * @param {boolean} [props.hover] - Dropdowns also open on mouse hover while their panel floats (data-open="hover";
- *   the listeners are closeMenus's, so the menu must sit in an element given to it: NavBar does that).
+ *   the listeners are closeMenus's, which the engine gives every menu: core/components.js).
  * @param {boolean} [props.fold] - Folds behind a menu button where there's no room (Bootstrap's navbar toggler and
  *   collapse, on its own): in a container under 56rem (the nearest .wrap: a header's width) the menu is a phone menu,
  *   stacked in the button's panel (ToggleButton panel); from 56rem it shows in place and the button hides

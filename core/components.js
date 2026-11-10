@@ -2,7 +2,6 @@ import { define } from './enhance';
 import { closeMenus } from './close-menus';
 import { keepPlaced } from './place';
 import { tooltip } from './tooltip';
-import { watchScrolled } from './scrolled';
 import { watchInView } from './in-view';
 import { watchInverseMode } from './inverse-mode';
 import { typesetElement } from './typeset';
@@ -69,35 +68,8 @@ define('toggle-panel', (panel) => {
   ]);
 });
 
-/*
- * NavBar: its toggle opens the folded menu (.open); dropdowns close on an outside click and Esc (closeMenus); the
- * page's scroll sets data-scrolled. Floating (data-variant="floating"): the pill bar turns solid (bg border shadow)
- * once scrolled or open, and round instead of a pill while open.
- */
-define('nav-bar', (nav) => {
-  const bar = nav.querySelector(':scope > .layout-ends');
-  const floating = nav.dataset.variant === 'floating';
-  let open = false;
-  let scrolled = false;
-  const paint = () => {
-    nav.classList.toggle('open', open);
-    nav.toggleAttribute('data-scrolled', scrolled);
-    if (floating && bar) {
-      bar.classList.toggle('pill', !open);
-      bar.classList.toggle('round', open);
-      [ 'bg', 'border', 'shadow' ].forEach((c) => bar.classList.toggle(c, open || scrolled));
-    }
-  };
-  const toggle = nav.querySelector('.nav-toggle');
-  return all([
-    closeMenus(nav),
-    toggle && listen(toggle, 'marccent:toggle', (e) => { open = e.detail; paint(); }),
-    watchScrolled((on) => { scrolled = on; paint(); }),
-  ]);
-});
-
-// A Menu outside a NavBar: its dropdowns close on an outside click and Esc, and a hover menu opens on hover.
-define('menu', (menu) => (menu.closest('[data-component~="nav-bar"]') ? undefined : closeMenus(menu)));
+// Menu: its dropdowns close on an outside click and Esc, and a hover menu opens on hover.
+define('menu', (menu) => closeMenus(menu));
 
 // Tooltip and LinkPreview: the box (role="tooltip") and its trigger (aria-describedby naming it).
 define('tooltip', (tip) => {

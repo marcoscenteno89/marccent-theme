@@ -21,7 +21,7 @@ It was a component (Footer) until 1.0.0-rc.17.
 - **Admin data:** menu (each column, the legal links, the social links: a menu each), site (the brand: the site's
   name and logo; the line about it).
 - **Built in:** html (marccent.com's own footer, `marccent/next/components/layout/footer.tsx`); wp: a Footer block
-  pattern, with the Header (TICKETS.md T-032).
+  pattern (TICKETS.md T-032).
 
 ```html
 <footer id="footer" data-component="footer" class="wrap wrap-fluid pad-y-lg grid cols-1 gap-lg bg">
@@ -78,34 +78,33 @@ Tiles of different sizes packed on one grid: photos, animations, cards. It was t
 - **Admin data:** rows (the tiles, when they're data).
 - **Built in:** html (marccent.com's Images and Animations pages, today with the component); wp: a Grid of Cards.
 
-## Header (to do: TICKETS.md T-032)
+## Header
 
-A site's header: the brand, the main menu folding behind a menu button on narrow screens (Menu `fold`), a call to
-action, the theme controls. Today the NavBar component; it becomes this pattern (decided: the navbar is the header, a pattern; the nav is the
-Menu component with fold), and the WordPress Navbar block a Header block pattern.
+A site's header: the brand at the start; at the end the main menu, folding behind a menu button where the header is
+under 56rem (Menu `fold`), a call to action and the theme controls. Sticky at the top. It was the NavBar component
+(removed 2026-11-10); its floating pill variant went with it (TICKETS.md T-032).
 
-- **Parts:** Grid (`layout-ends`), Menu (`fold`), Button, ToggleButton or MiniThemeEditor.
+- **Parts:** Section (`as` header, `wrap wrap-fluid` outside, `.wrap` inside: the fold's container), Grid
+  (`auto-cols cols-between`: the brand at the start, the rest at the end), Menu (`fold`, `auto-cols`, `.menu-quiet`),
+  Button, the theme controls (MiniThemeEditor, or a Popover holding it).
 - **Admin data:** menu (the main menu), site (the brand), theme (what visitors may change).
-
-## App frame
-
-An app or docs page: a Sidebar down the side, the page beside it; below 56rem the Sidebar is a top bar and the page
-under it. Was the AppShell component (removed 2026-11-10).
-
-- **Parts:** Grid (`layout-ends` with `--start: 1`, in a `.cq`), Sidebar (its content a Menu with `cols-1` and
-  `.menu-vertical`, then anything for the bottom), the page.
-- **Admin data:** menu (the sidebar's links), site (the brand).
+- **Built in:** wp (marccent-wp's Header block pattern, the header template part); html: marccent.com (frozen; it
+  still uses NavBar, T-032).
 
 ```html
-<div class="cq">
-  <div class="grid gap-0 layout-ends" style="--start: 1">
-    <aside data-component="sidebar" class="sidebar bg grid cols-1 gap-sm pad-sm sticky-top h-screen border-end" aria-label="Sidebar">
-      <div class="header"><a href="/">Brand</a><button class="btn" data-collapse aria-expanded="true" aria-label="Collapse sidebar">…</button></div>
-      <nav data-component="menu" class="menu grid gap-sm cols-1 menu-vertical" style="--cols: 1" aria-label="Sidebar">…</nav>
-    </aside>
-    <main>…</main>
+<header class="wrap wrap-fluid pad-y-sm bg border-bottom sticky-top">
+  <div class="wrap pad-0 grid auto-cols cols-between items-center gap-sm">
+    <a href="/" class="menu-link grid auto-cols items-center gap-sm" aria-label="Site, home"><img src="…" alt="Site" style="height:2.5rem;width:auto"><span class="fw-bold">Site</span></a>
+    <div class="grid auto-cols items-center gap-sm">
+      <div data-component="menu-fold" class="menu-fold">
+        <button data-component="toggle-button" class="btn menu-fold-toggle" aria-label="Main menu" aria-expanded="false">…</button>
+        <div class="toggle-panel …"><nav data-component="menu" class="menu grid gap-0 auto-cols menu-quiet" aria-label="Main">…links…</nav></div>
+      </div>
+      <a href="tel:…" class="btn primary">…Call…</a>
+      <div data-component="mini-theme-editor" …>…</div>
+    </div>
   </div>
-</div>
+</header>
 ```
 
 ## To check: components that may be patterns (TICKETS.md T-033)

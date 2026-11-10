@@ -131,8 +131,8 @@ changed deliberately, here first.
       container that takes variants has a `variant` setting (as Modal's).
    5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
       `.raised`); the theme is classes that combine, so no component when classes already do it.
-   6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which the
-      NavBar is today; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
+   6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which was the
+      NavBar; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
       block pattern of Marccent blocks, never a block.
 
    **Children:** a component that only exists inside another (an item in an Accordion, a Step in a StepForm; in
@@ -379,7 +379,8 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
 
 **2. The restructuring decided**
-- [ ] T-032: the Header and Footer patterns; NavBar retires; the Navbar block becomes a Header block pattern.
+- [ ] T-032: done 2026-11-10: the Header pattern, NavBar removed, the Navbar block a Header block pattern in marccent-wp.
+  Left: the folded menu as a full-width panel on phones; the Footer block pattern (marccent-wp).
 - [ ] T-033: done in 1.0.0-rc.21: `.overlay-tint`, `.overlay-blur`, `.overlay-focus`; Grid's dense packing and row
   height, `.row-span-N`; HexWall gone; the Stopwatch block is Counter's controls. Left: ImageCard and Collage retire
   (their pages on marccent.com rebuilt as the patterns), StatCard drops its box (about 15 uses on marccent.com wrap

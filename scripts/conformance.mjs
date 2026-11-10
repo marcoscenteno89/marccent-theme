@@ -230,7 +230,7 @@ if (option('--render')) {
 // to say what it is. Other classes (parts, modifiers, states) aren't roots: a rule on a part is sized inside its root.
 const ROOTS = {
   block: ['board', 'swiper', 'compare', 'divider', 'dock-items', 'field', 'inline-form', 'pairs', 'header',
-    'map', 'menu', 'nav', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
+    'map', 'menu', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
     'loader-pulse', 'loader-ring'],
   replaced: ['input', 'table'], // a form control or a table: auto doesn't fill, so 100% is how they fill (it's the parent's width)
   inline: ['btn', 'chip', 'rating', 'fa', 'fa-solid', 'fa-regular', 'fa-brands'],
@@ -305,7 +305,6 @@ if (!option('--adapter') && !option('--render')) {
 // outside. A root belongs to the files that style it as their own (it leads a selector there); a selector in another
 // file that names it after a combinator fails. STYLES_EXCEPTIONS: open tickets that excuse one, "file root" → ticket.
 const STYLES_EXCEPTIONS = {
-  'nav.css menu': 'T-032', 'nav.css menu-panel': 'T-032', // NavBar becomes the Header pattern
   'menu.css toggle-panel': 'B-004',
 };
 if (!option('--adapter') && !option('--render')) {

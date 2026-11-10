@@ -18,7 +18,7 @@ let watching = null;         // the document's MutationObserver, once enhance() 
 
 /**
  * define: the setup for one kind of component. Elements already on an enhanced page get it at once.
- * @param {string} kind - A data-component word: "nav-bar", "tooltip"…
+ * @param {string} kind - A data-component word: "menu", "tooltip"…
  * @param {(el: HTMLElement) => (void | (() => void))} setup
  */
 const define = (kind, setup) => {

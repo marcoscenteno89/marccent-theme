@@ -17,7 +17,6 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { Button } from './components/ui/button';
 import { Icon } from './components/ui/icon';
 import { Section, Grid, Card } from './components/widgets/section';
-import { NavBar } from './components/widgets/navbar';
 import { Menu } from './components/ui/menu';
 import { ToggleButton } from './components/ui/toggle-button';
 import { Modal, Drawer } from './components/ui/modal';
@@ -56,7 +55,7 @@ import { Scenery } from './components/visuals/scenery';
 import { TagInput } from './components/ui/tag-input';
 import { Trace } from './components/ui/trace';
 import { Typeset } from './components/ui/typeset';
-export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, NavBar, Menu, ToggleButton, Modal, Drawer, Accordion,
+export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
   Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, RadialMenu, StepBar, TabBar, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, Pagination, Price, Rating, Scenery, TagInput, Trace, Typeset };
 `;
@@ -77,7 +76,7 @@ mkdirSync(join(ROOT, 'node_modules/.cache'), { recursive: true });
 const out = join(ROOT, 'node_modules/.cache/marccent-markup.mjs');
 writeFileSync(out, outputFiles[0].text);
 const {
-  createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, NavBar, Menu, ToggleButton, Modal, Drawer, Accordion,
+  createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
   Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, RadialMenu, StepBar, TabBar, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, Pagination, Price, Rating, Scenery, TagInput, Trace, Typeset,
 } = await import(pathToFileURL(out).href);
@@ -117,13 +116,6 @@ const RENDER = {
     surface: f.surface, round: f.round, pad: f.pad, gap: f.gap, hover: f.hover, center: f.center, variant: f.variant || undefined,
     className: f.classes || undefined,
   }, html(f.content)),
-  // The brand is the hosts' home link: the logo (when there is one) and the site's name.
-  nav: (f) => h(NavBar, {
-    brand: h('a', { href: f.brand.href, className: 'menu-link grid auto-cols items-center gap-sm', 'aria-label': `${f.brand.name}, home` },
-      f.brand.logo && h('img', { src: f.brand.logo, alt: f.brand.name, style: { height: '2.5rem', width: 'auto' } }),
-      h('span', { className: 'fw-bold' }, f.brand.name)),
-    items: f.items,
-  }),
   menu: (f) => h(Menu, { items: f.items, label: f.label, layout: f.layout || undefined, iconOnly: f.iconOnly, fold: f.fold }),
   toggleButton: (f) => h(ToggleButton, {
     icon: f.icon, activeIcon: f.activeIcon || undefined, controls: f.controls, defaultOpen: f.open, className: f.classes || undefined,
