@@ -13,14 +13,16 @@
  * output with an admin says which of its tools provides each kind. Fails on a kind that isn't defined; reports (and
  * with --strict fails on) a kind an admin output has no tool for yet, and components whose settings aren't written.
  *
- *   node scripts/conformance.mjs [--strict] [--adapter <name>] [--reference <file>] [--render <command…>]
+ *   node scripts/conformance.mjs [--strict] [--adapter <name>] [--reference <file>] [--save <dir>] [--render <command…>]
+ *
+ * --save: each adapter's markup as it printed it, one JSON file per adapter (the cases page shows them, npm run cases).
  *
  * An adapter's own test runs it against its pinned reference: --reference node_modules/marccent-theme/markup/
  * reference.json --render php tools/markup-render.php. An adapter whose folder isn't here is skipped (said so);
  * one that "uses" the theme's components writes their markup by construction and has nothing to render.
  */
 import { spawnSync } from 'node:child_process';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFragment } from 'parse5';
@@ -57,6 +59,7 @@ function check(name, cwd, command) {
   let out;
   try {
     out = JSON.parse(run.stdout);
+    if (option('--save')) { mkdirSync(resolve(option('--save')), { recursive: true }); writeFileSync(join(resolve(option('--save')), `${name.replace(/\W+/g, '-')}.json`), run.stdout); }
   } catch {
     console.log(`FAIL ${name}: its renderer didn't print JSON\n${run.stdout.slice(0, 500)}`);
     return [1, 0];

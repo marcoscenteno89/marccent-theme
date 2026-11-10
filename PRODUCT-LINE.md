@@ -80,7 +80,7 @@ changed deliberately, here first.
 6. **Every component is tested where people use it:** on the wp site's kitchen-sink page (wp.localhost, the WordPress
    test: `wp/sites/wp/content/kitchen-sink.php`), both in the admin (the block in the editor, its settings, the admin
    data it needs) and on the page; and on marccent.com (the html test: the page). A component isn't done until it
-   works in all three.
+   works in all three. Its markup cases, each adapter's beside the theme's, are on the cases page (`npm run cases`).
 
 ## 4. Components: what belongs in the theme and what in an adapter
 

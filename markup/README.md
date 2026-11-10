@@ -32,3 +32,8 @@ own, the same one wherever the reference repeats it.
 
 The reference is also the markup that 1.x keeps: a release whose `reference.json` changes for an existing case changes
 the public markup (README, Versions).
+
+`npm run cases` builds and serves the **cases page** (`scripts/cases.mjs`, http://localhost:4321/): every case live with
+the theme's CSS and plain-JS engine (dist/), beside each adapter's markup for it (run fresh, `conformance --save`),
+marked same, different or not covered. Run it again after a change (`npm run build` first for a style change) and
+reload. A test tool: nothing ships from it.
