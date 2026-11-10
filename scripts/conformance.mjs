@@ -6,6 +6,9 @@
  * with the reference's HTML, the one comparison every adapter is held to (markup/README.md says what doesn't count),
  * and lists the components an adapter doesn't cover. Fails when a case differs; with --strict, also when one is missing.
  *
+ * Kinds: every component in markup/settings.json has one (component, container, pattern, variant: PRODUCT-LINE.md
+ * 4.5); the patterns and variants still listed are reported, waiting to leave.
+ *
  * Admin: every kind of admin data a component needs (markup/settings.json) is one of outputs.json's kinds, and every
  * output with an admin says which of its tools provides each kind. Fails on a kind that isn't defined; reports (and
  * with --strict fails on) a kind an admin output has no tool for yet, and components whose settings aren't written.
@@ -125,6 +128,19 @@ if (option('--render')) {
       missing += lacking.length;
       console.log(`${lacking.length ? 'todo' : 'ok  '} admin ${output}: ${Object.keys(needs).length - lacking.length} of ${Object.keys(needs).length} kinds have a tool`);
       for (const kind of lacking) console.log(`     no tool for ${kind} (${needs[kind].join(', ')})`);
+    }
+    // Each one's kind (PRODUCT-LINE.md 4.5): a component or container stays; a pattern or a variant is waiting to leave.
+    const KINDS = [ 'component', 'container', 'pattern', 'variant' ];
+    for (const [component, s] of Object.entries(settings)) {
+      if (!KINDS.includes(s.kind)) {
+        console.log(`FAIL kind: ${component} is "${s.kind ?? ''}", not one of ${KINDS.join(', ')}`);
+        failed++;
+      }
+    }
+    for (const kind of [ 'pattern', 'variant' ]) {
+      const waiting = Object.entries(settings).filter(([, s]) => s.kind === kind).map(([c]) => c);
+      missing += waiting.length;
+      if (waiting.length) console.log(`todo kind: ${waiting.length} still components, to become ${kind === 'pattern' ? 'patterns (PATTERNS.md)' : 'variants (T-030)'}: ${waiting.join(', ')}`);
     }
     const unwritten = Object.entries(settings).filter(([, s]) => s.settings === null).map(([c]) => c);
     missing += unwritten.length;

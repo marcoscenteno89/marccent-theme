@@ -67,7 +67,7 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 | HexWall | a hex grid, HexFlip | a Loop of HexFlip in WordPress |
 | ImageCard | Card, an image, overlay classes | PRODUCT-LINE.md 4.8: a look of Card |
 | StatCard | Card, Icon, text | |
-| TicketCard | Card, `.shape-ticket`, a list | a Look (T-030) of Card |
+| TicketCard | Card, `.shape-ticket`, a list | decided: Card + the ticket variant (T-030), not a pattern |
 | Timeline | a list, Icon, Button, classes | a Loop of rows in WordPress |
 
 Borderline, kept as components for now: Dock (a Menu of icons with a magnify effect; maybe a Menu look),

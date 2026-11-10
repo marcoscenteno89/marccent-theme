@@ -103,21 +103,36 @@ changed deliberately, here first.
    When the markup (`markup/reference.json`) or a component's props change, update the adapters that translate them
    in the same pass. When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
    yet gets a line in its `TODO.md` saying why.
-5. **The theme is classes that combine.** A component is made of general classes (`.raised`, `.fs-50`,
-   `.text-muted`, padding, placement); no component when classes already do it (a price needs no theme component).
+5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
+   first if it doesn't hold). Ask in order; the first yes decides:
+   1. It needs behavior or logic (state, events, timers, observers, formatting, data turned into markup) →
+      a **component** (Modal, Menu's fold, Map, Price, Counter).
+   2. It needs markup a layout of other things can't write (a dialog's, tabs' or disclosure's structure for screen
+      readers, SVG, canvas) → a **component** (Accordion, Divider, Animation).
+   3. It's one box that holds whatever content is put in it, its settings only classes (layout, spacing, background,
+      alignment) → a **container** (Section, Grid, Card). One block or tag in every output; Section's dividers and
+      background image are settings of that one box.
+   4. It only changes how one item looks (its shape, its frame), and could do it to other items → a **variant**: one
+      class, the theme's tokens only, scoped to the item, one at a time (the ticket; TICKETS.md T-030). A component or
+      container that takes variants has a `variant` setting (as Modal's).
+   5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
+      `.raised`); the theme is classes that combine, so no component when classes already do it.
+   6. It arranges several specific parts → a **pattern** (a header, a footer, a stat card, a hero, a call to
+      action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
+      block pattern of Marccent blocks, never a block.
+
+   So two components that differ only in looks are one component and its variants (Card + the ticket variant, not
+   TicketCard), and a component whose only job is to lay out others is a pattern. Each component's kind is its
+   `kind` in `markup/settings.json`; the conformance check lists the ones still waiting to become a pattern or a
+   variant.
 6. **Adapters only translate.** An adapter's block, tag or component writes the theme's markup
    (`markup/reference.json`) and nothing else: no CSS or JS of its own, no copied components.
-7. **Block or pattern** (in WordPress; the same split elsewhere):
-   - a stack of whole blocks (a section heading, a call bar, a hero, a call to action, a header, a footer) → a
-     **pattern**, listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component;
-   - one line or small unit with mixed styling inside it, or a little logic (formatting, links built from a field,
-     dates, a time zone) → a **block**: Price, Date, Contact line, Opening hours, Breadcrumbs (T-004, T-005,
-     T-025 to T-027);
-   - styling on part of a line of text (raised, muted, a badge) → a **text format** (T-028).
-8. **One block per kind; looks are patterns.** One Card block: an image card or an icon card is a pattern of Card,
-   not a block of its own. The same for any "X card".
-9. **No block for what a list of links already does.** No Social links block: social links are data (Site content →
-   Profiles rows: name, icon, link), shown with a Loop of Button blocks.
+7. **Inside one line of text:** a small unit with mixed styling or a little logic (formatting, links built from a
+   field, dates, a time zone) is a component (a block in WordPress: Price, Date, Contact line, Opening hours,
+   Breadcrumbs; T-004, T-005, T-025 to T-027); styling on part of a line (raised, muted, a badge) is a **text
+   format** (T-028).
+8. **No block for what a list of links already does.** No Social links block: social links are a menu, shown with
+   the Menu block (rc-imp's Social menu, built from its Profiles rows).
 
 ## 5. Settings: one standard everywhere
 
