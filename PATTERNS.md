@@ -68,7 +68,7 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 | ImageCard | Card, an image, overlay classes | decided: removed, not a pattern; a Card with an image in it does it |
 | StatCard | Card, Icon, text | |
 | TicketCard | Card, `.shape-ticket`, a list | done: Card + the ticket variant (1.0.0-rc.18) |
-| Timeline | a list, Icon, Button, classes | decided: a component (its line depends on each row's place: 4.5.2) |
+| Timeline | a list, Icon, Button, classes | decided: a component (its line depends on each row's place: 4.5.2), and its events become children: a Timeline item component, marked with Timeline as its parent; in WordPress a Loop of them (to build) |
 
 Borderline, kept as components for now: Dock (a Menu of icons with a magnify effect; maybe a Menu look),
 ThemeEditor and MiniThemeEditor (arrangements of the theme controls, but used whole).
