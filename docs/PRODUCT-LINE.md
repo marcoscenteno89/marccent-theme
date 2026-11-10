@@ -330,6 +330,22 @@ everywhere becomes a rule above and its line goes.
 The one list of what's left before 1.0 (3.1: marccent-theme 1.0.0, marccent.com live, the wp site working with every
 component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and the projects' TODO.md.
 
+### The order (the unfreeze plan, 2026-11-10)
+
+The theme first: it's the root of everything. A phase starts only when the one before passes its gate; work that
+belongs to a later phase waits, and Claude says so when it's asked for early.
+
+1. **The theme.** Its lines below: the short props (5.4), Countdown / Parallax / Stars, Kits, T-032's Nav case, T-033,
+   T-034; then T-003's utilities and B-003 (still excused in `scripts/conformance.mjs`, though TICKETS.md lists it
+   as done). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
+   **Gate:** `npm test` passes with no sizing exception left, every theme line ticked, the release tagged.
+2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
+   retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
+   shows every component in the admin and on the page.
+3. **marccent.com** (section 4) and safe to go live (section 5). Open: it's frozen in projects.json, but 1.0 needs it
+   live (3.1) and T-033 rebuilds its pages; Marcos decides when it unfreezes.
+4. **1.0.0 released** (section 6). The freeze ends; the frozen sites and outputs are brought up to 1.0 once (3.1).
+
 **1. The product line**
 - [x] **Component stage:** a markup case (`markup/cases.json` → `reference.json`) for every component and container
   that stays: 52 components, 76 cases (2026-11-09). A child is covered by its parent's case (AccordionItem,
