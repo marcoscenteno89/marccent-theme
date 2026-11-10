@@ -2,6 +2,7 @@ import { define } from './enhance';
 import { closeMenus } from './close-menus';
 import { keepPlaced } from './place';
 import { tooltip } from './tooltip';
+import { watchScrolled } from './scrolled';
 import { watchInView } from './in-view';
 import { watchInverseMode } from './inverse-mode';
 import { typesetElement } from './typeset';
@@ -270,3 +271,7 @@ define('map', (box) => {
   if (scope && scope !== document.documentElement) recolor.observe(scope, options);
   return all([ () => stopWatching?.(), () => recolor.disconnect() ]);
 });
+
+// The page scrolled: <html data-scrolled> once it leaves its top, so .solid-on-scroll (utilities.css) turns solid with
+// it (the Floating header pattern, PATTERNS.md). One passive listener, started with the engine.
+if (typeof window !== 'undefined') watchScrolled((on) => document.documentElement.toggleAttribute('data-scrolled', on));

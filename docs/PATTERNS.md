@@ -82,7 +82,7 @@ Tiles of different sizes packed on one grid: photos, animations, cards. It was t
 
 A site's header: the brand at the start; at the end the main menu, folding behind a menu button where the header is
 under 56rem (Menu `fold`), a call to action and the theme controls. Sticky at the top. It was the NavBar component
-(removed 2026-11-10); its floating pill variant went with it (TICKETS.md T-032).
+(removed 2026-11-10); its floating pill variant is the Floating header (below).
 
 - **Parts:** Section (`as` header, `wrap wrap-fluid` outside, `.wrap` inside: the fold's container), Grid
   (`auto-cols cols-between`: the brand at the start, the rest at the end), Menu (`fold`, `auto-cols`, `.menu-quiet`),
@@ -103,6 +103,25 @@ under 56rem (Menu `fold`), a call to action and the theme controls. Sticky at th
       <a href="tel:…" class="btn primary">…Call…</a>
       <div data-component="mini-theme-editor" …>…</div>
     </div>
+  </div>
+</header>
+```
+
+## Floating header
+
+The Header over the top of the page, a pill that lets the hero show through: see-through while the page is at its
+top, solid (its background, border and shadow) once it scrolls. It takes no room, so the page's first section (a hero)
+starts under it. It was NavBar's floating variant (removed 2026-11-10).
+
+- **Parts:** the Header's (above); `.fixed-top` and `.pe-none` on the frame (clicks beside the pill reach the page),
+  `.pill`, `.bg border shadow`, `.solid-on-scroll` and `.pe-auto` on the bar.
+- **Admin data:** the Header's.
+- **Built in:** wp (marccent-wp's Floating header block pattern).
+
+```html
+<header class="fixed-top pe-none wrap wrap-fluid pad-y-sm">
+  <div class="wrap pill pad-x pad-y-sm bg border shadow solid-on-scroll pe-auto grid auto-cols cols-between items-center gap-sm">
+    <!-- the brand, then the menu (fold), a button and the theme controls: as the Header -->
   </div>
 </header>
 ```

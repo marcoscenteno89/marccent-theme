@@ -39,7 +39,8 @@ README (Versions → What a version promises).
 ### Removed
 - `AppShell`: a Sidebar beside the page (the App frame pattern, PATTERNS.md).
 - `NavBar` (and `nav.css`, its `nav-bar` engine and markup cases): the header is the Header pattern (PATTERNS.md), a
-  Section and a Grid around Menu `fold`, a Button and the theme controls; the floating pill variant is gone with it.
+  Section and a Grid around Menu `fold`, a Button and the theme controls; the floating pill variant is the Floating header pattern: `.fixed-top`, `.pe-none` / `.pe-auto` and
+  `.solid-on-scroll` (see-through until the page scrolls: the engine sets `<html data-scrolled>`).
   A Menu's dropdowns always close on an outside click and Esc (the engine's `menu`).
 
 ## 1.0.0-rc.22
