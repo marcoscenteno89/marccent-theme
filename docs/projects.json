@@ -11,11 +11,11 @@
       "output": "wp",
       "stage": "active",
       "path": "wp/wp-content/plugins/marccent-blocks",
-      "pins": "package.json, marccent-theme by commit (github:…#<sha>)",
+      "pins": "package.json, marccent-theme by release tag (npm run theme:update; or a commit between releases)",
       "pin": {
         "file": "package.json",
-        "match": "marccent-theme#([0-9a-f]{7,40})",
-        "is": "commit"
+        "match": "marccent-theme#([^\"]+)",
+        "is": "ref"
       },
       "uses": [
         "components/",
