@@ -210,12 +210,15 @@ changed deliberately, here first.
 
 Not repeated here, only named (no custom assets and gaps going to the theme are in section 4): Marccent's blocks first; what repeats is data; full words in every name; only the tools people have; data
 into field groups first; two plugins plus kits; everything visitors see built in the block editor until handover;
-every image search-ready; a TODO.md in every project (its rules are section 8).
+every image search-ready; a TODO.md for every project, kept in marccent-theme's `docs/todo/` (section 8).
 
 ## 8. Work lists: TICKETS.md and each project's TODO.md
 
-Every project keeps a `TODO.md` (the theme's is `TICKETS.md`). They are the Wanted stage's lists, and they follow
-these rules strictly; `npm run todos` checks them (below), and a list that fails it is fixed before anything else.
+Every project has a `TODO.md` (the theme's is `TICKETS.md`). **All of them live in marccent-theme's `docs/`**: a
+project's TODO.md is `docs/todo/<repo>.md` (`docs/todo/marccent-blocks.md`…), next to this document, `TICKETS.md`,
+`PATTERNS.md` and `SITES.md`. A project keeps no list or rules of its own: its `docs/README.md` and `CLAUDE.md` only
+link here, so one repo holds every list and rule and they can't drift apart. A fix in a project ticks its item here
+in the same round. They are the Wanted stage's lists, and they follow these rules strictly; `npm run todos` checks them (below), and a list that fails it is fixed before anything else.
 
 1. **A ticket lives in the project that fixes it.** What the theme has to fix (a missing or broken component, class
    or token) is a ticket in `TICKETS.md`, never in a project's TODO.md. What only one project fixes (its own bug, its
@@ -242,8 +245,8 @@ these rules strictly; `npm run todos` checks them (below), and a list that fails
 ```markdown
 # To do: <project>
 
-The rules for this list are in [PRODUCT-LINE.md §8](https://github.com/marcoscenteno89/marccent-theme/blob/master/PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd):
-work fixed here only; anything the theme fixes is a ticket in marccent-theme's TICKETS.md, linked under Waiting on.
+The rules for this list are in [PRODUCT-LINE.md §8](../PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd):
+work fixed in <project> only; anything the theme fixes is a ticket in [TICKETS.md](../TICKETS.md), linked under Waiting on.
 
 ## Bugs
 
@@ -255,7 +258,7 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's T
 
 ## Waiting on
 
-- [ ] **[T-000](https://github.com/marcoscenteno89/marccent-theme/blob/master/TICKETS.md)** — what it unblocks here: the stopgap that goes (found YYYY-MM-DD)
+- [ ] **[T-000](TICKETS.md)** — what it unblocks here: the stopgap that goes (found YYYY-MM-DD)
 
 ## After 1.0
 
@@ -268,8 +271,8 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's T
 
 ### The check
 
-`npm run todos` (in the theme; `node scripts/todos.mjs [--root <folder>]`) reads `TICKETS.md` and the TODO.md of
-every project it finds next to the theme (a project not there is skipped and said so) and fails when:
+`npm run todos` (in the theme; `node scripts/todos.mjs`) reads `docs/TICKETS.md` and every list in `docs/todo/`
+(a project without one yet is skipped and said so) and fails when:
 
 - a section is missing, out of order or not one of the five, or the rules line is missing;
 - an item in Bugs, Requests, Waiting on or After 1.0 isn't in the item shape, or has no found date;

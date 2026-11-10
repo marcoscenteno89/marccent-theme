@@ -5,6 +5,11 @@ README (Versions → What a version promises).
 
 ## Unreleased
 
+### Changed
+- `docs/`: PRODUCT-LINE.md, TICKETS.md, PATTERNS.md and SITES.md moved there, and every project's work list with them
+  (`docs/todo/<repo>.md`); the projects keep no TODO.md of their own, only links. `npm run todos` reads them there
+  (no `--root`); the lists were brought into section 8's shape on the way (found dates, shipped tickets' lines gone).
+
 ### Added
 - Work lists: PRODUCT-LINE.md section 8 (the rules and the TODO.md template) and `npm run todos` (in `npm test`).
 - How Claude works: PRODUCT-LINE.md section 9 (grey areas asked in one shape and written down in its Decisions;

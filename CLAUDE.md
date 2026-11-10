@@ -1,13 +1,13 @@
 # Working in marccent-theme
 
-This project is part of the Marccent product line. Its rules live in one place, [PRODUCT-LINE.md](PRODUCT-LINE.md). Read it before any change;
+This project is part of the Marccent product line. Its rules live in one place, [docs/PRODUCT-LINE.md](docs/PRODUCT-LINE.md). Read it before any change;
 don't copy its rules here. What follows is how to apply them, and it isn't optional.
 
 1. **Feature freeze until 1.0 is live** (PRODUCT-LINE.md section 3). Only debugging, fixing and finishing what
    exists. A request for anything new (a feature, block, setting, component, option): say it's frozen, add it to
    `TICKETS.md` as a ticket marked after 1.0, and stop there unless the person confirms it's finishing existing work.
 2. **The work list is `TICKETS.md`**: this project's list, and the tickets every other project links to from its
-   `TODO.md` (PRODUCT-LINE.md section 8). Every project a ticket names in Who has a Waiting on line for it; when a
+   list in `docs/todo/` (PRODUCT-LINE.md section 8). Every project a ticket names in Who has a Waiting on line for it; when a
    ticket moves to Done, those lines and the stopgaps go in the same round.
 3. **Don't run on your own.** Do what was asked and nothing more. Anything else you find (a bug, a cleanup, a
    missing component) goes on the list and is named in your reply; it isn't fixed in the same change.

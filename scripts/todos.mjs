@@ -1,34 +1,30 @@
 /*
  * npm run todos: the work lists' check (PRODUCT-LINE.md section 8).
  *
- * Reads TICKETS.md and the TODO.md of every project next to the theme, and fails when a list breaks the rules:
+ * Reads docs/TICKETS.md and every project's list in docs/todo/<repo>.md, and fails when a list breaks the rules:
  * sections missing, out of order or extra; the rules line missing; an item not in the item shape or without its
  * found date (anywhere in the item); a Waiting on line without a ticket ID or linking one that isn't open; an open ticket naming a project
- * whose TODO.md doesn't link it. A project that isn't here is skipped (said so).
+ * whose list doesn't link it. A project without a list yet is skipped (said so).
  *
- *   node scripts/todos.mjs [--root <folder>]
- *
- * --root is the folder that holds the projects (default: the theme's parent). Each project is looked for at its
- * workspace path first, then as <root>/<repo name> (a plain checkout of every repo side by side).
+ *   node scripts/todos.mjs
  */
 import { existsSync, readFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const args = process.argv.slice(2);
-const root = resolve(args.includes('--root') ? args[args.indexOf('--root') + 1] : join(ROOT, '..'));
+const LISTS = join(ROOT, 'docs', 'todo');
 
-// Every project with a TODO.md: its repo, the folder it sits in in the workspace, and the names TICKETS.md's Who
+// Every project with a list (docs/todo/<repo>.md): its repo and the names TICKETS.md's Who
 // column calls it by. A new project is one more entry.
 const PROJECTS = [
-  { repo: 'marccent-blocks', path: 'wp/wp-content/plugins/marccent-blocks', names: ['Marccent Blocks', 'marccent-blocks'] },
-  { repo: 'marccent-content', path: 'wp/wp-content/plugins/marccent-content', names: ['Marccent Content', 'marccent-content'] },
-  { repo: 'marccent-local', path: 'wp/wp-content/plugins/marccent-local', names: ['Marccent Local', 'marccent-local'] },
-  { repo: 'marccent-wp', path: 'wp/wp-content/themes/marccent-wp', names: ['Marccent WP', 'marccent-wp'] },
-  { repo: 'django-marccent', path: 'django-marccent', names: ['django-marccent'] },
-  { repo: 'marccent', path: 'marccent', names: ['marccent/next', 'marccent.com'] },
-  { repo: 'marccent-html', path: 'marccent-html', names: ['marccent-html'] },
+  { repo: 'marccent-blocks', names: ['Marccent Blocks', 'marccent-blocks'] },
+  { repo: 'marccent-content', names: ['Marccent Content', 'marccent-content'] },
+  { repo: 'marccent-local', names: ['Marccent Local', 'marccent-local'] },
+  { repo: 'marccent-wp', names: ['Marccent WP', 'marccent-wp'] },
+  { repo: 'django-marccent', names: ['django-marccent'] },
+  { repo: 'marccent', names: ['marccent/next', 'marccent.com'] },
+  { repo: 'marccent-html', names: ['marccent-html'] },
 ];
 
 const SECTIONS = ['Bugs', 'Requests', 'Waiting on', 'After 1.0', 'Notes'];
@@ -44,7 +40,7 @@ const fail = (where, message) => {
 };
 
 // TICKETS.md: the open tickets (the tables before "## Done") and who each names.
-const tickets = readFileSync(join(ROOT, 'TICKETS.md'), 'utf8');
+const tickets = readFileSync(join(ROOT, 'docs', 'TICKETS.md'), 'utf8');
 const open = new Map();
 for (const line of tickets.split('## Done')[0].split('\n')) {
   const cells = line.split('|').map((c) => c.trim());
@@ -52,14 +48,14 @@ for (const line of tickets.split('## Done')[0].split('\n')) {
 }
 
 for (const project of PROJECTS) {
-  const folder = [join(root, project.path), join(root, project.repo)].find((f) => existsSync(join(f, 'TODO.md')));
-  if (!folder) {
-    console.log(`skip ${project.repo}: no TODO.md at ${project.path} or ${project.repo}`);
+  const file = join(LISTS, `${project.repo}.md`);
+  if (!existsSync(file)) {
+    console.log(`skip ${project.repo}: no docs/todo/${project.repo}.md yet`);
     continue;
   }
-  const where = `${project.repo}/TODO.md`;
+  const where = `docs/todo/${project.repo}.md`;
   const before = failures;
-  const text = readFileSync(join(folder, 'TODO.md'), 'utf8');
+  const text = readFileSync(file, 'utf8');
   const lines = text.split('\n');
 
   if (!/^# To do: \S/.test(lines[0])) fail(where, 'its first line is "# To do: <project>"');
