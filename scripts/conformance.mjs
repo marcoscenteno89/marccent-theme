@@ -157,6 +157,15 @@ if (option('--render')) {
       }
     }
     console.log(`ok   variants: ${Object.keys(variants).join(', ')}`);
+    // Children (PRODUCT-LINE.md 4.5): each marked with a parent that exists and is a component or container.
+    const children = Object.entries(settings).filter(([, s]) => s.parent);
+    for (const [component, s] of children) {
+      if (![ 'component', 'container' ].includes(settings[s.parent]?.kind)) {
+        console.log(`FAIL parent: ${component}'s parent ${s.parent} isn't a component or container in settings.json`);
+        failed++;
+      }
+    }
+    console.log(`ok   children: ${children.map(([c, s]) => `${c} in ${s.parent}`).join(', ')}`);
     for (const kind of [ 'pattern', 'variant', 'remove' ]) {
       const waiting = Object.entries(settings).filter(([, s]) => s.kind === kind).map(([c]) => c);
       missing += waiting.length;

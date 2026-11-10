@@ -16,7 +16,7 @@ The HTML the React components render, for hosts that write the same markup thems
   admin: each kind of admin data (`menu`, `rows`, `site`, `theme`, `keys`, `entries`), what it is, and which tool
   provides it on each admin output (`null`: none yet).
 - `settings.json`: every component, with its kind (`component`, `container`, `pattern`, `variant` or `remove`:
-  PRODUCT-LINE.md 4.5; a pattern, variant or remove here is waiting to leave), the kinds of admin data it needs on an output with an admin (`[]`: none) and
+  PRODUCT-LINE.md 4.5; a pattern, variant or remove here is waiting to leave), its parent when it only exists inside another (`parent`), the kinds of admin data it needs on an output with an admin (`[]`: none) and
   its settings (T-029: names, types, choices, defaults; `null` until written).
 
 `npm run conformance` (also in `npm test`, `scripts/conformance.mjs`) is the Settings and Adapters gates in

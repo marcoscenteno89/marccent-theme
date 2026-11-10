@@ -123,6 +123,11 @@ changed deliberately, here first.
       NavBar is today; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
       block pattern of Marccent blocks, never a block.
 
+   **Children:** a component that only exists inside another (an item in an Accordion, a Step in a StepForm; in
+   WordPress a Field in a Form, a Tab in Tabs) is a component of its own, marked with its parent (`parent` in
+   `markup/settings.json`; the block's `parent` in WordPress), and allowed only there. A Loop may stand in for a
+   parent's children (6.2). Its kind is decided like any other.
+
    So two components that differ only in looks are one component and its variants (Card + the ticket variant, not
    TicketCard); a component whose only job is to lay out others is a pattern; and what a container already does with
    its ordinary content is neither (an image card is a Card with an image in it: no ImageCard). Each component's kind is its

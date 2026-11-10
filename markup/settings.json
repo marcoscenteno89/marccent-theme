@@ -1,5 +1,6 @@
 {
   "Accordion": {"kind": "component", "admin": ["rows"], "settings": null},
+  "AccordionItem": {"kind": "component", "parent": "Accordion", "admin": [], "settings": null},
   "Alert": {"kind": "component", "admin": [], "settings": null},
   "Animation": {"kind": "component", "admin": [], "settings": null},
   "AppShell": {"kind": "pattern", "admin": ["menu"], "settings": null},
@@ -45,7 +46,9 @@
   "Section": {"kind": "container", "admin": [], "settings": null},
   "SliderPager": {"kind": "component", "admin": [], "settings": null},
   "StatCard": {"kind": "pattern", "admin": [], "settings": null},
+  "Step": {"kind": "component", "parent": "StepForm", "admin": [], "settings": null},
   "StepBar": {"kind": "component", "admin": ["rows"], "settings": null},
+  "StepForm": {"kind": "component", "admin": ["entries"], "settings": null},
   "Stopwatch": {"kind": "component", "admin": [], "settings": null},
   "TagInput": {"kind": "component", "admin": [], "settings": null},
   "ThemeEditor": {"kind": "component", "admin": ["theme"], "settings": null},
