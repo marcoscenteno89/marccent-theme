@@ -42,7 +42,7 @@ changed deliberately, here first.
 | # | Stage | Home (its list) | An entry has | Check (the gate to the next stage) | State |
 |---|---|---|---|---|---|
 | 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date | a decision to build it (none before 1.0 but product-line work) | exists |
-| 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | 15 of ~45 components |
+| 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component that stays (52); the pending ones once built |
 | 3 | **Settings** | `markup/settings.json` | the kinds of admin data it needs (`admin`, from `outputs.json`'s pattern); each setting: full-word name, type, choices, default; rules (items from rows, one per page) (T-029) | `npm run conformance`: every kind defined, every admin output has a tool for it, settings written | 56 components' admin needs listed; their settings not written yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
 | 5 | **Kits** | to decide (Marccent Content's export format) | name, field groups, post types, patterns, starter pages, which components it uses | imports cleanly on a new site | missing |
@@ -179,11 +179,47 @@ Not repeated here, only named (no custom assets and gaps going to the theme are 
 into field groups first; two plugins plus kits; everything visitors see built in the block editor until handover;
 every image search-ready; a TODO.md in every project.
 
-## To finish the product line
+## The 1.0 checklist
 
-- [ ] Component: cases for every component, not only the 15 in `reference.json`.
-- [ ] Settings: `markup/settings.json` (T-029), and Marccent Blocks reading it.
-- [x] Adapters: each adapter's markup against the reference, as a check (`npm run conformance`); Settings once they exist.
-- [ ] Kits: where kits are kept and listed, and their check.
-- [ ] Sites: one list of every site (rc-imp, rimrock, cr-landscape, marccent-web, marccent.com) with its stage.
-- [ ] Live: marccent-theme 1.0.0, marccent.com and the wp site; then the other sites, brought up to 1.0 once.
+The one list of what's left before 1.0 (3.1: marccent-theme 1.0.0, marccent.com live, the wp site working with every
+component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and the projects' TODO.md.
+
+**1. The product line**
+- [x] **Component stage:** a markup case (`markup/cases.json` → `reference.json`) for every component and container
+  that stays: 52 components, 76 cases (2026-11-09). A child is covered by its parent's case (AccordionItem,
+  Step, SliderPager in Carousel); Toast has none (browser only: nothing until a message, `markup` in settings.json).
+  Pending, a case once built (T-034, T-033): Timeline item, Dock item, Radial menu item, Step bar step, Orbit item,
+  Tab; StatCard without its box. None for what's leaving (AppShell, Collage, ImageCard, HexWall).
+- [ ] **Settings stage (T-029):** each component's settings in `markup/settings.json`; Marccent Blocks reads them.
+- [ ] **Sites:** one list of every site and its stage.
+- [ ] **Kits:** where they live and their check, or moved to after 1.0.
+- [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
+
+**2. The restructuring decided**
+- [ ] T-032: the Header and Footer patterns; NavBar retires; the Navbar block becomes a Header block pattern.
+- [ ] T-033: `.overlay-tint`, then ImageCard retires (the Image card pattern); Grid's dense packing and row height
+  and a row-span class, then Collage retires; HexWall goes; StatCard drops its box; AppShell decided.
+- [ ] T-034: the six children (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab); their
+  parents take them and a Loop of them.
+- [ ] The WordPress blocks these replace retire: Image card, Collage, Hex wall.
+
+**3. The wp site: every component in the admin and on the page**
+- [ ] ToggleButton covered by Marccent Blocks (the last reference case it doesn't write).
+- [ ] The islands' stand-in markup is the component's (today plain text).
+- [ ] A Carousel of a Loop's items; a Loop as a row of content-width items.
+- [ ] Forms: the rate limit behind the proxy, Turnstile's server check, file upload checks, Forms → Entries retired.
+- [ ] Marccent Blocks' markup test runs the theme's conformance check.
+- [ ] Marccent Content: deleting a post leaves no broken relation.
+- [ ] The kitchen sink current with all of it.
+
+**4. marccent.com live**
+- [ ] A demo of every component (3.6).
+- [ ] Its dependencies updated (GitHub: 100 vulnerabilities, 7 critical).
+- [ ] Hosting, the domain, the deploy.
+- [ ] T-002 cookie consent (if it tracks); T-024 typography set on the server.
+
+**5. Safe to go live**
+- [ ] The database off its public IP, passwords rotated, a non-root admin; the Maps key restricted by referrer.
+
+**6. Release**
+- [ ] marccent-theme 1.0.0, and marccent.com and the wp plugins on it. The freeze ends.

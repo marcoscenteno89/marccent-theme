@@ -535,5 +535,576 @@
         "cluster": true
       }
     }
+  ],
+  "animation": [
+    {
+      "case": "snow",
+      "fields": {
+        "name": "snow",
+        "fps": 30,
+        "colors": "",
+        "classes": "h-100"
+      }
+    },
+    {
+      "case": "fire in its own colors",
+      "fields": {
+        "name": "fire",
+        "fps": 24,
+        "colors": "#ff3d00, #ffb300",
+        "classes": ""
+      }
+    }
+  ],
+  "blur": [
+    {
+      "case": "a filter",
+      "fields": {
+        "id": "goo-filter"
+      }
+    }
+  ],
+  "board": [
+    {
+      "case": "three by three",
+      "fields": {
+        "rows": 3,
+        "cols": 3,
+        "gap": "2px"
+      }
+    }
+  ],
+  "carousel": [
+    {
+      "case": "three slides",
+      "fields": {
+        "slideWidth": "17rem",
+        "label": "Projects",
+        "slides": [
+          "One",
+          "Two",
+          "Three"
+        ]
+      }
+    }
+  ],
+  "clock": [
+    {
+      "case": "the default format",
+      "fields": {
+        "format": "h:mm:ss A"
+      }
+    }
+  ],
+  "code": [
+    {
+      "case": "JavaScript",
+      "fields": {
+        "lang": "js",
+        "label": "Example",
+        "code": "const total = (items) => items.length;"
+      }
+    }
+  ],
+  "codeTabs": [
+    {
+      "case": "HTML, CSS and JS",
+      "fields": {
+        "langs": [
+          "html",
+          "css",
+          "js"
+        ],
+        "value": {
+          "html": "<p>Hi</p>",
+          "css": "p { color: red; }",
+          "js": ""
+        }
+      }
+    }
+  ],
+  "compare": [
+    {
+      "case": "before and after",
+      "fields": {
+        "before": "/img/before.webp",
+        "beforeAlt": "The patio before",
+        "after": "/img/after.webp",
+        "afterAlt": "The patio after",
+        "beforeLabel": "Before",
+        "afterLabel": "After",
+        "start": 50,
+        "label": "The patio before and after"
+      }
+    }
+  ],
+  "counter": [
+    {
+      "case": "stopped",
+      "fields": {}
+    }
+  ],
+  "dataTable": [
+    {
+      "case": "three rows, searchable",
+      "fields": {
+        "label": "Accounts",
+        "pageSize": 10,
+        "search": true,
+        "columns": [
+          {
+            "key": "name",
+            "label": "Name"
+          },
+          {
+            "key": "city",
+            "label": "City"
+          },
+          {
+            "key": "orders",
+            "label": "Orders",
+            "align": "end"
+          }
+        ],
+        "rows": [
+          {
+            "name": "Teton Ridge",
+            "city": "Idaho Falls",
+            "orders": 4
+          },
+          {
+            "name": "Snake River",
+            "city": "Pocatello",
+            "orders": 2
+          },
+          {
+            "name": "Wasatch Lodge",
+            "city": "Salt Lake City",
+            "orders": 2
+          }
+        ]
+      }
+    }
+  ],
+  "divider": [
+    {
+      "case": "a wave on top",
+      "fields": {
+        "shape": "wave",
+        "edge": "top",
+        "size": "md",
+        "motion": "",
+        "scroll": "",
+        "flip": false
+      }
+    },
+    {
+      "case": "mountains at the bottom, large, mirrored",
+      "fields": {
+        "shape": "mountains",
+        "edge": "bottom",
+        "size": "lg",
+        "motion": "",
+        "scroll": "parallax",
+        "flip": true
+      }
+    }
+  ],
+  "dock": [
+    {
+      "case": "three links",
+      "fields": {
+        "label": "Dock",
+        "items": [
+          {
+            "icon": "house",
+            "label": "Home",
+            "href": "/"
+          },
+          {
+            "icon": "envelope",
+            "label": "Email",
+            "href": "mailto:hello@example.com"
+          },
+          {
+            "icon": "fa-brands fa-github",
+            "label": "GitHub",
+            "href": "https://github.com",
+            "external": true
+          }
+        ]
+      }
+    }
+  ],
+  "expandButton": [
+    {
+      "case": "an icon that opens",
+      "fields": {
+        "icon": "magnifying-glass",
+        "label": "Search",
+        "content": "<input class=\"input\" aria-label=\"Search\">"
+      }
+    }
+  ],
+  "field": [
+    {
+      "case": "a required email",
+      "fields": {
+        "name": "email",
+        "label": "Email",
+        "type": "email",
+        "required": true,
+        "as": ""
+      }
+    },
+    {
+      "case": "several lines",
+      "fields": {
+        "name": "message",
+        "label": "Message",
+        "type": "",
+        "required": false,
+        "as": "textarea"
+      }
+    }
+  ],
+  "fileDrop": [
+    {
+      "case": "images, several",
+      "fields": {
+        "name": "photos",
+        "label": "Drop photos here or click to choose",
+        "hint": "JPG or PNG",
+        "accept": "image/*",
+        "multiple": true
+      }
+    }
+  ],
+  "form": [
+    {
+      "case": "name and email",
+      "fields": {
+        "submitLabel": "Send",
+        "fields": [
+          {
+            "name": "name",
+            "label": "Name",
+            "required": true
+          },
+          {
+            "name": "email",
+            "label": "Email",
+            "type": "email",
+            "required": true
+          }
+        ]
+      }
+    }
+  ],
+  "goo": [
+    {
+      "case": "the filter",
+      "fields": {}
+    }
+  ],
+  "hexFlip": [
+    {
+      "case": "a person",
+      "fields": {
+        "front": "AH",
+        "back": "Ava Hansen, Owner",
+        "label": "Ava Hansen, Owner"
+      }
+    }
+  ],
+  "hexGrid": [
+    {
+      "case": "five, three a row",
+      "fields": {
+        "perRow": 3,
+        "cells": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    }
+  ],
+  "linkPreview": [
+    {
+      "case": "a link with a preview",
+      "fields": {
+        "title": "Marccent",
+        "text": "A theme for any site.",
+        "side": "top",
+        "href": "https://marccent.com",
+        "link": "marccent.com"
+      }
+    }
+  ],
+  "loading": [
+    {
+      "case": "a spinner",
+      "fields": {
+        "kind": "spinner"
+      }
+    }
+  ],
+  "miniThemeEditor": [
+    {
+      "case": "the site's",
+      "fields": {
+        "scope": "site"
+      }
+    }
+  ],
+  "themeEditor": [
+    {
+      "case": "the site's",
+      "fields": {
+        "scope": "site"
+      }
+    }
+  ],
+  "orbit": [
+    {
+      "case": "three items",
+      "fields": {
+        "items": [
+          {
+            "title": "Plan",
+            "text": "We listen first.",
+            "icon": "lightbulb"
+          },
+          {
+            "title": "Build",
+            "text": "Then we make it.",
+            "icon": "hammer"
+          },
+          {
+            "title": "Launch",
+            "text": "And ship it.",
+            "icon": "rocket"
+          }
+        ]
+      }
+    }
+  ],
+  "pagination": [
+    {
+      "case": "page 2 of 5",
+      "fields": {
+        "total": 50,
+        "pageSize": 10,
+        "current": 2,
+        "label": "Pages"
+      }
+    }
+  ],
+  "price": [
+    {
+      "case": "a month, was more",
+      "fields": {
+        "amount": 19.99,
+        "currency": "USD",
+        "per": "mo",
+        "was": 29.99
+      }
+    },
+    {
+      "case": "a whole amount",
+      "fields": {
+        "amount": 480,
+        "currency": "USD",
+        "per": "",
+        "was": null
+      }
+    }
+  ],
+  "radialMenu": [
+    {
+      "case": "three items",
+      "fields": {
+        "label": "Contact us",
+        "items": [
+          {
+            "icon": "phone",
+            "label": "Call",
+            "href": "tel:+12085550100"
+          },
+          {
+            "icon": "envelope",
+            "label": "Email",
+            "href": "mailto:hello@example.com"
+          },
+          {
+            "icon": "location-dot",
+            "label": "Directions",
+            "href": "#"
+          }
+        ]
+      }
+    }
+  ],
+  "rating": [
+    {
+      "case": "five stars",
+      "fields": {
+        "name": "rating",
+        "label": "How are we doing?",
+        "max": 5,
+        "icon": "star"
+      }
+    }
+  ],
+  "scenery": [
+    {
+      "case": "three layers",
+      "fields": {
+        "layers": [
+          "stars",
+          "ranges",
+          "forest"
+        ],
+        "height": "16rem"
+      }
+    }
+  ],
+  "statCard": [
+    {
+      "case": "a progress ring",
+      "fields": {
+        "icon": "clipboard-list",
+        "value": "60%",
+        "label": "Done",
+        "fill": 60,
+        "text": "Six of ten."
+      }
+    }
+  ],
+  "stepBar": [
+    {
+      "case": "the second of four",
+      "fields": {
+        "steps": [
+          "Order",
+          "Pay",
+          "Ship",
+          "Done"
+        ],
+        "start": 1
+      }
+    }
+  ],
+  "stepForm": [
+    {
+      "case": "two steps",
+      "fields": {
+        "steps": [
+          {
+            "name": "Contact",
+            "fields": [
+              {
+                "name": "email",
+                "label": "Email",
+                "type": "email",
+                "required": true
+              }
+            ]
+          },
+          {
+            "name": "Message",
+            "fields": [
+              {
+                "name": "message",
+                "label": "Message",
+                "as": "textarea"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "tabBar": [
+    {
+      "case": "three tabs",
+      "fields": {
+        "tabs": [
+          {
+            "label": "Overview",
+            "icon": "house",
+            "content": "<p>One.</p>"
+          },
+          {
+            "label": "Billing",
+            "icon": "credit-card",
+            "content": "<p>Two.</p>"
+          },
+          {
+            "label": "Settings",
+            "icon": "gear",
+            "content": "<p>Three.</p>"
+          }
+        ]
+      }
+    }
+  ],
+  "tagInput": [
+    {
+      "case": "with suggestions, two at most",
+      "fields": {
+        "name": "services",
+        "label": "Services",
+        "suggestions": [
+          "Roofing",
+          "Concrete",
+          "Plumbing"
+        ],
+        "max": 2
+      }
+    }
+  ],
+  "timeline": [
+    {
+      "case": "three events",
+      "fields": {
+        "events": [
+          {
+            "date": "2024",
+            "title": "Founded",
+            "text": "Where it started.",
+            "icon": "flag"
+          },
+          {
+            "date": "2025",
+            "title": "First office",
+            "icon": "building"
+          },
+          {
+            "date": "2026",
+            "title": "Ten people",
+            "icon": "users"
+          }
+        ]
+      }
+    }
+  ],
+  "trace": [
+    {
+      "case": "the trace",
+      "fields": {}
+    }
+  ],
+  "typeset": [
+    {
+      "case": "a paragraph",
+      "fields": {
+        "as": "p",
+        "text": "Prices from $19.99/mo -- the 1st of 2 plans..."
+      }
+    }
   ]
 }
