@@ -19,6 +19,8 @@ README (Versions → What a version promises).
   both), checked by `npm run conformance` on the roots in `styles/components`. Loading breaks it today (B-003).
 
 ### Changed
+- Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
+  What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
 - `docs/WORKING.md`: how Claude works, one copy for every project. Each `CLAUDE.md` imports it (`@docs/WORKING.md`)
   and names only its work list, so a rule change is one commit here instead of one per repo. marccent.com is
   frozen in `docs/projects.json`: only wp and the theme are active.

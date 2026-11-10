@@ -129,22 +129,6 @@
         "styles/",
         "dist/"
       ]
-    },
-    {
-      "repo": "marccent-local",
-      "names": [
-        "Marccent Local",
-        "marccent-local"
-      ],
-      "role": "WordPress plugin, retired (2026-11-06): its work moved to Blocks, Content and WP",
-      "output": "wp",
-      "stage": "retired",
-      "path": "wp/wp-content/plugins/marccent-local",
-      "pins": "nothing",
-      "uses": [],
-      "via": [
-        "marccent-blocks"
-      ]
     }
   ]
 }
