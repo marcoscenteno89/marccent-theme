@@ -224,7 +224,8 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
 **3. The wp site: every component in the admin and on the page**
 - [x] ToggleButton covered by Marccent Blocks (2026-11-09); its markup test runs the theme's conformance check.
 - [ ] The islands' stand-in markup is the component's (today plain text).
-- [ ] A Carousel of a Loop's items (left); a Loop as a row of content-width items (done 2026-11-09: the Loop's Layout).
+- [x] A Carousel of a Loop's items (a Loop in any island's slot gives its items, 2026-11-09); a Loop as a row of
+  content-width items (the Loop's Layout).
 - [ ] Forms: the rate limit behind the proxy (done 2026-11-09: mod_remoteip in the WordPress image); left: Turnstile's
   server check, file upload checks, Forms → Entries retired.
 - [x] Marccent Blocks' markup test runs the theme's conformance check (2026-11-09).
