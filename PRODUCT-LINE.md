@@ -213,14 +213,16 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
 
 **2. The restructuring decided**
 - [ ] T-032: the Header and Footer patterns; NavBar retires; the Navbar block becomes a Header block pattern.
-- [ ] T-033: `.overlay-tint`, then ImageCard retires (the Image card pattern); Grid's dense packing and row height
-  and a row-span class, then Collage retires; HexWall goes; StatCard drops its box; AppShell decided.
+- [ ] T-033: done in 1.0.0-rc.21: `.overlay-tint`, `.overlay-blur`, `.overlay-focus`; Grid's dense packing and row
+  height, `.row-span-N`; HexWall gone; the Stopwatch block is Counter's controls. Left: ImageCard and Collage retire
+  (their pages on marccent.com rebuilt as the patterns), StatCard drops its box (about 15 uses on marccent.com wrap
+  in a Card), AppShell decided.
 - [ ] T-034: the six children (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab); their
   parents take them and a Loop of them.
 - [ ] The WordPress blocks these replace retire: Image card, Collage, Hex wall.
 
 **3. The wp site: every component in the admin and on the page**
-- [ ] ToggleButton covered by Marccent Blocks (the last reference case it doesn't write).
+- [x] ToggleButton covered by Marccent Blocks (2026-11-09); its markup test runs the theme's conformance check.
 - [ ] The islands' stand-in markup is the component's (today plain text).
 - [ ] A Carousel of a Loop's items; a Loop as a row of content-width items.
 - [ ] Forms: the rate limit behind the proxy, Turnstile's server check, file upload checks, Forms → Entries retired.
@@ -229,8 +231,10 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
 - [ ] The kitchen sink current with all of it.
 
 **4. marccent.com live**
-- [ ] A demo of every component (3.6).
-- [ ] Its dependencies updated (GitHub: 100 vulnerabilities, 7 critical).
+- [x] A demo of every component that stays (3.6): the last seven (Grid, Divider, Dock, Drawer, CodeTabs, Blur, Map)
+  on the Theme page, 2026-11-09; SliderPager in Carousel, Trace in Button's trace. The pending ones when built.
+- [ ] Its dependencies updated: `npm audit fix` took it to 14 (2026-11-09); left: Next 15 → 16 (a major upgrade: the critical
+  one and four high), and js-beautify's (the theme's, no fix yet).
 - [ ] Hosting, the domain, the deploy.
 - [ ] T-002 cookie consent (if it tracks); T-024 typography set on the server.
 
