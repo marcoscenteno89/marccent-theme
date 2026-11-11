@@ -1,5 +1,5 @@
 'use client';
-import { useState, Children } from 'react';
+import { useState, Children, cloneElement } from 'react';
 import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
 
@@ -58,29 +58,41 @@ const HexFlip = ({ front, back, frontClass = 'bg-gradient', backClass = 'bg-prim
 
 /**
  * Timeline: events down a gradient line, each marked by a hexagon with its icon and told in a card that points at it.
- * @param {{ date: string, title: string, text?: React.ReactNode, icon?: string }[]} events
+ * The line runs through every row, trimmed at the first and the last, so each item is told where it stands.
+ * @param {React.ReactNode} children - Its TimelineItems (or a Loop of them), in order.
+ * @example <Timeline><TimelineItem date="2024" title="Founded" icon="flag" text="Where it started." /></Timeline>
  */
-const Timeline = ({ events, className, style }) => (
-  <ol data-component="timeline" className={cx('list-plain grid cols-1 gap-0', className)} style={style}>
-    {events.map((e, i) => (
-      <li key={i} className="grid gap-0" style={{ gridTemplateColumns: '2.5rem auto minmax(0, 1fr)' }}>
-        {/* The line (the full height of the row, so the rows join up) with the marker over it. */}
-        <div className="stack">
-          <div className="bg-gradient h-100" style={{ width: '2px', justifySelf: 'center',
-            ...(i === 0 && { marginTop: '1.25rem' }), ...(i === events.length - 1 && { height: '1.25rem' }) }} />
-          <div className="shape-hexagon bg-gradient col-center self-start" style={{ width: '2.5rem' }}>
-            <Icon name={e.icon ?? 'circle'} style={{ fontSize: '.8em' }} />
-          </div>
-        </div>
-        <div className="shape-triangle-left self-start bg-primary-tint" style={{ width: '.75rem', marginTop: '.85rem', marginLeft: '.5rem' }} />
-        <div className="round pad grid cols-1 gap-0 bg-primary-tint" style={{ marginBottom: 'var(--space)' }}>
-          <small className="text-primary fw-bold">{e.date}</small>
-          <strong>{e.title}</strong>
-          {e.text && <p className="opacity-75">{e.text}</p>}
-        </div>
-      </li>
-    ))}
-  </ol>
+const Timeline = ({ className, style, children }) => {
+  const events = Children.toArray(children);
+  return (
+    <ol data-component="timeline" className={cx('list-plain grid cols-1 gap-0', className)} style={style}>
+      {events.map((event, i) => cloneElement(event, { first: i === 0, last: i === events.length - 1 }))}
+    </ol>
+  );
+};
+
+/**
+ * TimelineItem: one of a Timeline's events.
+ * @param {string} date @param {string} title @param {React.ReactNode} [text] - A line or two under the title.
+ * @param {string} [icon='circle'] - In its marker.
+ */
+const TimelineItem = ({ date, title, text, icon = 'circle', first = false, last = false }) => (
+  <li data-component="timeline-item" className="grid gap-0" style={{ gridTemplateColumns: '2.5rem auto minmax(0, 1fr)' }}>
+    {/* The line (the full height of the row, so the rows join up) with the marker over it. */}
+    <div className="stack">
+      <div className="bg-gradient h-100" style={{ width: '2px', justifySelf: 'center',
+        ...(first && { marginTop: '1.25rem' }), ...(last && { height: '1.25rem' }) }} />
+      <div className="shape-hexagon bg-gradient col-center self-start" style={{ width: '2.5rem' }}>
+        <Icon name={icon} style={{ fontSize: '.8em' }} />
+      </div>
+    </div>
+    <div className="shape-triangle-left self-start bg-primary-tint" style={{ width: '.75rem', marginTop: '.85rem', marginLeft: '.5rem' }} />
+    <div className="round pad grid cols-1 gap-0 bg-primary-tint" style={{ marginBottom: 'var(--space)' }}>
+      <small className="text-primary fw-bold">{date}</small>
+      <strong>{title}</strong>
+      {text && <p className="opacity-75">{text}</p>}
+    </div>
+  </li>
 );
 
 /**
@@ -122,4 +134,4 @@ const StatCard = ({ icon, value, label, accent, fill, text, children, className,
   </div>
 );
 
-export { HexGrid, HexFlip, Timeline, StatCard };
+export { HexGrid, HexFlip, Timeline, TimelineItem, StatCard };

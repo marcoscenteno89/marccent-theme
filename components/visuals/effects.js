@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect, useId, forwardRef } from 'react';
+import React, { useState, useRef, useEffect, useId, forwardRef, Children, cloneElement } from 'react';
 import { cx } from '../../lib/cx';
 import { Clock } from '../ui/clock';
 import { watchInView } from '../../lib/in-view';
@@ -84,8 +84,9 @@ class OrbitPlayer extends Store {
  * and center images are optional extras on top. Items size themselves by how many there are. It stays a circle at
  * any width and scales with its box (sizes in cqi, % of the box). No CSS of its own: shared classes (stack, circle,
  * shape-ring, bg-gradient, hover-grow…) and inline styles.
- * @param {{ icon: string|React.ReactNode, title: string, text?: React.ReactNode }[] | number} items - icon: image src
- *   or a node. A number instead: that many evenly spaced positions with nothing drawn (only the ring and pointer).
+ * @param {React.ReactNode} [children] - Its OrbitItems (or a Loop of them), clockwise from startAngle.
+ * @param {number} [positions] - Without items: that many evenly spaced positions with nothing drawn (only the ring and
+ *   pointer: a clock's minutes).
  * @param {number} [start=0] - The item picked first.
  * @param {number} [startAngle=0] - Where item 0 sits, in degrees clockwise from 3 o'clock (-90: at 12 o'clock).
  * @param {string} [wheel] - Image that turns to face the picked item (drawn pointing right at 0deg).
@@ -103,10 +104,10 @@ class OrbitPlayer extends Store {
  *   the box), --wedge (the pointer's width, default up to 40deg), --pointer (its color) and --pointer-fade /
  *   --pointer-solid (where it fades in, default 55% / 100% of the radius; 0% / 0% is solid from the center, a hand).
  */
-const Orbit = ({ items, start = 0, startAngle = 0, wheel, center, hub = true, offset = 0, autoPlay = false, interval = 4000,
-  sync = false, className, style }) => {
-  const list = typeof items === 'number' ? null : items;
-  const count = list ? list.length : items;
+const Orbit = ({ positions, start = 0, startAngle = 0, wheel, center, hub = true, offset = 0, autoPlay = false, interval = 4000,
+  sync = false, className, style, children }) => {
+  const items = Children.toArray(children);
+  const count = items.length || positions;
   const angleOf = (i) => i * (360 / count) + startAngle;
   const wedge = Math.min(40, 320 / count); // the pointer's default width (deg): narrower as items crowd
   // Each item's share of the ring (2 pi x radius x 1.1 / count), up to 20% of the box.
@@ -134,33 +135,15 @@ const Orbit = ({ items, start = 0, startAngle = 0, wheel, center, hub = true, of
           background: 'conic-gradient(var(--primary), var(--secondary), var(--primary))' }} />
         {wheel && <img src={wheel} alt="" className="w-100 h-100" style={{ objectFit: 'contain', rotate: `${turn}deg`, transition: turning }} />}
         {center && <img src={center} alt="" style={{ width: '35%' }} />}
-        {!center && hub && list && (
+        {!center && hub && items.length > 0 && (
           <div className="grid cols-1 gap-sm text-center" style={{ width: '50%' }} aria-live="polite">
-            <strong className="fs-lg">{list[active].title}</strong>
-            <p>{list[active].text}</p>
+            <strong className="fs-lg">{items[active].props.title}</strong>
+            <p>{items[active].props.text}</p>
           </div>
         )}
-        {list && (
+        {items.length > 0 && (
           <ul className="stack w-100 h-100" style={{ placeItems: 'center', margin: 0, padding: 0, listStyle: 'none' }}>
-            {list.map((item, i) => {
-              const icon = typeof item.icon === 'string' ? <img src={item.icon} alt="" className="w-100" /> : item.icon;
-              // A circle on the track, the picked one filled with the gradient. --icon-size: a Font Awesome icon fills
-              // it instead of keeping its own minimum size, so a small button on a crowded ring stays round.
-              const button = {
-                className: cx('circle border bg', i === active && 'bg-gradient'),
-                style: { display: 'grid', placeItems: 'center', width: '70%', aspectRatio: 1, padding: 0, color: 'inherit',
-                  fontSize: 'min(var(--text-lg), calc(var(--item) * .3))', '--icon-size': '100%', cursor: sync ? 'default' : 'pointer',
-                  borderColor: i === active ? 'var(--primary)' : undefined },
-              };
-              return (
-                <li key={i} className="stack" style={{ '--item': itemSize, width: 'var(--item)', aspectRatio: 1, placeItems: 'center',
-                  transform: `rotate(${angleOf(i)}deg) translate(var(--orbit-radius)) rotate(${-angleOf(i)}deg)` }}>
-                  {sync
-                    ? <span {...button} aria-hidden="true">{icon}</span>
-                    : <button data-component="button" data-name={item.title} type="button" {...button} aria-label={item.title} aria-pressed={i === active} onClick={() => player.select(i)}>{icon}</button>}
-                </li>
-              );
-            })}
+            {items.map((item, i) => cloneElement(item, { angle: angleOf(i), size: itemSize, picked: i === active, sync, onSelect: () => player.select(i) }))}
           </ul>
         )}
       </div>
@@ -168,8 +151,34 @@ const Orbit = ({ items, start = 0, startAngle = 0, wheel, center, hub = true, of
   );
 }
 
+/**
+ * OrbitItem: one of an Orbit's items, a circle on its ring; picked, its title and text show in the middle.
+ * @param {string|React.ReactNode} icon - An image's src, or a node. @param {string} title
+ * @param {React.ReactNode} [text]
+ */
+// text: its Orbit shows it in the middle once it's picked.
+const OrbitItem = ({ icon, title, text, angle = 0, size, picked = false, sync = false, onSelect }) => {
+  const glyph = typeof icon === 'string' ? <img src={icon} alt="" className="w-100" /> : icon;
+  // A circle on the track, the picked one filled with the gradient. --icon-size: a Font Awesome icon fills it instead
+  // of keeping its own minimum size, so a small button on a crowded ring stays round.
+  const button = {
+    className: cx('circle border bg', picked && 'bg-gradient'),
+    style: { display: 'grid', placeItems: 'center', width: '70%', aspectRatio: 1, padding: 0, color: 'inherit',
+      fontSize: 'min(var(--text-lg), calc(var(--item) * .3))', '--icon-size': '100%', cursor: sync ? 'default' : 'pointer',
+      borderColor: picked ? 'var(--primary)' : undefined },
+  };
+  return (
+    <li data-component="orbit-item" className="stack" style={{ '--item': size, width: 'var(--item)', aspectRatio: 1, placeItems: 'center',
+      transform: `rotate(${angle}deg) translate(var(--orbit-radius)) rotate(${-angle}deg)` }}>
+      {sync
+        ? <span {...button} aria-hidden="true">{glyph}</span>
+        : <button data-component="button" data-name={title} type="button" {...button} aria-label={title} aria-pressed={picked} onClick={onSelect}>{glyph}</button>}
+    </li>
+  );
+};
+
 // The clock's hour numbers, 12 first so it sits at the top (startAngle -90).
-const HOURS = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(n => ({ icon: <span>{n}</span>, title: `${n} o'clock` }));
+const HOURS = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(n => <OrbitItem key={n} icon={<span>{n}</span>} title={`${n} o'clock`} />);
 
 /**
  * OrbitClock: three synced Orbits, one inside the other, each pointer a hand: hours on the outside (12 numbered
@@ -183,11 +192,11 @@ const OrbitClock = ({ className }) => {
   return (
     <div data-component="orbit-clock" className={cx('stack cq', className)} style={{ aspectRatio: 1 }}>
       {now && <>
-        <Orbit items={HOURS} hub={false} start={now.getHours() % 12} startAngle={-90}
-          autoPlay sync interval={3600000} style={{ ...ring, width: '100%', '--wedge': '30deg' }} />
-        <Orbit items={60} start={now.getMinutes()} startAngle={-90} autoPlay sync interval={60000}
+        <Orbit hub={false} start={now.getHours() % 12} startAngle={-90}
+          autoPlay sync interval={3600000} style={{ ...ring, width: '100%', '--wedge': '30deg' }}>{HOURS}</Orbit>
+        <Orbit positions={60} start={now.getMinutes()} startAngle={-90} autoPlay sync interval={60000}
           style={{ ...ring, width: '72%', '--wedge': '10deg', '--pointer': 'color-mix(in srgb, var(--primary) 70%, transparent)' }} />
-        <Orbit items={60} start={now.getSeconds()} startAngle={-90} autoPlay sync interval={1000}
+        <Orbit positions={60} start={now.getSeconds()} startAngle={-90} autoPlay sync interval={1000}
           style={{ ...ring, width: '50%', '--wedge': '6deg', '--pointer': 'var(--secondary)' }} />
         <div className="bg border round shadow-sm pad-sm text-center" style={{ ...ring, zIndex: 1, fontSize: '3.5cqi' }}>
           <Clock className="fw-bold" format="h:mm:ss A" />
@@ -457,6 +466,6 @@ const Parallax = ({ speed = 0.2, as: Tag = 'div', className, children }) => {
 }
 
 export {
-  Orbit, OrbitPlayer, OrbitClock, SolarSystem, Spins, useSpins, GooDigit, Countdown, CountdownTimer, Parallax, useParallax,
+  Orbit, OrbitItem, OrbitPlayer, OrbitClock, SolarSystem, Spins, useSpins, GooDigit, Countdown, CountdownTimer, Parallax, useParallax,
   ParallaxMotion, reducedMotion
 };

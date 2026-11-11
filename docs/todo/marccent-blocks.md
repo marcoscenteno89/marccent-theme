@@ -68,6 +68,11 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 - [x] **Remove the Social links block** — removed with the Social menu location and the Navbar's social links (2026-11-09); rc-imp's footer shows its Site content → Profiles rows with a Loop of buttons. (found 2026-11-06)
 - [ ] **One Card block** — Image card (and an icon card) become patterns of the Card block, not blocks of their own. (found 2026-11-06)
 
+- [ ] **Children on the theme's T-034 release** — the theme's Timeline, Dock, RadialMenu, StepBar, Orbit and TabBar take
+      child components now (TimelineItem, DockItem, RadialMenuItem, StepBarStep, OrbitItem, Tab), not `events`,
+      `items`, `steps` or `tabs`: a block per child (`parent` set), each parent block taking them and a Loop of them;
+      content saved with the arrays upgraded by its version. (found 2026-11-10)
+
 - [ ] **Item lists come from field rows, not the block** — Orbit's items (and Dock, Step bar, Hex wall, Ticket card's list, Radial menu, Collage, Timeline: every block with an `items` array) are typed into the block's settings; they repeat, so they're a field group's rows (or posts) edited in wp-admin, and the block reads them from a Loop source. (found 2026-11-06)
   - Also typed in: Data table's rows (a CSV in the block), Hex wall's people, Collage's tiles, Map's single marker (one `lat`/`lng` typed in; the places are rows, and the names should be `latitude`/`longitude`).
   - Accordion and Tabs take only their own items (`allowedBlocks`), so a Loop can't go inside them: a FAQ from rows can't be an Accordion. Allow a Loop of items inside, or let them read a Loop source.

@@ -6,6 +6,12 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- Children for the components that took a list (T-034, PRODUCT-LINE.md 6.1): `TimelineItem`, `DockItem`,
+  `RadialMenuItem`, `StepBarStep`, `OrbitItem` and `Tab`, each marked with its parent in `markup/settings.json`. Breaking:
+  Timeline (`events`), Dock and RadialMenu (`items`), StepBar (`steps`), TabBar (`tabs`) and Orbit (`items`) take them
+  as children instead; Orbit's bare positions (a number for `items`) are `positions`. The markup is the same, each
+  child with its own `data-component`.
+
 - `docs/projects.json`: every project on the theme, what it reads from it, how it pins it and its stage; `npm run
   affected` lists the projects a change reaches (directly or through Marccent Blocks). `npm run todos` takes its
   project list from it. `npm run status`: every project's pin against the theme, and what each is behind on (fails

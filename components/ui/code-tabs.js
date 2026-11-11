@@ -1,6 +1,6 @@
 'use client';
 import { Code } from './code';
-import { TabBar } from '../widgets/nav';
+import { TabBar, Tab } from '../widgets/nav';
 
 /*
  * CodeTabs: one editor per language under a TabBar (HTML, CSS, JS…), each the theme's Code as an editor; the admin
@@ -22,19 +22,17 @@ const ICONS = { html: 'code', css: 'paintbrush', js: 'bolt' };
  * @example <CodeTabs value={{ html, css, js }} onChange={setCode} preview={<div dangerouslySetInnerHTML={{ __html: html }} />} />
  */
 const CodeTabs = ({ value = {}, onChange, languages = [ 'html', 'css', 'js' ], preview, minimumLines = 8, className }) => (
-  <TabBar className={className} tabs={[
-    ...languages.map((language) => ({
-      label: LABELS[language] ?? language.toUpperCase(),
-      icon: ICONS[language],
-      content: (
-        <Code key={language} language={language} label={`${LABELS[language] ?? language}`} minimumLines={minimumLines}
+  <TabBar className={className}>
+    {languages.map((language) => (
+      <Tab key={language} label={LABELS[language] ?? language.toUpperCase()} icon={ICONS[language]}>
+        <Code language={language} label={`${LABELS[language] ?? language}`} minimumLines={minimumLines}
           onChange={(code) => onChange({ ...value, [language]: code })}>
           {value[language] ?? ''}
         </Code>
-      ),
-    })),
-    ...(preview ? [ { label: 'Preview', icon: 'eye', content: preview } ] : []),
-  ]} />
+      </Tab>
+    ))}
+    {preview && <Tab key="preview" label="Preview" icon="eye">{preview}</Tab>}
+  </TabBar>
 );
 
 export { CodeTabs };

@@ -352,7 +352,7 @@ The theme first: it's the root of everything. A phase starts only when the one b
 belongs to a later phase waits, and Claude says so when it's asked for early.
 
 1. **The theme.** Its lines below: Kits, T-032's Nav case, T-033,
-   T-034; then T-003's utilities (B-003 done 2026-11-10). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
+   then T-003's utilities (B-003 done 2026-11-10). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
    **Gate:** `npm test` passes with no sizing exception left, every theme line ticked, the release tagged.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
    retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
@@ -365,8 +365,8 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [x] **Component stage:** a markup case (`markup/cases.json` → `reference.json`) for every component and container
   that stays: 52 components, 76 cases (2026-11-09). A child is covered by its parent's case (AccordionItem,
   Step, SliderPager in Carousel); Toast has none (browser only: nothing until a message, `markup` in settings.json).
-  Pending, a case once built (T-034, T-033): Timeline item, Dock item, Radial menu item, Step bar step, Orbit item,
-  Tab. StatCard's case is without its box (2026-11-10). None for what's left (Collage, ImageCard, HexWall). AppShell is gone (2026-11-10): Sidebar and the App frame pattern.
+  The six children of T-034 (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab) are covered
+  by their parents' cases (2026-11-10). StatCard's case is without its box (2026-11-10). None for what's left (Collage, ImageCard, HexWall). AppShell is gone (2026-11-10): Sidebar and the App frame pattern.
 - [x] **Settings stage, written (T-029):** every component that stays (54) has its settings in `markup/settings.json`,
   204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
 - [x] **Settings stage, used by Marccent Blocks** (2026-11-10): its block.json attributes are written from
@@ -394,8 +394,9 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
   Sidebar component, the App frame pattern). Done 2026-11-10: ImageCard and Collage removed (the Image card and
   Collage patterns; the animation player is the Image card), StatCard without its box (it goes in a Card). marccent.com's
   part is in section 4.
-- [ ] T-034: the six children (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab); their
-  parents take them and a Loop of them.
+- [x] T-034 (2026-11-10): the six children (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item,
+  Tab), each a component marked with its parent; Timeline, Dock, Radial menu, Step bar, Orbit and Tab bar take them
+  as children instead of a list (Orbit's bare positions are `positions`). Their blocks and a Loop of them: section 3.
 - [ ] The WordPress blocks these replace retire: Image card, Collage, Hex wall; the Stat card block inside a Card.
 
 **3. The wp site: every component in the admin and on the page**
@@ -407,11 +408,13 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
   server check, file upload checks, Forms → Entries retired.
 - [x] Marccent Blocks' markup test runs the theme's conformance check (2026-11-09).
 - [x] Marccent Content: deleting a post leaves no broken relation (set null, 2026-11-09; cascade and protect after 1.0).
+- [ ] Timeline, Dock, Radial menu, Step bar, Orbit and Tab bar take their children (T-034's blocks) and a Loop of them.
 - [ ] The kitchen sink current with all of it.
 
 **4. marccent.com live**
 - [ ] On the theme's T-033 release: its Images and Animations pages as the Collage and Image card patterns, its cards
-  as Image cards, its StatCards (about 15) each in a Card.
+  as Image cards, its StatCards (about 15) each in a Card; on T-034's, its Timelines, Docks, Radial menus, Step bars,
+  Orbits and Tab bars with their children.
 - [x] A demo of every component that stays (3.6): the last seven (Grid, Divider, Dock, Drawer, CodeTabs, Blur, Map)
   on the Theme page, 2026-11-09; SliderPager in Carousel, Trace in Button's trace. The pending ones when built.
 - [ ] Its dependencies updated: `npm audit fix` took it to 14 (2026-11-09); left: Next 15 → 16 (a major upgrade: the critical
