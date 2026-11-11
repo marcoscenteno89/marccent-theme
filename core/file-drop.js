@@ -13,15 +13,15 @@ const accepts = (file, accept) => !accept || accept.split(',').map(s => s.trim()
 
 /**
  * checkFiles: the files that may go in, and a reason for each that may not (not an accepted type, too large).
- * @param {Iterable<File>} list @param {{ accept?: string, maxSize?: number }} rules
+ * @param {Iterable<File>} list @param {{ accept?: string, maximumSize?: number }} rules
  * @returns {{ ok: File[], rejected: string[] }}
  */
-const checkFiles = (list, { accept, maxSize } = {}) => {
+const checkFiles = (list, { accept, maximumSize } = {}) => {
   const ok = [];
   const rejected = [];
   for (const f of list) {
     if (!accepts(f, accept)) rejected.push(`${f.name}: not an accepted type`);
-    else if (maxSize && f.size > maxSize) rejected.push(`${f.name}: larger than ${fileSize(maxSize)}`);
+    else if (maximumSize && f.size > maximumSize) rejected.push(`${f.name}: larger than ${fileSize(maximumSize)}`);
     else ok.push(f);
   }
   return { ok, rejected };
@@ -44,7 +44,7 @@ const el = (tag, props = {}, ...children) => {
 /**
  * fileDrop: FileDrop's behavior (components/ui/file-drop.js) on its server-rendered markup, for the plain-JS engine:
  * a [data-component="file-drop"] holding a .file-drop-zone <label> and its file <input> (accept, multiple as usual;
- * the largest size in bytes as data-max-size on the root). Draws the same list of chosen files and reasons.
+ * the largest size in bytes as data-maximum-size on the root). Draws the same list of chosen files and reasons.
  * Returns a function that stops.
  * @param {HTMLElement} root
  * @returns {() => void}
@@ -53,7 +53,7 @@ const fileDrop = (root) => {
   const input = root.querySelector('input[type="file"]');
   const zone = root.querySelector('[data-drop-zone]');
   if (!input || !zone) return () => {};
-  const rules = { accept: input.accept, maxSize: Number(root.dataset.maxSize) || 0 };
+  const rules = { accept: input.accept, maximumSize: Number(root.dataset.maximumSize) || 0 };
   let files = [];
   let urls = [];
   const alert = el('ul', { className: 'grid cols-1 gap-0 fs-sm text-danger', hidden: true });

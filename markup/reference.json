@@ -597,14 +597,14 @@
         "label": "Example",
         "code": "const total = (items) => items.length;"
       },
-      "html": "<div data-component=\"code\" data-lang=\"js\" class=\"stack bg border round\"><pre tabindex=\"0\" class=\"fs-sm font-mono pad-sm overflow-auto\"><code>const total = (items) =&gt; items.length;</code></pre><div data-code-host=\"true\" class=\"overflow-hidden\"></div><div class=\"self-start justify-self-end pad-xs\"><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Copy code\" title=\"Copy\" data-copy=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-copy btn-icon\" aria-hidden=\"true\"></i></button></div></div>"
+      "html": "<div data-component=\"code\" data-language=\"js\" class=\"stack bg border round\"><pre tabindex=\"0\" class=\"fs-sm font-mono pad-sm overflow-auto\"><code>const total = (items) =&gt; items.length;</code></pre><div data-code-host=\"true\" class=\"overflow-hidden\"></div><div class=\"self-start justify-self-end pad-xs\"><button type=\"button\" class=\"btn\" data-component=\"button\" aria-label=\"Copy code\" title=\"Copy\" data-copy=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-copy btn-icon\" aria-hidden=\"true\"></i></button></div></div>"
     }
   ],
   "codeTabs": [
     {
       "case": "HTML, CSS and JS",
       "fields": {
-        "langs": [
+        "languages": [
           "html",
           "css",
           "js"
@@ -615,7 +615,7 @@
           "js": ""
         }
       },
-      "html": "<div data-component=\"tab-bar\" class=\"grid cols-1 gap-sm\"><div class=\"grid cols-1 gap-0 border-bottom\"><div role=\"tablist\" class=\"grid fixed gap-0\" style=\"--cols:3\"><button data-component=\"button\" data-name=\"HTML\" type=\"button\" role=\"tab\" aria-selected=\"true\" tabindex=\"0\" class=\"btn-plain center gap-sm pad-sm icon-only-sm text-primary fw-bold\"><i data-component=\"icon\" class=\"fa-solid fa-code\" aria-hidden=\"true\"></i><span class=\"btn-text\">HTML</span></button><button data-component=\"button\" data-name=\"CSS\" type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\" class=\"btn-plain center gap-sm pad-sm icon-only-sm opacity-75\"><i data-component=\"icon\" class=\"fa-solid fa-paintbrush\" aria-hidden=\"true\"></i><span class=\"btn-text\">CSS</span></button><button data-component=\"button\" data-name=\"JS\" type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\" class=\"btn-plain center gap-sm pad-sm icon-only-sm opacity-75\"><i data-component=\"icon\" class=\"fa-solid fa-bolt\" aria-hidden=\"true\"></i><span class=\"btn-text\">JS</span></button></div><div class=\"bg-gradient\" aria-hidden=\"true\" style=\"height:3px;width:33.333333333333336%;translate:0% 0;transition:translate var(--duration-slow) cubic-bezier(.34, 1.56, .64, 1);border-radius:3px\"></div></div><div role=\"tabpanel\" class=\"pad-sm\"><div data-component=\"code\" data-lang=\"html\" class=\"grid cols-1 gap-0 bg border round\"><pre tabindex=\"0\" class=\"fs-sm font-mono pad-sm overflow-auto\" style=\"min-height:12em\"><code>&lt;p&gt;Hi&lt;/p&gt;</code></pre><div data-code-host=\"true\" class=\"overflow-hidden\"></div><div class=\"grid cols-1 pad-xs border-top\"><button type=\"button\" class=\"btn justify-self-end\" aria-label=\"Format\" title=\"Lay the code out (Shift+Alt+F)\" data-component=\"button\" data-format=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-wand-magic-sparkles btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Format</span></button></div></div></div></div>"
+      "html": "<div data-component=\"tab-bar\" class=\"grid cols-1 gap-sm\"><div class=\"grid cols-1 gap-0 border-bottom\"><div role=\"tablist\" class=\"grid fixed gap-0\" style=\"--cols:3\"><button data-component=\"button\" data-name=\"HTML\" type=\"button\" role=\"tab\" aria-selected=\"true\" tabindex=\"0\" class=\"btn-plain center gap-sm pad-sm icon-only-sm text-primary fw-bold\"><i data-component=\"icon\" class=\"fa-solid fa-code\" aria-hidden=\"true\"></i><span class=\"btn-text\">HTML</span></button><button data-component=\"button\" data-name=\"CSS\" type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\" class=\"btn-plain center gap-sm pad-sm icon-only-sm opacity-75\"><i data-component=\"icon\" class=\"fa-solid fa-paintbrush\" aria-hidden=\"true\"></i><span class=\"btn-text\">CSS</span></button><button data-component=\"button\" data-name=\"JS\" type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\" class=\"btn-plain center gap-sm pad-sm icon-only-sm opacity-75\"><i data-component=\"icon\" class=\"fa-solid fa-bolt\" aria-hidden=\"true\"></i><span class=\"btn-text\">JS</span></button></div><div class=\"bg-gradient\" aria-hidden=\"true\" style=\"height:3px;width:33.333333333333336%;translate:0% 0;transition:translate var(--duration-slow) cubic-bezier(.34, 1.56, .64, 1);border-radius:3px\"></div></div><div role=\"tabpanel\" class=\"pad-sm\"><div data-component=\"code\" data-language=\"html\" class=\"grid cols-1 gap-0 bg border round\"><pre tabindex=\"0\" class=\"fs-sm font-mono pad-sm overflow-auto\" style=\"min-height:12em\"><code>&lt;p&gt;Hi&lt;/p&gt;</code></pre><div data-code-host=\"true\" class=\"overflow-hidden\"></div><div class=\"grid cols-1 pad-xs border-top\"><button type=\"button\" class=\"btn justify-self-end\" aria-label=\"Format\" title=\"Lay the code out (Shift+Alt+F)\" data-component=\"button\" data-format=\"true\"><i data-component=\"icon\" class=\"fa-solid fa-wand-magic-sparkles btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Format</span></button></div></div></div></div>"
     }
   ],
   "compare": [
@@ -1135,7 +1135,7 @@
         ],
         "maximum": 2
       },
-      "html": "<div data-component=\"tag-input\" data-max=\"2\" class=\"input row-wrap gap-xs pad-xs\"><ul data-tags=\"true\" class=\"d-contents\" aria-label=\"Tags\"></ul><input data-tag-entry=\"true\" class=\"input-plain grow pad-xs\" aria-label=\"Services\" placeholder=\"Services\" list=\"id-1-list\" value=\"\"/><datalist id=\"id-1-list\"><option value=\"Roofing\"></option><option value=\"Concrete\"></option><option value=\"Plumbing\"></option></datalist><input type=\"hidden\" name=\"services\" value=\"\"/></div>"
+      "html": "<div data-component=\"tag-input\" data-maximum=\"2\" class=\"input row-wrap gap-xs pad-xs\"><ul data-tags=\"true\" class=\"d-contents\" aria-label=\"Tags\"></ul><input data-tag-entry=\"true\" class=\"input-plain grow pad-xs\" aria-label=\"Services\" placeholder=\"Services\" list=\"id-1-list\" value=\"\"/><datalist id=\"id-1-list\"><option value=\"Roofing\"></option><option value=\"Concrete\"></option><option value=\"Plumbing\"></option></datalist><input type=\"hidden\" name=\"services\" value=\"\"/></div>"
     }
   ],
   "timeline": [

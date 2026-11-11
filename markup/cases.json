@@ -563,7 +563,7 @@
     {
       "case": "HTML, CSS and JS",
       "fields": {
-        "langs": [
+        "languages": [
           "html",
           "css",
           "js"

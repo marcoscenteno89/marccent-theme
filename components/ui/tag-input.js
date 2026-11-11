@@ -61,7 +61,7 @@ const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, m
 
   // A click on the box (not a tag) puts the cursor in the field, as if the box were the input.
   return (
-    <div data-component="tag-input" data-max={maximum || undefined} className={cx('input row-wrap gap-xs pad-xs', className)}
+    <div data-component="tag-input" data-maximum={maximum || undefined} className={cx('input row-wrap gap-xs pad-xs', className)}
       onClick={(e) => e.target === e.currentTarget && entry.current.focus()}>
       <ul data-tags className="d-contents" aria-label="Tags">
         {tags.map((tag, i) => (

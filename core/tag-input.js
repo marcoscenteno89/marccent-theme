@@ -4,20 +4,20 @@
 
 /**
  * addTags: tags with the text's added. Commas split it ("red, green" is two); each is trimmed, and empty ones,
- * ones already there (case ignored) and any past max are left out.
+ * ones already there (case ignored) and any past maximum are left out.
  * @param {string[]} tags
  * @param {string} text
- * @param {number} [max] - The most tags; 0 or none for no limit.
+ * @param {number} [maximum] - The most tags; 0 or none for no limit.
  * @returns {string[]}
  */
-const addTags = (tags, text, max = 0) => {
+const addTags = (tags, text, maximum = 0) => {
   const out = [ ...tags ];
   for (const part of text.split(',')) {
     const tag = part.trim();
     if (!tag) {
       continue;
     }
-    if (max && out.length >= max) {
+    if (maximum && out.length >= maximum) {
       break;
     }
     if (out.some((t) => t.toLowerCase() === tag.toLowerCase())) {
@@ -56,7 +56,7 @@ const tagItem = (tag, remove) => {
 
 /**
  * tagInput: TagInput's behavior on its server-rendered markup, for the plain-JS engine: a
- * [data-component="tag-input"] (data-max for the most tags) holding a [data-tags] <ul>, the text <input data-tag-entry> and a hidden
+ * [data-component="tag-input"] (data-maximum for the most tags) holding a [data-tags] <ul>, the text <input data-tag-entry> and a hidden
  * <input> whose value is the tags joined by commas (the starting tags). Draws the same tags and keeps the hidden
  * input in step. Says so with a marccent:tags event (detail: the tags). Returns a function that stops.
  * @param {HTMLElement} root
@@ -69,8 +69,8 @@ const tagInput = (root) => {
   if (!list || !entry || !hidden) {
     return () => {};
   }
-  const max = Number(root.dataset.max) || 0;
-  let tags = addTags([], hidden.value, max);
+  const maximum = Number(root.dataset.maximum) || 0;
+  let tags = addTags([], hidden.value, maximum);
 
   const use = (next) => {
     tags = next;
@@ -79,11 +79,11 @@ const tagInput = (root) => {
       use(tags.filter((_, j) => j !== i));
       entry.focus();
     })));
-    entry.disabled = Boolean(max) && tags.length >= max;
+    entry.disabled = Boolean(maximum) && tags.length >= maximum;
     root.dispatchEvent(new CustomEvent('marccent:tags', { detail: tags, bubbles: true }));
   };
   const commit = () => {
-    use(addTags(tags, entry.value, max));
+    use(addTags(tags, entry.value, maximum));
     entry.value = '';
   };
   const key = (e) => {
@@ -101,7 +101,7 @@ const tagInput = (root) => {
       return;
     }
     e.preventDefault();
-    use(addTags(tags, entry.value + text, max));
+    use(addTags(tags, entry.value + text, maximum));
     entry.value = '';
   };
   const focus = (e) => {

@@ -10,7 +10,7 @@ import '../../styles/components/form.css';
  * FileDrop: a file field with a drop zone: drag files onto it, or click it (or Tab to it and press Enter) for the
  * file picker. The real <input type="file"> stays in the form (visually hidden), and always holds the files listed,
  * so a plain form post or Form's values send them. Picked files list under the zone with a preview for images and a
- * button to remove each; files that don't match accept or are over maxSize are left out with the reason.
+ * button to remove each; files that don't match accept or are over maximumSize are left out with the reason.
  *
  * @param {Object} props
  * @param {string} props.name - The field's name in the form.
@@ -18,14 +18,14 @@ import '../../styles/components/form.css';
  * @param {string} [props.hint] - A line under it: the limits, e.g. "PNG or JPG, up to 5 MB".
  * @param {string} [props.accept] - As the input's: ".pdf, image/*".
  * @param {boolean} [props.multiple] - Several files; each drop or pick adds to the list.
- * @param {number} [props.maxSize] - Largest file, in bytes.
+ * @param {number} [props.maximumSize] - Largest file, in bytes.
  * @param {(files: File[]) => void} [props.onChange] - Called with the list each time it changes.
  * @param {string} [props.className] - Extra classes on the whole field.
  * Any other prop (required, disabled…) goes on the input.
  *
- * @example <FileDrop name="photos" accept="image/*" multiple maxSize={5e6} hint="Images up to 5 MB" />
+ * @example <FileDrop name="photos" accept="image/*" multiple maximumSize={5e6} hint="Images up to 5 MB" />
  */
-const FileDrop = ({ name, label = 'Drop files here or click to choose', hint, accept, multiple = false, maxSize, onChange, className, ...rest }) => {
+const FileDrop = ({ name, label = 'Drop files here or click to choose', hint, accept, multiple = false, maximumSize, onChange, className, ...rest }) => {
   const id = useId();
   const input = useRef(null);
   const [ files, setList ] = useState([]);
@@ -43,7 +43,7 @@ const FileDrop = ({ name, label = 'Drop files here or click to choose', hint, ac
     onChange?.(next);
   };
   const take = (list) => {
-    const { ok, rejected } = checkFiles(list, { accept, maxSize });
+    const { ok, rejected } = checkFiles(list, { accept, maximumSize });
     setRejected(rejected);
     if (ok.length || !multiple) use(multiple ? [ ...files, ...ok ] : ok.slice(0, 1));
   };
@@ -54,7 +54,7 @@ const FileDrop = ({ name, label = 'Drop files here or click to choose', hint, ac
   };
 
   return (
-    <div data-component="file-drop" data-max-size={maxSize} className={cx('grid cols-1 gap-sm', className)}>
+    <div data-component="file-drop" data-maximum-size={maximumSize} className={cx('grid cols-1 gap-sm', className)}>
       <label htmlFor={id} data-drop-zone className={cx('col-center gap-sm pad-lg text-center border border-dashed round bg-muted', over && 'over')}
         onDragOver={(e) => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)} onDrop={drop}>
         <Icon name="cloud-arrow-up" className="fs-lg" />

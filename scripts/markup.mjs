@@ -140,7 +140,7 @@ const RENDER = {
   carousel: (f) => h(Carousel, { slideWidth: f.slideWidth, label: f.label }, f.slides.map((t, i) => h('div', { key: i, className: 'bg border round pad' }, t))),
   clock: (f) => h(Clock, { format: f.format }),
   code: (f) => h(Code, { language: f.language, label: f.label }, f.code),
-  codeTabs: (f) => h(CodeTabs, { value: f.value, onChange: () => {}, langs: f.langs }),
+  codeTabs: (f) => h(CodeTabs, { value: f.value, onChange: () => {}, languages: f.languages }),
   compare: (f) => h(Compare, { before: h('img', { src: f.before, alt: f.beforeAlt }), after: h('img', { src: f.after, alt: f.afterAlt }),
     beforeLabel: f.beforeLabel, afterLabel: f.afterLabel, start: f.start, label: f.label }),
   countdown: (f) => h(Countdown, { from: f.from }),

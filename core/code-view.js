@@ -8,7 +8,7 @@
 const MONO = 'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
 
 // The languages, each loaded only when a block needs it. sh (and anything unknown): plain text.
-const LANGS = {
+const LANGUAGES = {
   js: () => import('@codemirror/lang-javascript').then(m => m.javascript({ jsx: true })),
   jsx: () => import('@codemirror/lang-javascript').then(m => m.javascript({ jsx: true })),
   css: () => import('@codemirror/lang-css').then(m => m.css()),
@@ -38,15 +38,15 @@ const dedent = (text) => {
  * it (also when called before mount() finishes). Read-only, unless options.onChange: then it's editable, calls
  * onChange(code) on every edit, and setCode(code) replaces its text from outside (an undo elsewhere). An editor lays
  * its code out (format(), Shift+Alt+F, an undoable edit like any other): on opening, when it's crammed on long lines.
- * @param {HTMLElement} parent @param {string} code @param {string} lang
- * @param {{ onChange?: (code: string) => void, label?: string, minLines?: number }} [options] - label: its accessible
- *   name (default "Code (lang)"); minLines: the height it keeps while nearly empty (editable).
+ * @param {HTMLElement} parent @param {string} code @param {string} language
+ * @param {{ onChange?: (code: string) => void, label?: string, minimumLines?: number }} [options] - label: its accessible
+ *   name (default "Code (language)"); minimumLines: the height it keeps while nearly empty (editable).
  */
 class CodeView {
-  constructor(parent, code, lang, options = {}) {
+  constructor(parent, code, language, options = {}) {
     this.parent = parent;
     this.code = code;
-    this.lang = lang;
+    this.language = language;
     this.options = options;
   }
 
@@ -56,10 +56,10 @@ class CodeView {
     const [ { EditorView, lineNumbers, keymap, drawSelection, highlightActiveLine }, { EditorState },
       { syntaxHighlighting, HighlightStyle, indentUnit, indentOnInput, bracketMatching }, { tags: t }, language, editing, beautify ] = await Promise.all([
       import('@codemirror/view'), import('@codemirror/state'), import('@codemirror/language'), import('@lezer/highlight'),
-      LANGS[this.lang]?.() ?? null,
+      LANGUAGES[this.language]?.() ?? null,
       // Editing only: the keys (undo, Tab indents), brackets closed as they open.
       this.editable ? Promise.all([ import('@codemirror/commands'), import('@codemirror/autocomplete') ]) : null,
-      this.editable && FORMATS[this.lang] ? import('js-beautify').then((m) => m.default ?? m) : null,
+      this.editable && FORMATS[this.language] ? import('js-beautify').then((m) => m.default ?? m) : null,
     ]);
     this.beautify = beautify;
     if (this.destroyed) return;
@@ -70,12 +70,12 @@ class CodeView {
       { tag: [ t.attributeName, t.propertyName ], color: tone('success') },
       { tag: t.comment, color: 'var(--muted-color)', fontStyle: 'italic' },
     ]);
-    const { onChange, label, minLines = 4 } = this.options;
+    const { onChange, label, minimumLines = 4 } = this.options;
     const look = EditorView.theme({
       '&': { backgroundColor: 'transparent', color: 'inherit', fontSize: 'var(--small-size, 13px)' },
       '&.cm-focused': { outline: 'none' },
       '.cm-scroller': { fontFamily: MONO, lineHeight: 'var(--line-height, 1.5)' },
-      '.cm-content': { padding: 'var(--space-sm, .5rem) 0', ...(onChange && { minHeight: `calc(${minLines}lh + var(--space-sm, .5rem) * 2)`, caretColor: 'currentColor' }) },
+      '.cm-content': { padding: 'var(--space-sm, .5rem) 0', ...(onChange && { minHeight: `calc(${minimumLines}lh + var(--space-sm, .5rem) * 2)`, caretColor: 'currentColor' }) },
       '.cm-line': { padding: '0 var(--space-sm, .5rem)' },
       '.cm-gutters': { backgroundColor: 'transparent', color: 'var(--muted-color, #757575)', border: 'none' },
       // Editing: the current line, the selection and a matching bracket in the text's own color, light or dark.
@@ -91,7 +91,7 @@ class CodeView {
           (onChange || this.code.includes('\n')) && lineNumbers(), // no gutter for a one-line command
           EditorState.readOnly.of(!onChange),
           EditorView.editable.of(!!onChange),
-          EditorView.contentAttributes.of({ 'aria-label': label || `Code (${this.lang})` }),
+          EditorView.contentAttributes.of({ 'aria-label': label || `Code (${this.language})` }),
           onChange && EditorView.lineWrapping,
           // An editor the way a code field usually is (Elementor's Custom HTML): Enter keeps the line's indentation and
           // indents inside a tag or a brace, a closing one dedents, Tab / Shift+Tab indent the lines (Esc, then Tab,
@@ -116,7 +116,7 @@ class CodeView {
 
   // Lays the code out (an edit: onChange gets it, and undo takes it back). False when there's no layout for its language.
   format() {
-    const lay = this.beautify?.[FORMATS[this.lang]];
+    const lay = this.beautify?.[FORMATS[this.language]];
     if (!this.view || !lay) return false;
     const code = this.view.state.doc.toString();
     const laid = lay(code, LAYOUT);

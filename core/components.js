@@ -156,7 +156,7 @@ define('sidebar', (sidebar) => {
  * [data-code-host]; [data-copy] copies the code. An editor (Code with onChange) when it holds a <textarea> instead:
  * the form field, which works without JavaScript; the editor takes its place and writes every edit back into it
  * (and fires input), so the form posts the code as usual. Its name: the textarea's label (or aria-label);
- * data-min-lines: its height while nearly empty; a [data-format] button lays the code out.
+ * data-minimum-lines: its height while nearly empty; a [data-format] button lays the code out.
  */
 define('code', (box) => {
   const field = box.querySelector('textarea');
@@ -179,10 +179,10 @@ define('code', (box) => {
       host = Object.assign(document.createElement('div'), { className: 'overflow-hidden' });
       (field ?? pre).after(host);
     }
-    view = new CodeView(host, code, box.dataset.lang, field ? {
+    view = new CodeView(host, code, box.dataset.language, field ? {
       onChange: write,
       label: field.labels?.[0]?.textContent.trim() || field.getAttribute('aria-label') || undefined,
-      minLines: Number(box.dataset.minLines) || undefined,
+      minimumLines: Number(box.dataset.minimumLines) || undefined,
     } : {});
     await view.mount();
     if (view.destroyed) return;

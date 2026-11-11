@@ -11,7 +11,7 @@ import { CodeView, dedent, copyCode, FORMATS } from '../../core/code-view';
  * in the theme's colors, with a copy button (read-only: an editor's would sit on its text). CodeMirror only
  * loads (its own chunk) the first time a block comes near the screen; until then, and without JavaScript, the plain
  * code shows in a <pre> of the same size, so nothing jumps when it swaps in. The markup is the contract the plain-JS
- * engine reads too (core/components.js): data-lang, the <pre>, a [data-code-host] and a [data-copy] button. An editor
+ * engine reads too (core/components.js): data-language, the <pre>, a [data-code-host] and a [data-copy] button. An editor
  * lays out code saved crammed on long lines as it opens, and has a Format button ([data-format], Shift+Alt+F) under it.
  */
 
@@ -22,12 +22,12 @@ import { CodeView, dedent, copyCode, FORMATS } from '../../core/code-view';
  * @param {(code: string) => void} [props.onChange] - Makes it an editor: called with the code on every edit; children
  *   is then its value (a change from outside replaces the text).
  * @param {string} [props.label] - The editor's accessible name (default "Code (language)").
- * @param {number} [props.minLines=4] - Editing: the height it keeps while nearly empty, in lines.
+ * @param {number} [props.minimumLines=4] - Editing: the height it keeps while nearly empty, in lines.
  * @param {string} [props.className] - Extra classes on the box.
  *
  * @example <Code language="css" label="Additional CSS" onChange={setCss}>{css}</Code>
  */
-const Code = ({ children, language = 'jsx', onChange, label, minLines, className }) => {
+const Code = ({ children, language = 'jsx', onChange, label, minimumLines, className }) => {
   const editable = !!onChange;
   const code = editable ? children ?? '' : dedent(children);
   const change = useRef(onChange);
@@ -43,7 +43,7 @@ const Code = ({ children, language = 'jsx', onChange, label, minLines, className
   // Read-only: drawn again when the code changes. Editable: made once a language, its text kept in step (setCode).
   useEffect(() => {
     if (!seen || !host.current) return;
-    const v = new CodeView(host.current, code, language, editable ? { onChange: (c) => change.current?.(c), label, minLines } : { label });
+    const v = new CodeView(host.current, code, language, editable ? { onChange: (c) => change.current?.(c), label, minimumLines } : { label });
     view.current = v;
     v.mount().then(() => !v.destroyed && setReady(true));
     return () => v.destroy();
@@ -55,10 +55,10 @@ const Code = ({ children, language = 'jsx', onChange, label, minLines, className
   // .stack: the code and the copy button in one cell, the button over the top-right corner. An editor: its Format
   // button in a row under it instead, off its text.
   return (
-    <div ref={box} data-component="code" data-lang={language} className={cx(editable ? 'grid cols-1 gap-0' : 'stack', 'bg border round', className)}>
+    <div ref={box} data-component="code" data-language={language} className={cx(editable ? 'grid cols-1 gap-0' : 'stack', 'bg border round', className)}>
       {!ready && (
         // tabIndex: a box that scrolls sideways needs the keyboard too.
-        <pre tabIndex={0} className="fs-sm font-mono pad-sm overflow-auto" style={editable ? { minHeight: `${(minLines ?? 4) * 1.5}em` } : undefined}>
+        <pre tabIndex={0} className="fs-sm font-mono pad-sm overflow-auto" style={editable ? { minHeight: `${(minimumLines ?? 4) * 1.5}em` } : undefined}>
           <code>{code}</code>
         </pre>
       )}

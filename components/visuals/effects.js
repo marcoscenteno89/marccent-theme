@@ -202,8 +202,8 @@ const OrbitClock = ({ className }) => {
 
 /**
  * Spins: turns every [data-lap] element inside el round and round, with the browser's animation API (no CSS
- * needed): a full turn every data-lap seconds, starting at data-from degrees, clockwise (data-dir="1") or back
- * (data-dir="-1": a child that turns back as its parent turns stays upright). They all wait while the pointer is over
+ * needed): a full turn every data-lap seconds, starting at data-from degrees, clockwise (data-direction="1") or back
+ * (data-direction="-1": a child that turns back as its parent turns stays upright). They all wait while the pointer is over
  * the box or focus is inside it (pause: false to keep going), only move while on screen (watchInView), and hold still
  * for visitors who ask for reduced motion.
  * Give each element its start angle inline too (rotate: data-from), so it's in place before the script runs.
@@ -219,8 +219,8 @@ class Spins {
     this.cleanup = [];
     if (reducedMotion()) { this.animations = []; return; }
     this.animations = [ ...el.querySelectorAll('[data-lap]') ].map(e => {
-      const lap = Number(e.dataset.lap) * 1000, from = Number(e.dataset.from ?? 0), dir = Number(e.dataset.dir ?? 1);
-      const a = e.animate([ { rotate: `${from}deg` }, { rotate: `${from + dir * 360}deg` } ], { duration: lap, iterations: Infinity });
+      const lap = Number(e.dataset.lap) * 1000, from = Number(e.dataset.from ?? 0), direction = Number(e.dataset.direction ?? 1);
+      const a = e.animate([ { rotate: `${from}deg` }, { rotate: `${from + direction * 360}deg` } ], { duration: lap, iterations: Infinity });
       a.pause(); // starts once on screen
       return a;
     });
@@ -291,10 +291,10 @@ const SolarSystem = ({ className, style }) => {
               <React.Fragment key={p.name}>
                 <div className="shape-ring" aria-hidden="true" style={{ width: `${p.radius * 2}cqi`,
                   '--ring-hole': 'calc(100% - 1px)', background: 'var(--border-color)', pointerEvents: 'none' }} />
-                <div className="stack" data-lap={p.lap} data-from={from} data-dir={1}
+                <div className="stack" data-lap={p.lap} data-from={from} data-direction={1}
                   style={{ width: `${p.radius * 2}cqi`, aspectRatio: 1, rotate: `${from}deg`, pointerEvents: 'none' }}>
                   <button data-component="button" data-name={p.name} type="button" className="stack" aria-label={p.name} aria-pressed={active === i}
-                    onClick={() => setActive(active === i ? null : i)} data-lap={p.lap} data-from={-from} data-dir={-1}
+                    onClick={() => setActive(active === i ? null : i)} data-lap={p.lap} data-from={-from} data-direction={-1}
                     style={{ placeSelf: 'center end', translate: '50% 0', rotate: `${-from}deg`, placeItems: 'center',
                       padding: 0, border: 0, background: 'none', cursor: 'pointer', pointerEvents: 'auto' }}>
                     <span className="circle" style={{ width: `${p.size}cqi`, aspectRatio: 1, background: p.color,
