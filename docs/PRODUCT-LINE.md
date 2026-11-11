@@ -245,9 +245,11 @@ keep no list: their `CLAUDE.md` names their label.
 4. **Waiting on is a link, never a copy.** A project waiting on a ticket gets its label on the ticket and one line
    under the ticket's "Waiting on this": the project, what it unblocks there and the stopgap that goes. When the
    issue the work happens in is a separate one, it's marked blocked by the ticket (GitHub's relationships).
-5. **The board's columns are the issue's status:** Todo → In progress → Done. A new issue starts in Todo; one goes
-   to In progress when work starts on it, and **In progress holds at most 3** (Kanban's work-in-progress limit:
-   finish before starting). A commit or PR that says `Fixes #N` closes it and moves it to Done.
+5. **The board's columns are the issue's status:** After 1.0 → Open for 1.0 → In progress → Done, not released →
+   Released. A new issue starts in Open for 1.0 (a bug or request) or After 1.0 (`after 1.0`, `idea`), and moves
+   from After 1.0 only when the freeze ends. It goes to In progress when work starts on it, and **In progress holds
+   at most 3** (Kanban's work-in-progress limit: finish before starting). A commit or PR that says `Fixes #N` closes
+   it into Done, not released; when a release is tagged, its issues move to Released.
 6. **A closed issue is the record.** The CHANGELOG names the issue (`#N`) for each change it ships; nothing is
    ticked or deleted by hand.
 7. **Claude doesn't add work on its own.** Something found while working on another issue becomes a new issue

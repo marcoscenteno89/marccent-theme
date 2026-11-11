@@ -16,7 +16,7 @@ labeled with your project (`project: <repo>`, the label your `CLAUDE.md` names),
 2. **Issues follow PRODUCT-LINE.md section 8 strictly:** a `project:` label and one kind label each, the 1.0
    milestone for bugs and requests. Work the theme fixes is one `ticket` issue; a project waiting on it gets its
    label and a line under "Waiting on this", never a copy. Move the card to In progress when you start (at most 3
-   there) and close it with `Fixes #N`; the stopgaps go in the same round.
+   there), close it with `Fixes #N` (Done, not released) and move it to Released with the tag; the stopgaps go in the same round.
 3. **Don't run on your own.** Do what was asked and nothing more. Anything else you find (a bug, a cleanup, a
    missing component) becomes an issue and is named in your reply; it isn't fixed in the same change.
 4. **No custom assets; adapters only translate** (section 4). When marccent-theme can't do something, open a `ticket`
