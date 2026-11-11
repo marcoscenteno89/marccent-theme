@@ -330,6 +330,9 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-11: a report page of the work (marccent-progress, in the workspace): a tool for finishing 1.0, not a
+  feature, and outside the ecosystem: not in projects.json, the rules don't apply to it; it reads the theme's files
+  (lists, changelog, tags, `npm test`, `npm run status`) and uses its stylesheet.
 - 2026-11-10: the breakpoint scale (B-008): Tailwind's, sm 40rem / md 48rem / lg 64rem, the one both big frameworks
   agree on for md (768px); a header folds at lg. Written in `styles/tokens/defaults.css`, checked by conformance.
 - 2026-11-10: where kits and patterns live: each in a repository of its own, marccent-kits and marccent-patterns
