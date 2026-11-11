@@ -41,7 +41,7 @@ changed deliberately, here first.
 
 | # | Stage | Home (its list) | An entry has | Check (the gate to the next stage) | State |
 |---|---|---|---|---|---|
-| 1 | **Wanted** | `TICKETS.md` (theme), each project's `TODO.md` | what, who needs it, found date (section 8's item shape) | `npm run todos`: every list in the template's shape, every ticket linked from the projects it names; then a decision to build it (none before 1.0 but product-line work) | exists, checked |
+| 1 | **Wanted** | GitHub Issues in marccent-theme, on the Marccent board (section 8) | an issue: what, where, its `project:` and kind labels, the 1.0 milestone or none | its labels and milestone (section 8); then a decision to build it (none before 1.0 but product-line work) | moved to GitHub Issues (2026-11-11) |
 | 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component that stays (52); the pending ones once built |
 | 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 54 components, 204 settings; Marccent Blocks doesn't read them yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
@@ -59,11 +59,11 @@ changed deliberately, here first.
 5. **The structure changes only by adding** after 1.0. Before 1.0, change it here first, then in the projects.
 6. **Product line before entries.** Until it's complete, work goes into its stages, shapes and checks and into fixing
    what already exists; new entries wait in Wanted.
-7. **Which rule wins:** this document, then a project's `CLAUDE.md`, then its `TODO.md`. What Marcos says in a
+7. **Which rule wins:** this document, then a project's `CLAUDE.md`, then its issues. What Marcos says in a
    conversation beats all three, and is written down in the same round (a rule here, or a line in Decisions, section
    9), or the next session won't know it.
 8. **Every rule has a check, or says why it can't.** A rule nothing checks is the one that drifts: it gets a check in
-   `npm test` (as the work lists and component sizing have), or a line saying what checks it instead (the feature
+   `npm test` (as component sizing has), or a line saying what checks it instead (the feature
    freeze: Claude, and Marcos's review).
 
 ## 3. The feature freeze (until 1.0 is live)
@@ -75,7 +75,7 @@ changed deliberately, here first.
    change.
 2. **The first item is completing the product line** (this document): its stages, shapes and checks. That isn't a
    new feature; it's what makes new features fit.
-3. **Anything new asked for goes to Wanted** (TICKETS.md, TODO.md), marked after 1.0, and Claude says so before
+3. **Anything new asked for goes to Wanted** (an issue labeled `after 1.0`, section 8), and Claude says so before
    doing anything else.
 4. **Test tools are allowed** when they find bugs and are thrown away after (the kitchen-sink page,
    `wp/sites/wp/content/kitchen-sink.php`).
@@ -95,8 +95,8 @@ changed deliberately, here first.
    components, classes and tokens. Period. No own CSS or JS for the look or the behavior of a page: no `site.css`
    rules, no inline `<style>` or `wp_add_inline_style`, no plugin `assets/*.js`, no copied or forked components, no
    overrides of a theme class.
-2. **When the theme can't do it, don't work around it.** A component missing, broken or not fitting: add a ticket to
-   [TICKETS.md](TICKETS.md) (who needs it, what for, which file holds the stopgap) and fix it in the theme. The
+2. **When the theme can't do it, don't work around it.** A component missing, broken or not fitting: open an issue labeled
+   `ticket` (section 8: who needs it, what for, which file holds the stopgap) and fix it in the theme. The
    stopgap is removed when the ticket ships.
 3. **Allowed in a project**: content (text, images, settings, menus), the theme's tokens set in its own settings
    (palette, fonts, spacing), and app logic that drives theme components with data (an API call, a form post).
@@ -110,7 +110,7 @@ changed deliberately, here first.
    in the same pass; `npm run affected` lists which projects read what changed (every project, what it uses from
    the theme and its stage: [projects.json](projects.json)), and `npm run status` which ones are still behind the theme
    (their pin against what changed since in what they use; an active project behind fails it). When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
-   yet gets a line in its `TODO.md` saying why.
+   yet gets a line in the ticket's "Waiting on this" saying why.
 5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
    first if it doesn't hold). Ask in order; the first yes decides:
    First, **whose state is it?** (2026-11-10) When the behavior belongs to one of its parts (a menu's fold, a
@@ -222,76 +222,36 @@ changed deliberately, here first.
 
 Not repeated here, only named (no custom assets and gaps going to the theme are in section 4): Marccent's blocks first; what repeats is data; full words in every name; only the tools people have; data
 into field groups first; two plugins plus kits; everything visitors see built in the block editor until handover;
-every image search-ready; a TODO.md for every project, kept in marccent-theme's `docs/todo/` (section 8).
+every image search-ready; every project's work an issue in marccent-theme, with its label (section 8).
 
-## 8. Work lists: TICKETS.md and each project's TODO.md
+## 8. Work: GitHub Issues on a Kanban board
 
-Every project has a `TODO.md` (the theme's is `TICKETS.md`). **All of them live in marccent-theme's `docs/`**: a
-project's TODO.md is `docs/todo/<repo>.md` (`docs/todo/marccent-blocks.md`…), next to this document, `TICKETS.md`,
-`PATTERNS.md`, `KITS.md` and `SITES.md`. A project keeps no list or rules of its own: its `docs/README.md` and `CLAUDE.md` only
-link here, so one repo holds every list and rule and they can't drift apart. A fix in a project ticks its item here
-in the same round. They are the Wanted stage's lists, and they follow these rules strictly; `npm run todos` checks them (below), and a list that fails it is fixed before anything else.
+All work, for every project, is a GitHub issue in marccent-theme
+([issues](https://github.com/marcoscenteno89/marccent-theme/issues)), shown on the **Marccent** project board
+([board](https://github.com/users/marcoscenteno89/projects/1)). It's the Kanban Method (David J. Anderson, *Kanban*,
+2010) on GitHub's own tools: no list, check or dashboard of our own. The issues are the Wanted stage. The projects
+keep no list: their `CLAUDE.md` names their label.
 
-1. **A ticket lives in the project that fixes it.** What the theme has to fix (a missing or broken component, class
-   or token) is a ticket in `TICKETS.md`, never in a project's TODO.md. What only one project fixes (its own bug, its
-   own cleanup) is in that project's TODO.md and nowhere else.
-2. **Others link, never copy.** A project waiting on another project's ticket has one line under **Waiting on**
-   that links to it by ID and says what it unblocks here, nothing more. The ticket's details stay in its one home.
-3. **Every ticket is linked from every project it names.** An open ticket in `TICKETS.md` whose Who names a
-   project has a Waiting on line in that project's TODO.md; a Waiting on line links only to a ticket that's still
-   open. When a ticket ships (moves to Done), the projects delete its line and the stopgap in the same round.
-4. **The feature freeze sorts the list** (section 3): new features, blocks, settings or functionality go under
-   **After 1.0**, never Requests. Requests are only debugging, fixing and finishing what exists.
-5. **One shape for every item**, so nothing is "a special case":
-   `- [ ] **What** — details (found YYYY-MM-DD)`. Ticked when done (`- [x]`, with its done date), then deleted when
-   the release that has it is out (the CHANGELOG or README keeps the record). Details can continue on indented lines
-   or sub-bullets.
-6. **Only these sections, in this order**: Bugs, Requests, Waiting on, After 1.0, Notes. An empty one stays, with
-   its heading. Notes are ideas not decided yet and measurements, without checkboxes; once one is decided it becomes
-   an item in Bugs, Requests or After 1.0.
-7. **Claude doesn't add work on its own.** Something found while working on another item is added to the list
-   (rules 1 to 6) and said in the reply; it isn't done in the same change unless it was asked for.
-
-### The template
-
-```markdown
-# To do: <project>
-
-**Belongs to: <project>.** Every item here is fixed in the <project> repo.
-
-The rules for this list are in [PRODUCT-LINE.md §8](../PRODUCT-LINE.md#8-work-lists-ticketsmd-and-each-projects-todomd):
-work fixed in <project> only; anything the theme fixes is a ticket in [TICKETS.md](../TICKETS.md), linked under Waiting on.
-
-## Bugs
-
-- [ ] **What's broken** — where, how it shows (found YYYY-MM-DD)
-
-## Requests
-
-- [ ] **What to fix or finish** — details (found YYYY-MM-DD)
-
-## Waiting on
-
-- [ ] **[T-000](TICKETS.md)** — what it unblocks here: the stopgap that goes (found YYYY-MM-DD)
-
-## After 1.0
-
-- [ ] **A new feature** — details (found YYYY-MM-DD)
-
-## Notes
-
-- An idea not decided yet, or a measurement.
-```
-
-### The check
-
-`npm run todos` (in the theme; `node scripts/todos.mjs`) reads `docs/TICKETS.md` and every list in `docs/todo/`
-(a project without one yet is skipped and said so) and fails when:
-
-- a section is missing, out of order or not one of the five, or the Belongs to line or the rules line is missing;
-- an item in Bugs, Requests, Waiting on or After 1.0 isn't in the item shape, or has no found date;
-- a Waiting on line doesn't link a ticket ID, or links one that isn't open in `TICKETS.md`;
-- an open ticket names a project whose TODO.md has no Waiting on line for it.
+1. **One issue per piece of work, in marccent-theme.** Its title says what's wrong or wanted; its body says where,
+   and how it shows. A theme ticket keeps its old ID in the title (`T-002: …`; [TICKETS.md](TICKETS.md) maps the
+   old IDs to issues).
+2. **Labels say whose and what kind:**
+   - `project: <repo>`: every project that fixes it or waits on it (`project: marccent-theme`, `project: marccent-blocks`…).
+   - one kind: `bug`, `request` (fixing or finishing what exists), `after 1.0` (new: the freeze, section 3) or
+     `idea` (not decided yet: once it is, it becomes a bug, request or after 1.0 issue).
+   - `ticket`: the theme fixes it (section 4, rule 2) and projects may wait on it.
+3. **The 1.0 milestone** holds every bug and request; `after 1.0` and `idea` issues have no milestone until 1.0 is
+   out.
+4. **Waiting on is a link, never a copy.** A project waiting on a ticket gets its label on the ticket and one line
+   under the ticket's "Waiting on this": the project, what it unblocks there and the stopgap that goes. When the
+   issue the work happens in is a separate one, it's marked blocked by the ticket (GitHub's relationships).
+5. **The board's columns are the issue's status:** Todo → In progress → Done. A new issue starts in Todo; one goes
+   to In progress when work starts on it, and **In progress holds at most 3** (Kanban's work-in-progress limit:
+   finish before starting). A commit or PR that says `Fixes #N` closes it and moves it to Done.
+6. **A closed issue is the record.** The CHANGELOG names the issue (`#N`) for each change it ships; nothing is
+   ticked or deleted by hand.
+7. **Claude doesn't add work on its own.** Something found while working on another issue becomes a new issue
+   (rules 1 to 3) and is said in the reply; it isn't done in the same change unless it was asked for.
 
 ## 9. How Claude works: grey areas, proof and decisions
 
@@ -300,8 +260,8 @@ rule settles.
 
 ### When no rule covers it
 
-1. **Look first**, in this order: this document, the project's `CLAUDE.md`, the work lists (`TICKETS.md`, the
-   project's `TODO.md`), Decisions (below), and how the other projects already do the same thing.
+1. **Look first**, in this order: this document, the project's `CLAUDE.md`, the issues (section 8: search them, and the
+   project's label), Decisions (below), and how the other projects already do the same thing.
 2. **A rule covers it:** follow it, and name the rule in the reply.
 3. **No rule covers it, two rules conflict, or one reads two ways:** stop that part (keep doing the rest) and ask
    Marcos, in this shape:
@@ -323,13 +283,16 @@ rule settles.
    command; what wasn't run is said as not run.
 2. **One goal per change.** A branch or PR does one thing; a fix and a cleanup are two changes.
 3. **Nothing is removed without a ticket or Marcos's OK:** no feature, setting, file or list item deleted on
-   Claude's own. A cleanup found while working goes on the list (section 8, rule 7).
+   Claude's own. A cleanup found while working becomes an issue (section 8, rule 7).
 
 ### Decisions
 
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-11: work lists of our own (TICKETS.md, `docs/todo/`, `npm run todos`) vs. an existing method: Marcos chose
+  existing tools over home-grown ones, so the work is GitHub Issues on a GitHub Projects board, run as Kanban
+  (section 8). The 103 open items became 99 issues (#6–#104; four were written twice).
 - 2026-11-11: a report page of the work (marccent-progress, in the workspace): a tool for finishing 1.0, not a
   feature, and outside the ecosystem: not in projects.json, the rules don't apply to it; it reads the theme's files
   (lists, changelog, tags, `npm test`, `npm run status`) and uses its stylesheet.
@@ -349,7 +312,7 @@ everywhere becomes a rule above and its line goes.
 ## The 1.0 checklist
 
 The one list of what's left before 1.0 (3.1: marccent-theme 1.0.0, marccent.com live, the wp site working with every
-component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and the projects' TODO.md.
+component). Ticked here as it's done; what's for after 1.0 is the issues labeled `after 1.0`.
 
 ### The order (the unfreeze plan, 2026-11-10)
 

@@ -1,5 +1,5 @@
 {
-  "about": "Every project that builds on marccent-theme: what it reads from the theme, how it pins it, and its stage. `npm run affected` reads this to say which projects to check after a theme change; `npm run status` reads each project's pin (`pin`: the file, the pattern, a commit, tag or version) from its checkout (`path` in the workspace, or a folder of its repo's name next to the theme) and lists what changed in the theme since, in what the project uses; `npm run todos` reads it for the work lists (docs/todo/<repo>.md). A new project is one more entry. Stages: active (worked on now), frozen (no work until 1.0, PRODUCT-LINE.md 3.5), retired (being removed).",
+  "about": "Every project that builds on marccent-theme: what it reads from the theme, how it pins it, and its stage. `npm run affected` reads this to say which projects to check after a theme change; `npm run status` reads each project's pin (`pin`: the file, the pattern, a commit, tag or version) from its checkout (`path` in the workspace, or a folder of its repo's name next to the theme) and lists what changed in the theme since, in what the project uses. A new project is one more entry. Stages: active (worked on now), frozen (no work until 1.0, PRODUCT-LINE.md 3.5), retired (being removed).",
   "projects": [
     {
       "repo": "marccent-blocks",

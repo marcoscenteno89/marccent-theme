@@ -45,6 +45,9 @@ README (Versions → What a version promises).
   and their markup cases, so every adapter writes them as the components do.
 
 ### Changed
+- Work moved to GitHub Issues on a GitHub Projects board (the Marccent board), run as Kanban (PRODUCT-LINE.md
+  section 8, rewritten; Decisions 2026-11-11): the 103 open items in TICKETS.md and `docs/todo/` are issues #6–#104,
+  labeled by project and kind, bugs and requests in the 1.0 milestone. TICKETS.md keeps only the old IDs and their issues.
 - StatCard has no box of its own (T-033): no `round shadow pad hover-holographic` on its root; it goes inside a Card.
   Its settings are in `markup/settings.json`.
 - The components' props are the settings' full words (PRODUCT-LINE.md 5.4; breaking for React callers): Section
@@ -89,6 +92,8 @@ README (Versions → What a version promises).
   `.cols-1` and every other layout's own columns.
 
 ### Removed
+- `docs/todo/` (every project's work list) and `npm run todos` (`scripts/todos.mjs`, out of `npm test`): replaced by
+  GitHub Issues.
 - `ImageCard` and `Collage` (and `components/widgets/collage.js`, with its tile helpers `Spinner`, `Light`, `Ghost`,
   `Stars` and `Progress`): the Image card and Collage patterns (PATTERNS.md, T-033), on the theme's `.overlay-*`,
   `.dense`, `.rows-min` and `.row-span-N`. The animation player's stage is an Image card.
