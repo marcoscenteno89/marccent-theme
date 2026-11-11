@@ -354,9 +354,11 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [x] **Countdown, Parallax and Stars** stay (Marcos, 2026-11-10): each has its settings entry and markup case. Stars
   is a score to read; stars that lead somewhere are Rating's, after 1.0 (T-039).
 - [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).
-- [ ] **Kits:** decided 2026-11-10: the list is [KITS.md](KITS.md), each kit a folder in marccent-kits, a Marccent
-  export file with a `kit` header; checked by `npm run kits`. Left: the check and the template, the Local business kit
-  (finishing Marccent Local), the import check once Marccent Content's import adds instead of replacing.
+- [x] **Kits:** decided 2026-11-10: the list is [KITS.md](KITS.md), each kit a folder in marccent-kits, a Marccent
+  export file with a `kit` header; checked by `npm run kits`. The check, the template and the Local business kit are
+  in marccent-kits (2026-11-11: `npm run kits` passes, 14 groups, 1 post type, 7 patterns, 5 pages). Left, all phase
+  2: the import check (#88), waiting on Marccent Content's import adding (#63) and Blocks' export of patterns and
+  pages (#44); marccent-wp's patterns moving out (#102).
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
 
 **2. The restructuring decided**

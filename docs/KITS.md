@@ -6,7 +6,7 @@ patterns that show their data, its starter pages and sample rows. It adds no cod
 tools people have (Fields, the block editor), so anyone can make one with Tools → Marccent export and share it.
 
 Each kit is a folder in the **marccent-kits** repository, built into one file people import. One row per kit here; a
-new kit is one more row, entering at Wanted (its item in [todo/marccent-kits.md](todo/marccent-kits.md)).
+new kit is one more row, entering at Wanted (its issue, labeled `project: marccent-kits`: PRODUCT-LINE.md section 8).
 
 ## The file
 
