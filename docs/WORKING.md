@@ -21,18 +21,22 @@ either. What follows is how to apply them, and it isn't optional. **Your work li
 4. **No custom assets; adapters only translate** (section 4). When marccent-theme can't do something, add a ticket
    to marccent-theme's TICKETS.md and a Waiting on line in the list of the project that needs it. Never work around
    it with CSS, JS or a copied component.
-5. **Every change keeps the lists in sync.** A change that ships a ticket removes its Waiting on lines and stopgaps in
+5. **Every change starts in marccent-theme, then moves to the other projects** (section 4.4). Whatever is changed,
+   the theme's part (its code, its docs, its lists, a ticket) is done, checked and released or pinned first; only then
+   is each project that uses it moved to it, in the order of `npm run affected`. Never change a project first and
+   bring the theme in after.
+6. **Every change keeps the lists in sync.** A change that ships a ticket removes its Waiting on lines and stopgaps in
    every project it names, in the same round. Before you finish, run marccent-theme's checks from the workspace:
    `npm run todos` and `npm run conformance` (both are in `npm test`).
-6. **Tell Marcos when he's wrong.** If a request breaks these rules, the current structure or a common
+7. **Tell Marcos when he's wrong.** If a request breaks these rules, the current structure or a common
    convention, say so first and plainly ("That's wrong, because…"), with the fact behind it: the rule, the file,
    the standard. No sugar coating and no praise padding. Then do what he decides once he's heard it.
-7. **When no rule covers it, stop and ask** (PRODUCT-LINE.md section 9).
+8. **When no rule covers it, stop and ask** (PRODUCT-LINE.md section 9).
    - Look first in PRODUCT-LINE.md, this file, the work lists, section 9's Decisions and how the other projects do it.
    - If nothing settles it, or two rules conflict, stop that part and ask Marcos in section 9's shape: the
      situation, the options, your recommendation and why, and whether it's a rule or a one-off. Then write the
      answer down in the same round. Never settle it in one project alone.
    - Section 9 also holds: no claim without output (name the command you ran and what it printed), one goal per
      change, and nothing removed without a ticket or Marcos's OK.
-8. **Only wp and marccent-theme are active** (`stage` in [projects.json](projects.json)). Frozen projects get no
+9. **Only wp and marccent-theme are active** (`stage` in [projects.json](projects.json)). Frozen projects get no
    pin bumps, no rule copies and no work unless Marcos asks for it.
