@@ -13,8 +13,9 @@ const Loading = ({ require = [], kind = 'spinner', className, children }) => {
   const ready = Object.values(require ?? []).every(Boolean); // an array, or an object of values (withLoader)
   if (ready) return children;
   const look = kind === 'spinner' ? 'square circle spinner' : `loader-${kind}`;
-  // Full width; each loader's aspect-ratio (or the bar's own height) sizes it.
-  return <div data-component="loading" className={[look, className].filter(Boolean).join(' ')} style={{ width: '100%' }} role="status" aria-label="Loading" />;
+  // A block, so it fills its parent (PRODUCT-LINE.md 4.9); each loader's aspect-ratio (or the bar's own height) sizes
+  // it from that width. A parent that shrinks it (flex, a centered grid) stretches it: .self-stretch, .w-100.
+  return <div data-component="loading" className={[look, className].filter(Boolean).join(' ')} role="status" aria-label="Loading" />;
 }
 
 export { Loading };

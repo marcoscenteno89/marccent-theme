@@ -247,7 +247,7 @@ const ALLOWED = {
     'min-width': ['0', 'auto', 'fit-content', 'max-content', 'min-content'], margin: ['0'] },
 };
 // Open tickets that excuse a declaration until they ship: "root property" → ticket. Delete the line with the fix.
-const SIZING_EXCEPTIONS = { 'loader-bar width': 'B-003' };
+const SIZING_EXCEPTIONS = {};
 
 if (!option('--adapter') && !option('--render')) {
   const kindOf = Object.fromEntries(Object.entries(ROOTS).flatMap(([kind, roots]) => roots.map((r) => [r, kind])));

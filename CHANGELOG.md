@@ -16,7 +16,7 @@ README (Versions → What a version promises).
   no claim without output; one goal per change; nothing removed without a ticket), section 2 rules 7 and 8, and
   CLAUDE.md.
 - Sizing: PRODUCT-LINE.md section 4, rule 9 (a component sets no width and no outer margin; its container decides
-  both), checked by `npm run conformance` on the roots in `styles/components`. Loading breaks it today (B-003).
+  both), checked by `npm run conformance` on the roots in `styles/components`.
 
 - Clean components (PRODUCT-LINE.md 2026-11-10): 4.5 asks "whose state is it?" first; section 4, rule 10 (a component
   styles only itself, and one taking two or more named pieces of content is a probable pattern), checked by `npm run
@@ -38,6 +38,10 @@ README (Versions → What a version promises).
 - `docs/`: PRODUCT-LINE.md, TICKETS.md, PATTERNS.md and SITES.md moved there, and every project's work list with them
   (`docs/todo/<repo>.md`); the projects keep no TODO.md of their own, only links. `npm run todos` reads them there
   (no `--root`); the lists were brought into section 8's shape on the way (found dates, shipped tickets' lines gone).
+
+### Fixed
+- Loading sets no width of its own (B-003): a block that fills its parent, so a flex parent that shrinks it stretches
+  it (`.self-stretch`, `.w-100`).
 
 ### Removed
 - `AppShell`: a Sidebar beside the page (the App frame pattern, PATTERNS.md).
