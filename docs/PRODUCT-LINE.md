@@ -219,7 +219,7 @@ changed deliberately, here first.
      announcement row, ratings and reviews (Sources), and every component with items (above).
 4. **Data goes into field groups first**, before anything is done with it (emailing it, a CRM, a webhook).
 
-## 7. The ecosystem rules (their home is the workspace's CLAUDE.md and `wp/RULES.md`)
+## 7. The ecosystem rules (their home is `wp/RULES.md`, section A)
 
 Not repeated here, only named (no custom assets and gaps going to the theme are in section 4): Marccent's blocks first; what repeats is data; full words in every name; only the tools people have; data
 into field groups first; two plugins plus kits; everything visitors see built in the block editor until handover;
