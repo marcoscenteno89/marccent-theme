@@ -51,6 +51,9 @@ const useToggle = ({ open, defaultOpen = false, onToggle, controls, pressed = tr
  * @param {Function} [props.onToggle] - (on) each time it flips: a click, Esc, a tap outside its panel.
  * @param {string} [props.controls] - The id of the element it opens: makes it a disclosure.
  * @param {React.ReactNode} [props.panel] - Content it opens in a panel of its own (see above).
+ * @param {boolean} [props.fold] - With panel: folds where its container (the nearest .wrap: a header's width) is under
+ *   56rem, the panel then opening full width under the band the button sits in (its .wrap-fluid: the header); from
+ *   56rem the panel's content shows in place and the button hides (.toggle-fold, button.css). Menu fold is this.
  * @param {React.ReactNode} [props.children] - Its label while off. @param {Function} [props.onClick] - Also called on a click.
  * @param {string} [props.className] - Extra classes. Any other prop (data-name, aria-*…) goes on its Button.
  *
@@ -58,7 +61,7 @@ const useToggle = ({ open, defaultOpen = false, onToggle, controls, pressed = tr
  * @example <ToggleButton icon="fa-regular fa-heart" activeIcon="fa-solid fa-heart" className="hover-expand">Like</ToggleButton>
  * @example <ToggleButton icon="share-nodes" activeIcon="xmark" aria-label="Share" panel={<ShareLinks />} />
  */
-const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen = false, onToggle, controls, panel, children, onClick, ...rest }) => {
+const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen = false, onToggle, controls, panel, fold, children, onClick, ...rest }) => {
   const id = useId();
   const toggleId = rest.id ?? `${id}-toggle`; // yours when you give one (ExpandButton finds its button by it)
   const box = useRef(null);
@@ -69,17 +72,23 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
   // outside, which would close the panel and open it again; found by id, since Button takes no ref. While open it
   // sits under the button, following it as the page scrolls. Placed before it shows (beforetoggle), so it never
   // flashes in the browser's default spot; focus moves in once it's shown (toggle). The state follows the popover,
-  // whatever closed it.
+  // whatever closed it. Folded: under its band, as wide as it.
   const hasPanel = !!panel;
   useEffect(() => {
     const el = box.current;
     if (!hasPanel || !el) return;
     const button = document.getElementById(toggleId);
     button.popoverTargetElement = el;
+    const band = fold ? button.closest('.wrap-fluid') : null;
     const place = () => {
-      const r = button.getBoundingClientRect();
-      el.style.top = `${r.bottom + 8}px`;
-      el.style.maxHeight = `min(60vh, calc(100dvh - ${r.bottom + 8}px - 1rem))`;
+      // Folded, once the button hides (the band grew past 56rem), the panel is the content's place: an open popover
+      // would stay a box in the top layer, so it closes.
+      if (band && !button.checkVisibility()) return el.matches(':popover-open') && el.hidePopover();
+      const r = (band ?? button).getBoundingClientRect();
+      const top = band ? r.bottom : r.bottom + 8;
+      el.style.top = `${top}px`;
+      el.style.maxHeight = `min(60vh, calc(100dvh - ${top}px - 1rem))`;
+      if (band) Object.assign(el.style, { left: `${r.left}px`, width: `${r.width}px` });
     };
     const opening = (e) => { if (e.newState === 'open') place(); set(e.newState === 'open'); };
     const shown = (e) => e.newState === 'open' && el.querySelector('select, input, textarea, button, a[href], [tabindex]')?.focus();
@@ -93,7 +102,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
       window.removeEventListener('scroll', place);
       window.removeEventListener('resize', place);
     };
-  }, [ hasPanel, id, toggleId ]);
+  }, [ hasPanel, fold, id, toggleId ]);
   // Your open (or defaultOpen) opens and closes the panel too.
   useEffect(() => {
     const el = box.current;
@@ -109,7 +118,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
     </Button>
   );
   if (!panel) return button;
-  return (
+  const parts = (
     <>
       {button}
       <div ref={box} id={id} data-component="toggle-panel" popover="auto" role="group" aria-label={rest['aria-label'] ?? (typeof children === 'string' ? children : undefined)}
@@ -118,6 +127,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
       </div>
     </>
   );
+  return fold ? <div className="toggle-fold">{parts}</div> : parts;
 };
 
 export { ToggleButton, useToggle };

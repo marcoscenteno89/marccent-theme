@@ -67,6 +67,11 @@ README (Versions → What a version promises).
   (no `--root`); the lists were brought into section 8's shape on the way (found dates, shipped tickets' lines gone).
 
 ### Fixed
+- Menu fold's panel on phones is full width under its header (T-032): under the band its button sits in (the nearest
+  `.wrap-fluid`), as wide as it, square with a line under it; one left open closes when the header grows past 56rem.
+- Menu no longer styles Toggle button's panel (B-004): the fold is Toggle button's own `fold` setting
+  (`.toggle-fold`, button.css) and Menu `fold` uses it; markup: the wrapper is `<div class="toggle-fold">` (was
+  `<div data-component="menu-fold" class="menu-fold">`), the nav takes `.menu-fold`.
 - Loading sets no width of its own (B-003): a block that fills its parent, so a flex parent that shrinks it stretches
   it (`.self-stretch`, `.w-100`).
 - A Toggle button with a panel follows it in the engine (B-006): `aria-expanded` and the icon (Menu fold's bars →

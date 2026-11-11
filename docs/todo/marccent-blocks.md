@@ -68,6 +68,10 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 - [x] **Remove the Social links block** — removed with the Social menu location and the Navbar's social links (2026-11-09); rc-imp's footer shows its Site content → Profiles rows with a Loop of buttons. (found 2026-11-06)
 - [ ] **One Card block** — Image card (and an icon card) become patterns of the Card block, not blocks of their own. (found 2026-11-06)
 
+- [ ] **Menu fold on the theme's B-004 / T-032 release** — branch `b004-t032-menu-fold` (not merged): `inc/markup.php`
+      writes Toggle button's fold (`<div class="toggle-fold">`, the nav's `.menu-fold`); merge it with the pin that has
+      them, or the fold breaks on the old CSS. (found 2026-11-10)
+
 - [ ] **Children on the theme's T-034 release** — the theme's Timeline, Dock, RadialMenu, StepBar, Orbit and TabBar take
       child components now (TimelineItem, DockItem, RadialMenuItem, StepBarStep, OrbitItem, Tab), not `events`,
       `items`, `steps` or `tabs`: a block per child (`parent` set), each parent block taking them and a Loop of them;

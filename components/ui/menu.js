@@ -47,9 +47,10 @@ const menuLinks = (items) => items.flatMap(item => [ ...(item.href ? [ item ] : 
  * @param {boolean} [props.hover] - Dropdowns also open on mouse hover while their panel floats (data-open="hover";
  *   the listeners are closeMenus's, which the engine gives every menu: core/components.js).
  * @param {boolean} [props.fold] - Folds behind a menu button where there's no room (Bootstrap's navbar toggler and
- *   collapse, on its own): in a container under 56rem (the nearest .wrap: a header's width) the menu is a phone menu,
- *   stacked in the button's panel (ToggleButton panel); from 56rem it shows in place and the button hides
- *   (.menu-fold, menu.css). A header is then a pattern: a brand, a folding Menu, a call button, theme controls.
+ *   collapse, on its own): ToggleButton's fold, the menu its panel. In a container under 56rem (the nearest .wrap: a
+ *   header's width) the menu is a phone menu, stacked (.menu-fold, menu.css) in a panel full width under the header;
+ *   from 56rem it shows in place and the button hides. A header is then a pattern: a brand, a folding Menu, a call
+ *   button, theme controls.
  *
  * @example <Menu items={main} label="Main" />
  * @example <Menu items={social} label="Social" iconOnly layout="auto-cols cols-center" />
@@ -57,11 +58,8 @@ const menuLinks = (items) => items.flatMap(item => [ ...(item.href ? [ item ] : 
  * @example <Menu items={main} label="Main" layout="auto-cols" fold />
  */
 const Menu = ({ fold, ...props }) => fold
-  ? (
-    <div data-component="menu-fold" className="menu-fold">
-      <ToggleButton icon="bars" activeIcon="xmark" aria-label={`${props.label} menu`} className="menu-fold-toggle" panel={<MenuNav {...props} />} />
-    </div>
-  )
+  ? <ToggleButton fold icon="bars" activeIcon="xmark" aria-label={`${props.label} menu`} className="menu-fold-toggle"
+    panel={<MenuNav {...props} className={cx('menu-fold', props.className)} />} />
   : <MenuNav {...props} />;
 
 // fixed (default) splits the width into equal columns, one per item (--cols); any other layout sets its own columns

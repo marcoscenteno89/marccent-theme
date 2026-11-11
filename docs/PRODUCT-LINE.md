@@ -351,8 +351,7 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
 The theme first: it's the root of everything. A phase starts only when the one before passes its gate; work that
 belongs to a later phase waits, and Claude says so when it's asked for early.
 
-1. **The theme.** Its lines below: Kits, T-032's Nav case, T-033,
-   then T-003's utilities (B-003 done 2026-11-10). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
+1. **The theme.** Its lines below: Kits, B-008; then T-003's utilities (B-003 done 2026-11-10). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
    **Gate:** `npm test` passes with no sizing exception left, every theme line ticked, the release tagged.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
    retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
@@ -387,8 +386,8 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
 
 **2. The restructuring decided**
-- [ ] T-032: done 2026-11-10: the Header pattern, NavBar removed, the Navbar block a Header block pattern in marccent-wp.
-  Left: the folded menu as a full-width panel on phones; the Footer block pattern (marccent-wp).
+- [ ] T-032: done 2026-11-10: the Header pattern, NavBar removed, the Navbar block a Header block pattern in marccent-wp;
+  the folded menu a full-width panel on phones (B-004: Toggle button's fold). Left: the Footer block pattern (marccent-wp).
 - [x] T-033: done in 1.0.0-rc.21: `.overlay-tint`, `.overlay-blur`, `.overlay-focus`; Grid's dense packing and row
   height, `.row-span-N`; HexWall gone; the Stopwatch block is Counter's controls. AppShell done 2026-11-10 (the
   Sidebar component, the App frame pattern). Done 2026-11-10: ImageCard and Collage removed (the Image card and

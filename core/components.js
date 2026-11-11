@@ -55,15 +55,22 @@ define('toggle-button', (btn) => {
 /*
  * Toggle button's panel (.toggle-panel, a popover): under its button, following it as the page scrolls; focus moves
  * into it once shown. Its button's state follows the popover, whatever opened or closed it (the button, Esc, a tap
- * outside): aria-expanded, the icon swapped as Toggle button's, and the marccent:toggle event.
+ * outside): aria-expanded, the icon swapped as Toggle button's, and the marccent:toggle event. Folded (in a
+ * .toggle-fold): under the band its button sits in (its .wrap-fluid: the header), as wide as it.
  */
 define('toggle-panel', (panel) => {
   const button = document.querySelector(`[popovertarget="${panel.id}"]`);
   if (!button) return;
+  const band = panel.parentElement?.classList.contains('toggle-fold') ? button.closest('.wrap-fluid') : null;
   const place = () => {
-    const r = button.getBoundingClientRect();
-    panel.style.top = `${r.bottom + 8}px`;
-    panel.style.maxHeight = `min(60vh, calc(100dvh - ${r.bottom + 8}px - 1rem))`;
+    // Folded, once its button hides (the band grew past 56rem), the panel is the content's place: an open popover
+    // would stay a box in the top layer, so it closes.
+    if (band && !button.checkVisibility()) return panel.matches(':popover-open') && panel.hidePopover();
+    const r = (band ?? button).getBoundingClientRect();
+    const top = band ? r.bottom : r.bottom + 8;
+    panel.style.top = `${top}px`;
+    panel.style.maxHeight = `min(60vh, calc(100dvh - ${top}px - 1rem))`;
+    if (band) Object.assign(panel.style, { left: `${r.left}px`, width: `${r.width}px` });
   };
   const set = (on) => setToggle(button, 'aria-expanded', on);
   return all([

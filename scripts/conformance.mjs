@@ -305,9 +305,7 @@ if (!option('--adapter') && !option('--render')) {
 // Itself only (PRODUCT-LINE.md section 4, rule 10): no component's stylesheet reaches another component's root from
 // outside. A root belongs to the files that style it as their own (it leads a selector there); a selector in another
 // file that names it after a combinator fails. STYLES_EXCEPTIONS: open tickets that excuse one, "file root" → ticket.
-const STYLES_EXCEPTIONS = {
-  'menu.css toggle-panel': 'B-004',
-};
+const STYLES_EXCEPTIONS = {};
 if (!option('--adapter') && !option('--render')) {
   const dir = join(ROOT, 'styles/components');
   // Shared parts: classes in ROOTS that are a part of any box, not a component; each box styles its own.

@@ -165,24 +165,17 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
   }
 }
 
-/* Fold (Menu fold): the menu behind a menu button where its container (the nearest .wrap: a header's width) is under
-   56rem, a phone menu stacked in the button's panel (.toggle-panel, a popover: button.css); from 56rem the panel is
-   the menu's place on the page (display: contents takes back the popover's hiding and box) and the button hides. */
+/* Fold (Menu fold, .menu-fold on the menu): the menu behind a menu button, Toggle button's fold (.toggle-fold,
+   button.css: under 56rem the menu is in the button's panel, full width under the header; from 56rem it's in place
+   and the button hides). Under 56rem the menu stacks, its links at the start and its dropdowns opening in place. */
 @layer components {
-.menu-fold { display: grid; justify-items: end; }
 .btn.menu-fold-toggle { border-color: color-mix(in srgb, currentColor 15%, transparent); }
 .btn.menu-fold-toggle:hover { background-color: transparent; }
-@container (width >= 56rem) {
-  .menu-fold { display: contents; }
-  .menu-fold > .btn.menu-fold-toggle { display: none; }
-  .menu-fold > .toggle-panel { display: contents; }
-}
 @container (width < 56rem) {
-  .menu-fold > .toggle-panel { min-width: min(20rem, 70vw); }
-  .menu-fold .toggle-panel > .menu { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; }
-  .menu-fold .toggle-panel > .menu > .menu-link,
-  .menu-fold .toggle-panel > .menu > .menu-dropdown > summary { justify-content: start; }
-  .menu-fold .toggle-panel .menu-panel { position: static; margin-top: var(--space-xs); }
+  .menu-fold { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; }
+  .menu-fold > .menu-link,
+  .menu-fold > .menu-dropdown > summary { justify-content: start; }
+  .menu-fold .menu-panel { position: static; margin-top: var(--space-xs); }
 }
 }
 

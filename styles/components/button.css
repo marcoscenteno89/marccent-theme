@@ -135,4 +135,20 @@
   color: var(--body-color);
 }
 .toggle-panel select { max-width: 100%; }
+
+/* Fold (Toggle button fold; Menu fold): the button and its panel in a .toggle-fold, at the end of its cell. Where the
+   nearest container (a .wrap: a header's width) is 56rem or wider, the panel is its content's place on the page
+   (display: contents takes back the popover's hiding and box) and the button hides. */
+.toggle-fold { display: grid; justify-items: end; }
+@container (width >= 56rem) {
+  .toggle-fold,
+  .toggle-fold > .toggle-panel { display: contents; }
+  .toggle-fold > .btn { display: none; }
+}
+}
+/* Under 56rem the panel opens full width under the band its button sits in (left, width and top set there: the
+   header's), square, with a line under it. Unlayered, two classes deep, to take back the panel's own utility classes
+   (round, border) and the centering above. */
+@container (width < 56rem) {
+  .toggle-fold > .toggle-panel { translate: none; max-width: none; border-radius: 0; border-width: 0 0 var(--border-width); }
 }
