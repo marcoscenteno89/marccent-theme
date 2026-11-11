@@ -292,6 +292,9 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-11: the theme's open requests in the 1.0 milestone (#6–#27, T-002 to T-029) are mostly new components and
+  looks, which section 3 freezes: Marcos needs them for 1.0, so they are 1.0's scope and get built before 1.0.0. The
+  freeze holds for everything else new: it goes to `after 1.0` (3.3).
 - 2026-11-11: the theme's gate (phase 1) failed on Marccent Blocks' markup, which is phase 2's work, so phase 1
   couldn't pass before phase 2: `npm test` runs conformance with `--theme` (the theme's own checks), and an adapter's
   markup is checked by `npm run conformance`, phase 2's gate.
