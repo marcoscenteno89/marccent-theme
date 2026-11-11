@@ -18,7 +18,10 @@
  * part after it) that its kind doesn't allow: a block fills its parent, an inline control fits its content, an
  * overlay is exempt. ROOTS below names each root's kind; SIZING_EXCEPTIONS each open ticket that excuses one.
  *
- *   node scripts/conformance.mjs [--strict] [--adapter <name>] [--reference <file>] [--save <dir>] [--render <command…>]
+ *   node scripts/conformance.mjs [--strict] [--theme] [--adapter <name>] [--reference <file>] [--save <dir>] [--render <command…>]
+ *
+ * --theme: the theme's own checks only, no adapter's markup (npm test: the theme's gate, phase 1 of the unfreeze plan;
+ * an adapter on an older pin is phase 2's gate, npm run conformance).
  *
  * Itself only (section 4, rule 10): no stylesheet in styles/components reaches another component's root from outside
  * (STYLES_EXCEPTIONS excuses one by ticket). Page frames: a component whose settings take two or more named pieces of
@@ -42,6 +45,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const option = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : undefined);
 const strict = args.includes('--strict');
+const themeOnly = args.includes('--theme');
 const reference = resolve(option('--reference') ?? join(ROOT, 'markup/reference.json'));
 const cases = JSON.parse(readFileSync(reference, 'utf8'));
 
@@ -112,6 +116,10 @@ if (option('--render')) {
     }
     for (const [name, a] of Object.entries(o.adapters)) {
       if (option('--adapter') && option('--adapter') !== name) continue;
+      if (themeOnly) {
+        console.log(`skip ${output} ${name}: the theme's checks only (npm run conformance checks it)`);
+        continue;
+      }
       const cwd = resolve(ROOT, a.path);
       if (a.uses) console.log(`ok   ${output} ${name}: uses ${a.uses}`);
       else if (!existsSync(cwd)) console.log(`skip ${output} ${name}: no folder at ${a.path}`);

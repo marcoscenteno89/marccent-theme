@@ -44,7 +44,7 @@ changed deliberately, here first.
 | 1 | **Wanted** | GitHub Issues in marccent-theme, on the Marccent board (section 8) | an issue: what, where, its `project:` and kind labels, the 1.0 milestone or none | its labels and milestone (section 8); then a decision to build it (none before 1.0 but product-line work) | moved to GitHub Issues (2026-11-11) |
 | 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component that stays (52); the pending ones once built |
 | 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 54 components, 204 settings; Marccent Blocks doesn't read them yet |
-| 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
+| 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (`npm test` runs it with `--theme`, without the adapters): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
 | 5 | **Kits** | [KITS.md](KITS.md) (the list); each kit a folder in marccent-kits | a Marccent export file with a `kit` header (name, output, about, version, components, needs) and its parts: field groups and post types (added to a site's, never replacing them), patterns, starter pages, sample rows | `npm run kits` (marccent-kits): the shape, every component, class and block it uses exists, full-word names; then it imports cleanly into a fresh WordPress (once Marccent Content's import adds) | the format and check settled (2026-11-10); Local business being built; eight more in Wanted |
 | 6 | **Sites** | [SITES.md](SITES.md) | site, output, built with, address, stage (building, test, live, frozen), notes | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | 8 sites listed: one building (marccent.com), one test (the wp site), six frozen |
 | 7 | **Live** | the Sites list's stage | address, launch date | the site's checks keep passing | none live yet |
@@ -292,6 +292,9 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-11: the theme's gate (phase 1) failed on Marccent Blocks' markup, which is phase 2's work, so phase 1
+  couldn't pass before phase 2: `npm test` runs conformance with `--theme` (the theme's own checks), and an adapter's
+  markup is checked by `npm run conformance`, phase 2's gate.
 - 2026-11-11: work lists of our own (TICKETS.md, `docs/todo/`, `npm run todos`) vs. an existing method: Marcos chose
   existing tools over home-grown ones, so the work is GitHub Issues on a GitHub Projects board, run as Kanban
   (section 8). The 103 open items became 99 issues (#6–#104; four were written twice).
@@ -321,8 +324,9 @@ component). Ticked here as it's done; what's for after 1.0 is the issues labeled
 The theme first: it's the root of everything. A phase starts only when the one before passes its gate; work that
 belongs to a later phase waits, and Claude says so when it's asked for early.
 
-1. **The theme.** Its lines below: Kits, B-008; then T-003's utilities (B-003 done 2026-11-10). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
-   **Gate:** `npm test` passes with no sizing exception left, every theme line ticked, the release tagged.
+1. **The theme.** Its lines below: Kits, B-008; then T-003's utilities (B-003 done 2026-11-10). Released and tagged (the newest tag is v1.0.0-rc.22; what's done since is in the CHANGELOG's Unreleased).
+   **Gate:** `npm test` passes (the theme's checks; an adapter's markup is phase 2's gate) with no sizing exception
+   left, every theme line ticked, the release tagged.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
    retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
    shows every component in the admin and on the page.

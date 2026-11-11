@@ -45,6 +45,8 @@ README (Versions → What a version promises).
   and their markup cases, so every adapter writes them as the components do.
 
 ### Changed
+- `npm test` checks the theme only: conformance with `--theme` (new), without the adapters' markup, which
+  `npm run conformance` still checks (phase 2's gate; Decisions 2026-11-11).
 - Work moved to GitHub Issues on a GitHub Projects board (the Marccent board), run as Kanban (PRODUCT-LINE.md
   section 8, rewritten; Decisions 2026-11-11): the 103 open items in TICKETS.md and `docs/todo/` are issues #6–#104,
   labeled by project and kind, bugs and requests in the 1.0 milestone. TICKETS.md keeps only the old IDs and their issues.
