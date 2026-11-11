@@ -48,6 +48,8 @@ README (Versions → What a version promises).
 - A Toggle button with a panel follows it in the engine (B-006): `aria-expanded` and the icon (Menu fold's bars →
   xmark) say whether the panel is open, whatever closed it; before, they stayed closed.
 - Menu fold's button is the icon's square: its own padding (a frame around the icon) gone.
+- Menu's `layout="cols-1"` is one column (B-005): `--cols` is written only for the fixed layout, which outranked
+  `.cols-1` and every other layout's own columns.
 
 ### Removed
 - `AppShell`: a Sidebar beside the page (the App frame pattern, PATTERNS.md).

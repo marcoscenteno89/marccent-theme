@@ -64,9 +64,10 @@ const Menu = ({ fold, ...props }) => fold
   )
   : <MenuNav {...props} />;
 
-// fixed (default) splits the width into equal columns, one per item (--cols).
+// fixed (default) splits the width into equal columns, one per item (--cols); any other layout sets its own columns
+// (.cols-1, auto-cols…), so --cols is written only for fixed.
 const MenuNav = ({ items, label, iconOnly = false, className, style, layout = 'fixed', gap = 'gap-sm', linkClassName, dropdownClassName, panelClassName, hover }) => (
-  <nav data-component="menu" data-open={hover ? 'hover' : undefined} className={cx('menu grid', gap, layout, className)} style={{ '--cols': items.length, ...style }} aria-label={label}>
+  <nav data-component="menu" data-open={hover ? 'hover' : undefined} className={cx('menu grid', gap, layout, className)} style={/\bfixed\b/.test(layout) ? { '--cols': items.length, ...style } : style} aria-label={label}>
     {items.map(item => item.children
       ? <MenuDropdown key={item.name} item={item} className={dropdownClassName} panelClassName={panelClassName} linkClassName={linkClassName} />
       : <MenuLink key={item.href} item={item} iconOnly={iconOnly} className={linkClassName} />

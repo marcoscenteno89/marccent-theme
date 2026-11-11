@@ -26,7 +26,7 @@ const SAVED = 'marccent-sidebar-collapsed';
  * @param {React.ReactNode} props.children - Its content: a Menu (layout "cols-1", className "menu-vertical", and
  *   style --cols 1 until B-005), then anything for the bottom (an account link, a theme toggle).
  *
- * @example <Sidebar brand={<Logo />}><Menu items={links} label="Sidebar" layout="cols-1" className="menu-vertical" style={{ '--cols': 1 }} /></Sidebar>
+ * @example <Sidebar brand={<Logo />}><Menu items={links} label="Sidebar" layout="cols-1" className="menu-vertical" /></Sidebar>
  */
 const Sidebar = ({ brand, label = 'Sidebar', className, children }) => {
   const narrow = useMedia(NARROW);
