@@ -15,7 +15,7 @@ import { Divider, dividerClasses } from './divider';
  * @param {Object} props
  * @param {string} [props.as='section'] - The element: section, div, header, footer or aside.
  * @param {string} [props.width='wrap'] - The content's width: wrap, "wrap wrap-sm", "wrap wrap-lg", "wrap wrap-fluid".
- * @param {string} [props.padY='pad-y-section'] - Padding above and below the content: the section rhythm (fluid, 3 to
+ * @param {string} [props.verticalPadding='pad-y-section'] - Padding above and below the content: the section rhythm (fluid, 3 to
  *   6 times --space), pad-y-section-sm / -lg, or a step of the space scale (pad-y-lg…).
  * @param {string} [props.gap] - The gap between the content's blocks.
  * @param {string} [props.surface] - The band's background (bg, "bg border", bg-primary…); over an image, the content's.
@@ -31,7 +31,7 @@ import { Divider, dividerClasses } from './divider';
  * @param {Object} [props.dividerBottom] - The same on the bottom edge, reaching into the section below.
  * @param {string} [props.className] - Extra classes on the band.
  */
-const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-section', gap, surface, mode, center, minHeight, image, imageAlt = '', shade = 50,
+const Section = ({ as: Tag = 'section', width = 'wrap', verticalPadding = 'pad-y-section', gap, surface, mode, center, minHeight, image, imageAlt = '', shade = 50,
   dividerTop, dividerBottom, className, children, ...rest }) => (
   // A least height makes the band a one-cell grid, so its content box can center in it (not .grid: that brings columns).
   <Tag {...rest} data-theme={mode || undefined} className={cx('wrap wrap-fluid', image ? 'stack' : surface, dividerClasses(dividerTop, dividerBottom), className)}
@@ -40,7 +40,7 @@ const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-section', 
     {dividerBottom?.shape && <Divider {...dividerBottom} edge="bottom" page={!surface} />}
     {image && <img className="cover-img" src={image} alt={imageAlt} loading="lazy" decoding="async" />}
     {image && <div aria-hidden="true" style={{ background: `rgb(0 0 0 / ${shade}%)` }}></div>}
-    <div className={cx(width, padY, 'grid cols-1', gap, center && 'text-center justify-center', image && surface)}
+    <div className={cx(width, verticalPadding, 'grid cols-1', gap, center && 'text-center justify-center', image && surface)}
       style={image ? { position: 'relative', alignContent: 'center', color: '#fff' } : minHeight ? { alignContent: 'center' } : undefined}>
       {children}
     </div>
@@ -53,21 +53,22 @@ const Section = ({ as: Tag = 'section', width = 'wrap', padY = 'pad-y-section', 
  * @param {Object} props
  * @param {string} [props.layout='cols'] - cols (equal columns that wrap), fixed (equal columns, always), row-wrap (a
  *   wrapping row of content-wide items), auto-cols, or an uneven layout (layout-2-1, layout-1-2-1, layout-ends…).
- * @param {number} [props.cols=3] - For equal columns: the most per row (1 to 10).
- * @param {string} [props.min] - For equal columns: the narrowest a column gets before the row wraps (e.g. 14rem).
+ * @param {number} [props.columns=3] - For equal columns: the most per row (1 to 10).
+ * @param {string} [props.minimumColumnWidth] - For equal columns: the narrowest a column gets before the row wraps (e.g. 14rem).
  * @param {string} [props.gap] - The gap class (gap-0, gap-sm, gap-lg; none: the default gap).
  * @param {string} [props.alignItems] - items-start, items-center or items-end (none: stretch).
  * @param {boolean} [props.center] - Centers the columns and their content.
  * @param {boolean} [props.dense] - Packs items of different spans densely, filling holes (a collage: .dense).
- * @param {string} [props.row] - Every row at least this tall, growing to fit (.rows-min, --row): "11rem".
+ * @param {string} [props.minimumRowHeight] - Every row at least this tall, growing to fit (.rows-min, --row): "11rem".
  * @param {string} [props.className] - Extra classes.
  */
-const Grid = ({ layout = 'cols', cols = 3, min, gap, alignItems, center, dense, row, className, children, ...rest }) => {
+const Grid = ({ layout = 'cols', columns = 3, minimumColumnWidth, gap, alignItems, center, dense, minimumRowHeight, className, children, ...rest }) => {
   const equal = layout === 'cols' || layout === 'fixed';
-  const shape = equal ? cx('grid', layout === 'fixed' && 'fixed', `cols-${cols}`) : layout === 'row-wrap' ? 'row-wrap' : cx('grid', layout);
+  const shape = equal ? cx('grid', layout === 'fixed' && 'fixed', `cols-${columns}`) : layout === 'row-wrap' ? 'row-wrap' : cx('grid', layout);
   return (
-    <div {...rest} className={cx(shape, gap, alignItems, center && 'cols-center justify-center text-center', dense && 'dense', row && 'rows-min', className)}
-      style={(equal && min) || row ? { ...(equal && min && { '--min': min }), ...(row && { '--row': row }) } : undefined}>
+    <div {...rest} className={cx(shape, gap, alignItems, center && 'cols-center justify-center text-center', dense && 'dense', minimumRowHeight && 'rows-min', className)}
+      style={(equal && minimumColumnWidth) || minimumRowHeight
+        ? { ...(equal && minimumColumnWidth && { '--min': minimumColumnWidth }), ...(minimumRowHeight && { '--row': minimumRowHeight }) } : undefined}>
       {children}
     </div>
   );
@@ -80,7 +81,7 @@ const Grid = ({ layout = 'cols', cols = 3, min, gap, alignItems, center, dense, 
  * @param {Object} props
  * @param {string} [props.surface='bg border'] - The background.
  * @param {boolean} [props.round=true] - Rounded corners.
- * @param {string} [props.pad='pad'] - The padding class.
+ * @param {string} [props.padding='pad'] - The padding class.
  * @param {string} [props.gap='gap-sm'] - The gap between its children (not with rows).
  * @param {string} [props.hover] - A hover effect class (hover-holographic…).
  * @param {boolean} [props.center] - Centers the content.
@@ -88,8 +89,8 @@ const Grid = ({ layout = 'cols', cols = 3, min, gap, alignItems, center, dense, 
  * @param {string} [props.variant] - A variant's name (markup/variants.json): "ticket" gives it .variant-ticket.
  * @param {string} [props.className] - Extra classes.
  */
-const Card = ({ surface = 'bg border', round = true, pad = 'pad', gap = 'gap-sm', hover, center, rows, variant, className, children, ...rest }) => (
-  <article {...rest} className={cx(surface, round && 'round', pad, rows ? `sub rows-${rows}` : cx('grid cols-1 content-start', gap), hover,
+const Card = ({ surface = 'bg border', round = true, padding = 'pad', gap = 'gap-sm', hover, center, rows, variant, className, children, ...rest }) => (
+  <article {...rest} className={cx(surface, round && 'round', padding, rows ? `sub rows-${rows}` : cx('grid cols-1 content-start', gap), hover,
     center && 'text-center justify-center', variant && `variant-${variant}`, className)}>
     {children}
   </article>

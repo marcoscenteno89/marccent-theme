@@ -72,7 +72,7 @@
       "fields": {
         "tag": "section",
         "width": "wrap",
-        "padY": "pad-y-section",
+        "verticalPadding": "pad-y-section",
         "gap": "",
         "surface": "",
         "mode": "",
@@ -90,7 +90,7 @@
       "fields": {
         "tag": "section",
         "width": "wrap wrap-sm",
-        "padY": "pad-y",
+        "verticalPadding": "pad-y",
         "gap": "gap-sm",
         "surface": "bg-primary-darker",
         "mode": "dark",
@@ -108,7 +108,7 @@
       "fields": {
         "tag": "div",
         "width": "wrap",
-        "padY": "pad-y-lg",
+        "verticalPadding": "pad-y-lg",
         "gap": "",
         "surface": "bg",
         "mode": "",
@@ -126,7 +126,7 @@
       "fields": {
         "tag": "header",
         "width": "wrap wrap-lg",
-        "padY": "pad-y-lg",
+        "verticalPadding": "pad-y-lg",
         "gap": "",
         "surface": "bg-gradient",
         "mode": "",
@@ -145,8 +145,8 @@
       "case": "equal columns",
       "fields": {
         "layout": "cols",
-        "cols": 3,
-        "min": "",
+        "columns": 3,
+        "minimumColumnWidth": "",
         "gap": "",
         "alignItems": "",
         "center": false,
@@ -158,8 +158,8 @@
       "case": "equal columns, always, a narrowest width",
       "fields": {
         "layout": "fixed",
-        "cols": 4,
-        "min": "14rem",
+        "columns": 4,
+        "minimumColumnWidth": "14rem",
         "gap": "gap-lg",
         "alignItems": "items-center",
         "center": false,
@@ -171,8 +171,8 @@
       "case": "a wrapping row, centered",
       "fields": {
         "layout": "row-wrap",
-        "cols": 3,
-        "min": "",
+        "columns": 3,
+        "minimumColumnWidth": "",
         "gap": "gap-sm",
         "alignItems": "",
         "center": true,
@@ -184,8 +184,8 @@
       "case": "an uneven layout",
       "fields": {
         "layout": "layout-2-1",
-        "cols": 3,
-        "min": "10rem",
+        "columns": 3,
+        "minimumColumnWidth": "10rem",
         "gap": "",
         "alignItems": "items-start",
         "center": false,
@@ -197,13 +197,13 @@
       "case": "dense, rows at least 10rem (a collage)",
       "fields": {
         "layout": "cols",
-        "cols": 4,
-        "min": "8rem",
+        "columns": 4,
+        "minimumColumnWidth": "8rem",
         "gap": "",
         "alignItems": "",
         "center": false,
         "dense": true,
-        "row": "10rem",
+        "minimumRowHeight": "10rem",
         "classes": "",
         "content": "<div class=\"span-2 row-span-2\">Big</div><div>Small</div><div>Small</div>"
       }
@@ -215,7 +215,7 @@
       "fields": {
         "surface": "bg border",
         "round": true,
-        "pad": "pad",
+        "padding": "pad",
         "gap": "gap-sm",
         "hover": "",
         "center": false,
@@ -228,7 +228,7 @@
       "fields": {
         "surface": "bg-secondary",
         "round": false,
-        "pad": "pad-lg",
+        "padding": "pad-lg",
         "gap": "gap-0",
         "hover": "hover-holographic",
         "center": true,
@@ -241,7 +241,7 @@
       "fields": {
         "surface": "bg-primary-tint",
         "round": true,
-        "pad": "pad",
+        "padding": "pad",
         "gap": "gap-sm",
         "hover": "",
         "center": true,
@@ -553,7 +553,7 @@
     {
       "case": "JavaScript",
       "fields": {
-        "lang": "js",
+        "language": "js",
         "label": "Example",
         "code": "const total = (items) => items.length;"
       }
@@ -930,7 +930,7 @@
       "fields": {
         "name": "rating",
         "label": "How are we doing?",
-        "max": 5,
+        "maximum": 5,
         "icon": "star"
       }
     }
@@ -953,7 +953,7 @@
       "case": "three and a half of five",
       "fields": {
         "value": 3.5,
-        "max": 5,
+        "maximum": 5,
         "icon": "star"
       }
     },
@@ -961,7 +961,7 @@
       "case": "eight of ten hearts",
       "fields": {
         "value": 8,
-        "max": 10,
+        "maximum": 10,
         "icon": "heart"
       }
     }
@@ -1057,7 +1057,7 @@
           "Concrete",
           "Plumbing"
         ],
-        "max": 2
+        "maximum": 2
       }
     }
   ],

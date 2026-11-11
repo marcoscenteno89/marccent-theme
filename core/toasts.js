@@ -23,11 +23,11 @@ const create = (tag, className, text) => {
  * Toasts: the site's messages, a plain object that keeps them and shows them. Anyone adds one (toastSI.add) from
  * anywhere, in React or not; once mounted it draws them itself: a stack in the bottom-right corner, newest last
  * (styles/components/toast.css: React's <Toast /> imports it, a plain page loads it). Only the
- * newest max are kept. A toast stays until closed; its time ("2 minutes ago") updates every minute.
+ * newest maximum are kept. A toast stays until closed; its time ("2 minutes ago") updates every minute.
  */
 class Toasts extends Store {
   list = [];      // { id, time, type, msg }
-  max = 5;
+  maximum = 5;
   title = 'Marccent';
   #el = null;
   #nodes = new Map();  // id → its element, so a new toast doesn't redraw (and re-animate) the others
@@ -38,7 +38,7 @@ class Toasts extends Store {
   add(msg, type = '') {
     this.#next++;
     this.list.push({ id: this.#next, time: new Date(), type, msg });
-    if (this.list.length > this.max) {
+    if (this.list.length > this.maximum) {
       this.list.shift();
     }
     this.emit();
@@ -56,11 +56,11 @@ class Toasts extends Store {
    * @param {Element} [parent=document.body]
    * @param {Object} [opts]
    * @param {string} [opts.title] - Each toast's heading.
-   * @param {number} [opts.max] - How many to keep.
+   * @param {number} [opts.maximum] - How many to keep.
    */
-  mount(parent = document.body, { title = this.title, max = this.max } = {}) {
+  mount(parent = document.body, { title = this.title, maximum = this.maximum } = {}) {
     this.title = title;
-    this.max = max;
+    this.maximum = maximum;
     this.#el ??= create('div', 'd-grid gap-xs w-max pe-none z-toast position-fixed bottom-0 end-0 pad');
     this.#el.dataset.component = 'toasts';
     parent.append(this.#el);

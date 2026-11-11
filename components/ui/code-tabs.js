@@ -27,7 +27,7 @@ const CodeTabs = ({ value = {}, onChange, langs = [ 'html', 'css', 'js' ], previ
       label: LABELS[lang] ?? lang.toUpperCase(),
       icon: ICONS[lang],
       content: (
-        <Code key={lang} lang={lang} label={`${LABELS[lang] ?? lang}`} minLines={minLines}
+        <Code key={lang} language={lang} label={`${LABELS[lang] ?? lang}`} minLines={minLines}
           onChange={(code) => onChange({ ...value, [lang]: code })}>
           {value[lang] ?? ''}
         </Code>

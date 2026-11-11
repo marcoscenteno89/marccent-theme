@@ -79,7 +79,7 @@
       "fields": {
         "tag": "section",
         "width": "wrap",
-        "padY": "pad-y-section",
+        "verticalPadding": "pad-y-section",
         "gap": "",
         "surface": "",
         "mode": "",
@@ -98,7 +98,7 @@
       "fields": {
         "tag": "section",
         "width": "wrap wrap-sm",
-        "padY": "pad-y",
+        "verticalPadding": "pad-y",
         "gap": "gap-sm",
         "surface": "bg-primary-darker",
         "mode": "dark",
@@ -117,7 +117,7 @@
       "fields": {
         "tag": "div",
         "width": "wrap",
-        "padY": "pad-y-lg",
+        "verticalPadding": "pad-y-lg",
         "gap": "",
         "surface": "bg",
         "mode": "",
@@ -136,7 +136,7 @@
       "fields": {
         "tag": "header",
         "width": "wrap wrap-lg",
-        "padY": "pad-y-lg",
+        "verticalPadding": "pad-y-lg",
         "gap": "",
         "surface": "bg-gradient",
         "mode": "",
@@ -156,8 +156,8 @@
       "case": "equal columns",
       "fields": {
         "layout": "cols",
-        "cols": 3,
-        "min": "",
+        "columns": 3,
+        "minimumColumnWidth": "",
         "gap": "",
         "alignItems": "",
         "center": false,
@@ -170,8 +170,8 @@
       "case": "equal columns, always, a narrowest width",
       "fields": {
         "layout": "fixed",
-        "cols": 4,
-        "min": "14rem",
+        "columns": 4,
+        "minimumColumnWidth": "14rem",
         "gap": "gap-lg",
         "alignItems": "items-center",
         "center": false,
@@ -184,8 +184,8 @@
       "case": "a wrapping row, centered",
       "fields": {
         "layout": "row-wrap",
-        "cols": 3,
-        "min": "",
+        "columns": 3,
+        "minimumColumnWidth": "",
         "gap": "gap-sm",
         "alignItems": "",
         "center": true,
@@ -198,8 +198,8 @@
       "case": "an uneven layout",
       "fields": {
         "layout": "layout-2-1",
-        "cols": 3,
-        "min": "10rem",
+        "columns": 3,
+        "minimumColumnWidth": "10rem",
         "gap": "",
         "alignItems": "items-start",
         "center": false,
@@ -212,13 +212,13 @@
       "case": "dense, rows at least 10rem (a collage)",
       "fields": {
         "layout": "cols",
-        "cols": 4,
-        "min": "8rem",
+        "columns": 4,
+        "minimumColumnWidth": "8rem",
         "gap": "",
         "alignItems": "",
         "center": false,
         "dense": true,
-        "row": "10rem",
+        "minimumRowHeight": "10rem",
         "classes": "",
         "content": "<div class=\"span-2 row-span-2\">Big</div><div>Small</div><div>Small</div>"
       },
@@ -231,7 +231,7 @@
       "fields": {
         "surface": "bg border",
         "round": true,
-        "pad": "pad",
+        "padding": "pad",
         "gap": "gap-sm",
         "hover": "",
         "center": false,
@@ -245,7 +245,7 @@
       "fields": {
         "surface": "bg-secondary",
         "round": false,
-        "pad": "pad-lg",
+        "padding": "pad-lg",
         "gap": "gap-0",
         "hover": "hover-holographic",
         "center": true,
@@ -259,7 +259,7 @@
       "fields": {
         "surface": "bg-primary-tint",
         "round": true,
-        "pad": "pad",
+        "padding": "pad",
         "gap": "gap-sm",
         "hover": "",
         "center": true,
@@ -593,7 +593,7 @@
     {
       "case": "JavaScript",
       "fields": {
-        "lang": "js",
+        "language": "js",
         "label": "Example",
         "code": "const total = (items) => items.length;"
       },
@@ -998,7 +998,7 @@
       "fields": {
         "name": "rating",
         "label": "How are we doing?",
-        "max": 5,
+        "maximum": 5,
         "icon": "star"
       },
       "html": "<fieldset data-component=\"rating\" class=\"rating d-inline-grid auto-cols gap-xs fs-lg\"><legend class=\"visually-hidden\">How are we doing?</legend><label for=\"id-1-1\" class=\"rating-star\"><input id=\"id-1-1\" type=\"radio\" class=\"visually-hidden\" name=\"rating\" value=\"1\"/><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><span class=\"visually-hidden\">1 star</span></label><label for=\"id-1-2\" class=\"rating-star\"><input id=\"id-1-2\" type=\"radio\" class=\"visually-hidden\" name=\"rating\" value=\"2\"/><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><span class=\"visually-hidden\">2 stars</span></label><label for=\"id-1-3\" class=\"rating-star\"><input id=\"id-1-3\" type=\"radio\" class=\"visually-hidden\" name=\"rating\" value=\"3\"/><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><span class=\"visually-hidden\">3 stars</span></label><label for=\"id-1-4\" class=\"rating-star\"><input id=\"id-1-4\" type=\"radio\" class=\"visually-hidden\" name=\"rating\" value=\"4\"/><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><span class=\"visually-hidden\">4 stars</span></label><label for=\"id-1-5\" class=\"rating-star\"><input id=\"id-1-5\" type=\"radio\" class=\"visually-hidden\" name=\"rating\" value=\"5\"/><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><span class=\"visually-hidden\">5 stars</span></label></fieldset>"
@@ -1023,7 +1023,7 @@
       "case": "three and a half of five",
       "fields": {
         "value": 3.5,
-        "max": 5,
+        "maximum": 5,
         "icon": "star"
       },
       "html": "<span data-component=\"stars\" role=\"img\" aria-label=\"3.5 out of 5\" class=\"stack d-inline-grid w-max text-nowrap justify-self-start\" style=\"--value:70%\"><span class=\"stars-empty\"><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i></span><span class=\"stars-fill\"><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-star\" aria-hidden=\"true\"></i></span></span>"
@@ -1032,7 +1032,7 @@
       "case": "eight of ten hearts",
       "fields": {
         "value": 8,
-        "max": 10,
+        "maximum": 10,
         "icon": "heart"
       },
       "html": "<span data-component=\"stars\" role=\"img\" aria-label=\"8 out of 10\" class=\"stack d-inline-grid w-max text-nowrap justify-self-start\" style=\"--value:80%\"><span class=\"stars-empty\"><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i></span><span class=\"stars-fill\"><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i><i data-component=\"icon\" class=\"fa-solid fa-heart\" aria-hidden=\"true\"></i></span></span>"
@@ -1133,7 +1133,7 @@
           "Concrete",
           "Plumbing"
         ],
-        "max": 2
+        "maximum": 2
       },
       "html": "<div data-component=\"tag-input\" data-max=\"2\" class=\"input row-wrap gap-xs pad-xs\"><ul data-tags=\"true\" class=\"d-contents\" aria-label=\"Tags\"></ul><input data-tag-entry=\"true\" class=\"input-plain grow pad-xs\" aria-label=\"Services\" placeholder=\"Services\" list=\"id-1-list\" value=\"\"/><datalist id=\"id-1-list\"><option value=\"Roofing\"></option><option value=\"Concrete\"></option><option value=\"Plumbing\"></option></datalist><input type=\"hidden\" name=\"services\" value=\"\"/></div>"
     }

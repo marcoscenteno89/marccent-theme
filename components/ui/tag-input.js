@@ -16,18 +16,18 @@ import { addTags, isCommit } from '../../core/tag-input';
  * @param {string} [props.label='Add a tag'] - The text field's placeholder and accessible name.
  * @param {string[]} [props.defaultValue] - The tags at first.
  * @param {string[]} [props.suggestions] - Offered while typing.
- * @param {number} [props.max] - The most tags; the field turns off at the limit.
+ * @param {number} [props.maximum] - The most tags; the field turns off at the limit.
  * @param {(tags: string[]) => void} [props.onChange]
  * @param {string} [props.className] - Extra classes on the whole field.
  *
- * @example <TagInput name="skills" defaultValue={[ 'CSS', 'React' ]} suggestions={[ 'Django', 'Python' ]} max={6} />
+ * @example <TagInput name="skills" defaultValue={[ 'CSS', 'React' ]} suggestions={[ 'Django', 'Python' ]} maximum={6} />
  */
-const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, max = 0, onChange, className }) => {
+const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, maximum = 0, onChange, className }) => {
   const id = useId();
   const entry = useRef(null);
-  const [ tags, setTags ] = useState(() => addTags([], defaultValue.join(','), max));
+  const [ tags, setTags ] = useState(() => addTags([], defaultValue.join(','), maximum));
   const [ text, setText ] = useState('');
-  const full = Boolean(max) && tags.length >= max;
+  const full = Boolean(maximum) && tags.length >= maximum;
 
   const use = (next) => {
     setTags(next);
@@ -35,7 +35,7 @@ const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, m
   };
   const commit = (value = text) => {
     if (value.trim()) {
-      use(addTags(tags, value, max));
+      use(addTags(tags, value, maximum));
     }
     setText('');
   };
@@ -61,7 +61,7 @@ const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, m
 
   // A click on the box (not a tag) puts the cursor in the field, as if the box were the input.
   return (
-    <div data-component="tag-input" data-max={max || undefined} className={cx('input row-wrap gap-xs pad-xs', className)}
+    <div data-component="tag-input" data-max={maximum || undefined} className={cx('input row-wrap gap-xs pad-xs', className)}
       onClick={(e) => e.target === e.currentTarget && entry.current.focus()}>
       <ul data-tags className="d-contents" aria-label="Tags">
         {tags.map((tag, i) => (
@@ -74,7 +74,7 @@ const TagInput = ({ name, label = 'Add a tag', defaultValue = [], suggestions, m
           </li>
         ))}
       </ul>
-      <input ref={entry} data-tag-entry className="input-plain grow pad-xs" aria-label={label} placeholder={full ? `Up to ${max}` : label}
+      <input ref={entry} data-tag-entry className="input-plain grow pad-xs" aria-label={label} placeholder={full ? `Up to ${maximum}` : label}
         list={suggestions ? `${id}-list` : undefined} disabled={full} value={text}
         onChange={(e) => setText(e.target.value)} onKeyDown={key} onPaste={paste} onBlur={() => commit()} />
       {suggestions && (

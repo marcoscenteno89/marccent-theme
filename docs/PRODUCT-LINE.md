@@ -188,8 +188,7 @@ changed deliberately, here first.
    extra classes (a variant, a utility), an anchor, Show if (on an output with an admin).
 4. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`. The settings use
    full words (`padding`, `verticalPadding`, `columns`, `minimumColumnWidth`, `minimumHeight`, `maximum`,
-   `language`); where a component's prop is still short, the setting names it (`prop`) until the prop is renamed
-   (T-029). `href` stays, the web's own word for a link; Map's `center` is `{ lat, lng }`, Google's own shape.
+   `language`), and so do the components' props: a setting's name is its prop (2026-11-10). `href` stays, the web's own word for a link; Map's `center` is `{ lat, lng }`, Google's own shape.
 5. **A setting is a look or a choice, never content.** Text, items and lists that repeat aren't settings (6.1).
 6. **Checked:** `npm run conformance` fails on a setting that isn't one of its component's props (read from the
    component's source, by `prop` when the name differs), a setting without a known type or sanitize rule, or a
@@ -352,7 +351,7 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
 The theme first: it's the root of everything. A phase starts only when the one before passes its gate; work that
 belongs to a later phase waits, and Claude says so when it's asked for early.
 
-1. **The theme.** Its lines below: the short props (5.4), Countdown / Parallax / Stars, Kits, T-032's Nav case, T-033,
+1. **The theme.** Its lines below: Kits, T-032's Nav case, T-033,
    T-034; then T-003's utilities (B-003 done 2026-11-10). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
    **Gate:** `npm test` passes with no sizing exception left, every theme line ticked, the release tagged.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
@@ -375,7 +374,10 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
   short names are the settings' full words there (padding, columns, verticalPadding, language; content saved before is
   upgraded by its version), its editor choices are settings.json's, and Marccent Content's Loop is a Grid. Left, each
   listed in that map: 31 settings not offered yet, 12 kept in the block's own shape (the sample items until T-034).
-- [ ] **The short props renamed** (5.4): the components' own `pad`, `padY`, `cols`, `min`, `row`, `max`, `lang`.
+- [x] **The short props renamed** (5.4, 2026-11-10): Section's `verticalPadding`, Grid's `columns`, `minimumColumnWidth`
+  and `minimumRowHeight`, Card's `padding`, Code's `language`, `maximum` on Rating, Stars, Tag input and Toast (and
+  `toastSI.mount`), Scenery's `minimumHeight`; the cases' fields with them, settings.json's `prop` gone (conformance
+  fails on one).
 - [x] **Countdown, Parallax and Stars** stay (Marcos, 2026-11-10): each has its settings entry and markup case. Stars
   is a score to read; stars that lead somewhere are Rating's, after 1.0 (T-039).
 - [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).

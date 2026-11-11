@@ -75,12 +75,12 @@ const SceneryLayer = ({ kind, far = 0, color, flip, className, style }) => {
  * @param {string[]} props.layers - Kinds, back to front (sky kinds first); each gets its own depth level, evenly spread
  *   from the back (faintest, drifts most) to the front (strongest, holds).
  * @param {string} [props.height='22rem'] @param {boolean} [props.parallax=true]
- * @param {string} [props.min] - The least height for each ground layer (e.g. '40vh' for a full-screen scene): taller
+ * @param {string} [props.minimumHeight] - The least height for each ground layer (e.g. '40vh' for a full-screen scene): taller
  *   than the width alone makes it, a layer grows and crops its sides.
  * @param {string} [props.className] @param {Object} [props.style] @param {React.ReactNode} [props.children]
  */
-const Scenery = ({ layers, height = '22rem', parallax = true, min, className, style, children }) => (
-  <div data-component="scenery" className={cx('cq stack overflow-hidden', className)} style={{ height, '--scenery-min': min, ...style }}>
+const Scenery = ({ layers, height = '22rem', parallax = true, minimumHeight, className, style, children }) => (
+  <div data-component="scenery" className={cx('cq stack overflow-hidden', className)} style={{ height, '--scenery-min': minimumHeight, ...style }}>
     {layers.map((kind, i) => {
       const far = layers.length > 1 ? 1 - i / (layers.length - 1) : 0;
       // A kind already used further back is mirrored, so repeats don't line up.

@@ -198,8 +198,8 @@ if (option('--render')) {
         if (wrong) { console.log(`FAIL settings: ${component}.${key}: ${wrong}`); failed++; }
       }
     }
-    // Each setting is a prop of its component (by its prop name, when the setting's full-word name differs; content is
-    // its children), read from the component's source: the settings can't drift from the code.
+    // Each setting is a prop of its component by the same full-word name (5.4; content is its children), read from the
+    // component's source: the settings can't drift from the code, and a short prop can't come back.
     const sources = readdirSync(join(ROOT, 'components'), { recursive: true }).filter((f) => f.endsWith('.js')).map((f) => readFileSync(join(ROOT, 'components', f), 'utf8'));
     for (const [component, s] of Object.entries(settings)) {
       if (!s.settings || !Object.keys(s.settings).length) continue;
@@ -216,7 +216,8 @@ if (option('--render')) {
         }
       }
       for (const [key, v] of Object.entries(s.settings)) {
-        const prop = key === 'content' ? 'children' : v.prop ?? key;
+        if (v.prop) { console.log(`FAIL settings: ${component}.${key} names a prop of its own (${v.prop}): the prop is the setting's name (5.4)`); failed++; }
+        const prop = key === 'content' ? 'children' : key;
         if (!props.has(prop)) { console.log(`FAIL settings: ${component}.${key} isn't one of its props (${prop})`); failed++; }
       }
     }

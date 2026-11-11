@@ -39,6 +39,11 @@ README (Versions → What a version promises).
   and their markup cases, so every adapter writes them as the components do.
 
 ### Changed
+- The components' props are the settings' full words (PRODUCT-LINE.md 5.4; breaking for React callers): Section
+  `padY` → `verticalPadding`; Grid `cols` → `columns`, `min` → `minimumColumnWidth`, `row` → `minimumRowHeight`; Card
+  `pad` → `padding`; Code `lang` → `language`; Rating, Stars, TagInput and Toast `max` → `maximum` (and
+  `toastSI.mount({ maximum })`); Scenery `min` → `minimumHeight`. The markup is the same; `markup/cases.json`'s fields
+  use the new names, `markup/settings.json` has no `prop` left, and `npm run conformance` fails on one.
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
   What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
 - `docs/WORKING.md`: how Claude works, one copy for every project. Each `CLAUDE.md` imports it (`@docs/WORKING.md`)

@@ -18,16 +18,16 @@ import { CodeView, dedent, copyCode, FORMATS } from '../../core/code-view';
 /**
  * @param {Object} props
  * @param {string} props.children - The code (indentation is trimmed, see dedent; not while editing).
- * @param {'js'|'jsx'|'css'|'html'|'sh'} [props.lang='jsx']
+ * @param {'js'|'jsx'|'css'|'html'|'sh'} [props.language='jsx']
  * @param {(code: string) => void} [props.onChange] - Makes it an editor: called with the code on every edit; children
  *   is then its value (a change from outside replaces the text).
- * @param {string} [props.label] - The editor's accessible name (default "Code (lang)").
+ * @param {string} [props.label] - The editor's accessible name (default "Code (language)").
  * @param {number} [props.minLines=4] - Editing: the height it keeps while nearly empty, in lines.
  * @param {string} [props.className] - Extra classes on the box.
  *
- * @example <Code lang="css" label="Additional CSS" onChange={setCss}>{css}</Code>
+ * @example <Code language="css" label="Additional CSS" onChange={setCss}>{css}</Code>
  */
-const Code = ({ children, lang = 'jsx', onChange, label, minLines, className }) => {
+const Code = ({ children, language = 'jsx', onChange, label, minLines, className }) => {
   const editable = !!onChange;
   const code = editable ? children ?? '' : dedent(children);
   const change = useRef(onChange);
@@ -43,11 +43,11 @@ const Code = ({ children, lang = 'jsx', onChange, label, minLines, className }) 
   // Read-only: drawn again when the code changes. Editable: made once a language, its text kept in step (setCode).
   useEffect(() => {
     if (!seen || !host.current) return;
-    const v = new CodeView(host.current, code, lang, editable ? { onChange: (c) => change.current?.(c), label, minLines } : { label });
+    const v = new CodeView(host.current, code, language, editable ? { onChange: (c) => change.current?.(c), label, minLines } : { label });
     view.current = v;
     v.mount().then(() => !v.destroyed && setReady(true));
     return () => v.destroy();
-  }, [ seen, lang, editable, ...(editable ? [] : [ code ]) ]);
+  }, [ seen, language, editable, ...(editable ? [] : [ code ]) ]);
   useEffect(() => { if (editable) view.current?.setCode(code); }, [ code, editable ]);
 
   const copy = () => copyCode(code, toastSI);
@@ -55,7 +55,7 @@ const Code = ({ children, lang = 'jsx', onChange, label, minLines, className }) 
   // .stack: the code and the copy button in one cell, the button over the top-right corner. An editor: its Format
   // button in a row under it instead, off its text.
   return (
-    <div ref={box} data-component="code" data-lang={lang} className={cx(editable ? 'grid cols-1 gap-0' : 'stack', 'bg border round', className)}>
+    <div ref={box} data-component="code" data-lang={language} className={cx(editable ? 'grid cols-1 gap-0' : 'stack', 'bg border round', className)}>
       {!ready && (
         // tabIndex: a box that scrolls sideways needs the keyboard too.
         <pre tabIndex={0} className="fs-sm font-mono pad-sm overflow-auto" style={editable ? { minHeight: `${(minLines ?? 4) * 1.5}em` } : undefined}>
@@ -63,7 +63,7 @@ const Code = ({ children, lang = 'jsx', onChange, label, minLines, className }) 
         </pre>
       )}
       <div ref={host} data-code-host className="overflow-hidden" />
-      {editable && FORMATS[lang] && (
+      {editable && FORMATS[language] && (
         <div className="grid cols-1 pad-xs border-top">
           <Button icon="wand-magic-sparkles" data-format className="justify-self-end" title="Lay the code out (Shift+Alt+F)" onClick={() => view.current?.format()}>Format</Button>
         </div>

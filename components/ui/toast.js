@@ -7,13 +7,13 @@ import '../../styles/components/toast.css';
 // nothing; add one with toastSI.add(msg, tone) from anywhere.
 /**
  * @param {Object} props
- * @param {string} [props.title] - Each toast's heading. @param {number} [props.max] - How many to keep.
+ * @param {string} [props.title] - Each toast's heading. @param {number} [props.maximum] - How many to keep.
  */
-const Toast = ({ title, max }) => {
+const Toast = ({ title, maximum }) => {
   useEffect(() => {
-    toastSI.mount(document.body, { title, max });
+    toastSI.mount(document.body, { title, maximum });
     return () => toastSI.unmount();
-  }, [ title, max ]);
+  }, [ title, maximum ]);
   return null;
 }
 
