@@ -22,7 +22,7 @@ import { Divider, dividerClasses } from './divider';
  * @param {"light"|"dark"} [props.mode] - The band in this mode, whatever the page's (data-theme): its text and,
  *   without a surface, its background are that mode's page colors.
  * @param {boolean} [props.center] - Centers the content.
- * @param {string} [props.minHeight] - The band's least height (e.g. 60vh); the content centers in it.
+ * @param {string} [props.minimumHeight] - The band's least height (e.g. 60vh); the content centers in it.
  * @param {string} [props.image] - A background image's URL.
  * @param {string} [props.imageAlt=''] - Its alt text (empty: decorative).
  * @param {number} [props.shade=50] - How dark the shade over the image is, 0 to 100.
@@ -31,17 +31,17 @@ import { Divider, dividerClasses } from './divider';
  * @param {Object} [props.dividerBottom] - The same on the bottom edge, reaching into the section below.
  * @param {string} [props.className] - Extra classes on the band.
  */
-const Section = ({ as: Tag = 'section', width = 'wrap', verticalPadding = 'pad-y-section', gap, surface, mode, center, minHeight, image, imageAlt = '', shade = 50,
+const Section = ({ as: Tag = 'section', width = 'wrap', verticalPadding = 'pad-y-section', gap, surface, mode, center, minimumHeight, image, imageAlt = '', shade = 50,
   dividerTop, dividerBottom, className, children, ...rest }) => (
   // A least height makes the band a one-cell grid, so its content box can center in it (not .grid: that brings columns).
   <Tag {...rest} data-theme={mode || undefined} className={cx('wrap wrap-fluid', image ? 'stack' : surface, dividerClasses(dividerTop, dividerBottom), className)}
-    style={minHeight ? { minHeight, ...(!image && { display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)' }) } : undefined}>
+    style={minimumHeight ? { minHeight: minimumHeight, ...(!image && { display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)' }) } : undefined}>
     {dividerTop?.shape && <Divider {...dividerTop} edge="top" page={!surface} />}
     {dividerBottom?.shape && <Divider {...dividerBottom} edge="bottom" page={!surface} />}
     {image && <img className="cover-img" src={image} alt={imageAlt} loading="lazy" decoding="async" />}
     {image && <div aria-hidden="true" style={{ background: `rgb(0 0 0 / ${shade}%)` }}></div>}
     <div className={cx(width, verticalPadding, 'grid cols-1', gap, center && 'text-center justify-center', image && surface)}
-      style={image ? { position: 'relative', alignContent: 'center', color: '#fff' } : minHeight ? { alignContent: 'center' } : undefined}>
+      style={image ? { position: 'relative', alignContent: 'center', color: '#fff' } : minimumHeight ? { alignContent: 'center' } : undefined}>
       {children}
     </div>
   </Tag>

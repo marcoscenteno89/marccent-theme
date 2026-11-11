@@ -251,7 +251,7 @@ define('typeset', (el) => { typesetElement(el); });
 
 /*
  * Map: the Google map (core/maps.js) when the box comes near the screen, so the page doesn't pay for it up front;
- * Google's embed without a key. data-key (or the page's window.marccentMapsKey), data-lat, data-lng, data-zoom;
+ * Google's embed without a key. data-key (or the page's window.marccentMapsKey), data-latitude, data-longitude, data-zoom;
  * data-marker for a pin on the center (data-title, data-link: a Google Maps address its click opens); data-markers,
  * pins as JSON ([{ "lat", "lng", "title", "link" }]), clustered unless data-cluster="false", the map fitting them
  * unless data-fit="false"; data-embed for the fallback. What's in the box until then (a no-script link) stays when
@@ -274,7 +274,7 @@ define('map', (box) => {
     stopWatching();
     stopWatching = null;
     map = await drawMap(box, {
-      key: d.key || undefined, center: { lat: Number(d.lat), lng: Number(d.lng) }, zoom: Number(d.zoom) || 10,
+      key: d.key || undefined, center: { lat: Number(d.latitude), lng: Number(d.longitude) }, zoom: Number(d.zoom) || 10,
       marker: 'marker' in d ? { title: d.title, link: d.link } : undefined, markers: places(d.markers),
       cluster: d.cluster !== 'false', fit: d.fit !== 'false', embed: d.embed, title: d.title,
     });

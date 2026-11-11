@@ -188,7 +188,7 @@ changed deliberately, here first.
    extra classes (a variant, a utility), an anchor, Show if (on an output with an admin).
 4. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`. The settings use
    full words (`padding`, `verticalPadding`, `columns`, `minimumColumnWidth`, `minimumHeight`, `maximum`,
-   `language`), and so do the components' props: a setting's name is its prop (2026-11-10). `href` stays, the web's own word for a link; Map's `center` is `{ lat, lng }`, Google's own shape.
+   `language`), and so do the components' props: a setting's name is its prop (2026-11-10). `href` stays, the web's own word for a link; Map's `center` and pins are `{ lat, lng }`, Google's own shape (its markup says `data-latitude`, `data-longitude`); Animation's `frameRate` is p5's word.
 5. **A setting is a look or a choice, never content.** Text, items and lists that repeat aren't settings (6.1).
 6. **Checked:** `npm run conformance` fails on a setting that isn't one of its component's props (read from the
    component's source, by `prop` when the name differs), a setting without a known type or sanitize rule, or a

@@ -59,7 +59,7 @@ const AnimPlayer = () => {
                   gradient button. */}
               <div className={cx('bg border round grid cols-1 gap-0 overflow-hidden hover-holographic', picked ? 'shadow-lg' : 'shadow')}
                 style={picked ? { borderColor: 'var(--primary)' } : undefined}>
-                <div data-component="animation" data-name={anim.key} data-fps="20" className="border-bottom" style={{ height: '160px' }} />
+                <div data-component="animation" data-name={anim.key} data-frame-rate="20" className="border-bottom" style={{ height: '160px' }} />
                 <div className="header pad">
                   <div className="grid cols-1 gap-0">
                     <span className="fw-bold">{anim.name}</span>

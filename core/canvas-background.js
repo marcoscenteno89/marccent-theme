@@ -4,7 +4,7 @@ import { Scene } from '@marccent/util/canvas';
  * Canvas backgrounds from markup, no component needed: data-component "animation" (a word of it: "button animation"
  * for a Button with one behind it), data-name which one:
  *   <section data-component="animation" data-name="blob">…</section>
- *   <div data-component="animation" data-name="fire" data-fps="20">…</div>
+ *   <div data-component="animation" data-name="fire" data-frame-rate="20">…</div>
  *   <div data-component="animation" data-name="snow" data-colors="#fff">…</div>   (colors that replace the theme's, comma-separated)
  * Names: blob, fire, wave, network-loop, particle-flowfield, orbit, snow, fireflies, leaves, rain, bubbles (the
  * core/canvas.js Animation classes). The canvas sits behind the element's content and fills it; the element becomes a
@@ -65,7 +65,7 @@ class CanvasBackground {
     this.sketch = new p5((p) => { this.p = p; });
     this.scene = new Scene(this.p, this.layer, { pauseOffscreen: false });
     this.p.pixelDensity(1);
-    this.p.frameRate(Number(host.dataset.fps) || DECORATIVE_FPS);
+    this.p.frameRate(Number(host.dataset.frameRate) || DECORATIVE_FPS);
     this.stopObserver = decorativeObserver(this.p, this.layer);
     this.anim = new AnimationClass(this.scene, this.layer, host.dataset.colors?.split(',').map((c) => c.trim()).filter(Boolean));
     this.sketch.draw = () => this.anim.draw();

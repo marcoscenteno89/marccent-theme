@@ -160,7 +160,7 @@ query):
 
 ```html
 <button data-component="toggle-button" data-name="mode">…</button>
-<div data-component="animation" data-name="fire" data-fps="20" data-colors="#ff3d00, #ffb300"></div>
+<div data-component="animation" data-name="fire" data-frame-rate="20" data-colors="#ff3d00, #ffb300"></div>
 ```
 
 A component with its own markup has its own `data-component`; a configured use of another (the mode toggle is a

@@ -77,7 +77,7 @@
         "surface": "",
         "mode": "",
         "center": false,
-        "minHeight": "",
+        "minimumHeight": "",
         "image": "",
         "imageAlt": "",
         "shade": 50,
@@ -95,7 +95,7 @@
         "surface": "bg-primary-darker",
         "mode": "dark",
         "center": true,
-        "minHeight": "",
+        "minimumHeight": "",
         "image": "",
         "imageAlt": "",
         "shade": 50,
@@ -113,7 +113,7 @@
         "surface": "bg",
         "mode": "",
         "center": false,
-        "minHeight": "60vh",
+        "minimumHeight": "60vh",
         "image": "",
         "imageAlt": "",
         "shade": 50,
@@ -131,7 +131,7 @@
         "surface": "bg-gradient",
         "mode": "",
         "center": false,
-        "minHeight": "80vh",
+        "minimumHeight": "80vh",
         "image": "/media/hero.jpg",
         "imageAlt": "A field at dawn",
         "shade": 40,
@@ -434,8 +434,8 @@
       "case": "a pin and an embed fallback",
       "fields": {
         "key": "AIza-example",
-        "lat": 43.49,
-        "lng": -112.034,
+        "latitude": 43.49,
+        "longitude": -112.034,
         "zoom": 12,
         "marker": true,
         "title": "Our shop",
@@ -447,8 +447,8 @@
       "case": "no key: the embed only",
       "fields": {
         "key": "",
-        "lat": 40.7128,
-        "lng": -74.006,
+        "latitude": 40.7128,
+        "longitude": -74.006,
         "zoom": 10,
         "marker": false,
         "title": "New York",
@@ -460,8 +460,8 @@
       "case": "pins, clustered",
       "fields": {
         "key": "AIza-example",
-        "lat": 43.49,
-        "lng": -112.034,
+        "latitude": 43.49,
+        "longitude": -112.034,
         "zoom": 8,
         "marker": false,
         "title": "Our locations",
@@ -494,7 +494,7 @@
       "case": "snow",
       "fields": {
         "name": "snow",
-        "fps": 30,
+        "frameRate": 30,
         "colors": "",
         "classes": "h-100"
       }
@@ -503,7 +503,7 @@
       "case": "fire in its own colors",
       "fields": {
         "name": "fire",
-        "fps": 24,
+        "frameRate": 24,
         "colors": "#ff3d00, #ffb300",
         "classes": ""
       }

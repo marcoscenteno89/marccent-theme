@@ -106,7 +106,7 @@ const RENDER = {
   icon: (f) => h(Icon, { name: f.name, family: f.family, className: f.classes || undefined }),
   section: (f) => h(Section, {
     as: f.tag, width: f.width, verticalPadding: f.verticalPadding, gap: f.gap, surface: f.surface, mode: f.mode, center: f.center,
-    minHeight: f.minHeight, image: f.image, imageAlt: f.imageAlt, shade: f.shade, className: f.classes || undefined,
+    minimumHeight: f.minimumHeight, image: f.image, imageAlt: f.imageAlt, shade: f.shade, className: f.classes || undefined,
   }, html(f.content)),
   grid: (f) => h(Grid, {
     layout: f.layout, columns: f.columns, minimumColumnWidth: f.minimumColumnWidth, gap: f.gap, alignItems: f.alignItems, center: f.center, dense: f.dense, minimumRowHeight: f.minimumRowHeight || undefined,
@@ -128,11 +128,11 @@ const RENDER = {
   tooltip: (f) => h(Tooltip, { content: f.content, side: f.side }, h('button', { type: 'button', className: 'btn-link' }, f.trigger)),
   popover: (f) => h(Popover, { label: f.label, side: f.side, content: html(f.content) }, h('button', { type: 'button', className: 'btn' }, f.trigger)),
   alert: (f) => h(Alert, { tone: f.tone }, html(f.content)),
-  map: (f) => h(MapView, { apiKey: f.key || undefined, center: { lat: f.lat, lng: f.lng }, zoom: f.zoom,
+  map: (f) => h(MapView, { apiKey: f.key || undefined, center: { lat: f.latitude, lng: f.longitude }, zoom: f.zoom,
     marker: f.marker ? { title: f.title, link: f.link || undefined } : undefined, title: f.title, embed: f.embed || undefined,
     markers: f.markers, cluster: f.cluster }),
   // The canvas animation element: no React component, the attributes are the contract (visuals/canvas-scanner.js).
-  animation: (f) => h('div', { 'data-component': 'animation', 'data-name': f.name, 'data-fps': f.fps, 'data-colors': f.colors || undefined,
+  animation: (f) => h('div', { 'data-component': 'animation', 'data-name': f.name, 'data-frame-rate': f.frameRate, 'data-colors': f.colors || undefined,
     className: f.classes || undefined }),
   blur: (f) => h(Blur, { id: f.id }),
   board: (f) => h(Board, { grid: new BoardGrid(f.rows, f.cols, () => ({})), gap: f.gap },

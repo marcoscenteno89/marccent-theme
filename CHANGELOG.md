@@ -57,6 +57,10 @@ README (Versions → What a version promises).
   `data-minimum-lines`, `data-max-size` → `data-maximum-size` (File drop), `data-dir` → `data-direction` (Orbit's
   turning layers); Code and CodeTabs `minLines` → `minimumLines`, CodeTabs `langs` → `languages`, FileDrop `maxSize` →
   `maximumSize`, CodeView's `lang` → `language`.
+- The last short names in full words (breaking for hand-written markup, React callers and saved content): Animation
+  `fps` → `frameRate` (`data-fps` → `data-frame-rate`, p5's and the browser's own word); Map's `data-lat` / `data-lng`
+  → `data-latitude` / `data-longitude` (its `center` and pins stay `{ lat, lng }`, Google's shape); Section
+  `minHeight` → `minimumHeight`. `markup/cases.json`'s fields with them (the map's `latitude`, `longitude`).
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
   What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
 - `docs/WORKING.md`: how Claude works, one copy for every project. Each `CLAUDE.md` imports it (`@docs/WORKING.md`)
