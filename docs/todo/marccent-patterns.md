@@ -10,6 +10,7 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 
 ## Requests
 
+- [ ] **Header pattern's fold on the theme's B-004 release** — branch `b004-menu-fold` (not merged): `.toggle-fold` and the nav's `.menu-fold`; merge it with the theme pin that has them (the theme pushed first). (found 2026-11-10)
 - [ ] **The look-only WordPress patterns move here** from marccent-wp's `tools/patterns.js` (the Header, the Floating header, the CTA, the features, the gallery), beside each one's markup; marccent-wp writes its `patterns/*.php` from them. Phase 2 (the wp stack). (found 2026-11-10)
 
 ## Waiting on
