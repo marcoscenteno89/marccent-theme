@@ -3,7 +3,7 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
-## Unreleased
+## 1.0.0-rc.24
 
 ### Changed
 - `OrbitItem`'s `icon` is a Font Awesome icon, as DockItem's (`"house"`, or full `"fa-…"` classes; settings version 2),
@@ -16,6 +16,8 @@ README (Versions → What a version promises).
 - The Floating header no longer covers the first section (#35): its first section takes `.pad-top-header`, the bar's
   height (`--header-height`, measured by the engine as the bar resizes; an estimate until it runs) plus the section's
   rhythm (PATTERNS.md).
+- `.media-cover` on a wrapper covers its one image or video too (#126): WordPress's Image block puts the class on its
+  `<figure>`, so the Image card and Collage patterns can be built in the block editor.
 - The cases page shows every case: Orbit's icons (#123), Compare's and Section's images (`markup/media/`, served at
   `/media/`) and Animation in a box with a height to fill (#124).
 
