@@ -38,5 +38,6 @@ the public markup (README, Versions).
 
 `npm run cases` builds and serves the **cases page** (`scripts/cases.mjs`, http://localhost:4321/): every case live with
 the theme's CSS and plain-JS engine (dist/), beside each adapter's markup for it (run fresh, `conformance --save`),
-marked same, different or not covered. Run it again after a change (`npm run build` first for a style change) and
+marked same, different or not covered. The images the cases name (`/media/…`) are `media/`'s, which the page serves
+at `/media/`; a case that needs an image points there. Run it again after a change (`npm run build` first for a style change) and
 reload. A test tool: nothing ships from it.

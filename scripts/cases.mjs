@@ -2,7 +2,8 @@
  * npm run cases: the cases page, to see every component's cases in a browser as the markup check runs them. Each
  * case's markup (markup/reference.json) live on the page, with the theme's CSS and plain-JS engine (dist/), beside each
  * adapter's markup for it (run fresh: npm run conformance --save), marked same or different the way the check compares
- * them. Then it serves the page and dist/ on this computer only (127.0.0.1) and prints the address; run it again after a change and reload.
+ * them. Then it serves the page, dist/ and the cases' images (markup/media/, at /media/) on this computer only (127.0.0.1)
+ * and prints the address; run it again after a change and reload.
  *
  *   npm run cases [-- --port 4321] [-- --no-adapters]
  */
@@ -30,6 +31,9 @@ const reference = JSON.parse(readFileSync(join(ROOT, 'markup/reference.json'), '
 const settings = JSON.parse(readFileSync(join(ROOT, 'markup/settings.json'), 'utf8'));
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const title = (key) => Object.keys(settings).find((n) => n.toLowerCase() === key.toLowerCase()) ?? key;
+// A component that fills its parent's height (an Animation's canvas) gets a box with one to fill: a grid stretches it.
+const FILLS = new Set([ 'animation' ]);
+const box = (key) => `bg border round pad${FILLS.has(key) ? ' grid cols-1 ratio-16x9' : ''}`;
 
 const sections = Object.entries(reference).map(([ key, cases ]) => `
   <section id="${key}" class="grid cols-1 gap pad-y border-top">
@@ -38,11 +42,11 @@ const sections = Object.entries(reference).map(([ key, cases ]) => `
     <article class="grid cols-1 gap-sm">
       <h3 class="h6">${esc(c.case)}</h3>
       <div class="grid gap" style="--cols:${1 + adapters.length};--min:18rem">
-        <div class="grid cols-1 gap-sm content-start"><small class="text-muted">theme (reference)</small><div class="bg border round pad">${c.html}</div></div>
+        <div class="grid cols-1 gap-sm content-start"><small class="text-muted">theme (reference)</small><div class="${box(key)}">${c.html}</div></div>
         ${adapters.map(([ name, out ]) => {
           const html = out[key]?.[c.case];
           const state = html === undefined ? 'not covered' : differs.has(`${name}|${key}|${c.case}`) ? 'different' : 'same';
-          return `<div class="grid cols-1 gap-sm content-start"><small class="${state === 'same' ? 'text-success' : state === 'different' ? 'text-danger' : 'text-muted'}">${esc(name)}: ${state}</small>${html === undefined ? '' : `<div class="bg border round pad">${html}</div>`}</div>`;
+          return `<div class="grid cols-1 gap-sm content-start"><small class="${state === 'same' ? 'text-success' : state === 'different' ? 'text-danger' : 'text-muted'}">${esc(name)}: ${state}</small>${html === undefined ? '' : `<div class="${box(key)}">${html}</div>`}</div>`;
         }).join('')}
       </div>
       <details><summary class="fs-sm">Fields and markup</summary><pre class="fs-xs font-mono pad-sm bg border round overflow-auto">${esc(JSON.stringify(c.fields, null, 2))}\n\n${esc(c.html)}</pre></details>
@@ -59,14 +63,16 @@ writeFileSync(join(ROOT, 'node_modules/.cache/cases.html'), `<!doctype html>
   ${sections}
 </main><script type="module" src="/dist/marccent.js"></script></body></html>`);
 
-const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.webp': 'image/webp' };
-// Only this computer (127.0.0.1), and only the page and dist/ (the theme's CSS, engine and fonts): nothing else in the
-// folder is served.
+const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.woff2': 'font/woff2', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.jpg': 'image/jpeg' };
+// Only this computer (127.0.0.1), and only the page, dist/ (the theme's CSS, engine and fonts) and markup/media/ (the
+// images the cases name, at /media/): nothing else in the folder is served.
 const DIST = join(ROOT, 'dist');
+const MEDIA = join(ROOT, 'markup/media');
+const inside = (folder, file) => !relative(folder, file).startsWith('..') && !isAbsolute(relative(folder, file));
 createServer((req, res) => {
   const path = decodeURIComponent(req.url.split('?')[0]);
-  const file = path === '/' ? join(ROOT, 'node_modules/.cache/cases.html') : normalize(join(ROOT, path));
-  const inDist = !relative(DIST, file).startsWith('..') && !isAbsolute(relative(DIST, file));
-  if ((path !== '/' && !inDist) || !existsSync(file)) { res.writeHead(404).end(); return; }
+  const file = path === '/' ? join(ROOT, 'node_modules/.cache/cases.html')
+    : path.startsWith('/media/') ? normalize(join(MEDIA, path.slice('/media/'.length))) : normalize(join(ROOT, path));
+  if ((path !== '/' && !inside(DIST, file) && !inside(MEDIA, file)) || !existsSync(file)) { res.writeHead(404).end(); return; }
   res.writeHead(200, { 'content-type': TYPES[extname(file)] ?? 'application/octet-stream' }).end(readFileSync(file));
 }).listen(port, '127.0.0.1', () => console.log(`The cases page: http://localhost:${port}/ (Ctrl+C to stop)`));

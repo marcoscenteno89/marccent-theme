@@ -580,9 +580,9 @@
     {
       "case": "before and after",
       "fields": {
-        "before": "/img/before.webp",
+        "before": "/media/before.webp",
         "beforeAlt": "The patio before",
-        "after": "/img/after.webp",
+        "after": "/media/after.webp",
         "afterAlt": "The patio after",
         "beforeLabel": "Before",
         "afterLabel": "After",

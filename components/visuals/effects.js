@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect, useId, forwardRef, Children, cloneElement } from 'react';
 import { cx } from '../../lib/cx';
 import { Clock } from '../ui/clock';
+import { Icon } from '../ui/icon';
 import { watchInView } from '../../lib/in-view';
 import { Store, useStore } from '../../lib/store';
 
@@ -153,12 +154,13 @@ const Orbit = ({ positions, start = 0, startAngle = 0, wheel, center, hub = true
 
 /**
  * OrbitItem: one of an Orbit's items, a circle on its ring; picked, its title and text show in the middle.
- * @param {string|React.ReactNode} icon - An image's src, or a node. @param {string} title
+ * @param {string|React.ReactNode} icon - A Button icon ("house", or full "fa-…" classes), or a node (an image, a
+ *   number). @param {string} title
  * @param {React.ReactNode} [text]
  */
 // text: its Orbit shows it in the middle once it's picked.
 const OrbitItem = ({ icon, title, text, angle = 0, size, picked = false, sync = false, onSelect }) => {
-  const glyph = typeof icon === 'string' ? <img src={icon} alt="" className="w-100" /> : icon;
+  const glyph = typeof icon !== 'string' ? icon : icon.startsWith('fa-') ? <Icon family={false} className={icon} /> : <Icon name={icon} />;
   // A circle on the track, the picked one filled with the gradient. --icon-size: a Font Awesome icon fills it instead
   // of keeping its own minimum size, so a small button on a crowded ring stays round.
   const button = {

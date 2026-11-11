@@ -3,6 +3,16 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## Unreleased
+
+### Changed
+- `OrbitItem`'s `icon` is a Font Awesome icon, as DockItem's (`"house"`, or full `"fa-…"` classes; settings version 2),
+  not an image's URL; an image still goes in as a node. Breaking for an Orbit item given an image's URL.
+
+### Fixed
+- The cases page shows every case: Orbit's icons (#123), Compare's and Section's images (`markup/media/`, served at
+  `/media/`) and Animation in a box with a height to fill (#124).
+
 ## 1.0.0-rc.23
 
 ### Added
