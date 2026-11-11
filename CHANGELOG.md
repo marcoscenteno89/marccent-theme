@@ -29,6 +29,9 @@ README (Versions → What a version promises).
 - `patterns/*.html`: each pattern's markup as a file (Footer, Image card, Header, Floating header, App frame), and `npm
   run patterns` (in `npm test`): fails on a class the theme doesn't define or a `data-component` nothing writes.
 
+- `.d-md-none` (hidden from 768px: phones only) and `.d-md-block` (with `.d-none`: shown from 768px only), the
+  screen-width breakpoint `.sticky-md-top` uses (T-003).
+
 ### Changed
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
   What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
@@ -42,6 +45,9 @@ README (Versions → What a version promises).
 ### Fixed
 - Loading sets no width of its own (B-003): a block that fills its parent, so a flex parent that shrinks it stretches
   it (`.self-stretch`, `.w-100`).
+- A Toggle button with a panel follows it in the engine (B-006): `aria-expanded` and the icon (Menu fold's bars →
+  xmark) say whether the panel is open, whatever closed it; before, they stayed closed.
+- Menu fold's button is the icon's square: its own padding (a frame around the icon) gone.
 
 ### Removed
 - `AppShell`: a Sidebar beside the page (the App frame pattern, PATTERNS.md).

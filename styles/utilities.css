@@ -288,6 +288,8 @@
 .z-toast { z-index: 1090; }
 @media (min-width: 768px) {
   .sticky-md-top { position: sticky; top: 0; z-index: 1020; }
+  .d-md-none { display: none; } /* phones only (a call bar) */
+  .d-md-block { display: block; } /* with .d-none: from 768px only */
 }
 
 /* SHAPES: cut any element to a shape, a .shape-* class on it. clip-path (a mask for the heart and the ring), so the

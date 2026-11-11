@@ -170,10 +170,7 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
    the menu's place on the page (display: contents takes back the popover's hiding and box) and the button hides. */
 @layer components {
 .menu-fold { display: grid; justify-items: end; }
-.btn.menu-fold-toggle {
-  padding: var(--space-xs) calc(var(--space) * .75);
-  border-color: color-mix(in srgb, currentColor 15%, transparent);
-}
+.btn.menu-fold-toggle { border-color: color-mix(in srgb, currentColor 15%, transparent); }
 .btn.menu-fold-toggle:hover { background-color: transparent; }
 @container (width >= 56rem) {
   .menu-fold { display: contents; }

@@ -26,6 +26,15 @@ const listen = (target, type, fn, opts) => {
 };
 const all = (stops) => () => stops.forEach((stop) => stop?.());
 
+// A toggle button's state: its attribute, its icon (data-icon / data-active-icon) and the marccent:toggle event.
+const setToggle = (btn, attr, on) => {
+  btn.setAttribute(attr, on);
+  const icon = on ? btn.dataset.activeIcon : btn.dataset.icon;
+  const i = btn.querySelector('.btn-icon');
+  if (icon && i) i.className = iconClass(icon);
+  btn.dispatchEvent(new CustomEvent('marccent:toggle', { detail: on, bubbles: true }));
+};
+
 /*
  * Toggle button (ToggleButton): a disclosure (aria-controls → aria-expanded) or a pressed toggle (aria-pressed)
  * flips on click, swaps between data-icon and data-active-icon, and says so with a marccent:toggle event (detail: on)
@@ -35,13 +44,7 @@ define('toggle-button', (btn) => {
   if (btn.hasAttribute('popovertarget')) return;
   const attr = btn.hasAttribute('aria-controls') ? 'aria-expanded' : btn.hasAttribute('aria-pressed') ? 'aria-pressed' : null;
   if (!attr) return;
-  const set = (on) => {
-    btn.setAttribute(attr, on);
-    const icon = on ? btn.dataset.activeIcon : btn.dataset.icon;
-    const i = btn.querySelector('.btn-icon');
-    if (icon && i) i.className = iconClass(icon);
-    btn.dispatchEvent(new CustomEvent('marccent:toggle', { detail: on, bubbles: true }));
-  };
+  const set = (on) => setToggle(btn, attr, on);
   const isOn = () => btn.getAttribute(attr) === 'true';
   return all([
     listen(btn, 'click', () => set(!isOn())),
@@ -51,7 +54,8 @@ define('toggle-button', (btn) => {
 
 /*
  * Toggle button's panel (.toggle-panel, a popover): under its button, following it as the page scrolls; focus moves
- * into it once shown.
+ * into it once shown. Its button's state follows the popover, whatever opened or closed it (the button, Esc, a tap
+ * outside): aria-expanded, the icon swapped as Toggle button's, and the marccent:toggle event.
  */
 define('toggle-panel', (panel) => {
   const button = document.querySelector(`[popovertarget="${panel.id}"]`);
@@ -61,9 +65,13 @@ define('toggle-panel', (panel) => {
     panel.style.top = `${r.bottom + 8}px`;
     panel.style.maxHeight = `min(60vh, calc(100dvh - ${r.bottom + 8}px - 1rem))`;
   };
+  const set = (on) => setToggle(button, 'aria-expanded', on);
   return all([
     listen(panel, 'beforetoggle', (e) => e.newState === 'open' && place()),
-    listen(panel, 'toggle', (e) => e.newState === 'open' && panel.querySelector('select, input, textarea, button, a[href], [tabindex]')?.focus()),
+    listen(panel, 'toggle', (e) => {
+      set(e.newState === 'open');
+      if (e.newState === 'open') panel.querySelector('select, input, textarea, button, a[href], [tabindex]')?.focus();
+    }),
     listen(window, 'scroll', place, { passive: true }),
     listen(window, 'resize', place),
   ]);
