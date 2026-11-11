@@ -10,6 +10,9 @@ README (Versions → What a version promises).
   not an image's URL; an image still goes in as a node. Breaking for an Orbit item given an image's URL.
 
 ### Fixed
+- Settings renamed to full words now raise their component's version (#125): Animation (`frameRate`), Section
+  (`minimumHeight`), Code (`minimumLines`), CodeTabs (`languages`, `minimumLines`) and FileDrop (`maximumSize`) are
+  at settings version 2, so content saved with the old names can be upgraded.
 - The Floating header no longer covers the first section (#35): its first section takes `.pad-top-header`, the bar's
   height (`--header-height`, measured by the engine as the bar resizes; an estimate until it runs) plus the section's
   rhythm (PATTERNS.md).
