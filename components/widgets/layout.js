@@ -4,9 +4,9 @@ import { cx } from '../../lib/cx';
 import { Icon } from '../ui/icon';
 
 /*
- * Layout widgets: honeycombs (HexGrid with HexFlip children: a team wall), a timeline and cards (StatCard, ImageCard). No CSS of
+ * Layout widgets: honeycombs (HexGrid with HexFlip children: a team wall), a timeline and StatCard. No CSS of
  * their own: the theme's classes (grid, stack, shape, color: bg-primary-tint, glass-dark), and inline styles for what
- * only the component knows (positions, sizes, turns, the overlays on a photo).
+ * only the component knows (positions, sizes, turns).
  */
 
 /**
@@ -84,10 +84,10 @@ const Timeline = ({ events, className, style }) => (
 );
 
 /**
- * StatCard: a number that matters, with an icon in a ring (70% of the card's width) and a label, all centered. Its
- * content is in the page's text color (--body-color: light in dark mode, dark in light mode), so it reads on the
- * mode's shades of the gradient. No background of its own: put a group of them in a
- * .bg-gradient-run grid (colors.css) and one gradient runs through them all, or give each a bg-* class.
+ * StatCard: a number that matters, with an icon in a ring (70% of its width) and a label, all centered. No box of its
+ * own (T-033): it goes inside a Card, which gives it the background, corners, padding and hover; a group of Cards in a
+ * .bg-gradient-run grid (colors.css) runs one gradient through them all. Its content is in the page's text color
+ * (--body-color: light in dark mode, dark in light mode), so it reads on the mode's shades of the gradient.
  * @param {Object} props
  * @param {string} props.icon @param {React.ReactNode} [props.value] - The big line (a number, or a name).
  * @param {string} [props.label] - Small, under it.
@@ -101,7 +101,7 @@ const Timeline = ({ events, className, style }) => (
  * @param {string} [props.name] - Which card this is (data-name), when there are several: "humidity".
  */
 const StatCard = ({ icon, value, label, accent, fill, text, children, className, name }) => (
-  <div data-component="stat-card" data-name={name} className={cx('cq round shadow pad grid cols-1 gap-lg text-center hover-holographic', className)}
+  <div data-component="stat-card" data-name={name} className={cx('cq grid cols-1 gap-lg text-center', className)}
     style={{ minHeight: '7rem', color: 'var(--body-color)', gridTemplateRows: '1fr auto' }}>
     {/* Two rows: the content, then the actions pinned to the bottom, so buttons line up across a row of cards. */}
     <div className="grid cols-1 gap-lg justify-center content-start">
@@ -122,80 +122,4 @@ const StatCard = ({ icon, value, label, accent, fill, text, children, className,
   </div>
 );
 
-// ImageCard overlays: what sits between the photo and the content. Values only the card knows, so inline.
-const FADE = 'linear-gradient(to top, rgb(0 0 0 / .8), rgb(0 0 0 / .35) 45%, transparent 75%)';
-const SOFT = 'linear-gradient(to top, rgb(0 0 0 / .55), transparent 60%)';
-const BLUR_MASK = { blur: 'linear-gradient(to top, #000 40%, transparent 72%)', focus: 'radial-gradient(circle at 50% 45%, transparent 28%, #000 60%)' };
-
-/**
- * ImageCard: a photo that fills the card, with its text and buttons in front of it. The light text always sits on
- * something dark or frosted, so it reads on any photo in light and dark mode. The photo is a layer of a .stack, so the
- * card's size comes from ratio (or its grid cell), not from the photo.
- * @param {Object} props
- * @param {string} props.src - The photo, e.g. "/img/blue1.webp". @param {string} [props.alt=""] - Empty: decorative.
- * @param {string} [props.canvas] - Instead of a photo, a live canvas animation by name ("blob", "snow"…: an animation
- *   element, visuals/canvas-scanner.js), on the page surface. With src as well, it plays over the photo instead (snow falling
- *   on a winter photo); a soft shadow keeps light particles visible on a light photo. @param {number} [props.fps] - Its frame rate (default 30).
- * @param {string} [props.colors] - The animation's own colors instead of the theme's, comma-separated CSS colors
- *   (data-colors): "#fff" keeps snow white, "#ff3d00, #ffb300" makes fire red and amber, in any theme.
- * @param {string} [props.label] - Small, uppercase, above the title (a category, a place, a date).
- * @param {React.ReactNode} [props.title]
- * @param {React.ReactNode} [props.text] - A line or two under the title.
- * @param {React.ReactNode} [props.children] - Actions (buttons) in a row under the text, or anything else.
- * @param {'fade'|'glass'|'blur'|'focus'|'tint'|'none'} [props.overlay='fade'] - fade: dark up from the bottom.
- *   glass: the content on a frosted panel. blur: the lower part of the photo blurred (progressive), under a fade.
- *   focus: everything blurred but a circle in the middle. tint: the theme gradient over the photo.
- * @param {'start'|'center'|'end'} [props.align='end'] - Where the content sits: top, middle or bottom.
- * @param {React.ReactNode} [props.badge] - A frosted chip in the top corner ("New", "-20%", a distance).
- * @param {boolean} [props.big] - A display-size title, for the large tiles.
- * @param {string} [props.ratio='4 / 5'] - The card's aspect ratio; null to fill its cell instead (give it h-100).
- * @param {string} [props.position='center'] - Which part of the photo stays in view when it's cropped (object-position).
- * @param {'rounded'|'circle'} [props.shape='rounded'] - circle: a round card (give it ratio "1 / 1"); its content is
- *   centered in the square that fits inside the circle (70.7% of its width), so nothing runs into the curve.
- * @param {string} [props.className] @param {Object} [props.style] - e.g. gridRow: 'span 2' in a collage.
- * @example
- * <ImageCard src="/img/teal2.webp" label="Seychelles" title="Turquoise bays" text="Seven nights, three islands." overlay="glass">
- *   <Button icon="plane" className="light">Book</Button>
- * </ImageCard>
- */
-const ImageCard = ({ src, canvas, fps, colors, alt = '', label, title, text, children, overlay = 'fade', align = 'end', badge, big, ratio = '4 / 5',
-  position = 'center', shape = 'rounded', className, style }) => {
-  const circle = shape === 'circle';
-  const centered = circle || align === 'center';
-  const photo = { objectFit: 'cover', objectPosition: position };
-  // blur / focus over a live canvas: a frosted layer (backdrop-filter blurs whatever moves behind it), masked the same way.
-  const frost = BLUR_MASK[overlay] && { backdropFilter: 'blur(14px) saturate(120%)', WebkitBackdropFilter: 'blur(14px) saturate(120%)',
-    WebkitMaskImage: BLUR_MASK[overlay], maskImage: BLUR_MASK[overlay] };
-  return (
-    <article data-component="image-card" className={cx('stack round shadow overflow-hidden hover-holographic', circle && 'circle', centered && 'text-center', className)}
-      style={{ aspectRatio: ratio ?? undefined, ...style }}>
-      {canvas && !src
-        ? <div data-component="animation" data-name={canvas} data-fps={fps} data-colors={colors} className="bg w-100 h-100" role={alt ? 'img' : undefined} aria-label={alt || undefined} />
-        : <img src={src} alt={alt} loading="lazy" decoding="async" className="w-100 h-100" style={photo} />}
-      {canvas && !src && frost && <div style={frost} />}
-      {/* blur / focus: the same photo again, blurred and masked, so only part of it is soft. */}
-      {src && BLUR_MASK[overlay] && <img src={src} alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-100 h-100"
-        style={{ ...photo, filter: 'blur(14px) saturate(120%)', scale: '1.12', WebkitMaskImage: BLUR_MASK[overlay], maskImage: BLUR_MASK[overlay] }} />}
-      {overlay === 'tint' && <div className="bg-gradient" style={{ opacity: .55, mixBlendMode: 'multiply' }} />}
-      {/* src and canvas: the animation over the photo (and its blur / tint), under the fade and text. */}
-      {canvas && src && <div data-component="animation" data-name={canvas} data-fps={fps} data-colors={colors} aria-hidden="true" className="w-100 h-100"
-        style={{ filter: 'drop-shadow(0 0 2px rgb(0 0 0 / .45))' }} />}
-      {overlay !== 'none' && overlay !== 'glass' && <div style={{ position: 'relative', background: centered ? 'rgb(0 0 0 / .35)' : overlay === 'tint' ? SOFT : FADE }} />}
-      {/* The fade, badge and content are positioned (relative), so they paint above the blurred, scaled and blended
-          layers, which the browser would otherwise draw on top of anything unpositioned. */}
-      {badge && <span className="chip pill glass-dark fs-sm fw-bold self-start justify-self-end" style={{ position: 'relative', margin: 'var(--space-sm)' }}>{badge}</span>}
-      {(label || title || text || children) && (
-        <div className={cx('grid cols-1 gap-sm pad', { start: 'self-start', center: 'self-center', end: 'self-end' }[circle ? 'center' : align],
-          overlay === 'glass' && 'glass-dark round', circle && 'justify-self-center pad-0')}
-          style={{ position: 'relative', color: 'var(--light)', ...(overlay === 'glass' && { margin: 'var(--space-sm)' }), ...(circle && { width: '70.7%' }) }}>
-          {label && <small className="text-uppercase fw-bold tracking-wide opacity-75">{label}</small>}
-          {title && <h3 className={big ? 'display-sm' : 'h4'} style={{ margin: 0, textWrap: 'balance' }}>{title}</h3>}
-          {text && <p style={{ margin: 0, opacity: .9 }}>{text}</p>}
-          {children && <div className={cx('row-wrap gap-sm', centered && 'cols-center')}>{children}</div>}
-        </div>
-      )}
-    </article>
-  );
-};
-
-export { HexGrid, HexFlip, Timeline, StatCard, ImageCard };
+export { HexGrid, HexFlip, Timeline, StatCard };

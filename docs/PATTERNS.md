@@ -31,24 +31,28 @@ Markup: [footer.html](https://github.com/marcoscenteno89/marccent-patterns/blob/
 
 A photo filling a card, its text and buttons in front, always readable: a fade up from the bottom, a tint, frosted
 glass, or a blur on part of the photo; or a live animation instead of (or over) the photo. It was the ImageCard
-component; it becomes this pattern once the theme has its overlays as classes (TICKETS.md T-033).
+component (removed 2026-11-10, TICKETS.md T-033).
 
 - **Parts:** Card (`pad-0`, `.stack`: the layers on one cell), the image (`.media-cover`), an overlay (`.overlay`,
-  `.overlay-blur` for the lower part blurred, `.overlay-focus` for all but the middle; a tint still to add), the content (`self-end`, a badge as `.chip`).
+  `.overlay-blur` for the lower part blurred, `.overlay-focus` for all but the middle, `.overlay-tint` for the theme's
+  gradient), the content (`self-end`, a badge as `.chip`). For a live animation, an animation element
+  (`data-component="animation"`) in the image's place.
 - **Admin data:** none (the image from the Media Library, like any image).
-- **Built in:** html (marccent.com's cards, today with the component); wp: a block pattern of Card, Image and text
-  blocks.
+- **Built in:** html (the theme's animation player, `components/visuals/animations.js`; marccent.com's cards, still
+  on the component until it takes this release); wp: a block pattern of Card, Image and text blocks.
 
 Markup: [image-card.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/image-card.html) (marccent-patterns).
 
 ## Collage
 
-Tiles of different sizes packed on one grid: photos, animations, cards. It was the Collage component.
+Tiles of different sizes packed on one grid: photos, animations, cards. It was the Collage component (removed
+2026-11-10, TICKETS.md T-033).
 
-- **Parts:** Grid (dense packing, a minimum row height: to add, T-033), Cards or Image cards with size classes
-  (`span-2`, `span-3`, a row span to add), border variants (a frame, an accent ring) when needed.
+- **Parts:** Grid (`dense`, `minimumRowHeight`: `.dense .rows-min`), Cards or Image cards with size classes
+  (`span-2`, `span-3`, `.row-span-2` to `-4`), border variants (a frame, an accent ring) when needed.
 - **Admin data:** rows (the tiles, when they're data).
-- **Built in:** html (marccent.com's Images and Animations pages, today with the component); wp: a Grid of Cards.
+- **Built in:** html (marccent.com's Images and Animations pages, still on the component until it takes this
+  release); wp: a Grid of Cards.
 
 ## Header
 
@@ -97,10 +101,10 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 |---|---|---|
 | CodeTabs | TabBar, Code | decided: a component (its editors are one value: 4.5.1) |
 | AppShell | Sidebar, a Menu, the page, Grid classes | done 2026-11-10: removed; its collapse is the Sidebar component's, the frame the App frame pattern (above) |
-| Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | decided 2026-11-09: a pattern; Grid needs dense packing and a row height, the theme a row-span class, before the component retires |
+| Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | done 2026-11-10: removed; the Collage pattern (above) |
 | HexWall | HexGrid (a component: it places each child by its place), its HexFlip children | removed (1.0.0-rc.21): not a pattern; a HexGrid with HexFlip children (marked with their parent) is the wall; in WordPress a Loop of HexFlip inside HexGrid |
-| ImageCard | Card, an image, overlay classes | decided 2026-11-09: a pattern (the Image card, above); the component retires once the theme has its overlays as classes |
-| StatCard | a ring (progress), Icon, the number, a label | decided 2026-11-09: a component, without a box of its own: it goes inside a Card (the Card is the box) |
+| ImageCard | Card, an image, overlay classes | done 2026-11-10: removed; the Image card pattern (above) |
+| StatCard | a ring (progress), Icon, the number, a label | done 2026-11-10: a component without a box of its own: it goes inside a Card (the Card is the box) |
 | TicketCard | Card, `.shape-ticket`, a list | done: Card + the ticket variant (1.0.0-rc.18) |
 | Timeline | a list, Icon, Button, classes | decided: a component (its line depends on each row's place: 4.5.2), and its events become children: a Timeline item component, marked with Timeline as its parent; in WordPress a Loop of them (to build) |
 

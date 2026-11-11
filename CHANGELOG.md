@@ -39,6 +39,8 @@ README (Versions → What a version promises).
   and their markup cases, so every adapter writes them as the components do.
 
 ### Changed
+- StatCard has no box of its own (T-033): no `round shadow pad hover-holographic` on its root; it goes inside a Card.
+  Its settings are in `markup/settings.json`.
 - The components' props are the settings' full words (PRODUCT-LINE.md 5.4; breaking for React callers): Section
   `padY` → `verticalPadding`; Grid `cols` → `columns`, `min` → `minimumColumnWidth`, `row` → `minimumRowHeight`; Card
   `pad` → `padding`; Code `lang` → `language`; Rating, Stars, TagInput and Toast `max` → `maximum` (and
@@ -68,6 +70,9 @@ README (Versions → What a version promises).
   `.cols-1` and every other layout's own columns.
 
 ### Removed
+- `ImageCard` and `Collage` (and `components/widgets/collage.js`, with its tile helpers `Spinner`, `Light`, `Ghost`,
+  `Stars` and `Progress`): the Image card and Collage patterns (PATTERNS.md, T-033), on the theme's `.overlay-*`,
+  `.dense`, `.rows-min` and `.row-span-N`. The animation player's stage is an Image card.
 - `AppShell`: a Sidebar beside the page (the App frame pattern, PATTERNS.md).
 - `NavBar` (and `nav.css`, its `nav-bar` engine and markup cases): the header is the Header pattern (PATTERNS.md), a
   Section and a Grid around Menu `fold`, a Button and the theme controls; the floating pill variant is the Floating header pattern: `.fixed-top`, `.pe-none` / `.pe-auto` and

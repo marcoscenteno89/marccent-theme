@@ -78,9 +78,11 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 
 - [x] **The Stopwatch block draws its own stopwatch** — done 2026-11-09: it's the theme's Counter with `controls` (1.0.0-rc.21); `src/shared/stopwatch.js` removed. (found 2026-11-10)
 
-- [ ] **Collage** draws its tiles as `ImageCard`s inside the theme's `Collage`, with copies of its `SIZE` and `BORDER`
-      tables (`src/shared/collage.js`): the theme's `Collage` only takes its own photos (`/img/<name>.webp`). Better: the
-      theme's `Collage` taking a tile's `src`, then drop the copies. (found 2026-10-31)
+- [ ] **Collage, Image card and Stat card on the theme's T-033 release** — the theme removed `Collage` and `ImageCard`
+      (2026-11-10), which the Collage block imports (`src/shared/collage.js`, with copies of its `SIZE` and `BORDER`
+      tables): the Collage and Image card blocks retire into block patterns (PATTERNS.md: a Grid with `dense` and a
+      minimum row height, Cards with an image and the `.overlay-*` classes); the Stat card block's StatCard has no box
+      of its own any more, so the block wraps it in a Card. (found 2026-10-31)
 
 - [ ] **Orbit** offers items on a ring, or the theme's `OrbitClock` / `SolarSystem`; `wheel`, `center`, `offset` and
       `sync` aren't in its settings. (found 2026-10-31)

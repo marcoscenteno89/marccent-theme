@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { A11y } from "swiper/modules";
 import 'swiper/css';
 import { ToggleButton } from '../ui/toggle-button';
-import { ImageCard } from '../widgets/layout';
 import { usePager, SliderPager } from '../widgets/slider-pager';
 import { cx } from '../../lib/cx';
 
@@ -32,9 +31,16 @@ const AnimPlayer = () => {
   const current = ANIMATIONS[active];
   return (
     <div data-component="anim-player" className="grid cols-1 gap-sm">
-      {/* The stage: the picked animation large, its name over it. */}
-      <ImageCard canvas={current.key} alt={`${current.name} animation`} ratio="16 / 9" big className="border"
-        label={`Now playing · ${active + 1} / ${ANIMATIONS.length}`} title={current.name} text={current.about} />
+      {/* The stage: the picked animation large, its name over it (the Image card pattern, PATTERNS.md). */}
+      <article className="bg border round shadow overflow-hidden stack" style={{ aspectRatio: '16 / 9' }}>
+        <div data-component="animation" data-name={current.key} role="img" aria-label={`${current.name} animation`} className="w-100 h-100" />
+        <div className="overlay overlay-sm" />
+        <div className="grid cols-1 gap-sm pad self-end" style={{ color: 'var(--light)' }}>
+          <small className="text-uppercase fw-bold tracking-wide opacity-75">{`Now playing · ${active + 1} / ${ANIMATIONS.length}`}</small>
+          <h3 className="display-sm" style={{ margin: 0 }}>{current.name}</h3>
+          <p style={{ margin: 0 }}>{current.about}</p>
+        </div>
+      </article>
       <Swiper
         {...pager.swiperProps}
         modules={[...pager.swiperProps.modules, A11y]}

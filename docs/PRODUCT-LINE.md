@@ -366,7 +366,7 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
   that stays: 52 components, 76 cases (2026-11-09). A child is covered by its parent's case (AccordionItem,
   Step, SliderPager in Carousel); Toast has none (browser only: nothing until a message, `markup` in settings.json).
   Pending, a case once built (T-034, T-033): Timeline item, Dock item, Radial menu item, Step bar step, Orbit item,
-  Tab; StatCard without its box. None for what's leaving (Collage, ImageCard, HexWall). AppShell is gone (2026-11-10): Sidebar and the App frame pattern.
+  Tab. StatCard's case is without its box (2026-11-10). None for what's left (Collage, ImageCard, HexWall). AppShell is gone (2026-11-10): Sidebar and the App frame pattern.
 - [x] **Settings stage, written (T-029):** every component that stays (54) has its settings in `markup/settings.json`,
   204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
 - [x] **Settings stage, used by Marccent Blocks** (2026-11-10): its block.json attributes are written from
@@ -389,13 +389,14 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 **2. The restructuring decided**
 - [ ] T-032: done 2026-11-10: the Header pattern, NavBar removed, the Navbar block a Header block pattern in marccent-wp.
   Left: the folded menu as a full-width panel on phones; the Footer block pattern (marccent-wp).
-- [ ] T-033: done in 1.0.0-rc.21: `.overlay-tint`, `.overlay-blur`, `.overlay-focus`; Grid's dense packing and row
-  height, `.row-span-N`; HexWall gone; the Stopwatch block is Counter's controls. Left: ImageCard and Collage retire
-  (their pages on marccent.com rebuilt as the patterns), StatCard drops its box (about 15 uses on marccent.com wrap
-  in a Card). AppShell done 2026-11-10 (the Sidebar component, the App frame pattern).
+- [x] T-033: done in 1.0.0-rc.21: `.overlay-tint`, `.overlay-blur`, `.overlay-focus`; Grid's dense packing and row
+  height, `.row-span-N`; HexWall gone; the Stopwatch block is Counter's controls. AppShell done 2026-11-10 (the
+  Sidebar component, the App frame pattern). Done 2026-11-10: ImageCard and Collage removed (the Image card and
+  Collage patterns; the animation player is the Image card), StatCard without its box (it goes in a Card). marccent.com's
+  part is in section 4.
 - [ ] T-034: the six children (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab); their
   parents take them and a Loop of them.
-- [ ] The WordPress blocks these replace retire: Image card, Collage, Hex wall.
+- [ ] The WordPress blocks these replace retire: Image card, Collage, Hex wall; the Stat card block inside a Card.
 
 **3. The wp site: every component in the admin and on the page**
 - [x] ToggleButton covered by Marccent Blocks (2026-11-09); its markup test runs the theme's conformance check.
@@ -409,6 +410,8 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [ ] The kitchen sink current with all of it.
 
 **4. marccent.com live**
+- [ ] On the theme's T-033 release: its Images and Animations pages as the Collage and Image card patterns, its cards
+  as Image cards, its StatCards (about 15) each in a Card.
 - [x] A demo of every component that stays (3.6): the last seven (Grid, Divider, Dock, Drawer, CodeTabs, Blur, Map)
   on the Theme page, 2026-11-09; SliderPager in Carousel, Trace in Button's trace. The pending ones when built.
 - [ ] Its dependencies updated: `npm audit fix` took it to 14 (2026-11-09); left: Next 15 → 16 (a major upgrade: the critical
