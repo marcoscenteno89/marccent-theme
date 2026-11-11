@@ -52,8 +52,8 @@ const useToggle = ({ open, defaultOpen = false, onToggle, controls, pressed = tr
  * @param {string} [props.controls] - The id of the element it opens: makes it a disclosure.
  * @param {React.ReactNode} [props.panel] - Content it opens in a panel of its own (see above).
  * @param {boolean} [props.fold] - With panel: folds where its container (the nearest .wrap: a header's width) is under
- *   56rem, the panel then opening full width under the band the button sits in (its .wrap-fluid: the header); from
- *   56rem the panel's content shows in place and the button hides (.toggle-fold, button.css). Menu fold is this.
+ *   64rem, the panel then opening full width under the band the button sits in (its .wrap-fluid: the header); from
+ *   64rem the panel's content shows in place and the button hides (.toggle-fold, button.css). Menu fold is this.
  * @param {React.ReactNode} [props.children] - Its label while off. @param {Function} [props.onClick] - Also called on a click.
  * @param {string} [props.className] - Extra classes. Any other prop (data-name, aria-*…) goes on its Button.
  *
@@ -81,7 +81,7 @@ const ToggleButton = ({ icon, activeIcon = icon, activeLabel, open, defaultOpen 
     button.popoverTargetElement = el;
     const band = fold ? button.closest('.wrap-fluid') : null;
     const place = () => {
-      // Folded, once the button hides (the band grew past 56rem), the panel is the content's place: an open popover
+      // Folded, once the button hides (the band grew past 64rem), the panel is the content's place: an open popover
       // would stay a box in the top layer, so it closes.
       if (band && !button.checkVisibility()) return el.matches(':popover-open') && el.hidePopover();
       const r = (band ?? button).getBoundingClientRect();

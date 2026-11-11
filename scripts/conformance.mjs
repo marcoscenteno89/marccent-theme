@@ -24,6 +24,8 @@
  * (STYLES_EXCEPTIONS excuses one by ticket). Page frames: a component whose settings take two or more named pieces of
  * content is reported as a probable pattern (REVIEWED_FRAMES lists the ones decided to stay).
  *
+ * Breakpoints: every @media / @container width in styles/ is sm 40rem, md 48rem or lg 64rem (the .span-N steps aside).
+ *
  * --save: each adapter's markup as it printed it, one JSON file per adapter (the cases page shows them, npm run cases).
  *
  * An adapter's own test runs it against its pinned reference: --reference node_modules/marccent-theme/markup/
@@ -351,6 +353,27 @@ if (!option('--adapter') && !option('--render')) {
     .filter(([ , slots ]) => slots.length >= 2);
   for (const [ c, slots ] of frames) console.log(`todo frame: ${c} takes ${slots.join(', ')}: a probable pattern (4.5); decide, or list it in REVIEWED_FRAMES with why`);
   if (!frames.length) console.log('ok   frames: no component takes two named pieces of content');
+}
+
+// Breakpoints (B-008): every @media / @container width in styles/ is on the scale (tokens/defaults.css: sm 40rem,
+// md 48rem, lg 64rem), except the .span-N steps, which follow the grid's columns (layout.css).
+if (!option('--adapter') && !option('--render')) {
+  const SCALE = [ '40rem', '48rem', '64rem' ];
+  const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(d, e.name)) : e.name.endsWith('.css') ? [ join(d, e.name) ] : []));
+  const before = failed;
+  let checked = 0;
+  for (const file of walk(join(ROOT, 'styles'))) {
+    const css = readFileSync(file, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const m of css.matchAll(/@(?:media|container)\s*\(([^)]*)\)\s*\{([^{}]*)\{/g)) {
+      const width = m[1].match(/(?:min-width:|max-width:|width\s*[<>]=?)\s*([\d.]+(?:rem|px|em))/)?.[1];
+      if (!width) continue;
+      checked++;
+      if (SCALE.includes(width) || /^\s*\.span-\d+\s*$/.test(m[2])) continue;
+      console.log(`FAIL breakpoint ${file.slice(ROOT.length + 1)}: ${m[1].trim()} is off the scale (${SCALE.join(', ')}: tokens/defaults.css)`);
+      failed++;
+    }
+  }
+  if (failed === before) console.log(`ok   breakpoints: ${checked} widths on the scale (${SCALE.join(', ')})`);
 }
 
 process.exit(failed || (strict && missing) ? 1 : 0);

@@ -67,6 +67,10 @@ README (Versions → What a version promises).
   (no `--root`); the lists were brought into section 8's shape on the way (found dates, shipped tickets' lines gone).
 
 ### Fixed
+- One breakpoint scale (B-008), Tailwind's: `sm` 40rem, `md` 48rem, `lg` 64rem, so a name is one width everywhere.
+  `.icon-only-md` hides the label below 48rem (was 56rem). A header folds at `lg`: Menu `fold`, Toggle button's fold,
+  `.layout-ends` and Sidebar's top bar change at 64rem (was 56rem). `.sticky-md-top` and `.d-md-*` are written 48rem
+  (768px, unchanged). `npm run conformance` fails on a breakpoint off the scale.
 - Menu fold's panel on phones is full width under its header (T-032): under the band its button sits in (the nearest
   `.wrap-fluid`), as wide as it, square with a line under it; one left open closes when the header grows past 56rem.
 - Menu no longer styles Toggle button's panel (B-004): the fold is Toggle button's own `fold` setting

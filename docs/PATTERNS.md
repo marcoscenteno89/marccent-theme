@@ -57,7 +57,7 @@ Tiles of different sizes packed on one grid: photos, animations, cards. It was t
 ## Header
 
 A site's header: the brand at the start; at the end the main menu, folding behind a menu button where the header is
-under 56rem (Menu `fold`), a call to action and the theme controls. Sticky at the top. It was the NavBar component
+under 64rem (Menu `fold`), a call to action and the theme controls. Sticky at the top. It was the NavBar component
 (removed 2026-11-10); its floating pill variant is the Floating header (below).
 
 - **Parts:** Section (`as` header, `wrap wrap-fluid` outside, `.wrap` inside: the fold's container), Grid
@@ -84,7 +84,7 @@ Markup: [header-floating.html](https://github.com/marcoscenteno89/marccent-patte
 
 ## App frame
 
-An app or docs page: a Sidebar down the side, the page beside it; below 56rem the Sidebar is a top bar and the page
+An app or docs page: a Sidebar down the side, the page beside it; below 64rem the Sidebar is a top bar and the page
 under it. Was the AppShell component (removed 2026-11-10).
 
 - **Parts:** Grid (`layout-ends` with `--start: 1`, in a `.cq`), Sidebar (its content a Menu with `cols-1` and

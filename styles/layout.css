@@ -207,7 +207,7 @@
 /* Ends: the first --start items (default 2) sit at the start, sized to their content; an empty column
    takes the rest; the .col-last item sits at the end. Content-sized, so it needs more room than the
    ratio layouts before it goes to one row. */
-@container (min-width: 56rem) {
+@container (min-width: 64rem) {
   .layout-ends { grid-template-columns: repeat(var(--start, 2), auto) minmax(0, 1fr) auto; }
 }
 

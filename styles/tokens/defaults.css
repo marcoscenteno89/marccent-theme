@@ -82,7 +82,11 @@
   --hover-duration: .5s;       /* the .hover-* effects (hovers.css): slower, so their motion reads */
   --spinner-duration: .75s;    /* one pulse of the loading spinner (twice as long with reduced motion) */
 
-  /* Layout (layout.css). The .span-* and layout-* breakpoints assume the default --grid-min and --grid-gap:
+  /* Breakpoints: one scale, Tailwind's: sm 40rem (640px), md 48rem (768px), lg 64rem (1024px). Every -sm- / -md- /
+     -lg- class and every @media / @container width in styles/ is one of them (npm run conformance checks it), except
+     the .span-N steps below, which follow the grid's columns. A header folds at lg (Menu fold, .layout-ends).
+
+     Layout (layout.css). The .span-* and layout-* breakpoints assume the default --grid-min and --grid-gap:
      a breakpoint can't read a variable, so change them there too if these change. */
   --grid-cols: 3;              /* max columns per row of a .grid without a .cols-* class */
   --grid-gap: var(--space);    /* space between grid items */

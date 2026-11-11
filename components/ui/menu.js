@@ -28,7 +28,7 @@ const menuLinks = (items) => items.flatMap(item => [ ...(item.href ? [ item ] : 
  * border, alignment) is passed in. layout replaces "fixed", e.g. "auto-cols cols-center" for icon-only menus (adding
  * it through className would conflict with fixed). Every part takes extra classes; an item can also carry its own.
  *
- * Submenus fly out beside their row in a wide container (56rem and up: a header bar) and open in place, indented,
+ * Submenus fly out beside their row in a wide container (64rem and up: a header bar) and open in place, indented,
  * in a narrow one (a phone's stacked menu, a sidebar).
  *
  * @param {Object} props
@@ -47,9 +47,9 @@ const menuLinks = (items) => items.flatMap(item => [ ...(item.href ? [ item ] : 
  * @param {boolean} [props.hover] - Dropdowns also open on mouse hover while their panel floats (data-open="hover";
  *   the listeners are closeMenus's, which the engine gives every menu: core/components.js).
  * @param {boolean} [props.fold] - Folds behind a menu button where there's no room (Bootstrap's navbar toggler and
- *   collapse, on its own): ToggleButton's fold, the menu its panel. In a container under 56rem (the nearest .wrap: a
+ *   collapse, on its own): ToggleButton's fold, the menu its panel. In a container under 64rem (the nearest .wrap: a
  *   header's width) the menu is a phone menu, stacked (.menu-fold, menu.css) in a panel full width under the header;
- *   from 56rem it shows in place and the button hides. A header is then a pattern: a brand, a folding Menu, a call
+ *   from 64rem it shows in place and the button hides. A header is then a pattern: a brand, a folding Menu, a call
  *   button, theme controls.
  *
  * @example <Menu items={main} label="Main" />

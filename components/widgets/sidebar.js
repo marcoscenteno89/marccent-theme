@@ -9,13 +9,13 @@ import '../../styles/components/sidebar.css';
 
 // Below this there's no room for a sidebar beside the page: it becomes a top bar, its content in a Drawer behind a menu
 // button (the layout-ends step, as the App frame pattern's grid: PATTERNS.md).
-const NARROW = '(width < 56rem)';
+const NARROW = '(width < 64rem)';
 const SAVED = 'marccent-sidebar-collapsed';
 
 /**
  * Sidebar: a column of links down the side of an app or docs page, as tall as the window and pinned while the page
  * scrolls. Its button collapses it to its icons (remembered in this browser), the links' names then their tooltips and
- * the dropdowns hidden (they have no icon-only form). Below 56rem it's a top bar with a menu button that opens the same
+ * the dropdowns hidden (they have no icon-only form). Below 64rem it's a top bar with a menu button that opens the same
  * content in a Drawer. Its width is its state (PRODUCT-LINE.md section 4, rule 9): --sidebar-width open, the icons'
  * width collapsed. Put it beside the page with the App frame pattern (PATTERNS.md).
  *

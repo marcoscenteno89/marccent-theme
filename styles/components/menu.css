@@ -62,7 +62,7 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 /* Hover menus (Menu hover): an invisible bridge over the gap between a dropdown and its floating panel, so the
    pointer crossing it never leaves the dropdown (which would close it). Wide containers only, where panels float. */
 @layer components {
-@container (width >= 56rem) {
+@container (width >= 64rem) {
 [data-open="hover"] .menu-dropdown > .menu-panel::before {
   content: '';
   position: absolute;
@@ -84,7 +84,7 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 /* A submenu's panel floats inside its parent's panel. Where panels are glass (the Glass toggle's .glass, the glass
    design styles: a see-through surface and a backdrop-filter), the parent is the only backdrop the submenu can blur,
    so it would show through clear: it takes the solid surface. !important: .glass .bg's background is. */
-@container (width >= 56rem) {
+@container (width >= 64rem) {
   .menu-panel .menu-sub > .menu-panel {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
@@ -94,7 +94,7 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 
 /* Narrow container (a phone's stacked menu, a sidebar): the submenu opens in place under its row, indented, a line
    down its side instead of a floating panel. */
-@container (width < 56rem) {
+@container (width < 64rem) {
   .menu-dropdown.menu-sub > .menu-panel {
     position: static;
     min-width: 0;
@@ -155,7 +155,7 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 .menu-quiet .menu-sub > .menu-panel { top: calc(-1 * (var(--space-sm) + var(--border-width))); left: calc(100% + .125rem); }
 /* Wide container: a dropdown as wide as its widest item, and never under 10rem; and solid, so its submenus have a
    backdrop where panels are glass. !important: .glass .bg's background is. */
-@container (width >= 56rem) {
+@container (width >= 64rem) {
   .menu-quiet .menu-dropdown > .menu-panel {
     width: max-content;
     min-width: 10rem;
@@ -166,12 +166,12 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 }
 
 /* Fold (Menu fold, .menu-fold on the menu): the menu behind a menu button, Toggle button's fold (.toggle-fold,
-   button.css: under 56rem the menu is in the button's panel, full width under the header; from 56rem it's in place
-   and the button hides). Under 56rem the menu stacks, its links at the start and its dropdowns opening in place. */
+   button.css: under 64rem the menu is in the button's panel, full width under the header; from 64rem it's in place
+   and the button hides). Under 64rem the menu stacks, its links at the start and its dropdowns opening in place. */
 @layer components {
 .btn.menu-fold-toggle { border-color: color-mix(in srgb, currentColor 15%, transparent); }
 .btn.menu-fold-toggle:hover { background-color: transparent; }
-@container (width < 56rem) {
+@container (width < 64rem) {
   .menu-fold { grid-template-columns: minmax(0, 1fr); grid-auto-flow: row; }
   .menu-fold > .menu-link,
   .menu-fold > .menu-dropdown > summary { justify-content: start; }

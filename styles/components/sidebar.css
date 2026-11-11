@@ -1,7 +1,7 @@
 @import "../layers.css";
 /* SIDEBAR (Sidebar in components/widgets/sidebar.js): a column the window's height, pinned while the page scrolls
    (sticky-top h-screen border-end on the markup). Its width is its state (PRODUCT-LINE.md section 4, rule 9): open
-   --sidebar-width, .collapsed its icons' width. Narrow screens (the script's 56rem) get .sidebar-top instead, a bar
+   --sidebar-width, .collapsed its icons' width. Narrow screens (the script's 64rem) get .sidebar-top instead, a bar
    (the .header classes on it) with the content in a Drawer. Its Menu takes .menu-vertical (menu.css). */
 @layer components {
 .sidebar {

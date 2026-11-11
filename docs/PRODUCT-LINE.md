@@ -330,6 +330,8 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-10: the breakpoint scale (B-008): Tailwind's, sm 40rem / md 48rem / lg 64rem, the one both big frameworks
+  agree on for md (768px); a header folds at lg. Written in `styles/tokens/defaults.css`, checked by conformance.
 - 2026-11-10: where kits and patterns live: each in a repository of its own, marccent-kits and marccent-patterns
   (projects.json); their lists stay here with the others (KITS.md, PATTERNS.md: section 8). Kits are new entries (after 1.0) except Local business, which finishes
   Marccent Local; web design is Portfolio plus Local business, and web hosting's parts are Product landing's plans and

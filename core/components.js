@@ -63,7 +63,7 @@ define('toggle-panel', (panel) => {
   if (!button) return;
   const band = panel.parentElement?.classList.contains('toggle-fold') ? button.closest('.wrap-fluid') : null;
   const place = () => {
-    // Folded, once its button hides (the band grew past 56rem), the panel is the content's place: an open popover
+    // Folded, once its button hides (the band grew past 64rem), the panel is the content's place: an open popover
     // would stay a box in the top layer, so it closes.
     if (band && !button.checkVisibility()) return panel.matches(':popover-open') && panel.hidePopover();
     const r = (band ?? button).getBoundingClientRect();

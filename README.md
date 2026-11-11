@@ -221,6 +221,14 @@ A few small classes for what sites kept writing inline: `.text-muted` (quieter t
 `-4x3`, `-3x2`, `-16x9`, `.fw-semibold`, `.fw-black`, `.tracking-tight`, `.tracking-wide`, `.icon-sm`, `.icon-lg`,
 and `.bg-page` (the page's colors on any element; a band with its own `data-theme` gets them by itself).
 
+## Breakpoints
+
+One scale, Tailwind's: `sm` 40rem (640px), `md` 48rem (768px), `lg` 64rem (1024px). A name means the same width
+everywhere: `.span-md-*`, `.icon-only-md`, `.d-md-none` and `.sticky-md-top` all change at 48rem. Most are container
+queries, measured on the nearest `.wrap` or `.cq`, not the screen; the `-md-` display and sticky utilities are the
+screen's. A header folds at `lg`: Menu `fold` and `.layout-ends` go to one row from 64rem. The `.span-2` … `.span-10`
+steps follow the grid's columns instead (N × 14rem plus the gaps).
+
 ## Classes that combine
 
 A component is mostly a combination of general classes, not classes of its own: a Pagination button is
