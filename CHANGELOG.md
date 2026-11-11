@@ -10,6 +10,9 @@ README (Versions → What a version promises).
   not an image's URL; an image still goes in as a node. Breaking for an Orbit item given an image's URL.
 
 ### Fixed
+- The Floating header no longer covers the first section (#35): its first section takes `.pad-top-header`, the bar's
+  height (`--header-height`, measured by the engine as the bar resizes; an estimate until it runs) plus the section's
+  rhythm (PATTERNS.md).
 - The cases page shows every case: Orbit's icons (#123), Compare's and Section's images (`markup/media/`, served at
   `/media/`) and Animation in a box with a height to fill (#124).
 

@@ -193,6 +193,9 @@
 .pad-y-section { padding-block: var(--section-space); }
 .pad-y-section-sm { padding-block: var(--section-space-sm); }
 .pad-y-section-lg { padding-block: var(--section-space-lg); }
+/* Under the Floating header (PATTERNS.md): the page's first section clears the .fixed-top bar over it, then has its
+   rhythm. --header-height: the bar's height, measured by the engine (core/components.js). */
+.pad-top-header { padding-top: calc(var(--header-height) + var(--section-space)); }
 
 /* PLACE: an item's own place in its cell, sideways (justify-self-*) and up and down (self-*). Here, unlayered, not
    with the grids in layout.css: a class put on an element beats where its component places it (a .btn centers

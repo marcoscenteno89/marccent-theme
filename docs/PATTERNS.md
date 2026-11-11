@@ -73,10 +73,12 @@ Markup: [header.html](https://github.com/marcoscenteno89/marccent-patterns/blob/
 
 The Header over the top of the page, a pill that lets the hero show through: see-through while the page is at its
 top, solid (its background, border and shadow) once it scrolls. It takes no room, so the page's first section (a hero)
-starts under it. It was NavBar's floating variant (removed 2026-11-10).
+starts under it, and takes `.pad-top-header` so its content starts below the bar. It was NavBar's floating variant
+(removed 2026-11-10).
 
 - **Parts:** the Header's (above); `.fixed-top` and `.pe-none` on the frame (clicks beside the pill reach the page),
-  `.pill`, `.bg border shadow`, `.solid-on-scroll` and `.pe-auto` on the bar.
+  `.pill`, `.bg border shadow`, `.solid-on-scroll` and `.pe-auto` on the bar; `.pad-top-header` on the page's first
+  section (the bar's height, `--header-height`, which the engine measures, plus the section's rhythm).
 - **Admin data:** the Header's.
 - **Built in:** wp (marccent-wp's Floating header block pattern).
 

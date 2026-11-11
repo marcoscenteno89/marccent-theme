@@ -290,3 +290,10 @@ define('map', (box) => {
 // The page scrolled: <html data-scrolled> once it leaves its top, so .solid-on-scroll (utilities.css) turns solid with
 // it (the Floating header pattern, PATTERNS.md). One passive listener, started with the engine.
 if (typeof window !== 'undefined') watchScrolled((on) => document.documentElement.toggleAttribute('data-scrolled', on));
+
+// The Floating header's height: --header-height on <html>, the .fixed-top bar's, kept current as it changes (its menu
+// wraps on a phone, a design style resizes it), so .pad-top-header (utilities.css) clears it. Until then: the token's estimate.
+const bar = typeof document !== 'undefined' ? document.querySelector('.fixed-top') : null;
+if (bar && typeof ResizeObserver !== 'undefined') {
+  new ResizeObserver(() => document.documentElement.style.setProperty('--header-height', `${bar.offsetHeight}px`)).observe(bar);
+}

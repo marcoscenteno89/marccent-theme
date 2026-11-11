@@ -132,6 +132,7 @@
   --control-pad-y: calc(var(--space) * .375); /* inside buttons, inputs and field labels */
   --control-pad-x: calc(var(--space) * .75);
   --control-pad: var(--control-pad-y) var(--control-pad-x);
+  --header-height: calc(var(--space) * 2 + var(--control-pad-y) * 2 + var(--line-height) * 1rem); /* the Floating header's bar (.fixed-top): the engine measures it; this until then. .pad-top-header clears it */
 
   /* Text */
   --text-xs: calc(var(--font-size) * .75);
