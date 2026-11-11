@@ -376,7 +376,8 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
   upgraded by its version), its editor choices are settings.json's, and Marccent Content's Loop is a Grid. Left, each
   listed in that map: 31 settings not offered yet, 12 kept in the block's own shape (the sample items until T-034).
 - [ ] **The short props renamed** (5.4): the components' own `pad`, `padY`, `cols`, `min`, `row`, `max`, `lang`.
-- [ ] **Countdown, Parallax and Stars** have blocks but no entry in settings.json: they stay (an entry, a case) or go.
+- [x] **Countdown, Parallax and Stars** stay (Marcos, 2026-11-10): each has its settings entry and markup case. Stars
+  is a score to read; stars that lead somewhere are Rating's, after 1.0 (T-039).
 - [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).
 - [ ] **Kits:** decided 2026-11-10: the list is [KITS.md](KITS.md), each kit a folder in marccent-kits, a Marccent
   export file with a `kit` header; checked by `npm run kits`. Left: the check and the template, the Local business kit

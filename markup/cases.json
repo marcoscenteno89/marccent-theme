@@ -603,6 +603,14 @@
       }
     }
   ],
+  "countdown": [
+    {
+      "case": "from 5",
+      "fields": {
+        "from": 5
+      }
+    }
+  ],
   "dataTable": [
     {
       "case": "three rows, searchable",
@@ -851,6 +859,15 @@
       }
     }
   ],
+  "parallax": [
+    {
+      "case": "a box lagging the scroll",
+      "fields": {
+        "speed": 0.2,
+        "content": "<p>Behind the text</p>"
+      }
+    }
+  ],
   "pagination": [
     {
       "case": "page 2 of 5",
@@ -928,6 +945,24 @@
           "forest"
         ],
         "height": "16rem"
+      }
+    }
+  ],
+  "stars": [
+    {
+      "case": "three and a half of five",
+      "fields": {
+        "value": 3.5,
+        "max": 5,
+        "icon": "star"
+      }
+    },
+    {
+      "case": "eight of ten hearts",
+      "fields": {
+        "value": 8,
+        "max": 10,
+        "icon": "heart"
       }
     }
   ],

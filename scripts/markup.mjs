@@ -47,17 +47,17 @@ import { Loading } from './components/ui/loading';
 import { MiniThemeEditor } from './components/theme/mini-editor';
 import { ThemeEditor } from './components/theme/editor';
 import { ThemeProvider } from './lib/context';
-import { Orbit } from './components/visuals/effects';
+import { Orbit, Countdown, Parallax } from './components/visuals/effects';
 import { Pagination } from './components/ui/pagination';
 import { Price } from './components/ui/price';
-import { Rating } from './components/ui/rating';
+import { Rating, Stars } from './components/ui/rating';
 import { Scenery } from './components/visuals/scenery';
 import { TagInput } from './components/ui/tag-input';
 import { Trace } from './components/ui/trace';
 import { Typeset } from './components/ui/typeset';
 export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, RadialMenu, StepBar, TabBar, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, Pagination, Price, Rating, Scenery, TagInput, Trace, Typeset };
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, RadialMenu, StepBar, TabBar, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset };
 `;
 const { outputFiles } = await build({
   absWorkingDir: ROOT,
@@ -78,7 +78,7 @@ writeFileSync(out, outputFiles[0].text);
 const {
   createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, RadialMenu, StepBar, TabBar, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, Pagination, Price, Rating, Scenery, TagInput, Trace, Typeset,
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, RadialMenu, StepBar, TabBar, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset,
 } = await import(pathToFileURL(out).href);
 
 // A case's HTML (its content fields) goes in as a token, then in the token's place as it is.
@@ -143,6 +143,7 @@ const RENDER = {
   codeTabs: (f) => h(CodeTabs, { value: f.value, onChange: () => {}, langs: f.langs }),
   compare: (f) => h(Compare, { before: h('img', { src: f.before, alt: f.beforeAlt }), after: h('img', { src: f.after, alt: f.afterAlt }),
     beforeLabel: f.beforeLabel, afterLabel: f.afterLabel, start: f.start, label: f.label }),
+  countdown: (f) => h(Countdown, { from: f.from }),
   counter: (f) => h(Counter, { active: false, controls: f.controls }),
   dataTable: (f) => h(DataTable, { columns: f.columns, rows: f.rows, label: f.label, pageSize: f.pageSize, search: f.search }),
   divider: (f) => h(Divider, { shape: f.shape, edge: f.edge, size: f.size, motion: f.motion || undefined, scroll: f.scroll || undefined, flip: f.flip }),
@@ -161,9 +162,11 @@ const RENDER = {
   themeEditor: (f) => h(ThemeProvider, { path: '/' }, h(ThemeEditor, { scope: f.scope })),
   orbit: (f) => h(Orbit, { items: f.items }),
   pagination: (f) => h(Pagination, { total: f.total, pageSize: f.pageSize, current: f.current, update: () => {}, label: f.label }),
+  parallax: (f) => h(Parallax, { speed: f.speed }, html(f.content)),
   price: (f) => h(Price, { amount: f.amount, currency: f.currency, per: f.per || undefined, was: f.was || undefined }),
   radialMenu: (f) => h(RadialMenu, { items: f.items, label: f.label }),
   rating: (f) => h(Rating, { name: f.name, label: f.label, max: f.max, icon: f.icon }),
+  stars: (f) => h(Stars, { value: f.value, max: f.max, icon: f.icon }),
   scenery: (f) => h(Scenery, { layers: f.layers, height: f.height }),
   statCard: (f) => h(StatCard, { icon: f.icon, value: f.value, label: f.label, fill: f.fill, text: f.text }),
   stepBar: (f) => h(StepBar, { steps: f.steps, start: f.start }),

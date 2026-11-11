@@ -35,6 +35,9 @@ README (Versions → What a version promises).
 - `docs/KITS.md`: the Kits stage's list, a kit's file (a Marccent export with a `kit` header) and its check (`npm run kits`
   in marccent-kits); the Local business kit first, eight more after 1.0. projects.json: marccent-kits and marccent-patterns.
 
+- Countdown, Parallax and Stars in `markup/settings.json` (their settings: `from`; `speed`; `value`, `maximum`, `icon`)
+  and their markup cases, so every adapter writes them as the components do.
+
 ### Changed
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
   What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
