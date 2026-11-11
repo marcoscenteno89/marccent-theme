@@ -32,6 +32,9 @@ README (Versions → What a version promises).
 - `.d-md-none` (hidden from 768px: phones only) and `.d-md-block` (with `.d-none`: shown from 768px only), the
   screen-width breakpoint `.sticky-md-top` uses (T-003).
 
+- `docs/KITS.md`: the Kits stage's list, a kit's file (a Marccent export with a `kit` header) and its check (`npm run kits`
+  in marccent-kits); the Local business kit first, eight more after 1.0. projects.json: marccent-kits and marccent-patterns.
+
 ### Changed
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
   What was left of it (one-time migrations, the Map's default pin, the hours shortcodes) is on wp's TODO.md, site by site.
@@ -58,6 +61,8 @@ README (Versions → What a version promises).
   `.solid-on-scroll` (see-through until the page scrolls: the engine sets `<html data-scrolled>`).
   A Menu's dropdowns always close on an outside click and Esc (the engine's `menu`).
 
+- `patterns/*.html` and their check moved to the marccent-patterns repository (the list stays in `docs/PATTERNS.md`);
+  `npm run patterns` runs that check against this theme as it's being changed. The package no longer ships `patterns/`.
 ## 1.0.0-rc.22
 
 ### Added

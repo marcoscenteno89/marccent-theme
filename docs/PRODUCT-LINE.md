@@ -5,7 +5,7 @@ their settings, the adapters, the kits), and products assembled from them (each 
 service**: a defined, repeatable result, each new client a new entry, not a new project.
 
 - **Core assets**: marccent-theme (components, classes, tokens), its settings, the adapters (Marccent Blocks and
-  Marccent Content, django-marccent, marccent/next) and the kits.
+  Marccent Content, django-marccent, marccent/next), the patterns (marccent-patterns) and the kits (marccent-kits).
 - **Products**: the sites (rc-imp, rimrock, cr-landscape, marccent-web, marccent.com, and every one after).
 - **Variation points**: the only places one product differs from another: a component's settings, the kits a site
   uses and its content. Anything else that differs is a missing core asset.
@@ -45,7 +45,7 @@ changed deliberately, here first.
 | 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component that stays (52); the pending ones once built |
 | 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 54 components, 204 settings; Marccent Blocks doesn't read them yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (in `npm test`): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
-| 5 | **Kits** | to decide (Marccent Content's export format) | name, field groups, post types, patterns, starter pages, which components it uses | imports cleanly on a new site | missing |
+| 5 | **Kits** | [KITS.md](KITS.md) (the list); each kit a folder in marccent-kits | a Marccent export file with a `kit` header (name, output, about, version, components, needs) and its parts: field groups and post types (added to a site's, never replacing them), patterns, starter pages, sample rows | `npm run kits` (marccent-kits): the shape, every component, class and block it uses exists, full-word names; then it imports cleanly into a fresh WordPress (once Marccent Content's import adds) | the format and check settled (2026-11-10); Local business being built; eight more in Wanted |
 | 6 | **Sites** | [SITES.md](SITES.md) | site, output, built with, address, stage (building, test, live, frozen), notes | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | 8 sites listed: one building (marccent.com), one test (the wp site), six frozen |
 | 7 | **Live** | the Sites list's stage | address, launch date | the site's checks keep passing | none live yet |
 
@@ -132,8 +132,8 @@ changed deliberately, here first.
    5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
       `.raised`); the theme is classes that combine, so no component when classes already do it.
    6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which was the
-      NavBar; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
-      block pattern of Marccent blocks, never a block.
+      NavBar; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts, its markup a file in marccent-patterns, never a component; in WordPress a
+      block pattern of Marccent blocks, never a block. One that needs a kit's data lives in that kit.
 
    **Children:** a component that only exists inside another (an item in an Accordion, a Step in a StepForm; in
    WordPress a Field in a Form, a Tab in Tabs) is a component of its own, marked with its parent (`parent` in
@@ -229,7 +229,7 @@ every image search-ready; a TODO.md for every project, kept in marccent-theme's 
 
 Every project has a `TODO.md` (the theme's is `TICKETS.md`). **All of them live in marccent-theme's `docs/`**: a
 project's TODO.md is `docs/todo/<repo>.md` (`docs/todo/marccent-blocks.md`…), next to this document, `TICKETS.md`,
-`PATTERNS.md` and `SITES.md`. A project keeps no list or rules of its own: its `docs/README.md` and `CLAUDE.md` only
+`PATTERNS.md`, `KITS.md` and `SITES.md`. A project keeps no list or rules of its own: its `docs/README.md` and `CLAUDE.md` only
 link here, so one repo holds every list and rule and they can't drift apart. A fix in a project ticks its item here
 in the same round. They are the Wanted stage's lists, and they follow these rules strictly; `npm run todos` checks them (below), and a list that fails it is fixed before anything else.
 
@@ -331,6 +331,10 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-10: where kits and patterns live: each in a repository of its own, marccent-kits and marccent-patterns
+  (projects.json); their lists stay here with the others (KITS.md, PATTERNS.md: section 8). Kits are new entries (after 1.0) except Local business, which finishes
+  Marccent Local; web design is Portfolio plus Local business, and web hosting's parts are Product landing's plans and
+  the Help center, so neither is a kit. The patterns' converter to each output stays after 1.0 (T-037).
 - 2026-11-10: marccent.com frozen (projects.json) while 1.0 needs it live (3.1): it stays in 1.0 and unfreezes
   in phase 3 of the 1.0 checklist's order, once the wp stack passes its gate.
 - 2026-11-10: a business schema from a Business field group (Marccent Local's `inc/schema.php`): no plugin builds
@@ -374,7 +378,9 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [ ] **The short props renamed** (5.4): the components' own `pad`, `padY`, `cols`, `min`, `row`, `max`, `lang`.
 - [ ] **Countdown, Parallax and Stars** have blocks but no entry in settings.json: they stay (an entry, a case) or go.
 - [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).
-- [ ] **Kits:** where they live and their check, or moved to after 1.0.
+- [ ] **Kits:** decided 2026-11-10: the list is [KITS.md](KITS.md), each kit a folder in marccent-kits, a Marccent
+  export file with a `kit` header; checked by `npm run kits`. Left: the check and the template, the Local business kit
+  (finishing Marccent Local), the import check once Marccent Content's import adds instead of replacing.
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
 
 **2. The restructuring decided**

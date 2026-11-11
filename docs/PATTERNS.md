@@ -7,9 +7,9 @@ made of, the admin data it needs, and its markup as the reference, and each outp
 (WordPress: a block pattern of Marccent blocks; html: the markup, or the components in JSX).
 
 One entry per pattern: what it's for, its parts, the admin data it needs (`markup/outputs.json`'s kinds), its markup
-(a file in `patterns/`: `npm run patterns`, in `npm test`, fails on a class the theme doesn't define) and where it's
-built (wp, html). A repository of its own, with a converter to each output's blocks and tags: after 1.0 (TICKETS.md
-T-037).
+(a file in the marccent-patterns repository, whose `npm test` fails on a class the theme doesn't define; the theme's
+`npm test` runs the same check against the theme as it's being changed) and where it's built (wp, html). The converter
+to each output's blocks and tags: after 1.0 (TICKETS.md T-037).
 
 ## Footer
 
@@ -25,7 +25,7 @@ It was a component (Footer) until 1.0.0-rc.17.
 - **Built in:** html (marccent.com's own footer, `marccent/next/components/layout/footer.tsx`); wp: a Footer block
   pattern (TICKETS.md T-032).
 
-Markup: [patterns/footer.html](../patterns/footer.html).
+Markup: [footer.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/footer.html) (marccent-patterns).
 
 ## Image card
 
@@ -39,7 +39,7 @@ component; it becomes this pattern once the theme has its overlays as classes (T
 - **Built in:** html (marccent.com's cards, today with the component); wp: a block pattern of Card, Image and text
   blocks.
 
-Markup: [patterns/image-card.html](../patterns/image-card.html).
+Markup: [image-card.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/image-card.html) (marccent-patterns).
 
 ## Collage
 
@@ -63,7 +63,7 @@ under 56rem (Menu `fold`), a call to action and the theme controls. Sticky at th
 - **Built in:** wp (marccent-wp's Header block pattern, the header template part); html: marccent.com (frozen; it
   still uses NavBar, T-032).
 
-Markup: [patterns/header.html](../patterns/header.html).
+Markup: [header.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/header.html) (marccent-patterns).
 
 ## Floating header
 
@@ -76,7 +76,7 @@ starts under it. It was NavBar's floating variant (removed 2026-11-10).
 - **Admin data:** the Header's.
 - **Built in:** wp (marccent-wp's Floating header block pattern).
 
-Markup: [patterns/header-floating.html](../patterns/header-floating.html).
+Markup: [header-floating.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/header-floating.html) (marccent-patterns).
 
 ## App frame
 
@@ -87,7 +87,7 @@ under it. Was the AppShell component (removed 2026-11-10).
   `.menu-vertical`, then anything for the bottom), the page.
 - **Admin data:** menu (the sidebar's links), site (the brand).
 
-Markup: [patterns/app-frame.html](../patterns/app-frame.html).
+Markup: [app-frame.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/app-frame.html) (marccent-patterns).
 
 ## To check: components that may be patterns (TICKETS.md T-033)
 

@@ -1,31 +1,22 @@
 /*
- * Patterns (docs/PATTERNS.md, their markup in patterns/*.html): a pattern has nothing of its own, so every class its
- * markup uses must be one the theme's stylesheets define (styles/), and every data-component one the engine or a
- * component writes. Fails on one that isn't, so a pattern can't lean on CSS nobody ships. Font Awesome's classes (fa-*)
- * are the icon font's; a class only for a site's own script is listed in OWN with why.
+ * The patterns (docs/PATTERNS.md) against this theme as it's being changed: runs marccent-patterns' check with
+ * --theme pointing here, so a class or component a pattern uses can't be removed without the patterns noticing. The
+ * patterns' markup and the check itself live in marccent-patterns (projects.json's path); without a checkout it's
+ * skipped and said so, as the conformance check does for an adapter.
  *
  *   node scripts/patterns.mjs
  */
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
+import { spawnSync } from 'node:child_process';
 
 const ROOT = new URL('..', import.meta.url).pathname;
-const read = (dir, ext) => readdirSync(join(ROOT, dir), { recursive: true }).filter((f) => f.endsWith(ext)).map((f) => readFileSync(join(ROOT, dir, f), 'utf8'));
-const css = read('styles', '.css').join('\n').replace(/\/\*[\s\S]*?\*\//g, '');
-const code = [ ...read('core', '.js'), ...read('components', '.js') ].join('\n');
-const OWN = {};
-
-let failed = 0;
-const files = readdirSync(join(ROOT, 'patterns')).filter((f) => f.endsWith('.html')).sort();
-for (const file of files) {
-  const html = readFileSync(join(ROOT, 'patterns', file), 'utf8').replace(/<!--[\s\S]*?-->/g, '');
-  const classes = new Set([ ...html.matchAll(/class="([^"]*)"/g) ].flatMap((m) => m[1].split(/\s+/)).filter((c) => c && c !== '…'));
-  const missing = [ ...classes ].filter((c) => !c.startsWith('fa-') && !OWN[c] && !new RegExp(`\\.${c.replace(/[^\w-]/g, '\\$&')}(?![\\w-])`).test(css));
-  const kinds = [ ...html.matchAll(/data-component="([^"]*)"/g) ].map((m) => m[1]);
-  const unknown = kinds.filter((k) => !code.includes(`'${k}'`) && !code.includes(`"${k}"`));
-  for (const c of missing) console.log(`FAIL patterns/${file}: .${c} isn't defined in styles/`);
-  for (const k of unknown) console.log(`FAIL patterns/${file}: data-component="${k}" isn't one the engine or a component writes`);
-  failed += missing.length + unknown.length;
-  if (!missing.length && !unknown.length) console.log(`ok   patterns/${file}: ${classes.size} classes, ${kinds.length} components`);
+const { projects } = JSON.parse(readFileSync(join(ROOT, 'docs', 'projects.json'), 'utf8'));
+const repo = resolve(ROOT, '..', projects.find((p) => p.repo === 'marccent-patterns').path);
+const check = join(repo, 'scripts', 'patterns.mjs');
+if (!existsSync(check)) {
+  console.log(`skip patterns: no marccent-patterns checkout at ${repo}`);
+  process.exit(0);
 }
-process.exit(failed ? 1 : 0);
+const run = spawnSync(process.execPath, [ check, '--theme', ROOT ], { stdio: 'inherit' });
+process.exit(run.status ?? 1);

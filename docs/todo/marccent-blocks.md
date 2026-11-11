@@ -22,6 +22,7 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 
 ## Requests
 
+- [ ] **Patterns and pages in the export** — Tools → Marccent export has no `patterns` or `pages` part, so a kit's can't be imported (KITS.md's file): a pattern registered from the imported content, a page created with its slug and parent. (found 2026-11-10)
 - [ ] **Commit and release the work not committed yet** — listed for 0.5.0 (found 2026-10-31):
   - Container blocks registered with `skip_inner_blocks`: they render their blocks themselves (`marccent_blocks_inner`),
     and WordPress rendered them first too, unused, doubling with each nested container (crm-sample's Accounts page:

@@ -18,6 +18,7 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 
 ## Requests
 
+- [ ] **A kit's field groups are added to a site's** — importing the `content` part (Tools → Marccent export) replaces the site's whole spec (`mcc_save_spec`); a kit's import adds its groups and types, keeping the site's where a name is taken (KITS.md). (found 2026-11-10)
 - [ ] **Peer review, then commit and release** — written for 0.2.0 (a new field type; the Loop's `relation` attribute and `where` on
       posts; the Loop's current post is its context's, so Loops nest; the Loop skips WordPress's unused render of its
       item, which doubled with each nested Loop; a token inside a URL is URL-encoded; Fields → Field groups is

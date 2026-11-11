@@ -67,6 +67,52 @@
       ]
     },
     {
+      "repo": "marccent-patterns",
+      "names": [
+        "Marccent patterns",
+        "marccent-patterns"
+      ],
+      "role": "the patterns (PATTERNS.md): each one's markup, checked against the theme's classes and components",
+      "output": "every",
+      "stage": "active",
+      "path": "marccent-patterns",
+      "pins": "package.json, marccent-theme by commit (github:…#<sha>)",
+      "pin": {
+        "file": "package.json",
+        "match": "marccent-theme#([0-9a-f]{7,40})",
+        "is": "commit"
+      },
+      "uses": [
+        "components/",
+        "core/",
+        "styles/"
+      ]
+    },
+    {
+      "repo": "marccent-kits",
+      "names": [
+        "Marccent kits",
+        "marccent-kits"
+      ],
+      "role": "the kits (KITS.md): field groups, post types, patterns and starter pages a site imports",
+      "output": "wp",
+      "stage": "active",
+      "path": "marccent-kits",
+      "pins": "package.json, marccent-theme by commit (github:…#<sha>)",
+      "pin": {
+        "file": "package.json",
+        "match": "marccent-theme#([0-9a-f]{7,40})",
+        "is": "commit"
+      },
+      "uses": [
+        "components/",
+        "core/",
+        "styles/",
+        "markup/settings.json",
+        "markup/outputs.json"
+      ]
+    },
+    {
       "repo": "django-marccent",
       "names": [
         "django-marccent"

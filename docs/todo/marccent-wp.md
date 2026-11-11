@@ -12,6 +12,7 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 
 ## Requests
 
+- [ ] **Patterns move out** (phase 2): the ones that read Local business data (hero, services, locations, faq, contact) to the Local business kit, the look-only ones to marccent-patterns; `tools/patterns.js` keeps writing `patterns/*.php` from there. (found 2026-11-10)
 - [ ] **A Footer block pattern** (PATTERNS.md's Footer: the brand and a line, link columns, the legal row and social icons) for `parts/footer.html`, today only the site's name. (found 2026-11-10)
 - [ ] **A header edited in the Site Editor keeps the retired Navbar block** (saved in the database, not `parts/header.html`): it shows as an unsupported block until the template part is reset to the theme's. (found 2026-11-10)
 
