@@ -3,7 +3,7 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
-## Unreleased
+## 1.0.0-rc.23
 
 ### Added
 - Children for the components that took a list (T-034, PRODUCT-LINE.md 6.1): `TimelineItem`, `DockItem`,
