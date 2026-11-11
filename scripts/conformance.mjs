@@ -20,6 +20,10 @@
  *
  *   node scripts/conformance.mjs [--strict] [--adapter <name>] [--reference <file>] [--save <dir>] [--render <command…>]
  *
+ * Itself only (section 4, rule 10): no stylesheet in styles/components reaches another component's root from outside
+ * (STYLES_EXCEPTIONS excuses one by ticket). Page frames: a component whose settings take two or more named pieces of
+ * content is reported as a probable pattern (REVIEWED_FRAMES lists the ones decided to stay).
+ *
  * --save: each adapter's markup as it printed it, one JSON file per adapter (the cases page shows them, npm run cases).
  *
  * An adapter's own test runs it against its pinned reference: --reference node_modules/marccent-theme/markup/
@@ -225,23 +229,25 @@ if (option('--render')) {
 // Sizing: each component root's kind. A file in styles/components with none of these fails, so a new component has
 // to say what it is. Other classes (parts, modifiers, states) aren't roots: a rule on a part is sized inside its root.
 const ROOTS = {
-  block: ['app-shell', 'board', 'swiper', 'compare', 'divider', 'dock-items', 'field', 'inline-form', 'pairs', 'header',
-    'map', 'menu', 'nav', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
+  block: ['board', 'swiper', 'compare', 'divider', 'dock-items', 'field', 'inline-form', 'pairs', 'header',
+    'map', 'menu', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
     'loader-pulse', 'loader-ring'],
   replaced: ['input', 'table'], // a form control or a table: auto doesn't fill, so 100% is how they fill (it's the parent's width)
   inline: ['btn', 'chip', 'rating', 'fa', 'fa-solid', 'fa-regular', 'fa-brands'],
   overlay: ['modal', 'float', 'toast', 'toggle-panel', 'menu-panel'], // outside the flow: sized against the screen
+  state: ['sidebar'], // its width is its state (open, collapsed): one width per state, from tokens
 };
 // What each kind may set on its root. Anything else (a fixed width, a margin) is the parent's to decide.
 const ALLOWED = {
   block: { width: ['auto'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
   replaced: { width: ['auto', '100%'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
   // An icon is a square glyph: --icon-size is its content's size, set by the text it sits in.
+  state: { width: ['var(--sidebar-width)', 'calc(var(--icon-size) + 2 * var(--space-sm))'], 'max-width': ['100%', 'none'], 'min-width': ['0', 'auto'], margin: ['0'] },
   inline: { width: ['auto', 'fit-content', 'max-content', 'min-content', 'var(--icon-size)'], 'max-width': ['100%', 'none'],
     'min-width': ['0', 'auto', 'fit-content', 'max-content', 'min-content'], margin: ['0'] },
 };
 // Open tickets that excuse a declaration until they ship: "root property" → ticket. Delete the line with the fix.
-const SIZING_EXCEPTIONS = { 'loader-bar width': 'B-003' };
+const SIZING_EXCEPTIONS = {};
 
 if (!option('--adapter') && !option('--render')) {
   const kindOf = Object.fromEntries(Object.entries(ROOTS).flatMap(([kind, roots]) => roots.map((r) => [r, kind])));
@@ -295,4 +301,57 @@ if (!option('--adapter') && !option('--render')) {
   }
   if (failed === before) console.log(`ok   sizing: ${checked} root rules set no width or margin of their own`);
 }
+// Itself only (PRODUCT-LINE.md section 4, rule 10): no component's stylesheet reaches another component's root from
+// outside. A root belongs to the files that style it as their own (it leads a selector there); a selector in another
+// file that names it after a combinator fails. STYLES_EXCEPTIONS: open tickets that excuse one, "file root" → ticket.
+const STYLES_EXCEPTIONS = {
+  'menu.css toggle-panel': 'B-004',
+};
+if (!option('--adapter') && !option('--render')) {
+  const dir = join(ROOT, 'styles/components');
+  // Shared parts: classes in ROOTS that are a part of any box, not a component; each box styles its own.
+  const SHARED_PARTS = { header: 'the title row of any box (header.css): a modal\'s, a toast\'s, a card\'s' };
+  const all = Object.values(ROOTS).flat().filter((r) => !SHARED_PARTS[r]);
+  const files = readdirSync(dir).filter((f) => f.endsWith('.css')).sort()
+    .map((f) => [ f, readFileSync(join(dir, f), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '') ]);
+  const commas = (text) => { const out = [ '' ]; let depth = 0; for (const ch of text) { if (ch === '(') depth++; if (ch === ')') depth--; if (!depth && ch === ',') out.push(''); else out[out.length - 1] += ch; } return out; };
+  // :is() and :where() lists are expanded one level, so each of their selectors is checked on its own.
+  const expand = (sel) => { const m = sel.match(/:(?:is|where)\(([^()]*)\)/); return m ? commas(m[1]).flatMap((alt) => expand(sel.replace(m[0], alt.trim()))) : [ sel ]; };
+  const selectorsOf = (css) => [...css.matchAll(/([^{}@]+)\{/g)].flatMap((m) => commas(m[1])).flatMap(expand).map((x) => x.trim().replace(/\s+/g, ' '))
+    .filter((x) => x && !/^(from|to|\d+%)$/.test(x));
+  const classesIn = (compound) => [...compound.matchAll(/\.([a-z][a-z0-9-]*)/g)].map((m) => m[1]);
+  const owners = {};
+  for (const [ f, css ] of files) for (const sel of selectorsOf(css)) {
+    const first = sel.split(/ ?[ >+~] ?/)[0].replace(/:(is|where|not|has)\(.*$/, '');
+    for (const c of classesIn(first)) if (all.includes(c)) (owners[c] ??= new Set()).add(f);
+  }
+  const before = failed;
+  let excused = 0;
+  for (const [ f, css ] of files) {
+    const seen = new Set();
+    for (const sel of selectorsOf(css)) {
+      for (const part of sel.split(/ ?[ >+~] ?/).slice(1)) {
+        for (const c of classesIn(part)) {
+          if (!all.includes(c) || owners[c]?.has(f) || seen.has(c)) continue;
+          seen.add(c);
+          const ticket = STYLES_EXCEPTIONS[`${f} ${c}`];
+          if (ticket) { console.log(`todo styles ${f}: reaches .${c} until ${ticket}`); excused++; continue; }
+          console.log(`FAIL styles ${f}: ${sel} reaches .${c}, another component's root (PRODUCT-LINE.md section 4, rule 10)`);
+          failed++;
+        }
+      }
+    }
+  }
+  if (failed === before) console.log(`ok   styles: no component styles another's root (${files.length} stylesheets${excused ? `, ${excused} excused by a ticket` : ''})`);
+
+  // Page frames: two or more named content settings (not `content`, the children) is a probable pattern (4.5).
+  const REVIEWED_FRAMES = {};
+  const settings = JSON.parse(readFileSync(join(ROOT, 'markup/settings.json'), 'utf8'));
+  const frames = Object.entries(settings).filter(([ c, s ]) => [ 'component', 'container' ].includes(s.kind) && !REVIEWED_FRAMES[c])
+    .map(([ c, s ]) => [ c, Object.entries(s.settings ?? {}).filter(([ k, v ]) => v.type === 'content' && k !== 'content').map(([ k ]) => k) ])
+    .filter(([ , slots ]) => slots.length >= 2);
+  for (const [ c, slots ] of frames) console.log(`todo frame: ${c} takes ${slots.join(', ')}: a probable pattern (4.5); decide, or list it in REVIEWED_FRAMES with why`);
+  if (!frames.length) console.log('ok   frames: no component takes two named pieces of content');
+}
+
 process.exit(failed || (strict && missing) ? 1 : 0);

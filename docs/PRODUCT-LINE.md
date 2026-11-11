@@ -113,6 +113,10 @@ changed deliberately, here first.
    yet gets a line in its `TODO.md` saying why.
 5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
    first if it doesn't hold). Ask in order; the first yes decides:
+   First, **whose state is it?** (2026-11-10) When the behavior belongs to one of its parts (a menu's fold, a
+   sidebar's collapse), that part is the component, and what's left is decided on its own (usually a pattern). Claude
+   asks this at review; no script can.
+
    1. It needs behavior or logic (state, events, timers, observers, formatting, data turned into markup; parts
       combined into one value or one state count) → a **component** (Modal, Menu's fold, Map, Price, Counter,
       CodeTabs: its editors are one value).
@@ -127,8 +131,8 @@ changed deliberately, here first.
       container that takes variants has a `variant` setting (as Modal's).
    5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
       `.raised`); the theme is classes that combine, so no component when classes already do it.
-   6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which the
-      NavBar is today; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
+   6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which was the
+      NavBar; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts and markup, never a component; in WordPress a
       block pattern of Marccent blocks, never a block.
 
    **Children:** a component that only exists inside another (an item in an Accordion, a Step in a StepForm; in
@@ -159,10 +163,17 @@ changed deliberately, here first.
      `--icon-size`) and never wider than the parent (`max-width: 100%`), with no margin; the parent stretches one with
      a class (`.w-100`, `.self-stretch`);
    - **overlays** (Modal, Drawer, Popover, Tooltip, Toast, a Menu's panel) sit outside the flow, so they're sized
-     against the screen or what they're attached to, with a cap that keeps them on screen.
+     against the screen or what they're attached to, with a cap that keeps them on screen;
+   - **sized by their state** (Sidebar: open and collapsed; something that expands) set their own width, because
+     changing it is their job (2026-11-10): one width per state, from tokens, on the root and its state class only.
 
    Parts inside a component (a knob, a handle, an icon slot) are sized within it. `npm run conformance` checks the
    roots in `styles/components`; one that breaks the rule is a ticket, excused by ID in the check until it ships.
+10. **A component styles only itself** (2026-11-10). No rule in a component's stylesheet reaches another component's
+    root from outside (`.app-shell .menu`, `.nav .menu-panel`): a different look is that component's variant or
+    setting, and its parts are its own. A component whose settings take two or more named pieces of content (a
+    brand, items, a footer) is reported as a probable pattern (4.5): a page frame. `npm run conformance` fails on the
+    first and reports the second; a reviewed one is listed in the check with why it stays (Modal: dialog markup).
 
 ## 5. Settings: one standard everywhere
 
@@ -320,6 +331,8 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-10: marccent.com frozen (projects.json) while 1.0 needs it live (3.1): it stays in 1.0 and unfreezes
+  in phase 3 of the 1.0 checklist's order, once the wp stack passes its gate.
 - 2026-11-10: a business schema from a Business field group (Marccent Local's `inc/schema.php`): no plugin builds
   one; every field group makes its own schema (Marccent Content's `schema`), so a group without one adds none.
 - 2026-11-08: a `site.css` for custom styles: section 4, rule 1 holds for every Marccent project (the sites and the
@@ -330,12 +343,27 @@ everywhere becomes a rule above and its line goes.
 The one list of what's left before 1.0 (3.1: marccent-theme 1.0.0, marccent.com live, the wp site working with every
 component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and the projects' TODO.md.
 
+### The order (the unfreeze plan, 2026-11-10)
+
+The theme first: it's the root of everything. A phase starts only when the one before passes its gate; work that
+belongs to a later phase waits, and Claude says so when it's asked for early.
+
+1. **The theme.** Its lines below: the short props (5.4), Countdown / Parallax / Stars, Kits, T-032's Nav case, T-033,
+   T-034; then T-003's utilities (B-003 done 2026-11-10). Released and tagged (package.json says 1.0.0-rc.22; the newest tag is v1.0.0-rc.21).
+   **Gate:** `npm test` passes with no sizing exception left, every theme line ticked, the release tagged.
+2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
+   retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
+   shows every component in the admin and on the page.
+3. **marccent.com** (section 4) and safe to go live (section 5). It stays in 1.0 (3.1) and frozen in projects.json
+   until phase 2 passes its gate; then it's unfrozen (Decisions, 2026-11-10).
+4. **1.0.0 released** (section 6). The freeze ends; the frozen sites and outputs are brought up to 1.0 once (3.1).
+
 **1. The product line**
 - [x] **Component stage:** a markup case (`markup/cases.json` → `reference.json`) for every component and container
   that stays: 52 components, 76 cases (2026-11-09). A child is covered by its parent's case (AccordionItem,
   Step, SliderPager in Carousel); Toast has none (browser only: nothing until a message, `markup` in settings.json).
   Pending, a case once built (T-034, T-033): Timeline item, Dock item, Radial menu item, Step bar step, Orbit item,
-  Tab; StatCard without its box. None for what's leaving (AppShell, Collage, ImageCard, HexWall).
+  Tab; StatCard without its box. None for what's leaving (Collage, ImageCard, HexWall). AppShell is gone (2026-11-10): Sidebar and the App frame pattern.
 - [x] **Settings stage, written (T-029):** every component that stays (54) has its settings in `markup/settings.json`,
   204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
 - [x] **Settings stage, used by Marccent Blocks** (2026-11-10): its block.json attributes are written from
@@ -350,11 +378,12 @@ component). Ticked here as it's done; what's for after 1.0 is in TICKETS.md and 
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
 
 **2. The restructuring decided**
-- [ ] T-032: the Header and Footer patterns; NavBar retires; the Navbar block becomes a Header block pattern.
+- [ ] T-032: done 2026-11-10: the Header pattern, NavBar removed, the Navbar block a Header block pattern in marccent-wp.
+  Left: the folded menu as a full-width panel on phones; the Footer block pattern (marccent-wp).
 - [ ] T-033: done in 1.0.0-rc.21: `.overlay-tint`, `.overlay-blur`, `.overlay-focus`; Grid's dense packing and row
   height, `.row-span-N`; HexWall gone; the Stopwatch block is Counter's controls. Left: ImageCard and Collage retire
   (their pages on marccent.com rebuilt as the patterns), StatCard drops its box (about 15 uses on marccent.com wrap
-  in a Card), AppShell decided.
+  in a Card). AppShell done 2026-11-10 (the Sidebar component, the App frame pattern).
 - [ ] T-034: the six children (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab); their
   parents take them and a Loop of them.
 - [ ] The WordPress blocks these replace retire: Image card, Collage, Hex wall.

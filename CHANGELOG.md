@@ -16,7 +16,18 @@ README (Versions → What a version promises).
   no claim without output; one goal per change; nothing removed without a ticket), section 2 rules 7 and 8, and
   CLAUDE.md.
 - Sizing: PRODUCT-LINE.md section 4, rule 9 (a component sets no width and no outer margin; its container decides
-  both), checked by `npm run conformance` on the roots in `styles/components`. Loading breaks it today (B-003).
+  both), checked by `npm run conformance` on the roots in `styles/components`.
+
+- Clean components (PRODUCT-LINE.md 2026-11-10): 4.5 asks "whose state is it?" first; section 4, rule 10 (a component
+  styles only itself, and one taking two or more named pieces of content is a probable pattern), checked by `npm run
+  conformance` (it found Menu reaching ToggleButton's panel: B-004); rule 9's components sized by their state (Sidebar).
+
+- `Sidebar` (components/widgets/sidebar.js, `data-component="sidebar"`): AppShell's collapsing sidebar as a component
+  of its own; its width is its state (rule 9). Menu's `.menu-vertical` (a column of links whose dropdowns open in
+  place), which AppShell's stylesheet used to force on the Menu from outside. PATTERNS.md: the App frame pattern.
+
+- `patterns/*.html`: each pattern's markup as a file (Footer, Image card, Header, Floating header, App frame), and `npm
+  run patterns` (in `npm test`): fails on a class the theme doesn't define or a `data-component` nothing writes.
 
 ### Changed
 - Marccent Local deleted (2026-11-10): out of `docs/projects.json`, its list `docs/todo/marccent-local.md` gone.
@@ -27,6 +38,17 @@ README (Versions → What a version promises).
 - `docs/`: PRODUCT-LINE.md, TICKETS.md, PATTERNS.md and SITES.md moved there, and every project's work list with them
   (`docs/todo/<repo>.md`); the projects keep no TODO.md of their own, only links. `npm run todos` reads them there
   (no `--root`); the lists were brought into section 8's shape on the way (found dates, shipped tickets' lines gone).
+
+### Fixed
+- Loading sets no width of its own (B-003): a block that fills its parent, so a flex parent that shrinks it stretches
+  it (`.self-stretch`, `.w-100`).
+
+### Removed
+- `AppShell`: a Sidebar beside the page (the App frame pattern, PATTERNS.md).
+- `NavBar` (and `nav.css`, its `nav-bar` engine and markup cases): the header is the Header pattern (PATTERNS.md), a
+  Section and a Grid around Menu `fold`, a Button and the theme controls; the floating pill variant is the Floating header pattern: `.fixed-top`, `.pe-none` / `.pe-auto` and
+  `.solid-on-scroll` (see-through until the page scrolls: the engine sets `<html data-scrolled>`).
+  A Menu's dropdowns always close on an outside click and Esc (the engine's `menu`).
 
 ## 1.0.0-rc.22
 

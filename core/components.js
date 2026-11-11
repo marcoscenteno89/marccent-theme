@@ -69,35 +69,8 @@ define('toggle-panel', (panel) => {
   ]);
 });
 
-/*
- * NavBar: its toggle opens the folded menu (.open); dropdowns close on an outside click and Esc (closeMenus); the
- * page's scroll sets data-scrolled. Floating (data-variant="floating"): the pill bar turns solid (bg border shadow)
- * once scrolled or open, and round instead of a pill while open.
- */
-define('nav-bar', (nav) => {
-  const bar = nav.querySelector(':scope > .layout-ends');
-  const floating = nav.dataset.variant === 'floating';
-  let open = false;
-  let scrolled = false;
-  const paint = () => {
-    nav.classList.toggle('open', open);
-    nav.toggleAttribute('data-scrolled', scrolled);
-    if (floating && bar) {
-      bar.classList.toggle('pill', !open);
-      bar.classList.toggle('round', open);
-      [ 'bg', 'border', 'shadow' ].forEach((c) => bar.classList.toggle(c, open || scrolled));
-    }
-  };
-  const toggle = nav.querySelector('.nav-toggle');
-  return all([
-    closeMenus(nav),
-    toggle && listen(toggle, 'marccent:toggle', (e) => { open = e.detail; paint(); }),
-    watchScrolled((on) => { scrolled = on; paint(); }),
-  ]);
-});
-
-// A Menu outside a NavBar: its dropdowns close on an outside click and Esc, and a hover menu opens on hover.
-define('menu', (menu) => (menu.closest('[data-component~="nav-bar"]') ? undefined : closeMenus(menu)));
+// Menu: its dropdowns close on an outside click and Esc, and a hover menu opens on hover.
+define('menu', (menu) => closeMenus(menu));
 
 // Tooltip and LinkPreview: the box (role="tooltip") and its trigger (aria-describedby naming it).
 define('tooltip', (tip) => {
@@ -135,21 +108,22 @@ define('file-drop', fileDrop);
 define('divider', watchDivider);
 
 /*
- * AppShell: [data-collapse] narrows the sidebar to its icons and back, remembered in this browser. (The phone layout,
- * a top bar with the sidebar in a Drawer, is the server's to render.)
+ * Sidebar: [data-collapse] narrows it to its icons and back, remembered in this browser: its links' names hidden (into
+ * aria-label and title, like Menu iconOnly) and its dropdowns hidden (no icon-only form). (The phone layout, a top
+ * bar with the content in a Drawer, is the server's to render.)
  */
 const SAVED = 'marccent-sidebar-collapsed';
-define('app-shell', (shell) => {
-  const button = shell.querySelector('[data-collapse]');
+define('sidebar', (sidebar) => {
+  const button = sidebar.querySelector('[data-collapse]');
   if (!button) return;
   const set = (on) => {
-    shell.classList.toggle('collapsed', on);
+    sidebar.classList.toggle('collapsed', on);
     button.setAttribute('aria-expanded', !on);
     button.setAttribute('aria-label', on ? 'Expand sidebar' : 'Collapse sidebar');
     const i = button.querySelector('.btn-icon');
     if (i) i.className = iconClass(on ? 'angles-right' : 'angles-left');
-    // Icons only, like Menu iconOnly: the name moves into aria-label and title.
-    shell.querySelectorAll('.app-sidebar .menu-link > .text-truncate').forEach((t) => {
+    sidebar.querySelectorAll('.menu-dropdown').forEach((d) => { d.hidden = on; });
+    sidebar.querySelectorAll('.menu-link > .text-truncate').forEach((t) => {
       const link = t.parentElement;
       t.hidden = on;
       if (on) {
@@ -163,7 +137,7 @@ define('app-shell', (shell) => {
   };
   try { if (localStorage.getItem(SAVED) === '1') set(true); } catch {}
   return listen(button, 'click', () => {
-    const on = !shell.classList.contains('collapsed');
+    const on = !sidebar.classList.contains('collapsed');
     set(on);
     try { localStorage.setItem(SAVED, on ? '1' : '0'); } catch {}
   });
@@ -297,3 +271,7 @@ define('map', (box) => {
   if (scope && scope !== document.documentElement) recolor.observe(scope, options);
   return all([ () => stopWatching?.(), () => recolor.disconnect() ]);
 });
+
+// The page scrolled: <html data-scrolled> once it leaves its top, so .solid-on-scroll (utilities.css) turns solid with
+// it (the Floating header pattern, PATTERNS.md). One passive listener, started with the engine.
+if (typeof window !== 'undefined') watchScrolled((on) => document.documentElement.toggleAttribute('data-scrolled', on));

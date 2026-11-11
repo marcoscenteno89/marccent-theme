@@ -50,7 +50,6 @@
   background: linear-gradient(var(--primary), var(--secondary));
 }
 .loader-bar { /* a strip of the gradient sliding along a faint track, for "loading, no idea how long" */
-  width: 100%;
   height: .4rem;
   border-radius: 99px;
   background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent) no-repeat,

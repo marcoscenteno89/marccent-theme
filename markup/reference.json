@@ -270,70 +270,6 @@
       "html": "<article class=\"bg-primary-tint round pad grid cols-1 content-start gap-sm text-center justify-center variant-ticket\"><p>Admit one</p></article>"
     }
   ],
-  "nav": [
-    {
-      "case": "links only",
-      "fields": {
-        "brand": {
-          "name": "Fernway",
-          "href": "/",
-          "logo": ""
-        },
-        "items": [
-          {
-            "name": "Home",
-            "href": "/"
-          },
-          {
-            "name": "About",
-            "href": "/about/"
-          }
-        ]
-      },
-      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Fernway, home\"><span class=\"fw-bold\">Fernway</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"bars\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols menu-quiet\" style=\"--cols:2\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a></nav></div></div></header>"
-    },
-    {
-      "case": "a logo, a dropdown and a submenu",
-      "fields": {
-        "brand": {
-          "name": "Q&A Co",
-          "href": "/",
-          "logo": "/media/logo.png"
-        },
-        "items": [
-          {
-            "name": "Home",
-            "href": "/"
-          },
-          {
-            "name": "Products",
-            "href": "/products/",
-            "children": [
-              {
-                "name": "Payments",
-                "href": "/products/payments/"
-              },
-              {
-                "name": "More",
-                "href": "/products/more/",
-                "children": [
-                  {
-                    "name": "Billing",
-                    "href": "/products/more/billing/"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Contact",
-            "href": "/contact/"
-          }
-        ]
-      },
-      "html": "<header data-component=\"nav-bar\" class=\"nav wrap wrap-fluid pad-y-sm grid cols-1 gap-sm bg border-bottom sticky-top\"><div class=\"wrap grid layout-ends items-center gap-sm pad-0\"><a href=\"/\" class=\"menu-link grid auto-cols items-center gap-sm\" aria-label=\"Q&amp;A Co, home\"><img src=\"/media/logo.png\" alt=\"Q&amp;A Co\" style=\"height:2.5rem;width:auto\"/><span class=\"fw-bold\">Q&amp;A Co</span></a><button type=\"button\" class=\"btn nav-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"bars\" aria-expanded=\"false\" aria-controls=\"site-nav\" aria-label=\"Open menu\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"site-nav\" class=\"nav-collapse\"><nav data-component=\"menu\" class=\"menu grid gap-0 auto-cols menu-quiet\" style=\"--cols:3\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/\" class=\"menu-link\"><span class=\"text-truncate\">Home</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">Products</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/payments/\" class=\"menu-link\"><span class=\"text-truncate\">Payments</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown menu-sub\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">More</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/products/more/billing/\" class=\"menu-link\"><span class=\"text-truncate\">Billing</span></a></div></details></div></details><a data-component=\"menu-link\" href=\"/contact/\" class=\"menu-link\"><span class=\"text-truncate\">Contact</span></a></nav></div></div></header>"
-    }
-  ],
   "menu": [
     {
       "case": "links and a dropdown",
@@ -931,7 +867,7 @@
       "fields": {
         "kind": "spinner"
       },
-      "html": "<div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div>"
+      "html": "<div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div>"
     }
   ],
   "miniThemeEditor": [
@@ -940,7 +876,7 @@
       "fields": {
         "scope": "site"
       },
-      "html": "<div data-component=\"mini-theme-editor\" data-scope=\"site\" class=\"grid items-center\" role=\"group\" aria-label=\"Site theme\" style=\"--gap:var(--space-xs);grid-template-columns:auto auto auto minmax(min-content, max-content) auto\"><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div></div>"
+      "html": "<div data-component=\"mini-theme-editor\" data-scope=\"site\" class=\"grid items-center\" role=\"group\" aria-label=\"Site theme\" style=\"--gap:var(--space-xs);grid-template-columns:auto auto auto minmax(min-content, max-content) auto\"><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div></div>"
     }
   ],
   "themeEditor": [
@@ -949,7 +885,7 @@
       "fields": {
         "scope": "site"
       },
-      "html": "<div data-component=\"theme-editor\" data-scope=\"site\" role=\"group\" aria-label=\"Site theme\" class=\"grid\" style=\"--cols:6;--min:max(9rem, (60rem - 100%) * 999);grid-auto-rows:minmax(5rem, auto);grid-auto-flow:dense\"><div class=\"bg-gradient round shadow pad grid cols-1 gap-sm span-2\" style=\"grid-row:span 2;align-content:center\"><h2 class=\"h4\">Theme editor</h2><p class=\"fs-sm\">Pick a palette and a design style; every page changes with you. Saved in this browser.</p></div><div class=\"span-4\" style=\"grid-row:span 2\"><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"span-4\" style=\"grid-row:span 2\"><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"bg border round shadow pad grid cols-1 gap-sm justify-center text-center \" style=\"align-content:center\"><h3 class=\"h6 text-uppercase\">Mode</h3><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"bg border round shadow pad grid cols-1 gap-sm justify-center text-center \" style=\"align-content:center\"><h3 class=\"h6 text-uppercase\">Glass</h3><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"bg border round shadow pad grid cols-1 gap-sm justify-center text-center span-2\" style=\"align-content:center\"><h3 class=\"h6 text-uppercase\">Start over</h3><div data-component=\"loading\" class=\"square circle spinner\" style=\"width:100%\" role=\"status\" aria-label=\"Loading\"></div></div></div>"
+      "html": "<div data-component=\"theme-editor\" data-scope=\"site\" role=\"group\" aria-label=\"Site theme\" class=\"grid\" style=\"--cols:6;--min:max(9rem, (60rem - 100%) * 999);grid-auto-rows:minmax(5rem, auto);grid-auto-flow:dense\"><div class=\"bg-gradient round shadow pad grid cols-1 gap-sm span-2\" style=\"grid-row:span 2;align-content:center\"><h2 class=\"h4\">Theme editor</h2><p class=\"fs-sm\">Pick a palette and a design style; every page changes with you. Saved in this browser.</p></div><div class=\"span-4\" style=\"grid-row:span 2\"><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"span-4\" style=\"grid-row:span 2\"><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"bg border round shadow pad grid cols-1 gap-sm justify-center text-center \" style=\"align-content:center\"><h3 class=\"h6 text-uppercase\">Mode</h3><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"bg border round shadow pad grid cols-1 gap-sm justify-center text-center \" style=\"align-content:center\"><h3 class=\"h6 text-uppercase\">Glass</h3><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div></div><div class=\"bg border round shadow pad grid cols-1 gap-sm justify-center text-center span-2\" style=\"align-content:center\"><h3 class=\"h6 text-uppercase\">Start over</h3><div data-component=\"loading\" class=\"square circle spinner\" role=\"status\" aria-label=\"Loading\"></div></div></div>"
     }
   ],
   "orbit": [

@@ -251,68 +251,6 @@
       }
     }
   ],
-  "nav": [
-    {
-      "case": "links only",
-      "fields": {
-        "brand": {
-          "name": "Fernway",
-          "href": "/",
-          "logo": ""
-        },
-        "items": [
-          {
-            "name": "Home",
-            "href": "/"
-          },
-          {
-            "name": "About",
-            "href": "/about/"
-          }
-        ]
-      }
-    },
-    {
-      "case": "a logo, a dropdown and a submenu",
-      "fields": {
-        "brand": {
-          "name": "Q&A Co",
-          "href": "/",
-          "logo": "/media/logo.png"
-        },
-        "items": [
-          {
-            "name": "Home",
-            "href": "/"
-          },
-          {
-            "name": "Products",
-            "href": "/products/",
-            "children": [
-              {
-                "name": "Payments",
-                "href": "/products/payments/"
-              },
-              {
-                "name": "More",
-                "href": "/products/more/",
-                "children": [
-                  {
-                    "name": "Billing",
-                    "href": "/products/more/billing/"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Contact",
-            "href": "/contact/"
-          }
-        ]
-      }
-    }
-  ],
   "menu": [
     {
       "case": "links and a dropdown",

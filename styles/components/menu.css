@@ -23,8 +23,17 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 .menu > .menu-link { justify-content: center; }
 .menu > .menu-dropdown > summary { display: grid; justify-content: center; }
 
-/* Icon-only link (Menu iconOnly): the icon square is the whole link, no extra padding. */
-.menu-link:has(> i:only-child) { padding: 0; }
+/* Icon-only link (Menu iconOnly, or its name hidden: a collapsed Sidebar's): the icon square is the whole link, no extra padding. */
+.menu-link:is(:has(> i:only-child), :has(> .text-truncate[hidden])) { padding: 0; }
+
+/* Vertical (.menu-vertical, with layout cols-1: a Sidebar's or a Drawer's links): packed at the top, each link's
+   text at the start, an icon-only one centered; dropdowns open in place under their row, a line down their side
+   instead of the floating panel's frame. */
+.menu-vertical { align-content: start; }
+.menu-vertical > .menu-link,
+.menu-vertical > .menu-dropdown > summary { justify-content: start; }
+.menu-vertical > .menu-link:is(:has(> i:only-child), :has(> .text-truncate[hidden])) { justify-content: center; }
+.menu-vertical .menu-dropdown > .menu-panel { position: static; margin-top: var(--space-xs); }
 
 .menu-link:hover { background-color: var(--muted-bg); }
 
@@ -98,7 +107,7 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
   .menu-dropdown.menu-sub[open] > summary::after { rotate: 90deg; }
 }
 
-/* QUIET (.menu-quiet on a Menu: NavBar's main menu, Bootstrap's .nav-link look). Links in a dimmed text color that
+/* QUIET (.menu-quiet on a Menu: the Header pattern's main menu, Bootstrap's .nav-link look). Links in a dimmed text color that
    goes fuller on hover and full on the current page and an open dropdown, with no hover fill; a triangle caret that
    doesn't turn; dropdowns a bordered list with padding above and below only and no shadow, their items full width and
    square, the current one in the primary. currentColor throughout, so it works on a color fill too. */
@@ -179,3 +188,6 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
   .menu-fold .toggle-panel .menu-panel { position: static; margin-top: var(--space-xs); }
 }
 }
+
+/* Unlayered, to take back the panel's own utility classes (border, shadow, pad) in a vertical menu. */
+.menu-vertical .menu-dropdown > .menu-panel { box-shadow: none; padding-block: 0; border-width: 0 0 0 var(--border-width); border-radius: 0; }

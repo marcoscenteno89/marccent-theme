@@ -6,8 +6,10 @@ A site arranges a pattern its own way, so the theme doesn't ship it as a compone
 made of, the admin data it needs, and its markup as the reference, and each output builds it from its own parts
 (WordPress: a block pattern of Marccent blocks; html: the markup, or the components in JSX).
 
-One entry per pattern: what it's for, its parts, the admin data it needs (`markup/outputs.json`'s kinds), its markup,
-and where it's built (wp, html).
+One entry per pattern: what it's for, its parts, the admin data it needs (`markup/outputs.json`'s kinds), its markup
+(a file in `patterns/`: `npm run patterns`, in `npm test`, fails on a class the theme doesn't define) and where it's
+built (wp, html). A repository of its own, with a converter to each output's blocks and tags: after 1.0 (TICKETS.md
+T-037).
 
 ## Footer
 
@@ -21,30 +23,9 @@ It was a component (Footer) until 1.0.0-rc.17.
 - **Admin data:** menu (each column, the legal links, the social links: a menu each), site (the brand: the site's
   name and logo; the line about it).
 - **Built in:** html (marccent.com's own footer, `marccent/next/components/layout/footer.tsx`); wp: a Footer block
-  pattern, with the Header (TICKETS.md T-032).
+  pattern (TICKETS.md T-032).
 
-```html
-<footer id="footer" data-component="footer" class="wrap wrap-fluid pad-y-lg grid cols-1 gap-lg bg">
-  <div class="wrap pad-0 grid layout-1-2 gap-lg">
-    <div class="grid cols-1 gap-sm content-start">
-      <a href="/">Brand</a>
-      <p class="opacity-75">A line about the site.</p>
-    </div>
-    <div class="grid gap-lg" style="--min:10rem;--cols:2">
-      <div class="grid cols-1 gap-sm content-start">
-        <h2 class="h6">Design</h2>
-        <nav data-component="menu" class="menu grid gap-0 cols-1" style="--cols:1" aria-label="Design">…links…</nav>
-      </div>
-      <!-- …a column per menu… -->
-    </div>
-  </div>
-  <div class="wrap pad-0 border-top pad-y grid layout-ends items-center gap-sm" style="--start:2">
-    <div class="fs-sm opacity-75"><small>© 2026 Site</small></div>
-    <nav data-component="menu" class="menu grid gap-sm auto-cols fs-sm" aria-label="Footer legal">…links…</nav>
-    <nav data-component="menu" class="menu grid gap-sm auto-cols col-last" aria-label="Footer social">…icon links…</nav>
-  </div>
-</footer>
-```
+Markup: [patterns/footer.html](../patterns/footer.html).
 
 ## Image card
 
@@ -58,16 +39,7 @@ component; it becomes this pattern once the theme has its overlays as classes (T
 - **Built in:** html (marccent.com's cards, today with the component); wp: a block pattern of Card, Image and text
   blocks.
 
-```html
-<article class="bg round shadow overflow-hidden stack" style="aspect-ratio:4/5">
-  <img class="media-cover" src="…" alt="…">
-  <div class="overlay"></div>
-  <div class="grid cols-1 gap-sm pad self-end">
-    <small class="text-uppercase">Seychelles</small>
-    <strong class="fs-lg">Turquoise bays</strong>
-  </div>
-</article>
-```
+Markup: [patterns/image-card.html](../patterns/image-card.html).
 
 ## Collage
 
@@ -78,14 +50,44 @@ Tiles of different sizes packed on one grid: photos, animations, cards. It was t
 - **Admin data:** rows (the tiles, when they're data).
 - **Built in:** html (marccent.com's Images and Animations pages, today with the component); wp: a Grid of Cards.
 
-## Header (to do: TICKETS.md T-032)
+## Header
 
-A site's header: the brand, the main menu folding behind a menu button on narrow screens (Menu `fold`), a call to
-action, the theme controls. Today the NavBar component; it becomes this pattern (decided: the navbar is the header, a pattern; the nav is the
-Menu component with fold), and the WordPress Navbar block a Header block pattern.
+A site's header: the brand at the start; at the end the main menu, folding behind a menu button where the header is
+under 56rem (Menu `fold`), a call to action and the theme controls. Sticky at the top. It was the NavBar component
+(removed 2026-11-10); its floating pill variant is the Floating header (below).
 
-- **Parts:** Grid (`layout-ends`), Menu (`fold`), Button, ToggleButton or MiniThemeEditor.
+- **Parts:** Section (`as` header, `wrap wrap-fluid` outside, `.wrap` inside: the fold's container), Grid
+  (`auto-cols cols-between`: the brand at the start, the rest at the end), Menu (`fold`, `auto-cols`, `.menu-quiet`),
+  Button, the theme controls (MiniThemeEditor, or a Popover holding it).
 - **Admin data:** menu (the main menu), site (the brand), theme (what visitors may change).
+- **Built in:** wp (marccent-wp's Header block pattern, the header template part); html: marccent.com (frozen; it
+  still uses NavBar, T-032).
+
+Markup: [patterns/header.html](../patterns/header.html).
+
+## Floating header
+
+The Header over the top of the page, a pill that lets the hero show through: see-through while the page is at its
+top, solid (its background, border and shadow) once it scrolls. It takes no room, so the page's first section (a hero)
+starts under it. It was NavBar's floating variant (removed 2026-11-10).
+
+- **Parts:** the Header's (above); `.fixed-top` and `.pe-none` on the frame (clicks beside the pill reach the page),
+  `.pill`, `.bg border shadow`, `.solid-on-scroll` and `.pe-auto` on the bar.
+- **Admin data:** the Header's.
+- **Built in:** wp (marccent-wp's Floating header block pattern).
+
+Markup: [patterns/header-floating.html](../patterns/header-floating.html).
+
+## App frame
+
+An app or docs page: a Sidebar down the side, the page beside it; below 56rem the Sidebar is a top bar and the page
+under it. Was the AppShell component (removed 2026-11-10).
+
+- **Parts:** Grid (`layout-ends` with `--start: 1`, in a `.cq`), Sidebar (its content a Menu with `cols-1` and
+  `.menu-vertical`, then anything for the bottom), the page.
+- **Admin data:** menu (the sidebar's links), site (the brand).
+
+Markup: [patterns/app-frame.html](../patterns/app-frame.html).
 
 ## To check: components that may be patterns (TICKETS.md T-033)
 
@@ -94,7 +96,7 @@ The audit of 2026-11-09 (every component in `markup/settings.json`): these only 
 | Component | Made of | Note |
 |---|---|---|
 | CodeTabs | TabBar, Code | decided: a component (its editors are one value: 4.5.1) |
-| AppShell | Drawer, Menu, Button, Grid classes | a page frame, like NavBar; its sidebar's collapse needs a piece of its own first |
+| AppShell | Sidebar, a Menu, the page, Grid classes | done 2026-11-10: removed; its collapse is the Sidebar component's, the frame the App frame pattern (above) |
 | Collage | Grid (dense packing, a minimum row height), Cards with an image, size classes on them (`span-2`, a row span), border variants (a frame, an accent ring) | decided 2026-11-09: a pattern; Grid needs dense packing and a row height, the theme a row-span class, before the component retires |
 | HexWall | HexGrid (a component: it places each child by its place), its HexFlip children | removed (1.0.0-rc.21): not a pattern; a HexGrid with HexFlip children (marked with their parent) is the wall; in WordPress a Loop of HexFlip inside HexGrid |
 | ImageCard | Card, an image, overlay classes | decided 2026-11-09: a pattern (the Image card, above); the component retires once the theme has its overlays as classes |

@@ -1,0 +1,21 @@
+@import "../layers.css";
+/* SIDEBAR (Sidebar in components/widgets/sidebar.js): a column the window's height, pinned while the page scrolls
+   (sticky-top h-screen border-end on the markup). Its width is its state (PRODUCT-LINE.md section 4, rule 9): open
+   --sidebar-width, .collapsed its icons' width. Narrow screens (the script's 56rem) get .sidebar-top instead, a bar
+   (the .header classes on it) with the content in a Drawer. Its Menu takes .menu-vertical (menu.css). */
+@layer components {
+.sidebar {
+  width: var(--sidebar-width);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden auto;
+  container-type: inline-size;
+  transition: width var(--duration-slow) ease;
+}
+.sidebar.collapsed { width: calc(var(--icon-size) + 2 * var(--space-sm)); }
+.sidebar > .header { min-height: var(--icon-size); }
+.sidebar.collapsed > .header { grid-template-columns: 0 auto; gap: 0; } /* the button alone, centered */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar { transition: none; }
+}
