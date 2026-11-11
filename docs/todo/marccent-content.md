@@ -8,6 +8,7 @@ work fixed here only; anything the theme fixes is a ticket in marccent-theme's
 
 ## Bugs
 
+- [ ] **A Loop over a post type the site doesn't have shows the blog's posts** — a Loop with `postType: "city"` on a site without Cities rendered "Hello world!" (do_blocks on wp.localhost, checking the Local business kit); it should show its empty text. (found 2026-11-10)
 - [ ] **The Loop's filters and pager are styled here** (`inc/blocks.php`, `.mcc-filters`, `.mcc-pager` as inline CSS):
       an adapter writes no CSS of its own (PRODUCT-LINE.md 4.6); they're the theme's Pagination and a form row. (found 2026-11-10)
 
