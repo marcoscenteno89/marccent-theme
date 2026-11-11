@@ -327,7 +327,7 @@ component). Ticked here as it's done; what's for after 1.0 is the issues labeled
 The theme first: it's the root of everything. A phase starts only when the one before passes its gate; work that
 belongs to a later phase waits, and Claude says so when it's asked for early.
 
-1. **The theme.** Its lines below: Kits, B-008; then T-003's utilities (B-003 done 2026-11-10). Released and tagged: v1.0.0-rc.24 (2026-11-11).
+1. **The theme.** Its lines below: Kits, B-008; then T-003's utilities (B-003 done 2026-11-10). Released and tagged: v1.0.0-rc.25 (2026-11-11).
    **Gate:** `npm test` passes (the theme's checks; an adapter's markup is phase 2's gate) with no sizing exception
    left, every theme line ticked, the release tagged.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme

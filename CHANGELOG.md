@@ -3,6 +3,12 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## 1.0.0-rc.25
+
+### Fixed
+- Drawer's `side` offers start and end in `markup/settings.json` (#41): the top and bottom it listed were never the
+  component's (its markup, CSS and animation slide in from a side only).
+
 ## 1.0.0-rc.24
 
 ### Changed
