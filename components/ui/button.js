@@ -25,19 +25,21 @@ const STATES = {
  * is already there when the state changes (a region that appears with its text isn't always read). Form drives it for
  * its submit button. Give it an icon, so nothing moves.
  *
- * @param {{ icon?: string|false, href?: string, disabled?: boolean, state?: 'idle'|'loading'|'done'|'error', className?: string, children?: React.ReactNode, trace?: boolean, [attr: string]: any }} props
+ * @param {{ icon?: string|false, href?: string, disabled?: boolean, state?: 'idle'|'loading'|'done'|'error', className?: string, children?: React.ReactNode, trace?: boolean, align?: string, [attr: string]: any }} props
  *   icon: an icon name, rendered with <Icon> (above): "star" → fa-solid fa-star. Starting with "fa-" it is taken
  *   as full classes instead, for other families or extra classes: "fa-brands fa-github", "fa-solid fa-plus display".
  *   href: makes it a link. disabled: can't be used (faded; a link loses its href and leaves the tab order, since
  *   <a> has no disabled attribute). className: extra classes. children: the label. trace: adds an SVG outline (Trace) for
- *   the stroke hover effects (hover-trace, hover-dash). Any other prop (type, onClick, aria-*…) goes on the element.
+ *   the stroke hover effects (hover-trace, hover-dash). align: its place in its cell, sideways (justify-self-start,
+ *   justify-self-center or justify-self-end; none: where its parent puts it, centered in a grid cell). Any other prop (type, onClick, aria-*…) goes on the element.
  * @returns {JSX.Element}
  *
  * @example <Button icon="message" href="/contact">Message Me</Button>
  * @example <Button icon="fa-brands fa-github" href={github}>Github</Button>
  * @example <Button onClick={reset}>Start Over</Button>  // text link
  */
-const Button = ({ icon = false, href, disabled = false, state, className, children, trace = false, 'data-component': component = 'button', ...rest }) => {
+const Button = ({ icon = false, href, disabled = false, state, className, children, trace = false, align, 'data-component': component = 'button', ...rest }) => {
+  className = cx(align, className);
   const now = STATES[state];
   if (now) {
     icon = now.icon;

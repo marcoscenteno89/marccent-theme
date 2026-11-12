@@ -46,6 +46,16 @@
         "icon": "circle-question",
         "classes": "primary"
       }
+    },
+    {
+      "case": "aligned to the start of its cell",
+      "fields": {
+        "label": "Get a quote",
+        "href": "/quote",
+        "icon": "file-lines",
+        "classes": "primary",
+        "align": "justify-self-start"
+      }
     }
   ],
   "icon": [

@@ -8,6 +8,8 @@ README (Versions → What a version promises).
 ### Added
 - `.avatar` (#8, T-009): a person's picture or initials in a circle the size of an icon (`--icon-size`), scaled with
   font-size, colored by a class beside it as Chip is. A badge is `.chip` (already in the theme).
+- Button's `align` (#19, T-020): its place in its cell, sideways (`justify-self-start`, `-center`, `-end`), a setting
+  in `markup/settings.json` and a markup case, so an adapter offers it instead of a site's own CSS.
 
 ## 1.0.0-rc.25
 

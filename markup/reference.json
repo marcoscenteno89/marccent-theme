@@ -51,6 +51,17 @@
         "classes": "primary"
       },
       "html": "<a href=\"/faq?a=1&amp;b=2\" class=\"btn primary\" aria-label=\"Q&amp;A &lt;now&gt;\" title=\"Q&amp;A &lt;now&gt;\" data-component=\"button\"><i data-component=\"icon\" class=\"fa-solid fa-circle-question btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Q&amp;A &lt;now&gt;</span></a>"
+    },
+    {
+      "case": "aligned to the start of its cell",
+      "fields": {
+        "label": "Get a quote",
+        "href": "/quote",
+        "icon": "file-lines",
+        "classes": "primary",
+        "align": "justify-self-start"
+      },
+      "html": "<a href=\"/quote\" class=\"btn justify-self-start primary\" aria-label=\"Get a quote\" title=\"Get a quote\" data-component=\"button\"><i data-component=\"icon\" class=\"fa-solid fa-file-lines btn-icon\" aria-hidden=\"true\"></i><span class=\"btn-text\">Get a quote</span></a>"
     }
   ],
   "icon": [
