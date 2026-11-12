@@ -100,6 +100,7 @@ const RENDER = {
     href: f.href,
     icon: f.icon || false,
     trace: f.trace,
+    align: f.align || undefined,
     className: f.classes || undefined,
     ...(f.newTab && { target: '_blank', rel: 'noopener noreferrer' }),
   }, f.label),

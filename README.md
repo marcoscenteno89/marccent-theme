@@ -251,7 +251,8 @@ gives its own element, so `.justify-self-end` moves a button and `.pad-xs` pads 
   `.cols-end`, `.cols-between`, `.content-center`, `.joined` (children in one box: a label and its input, a button
   group), `.notch-top` / `.notch-bottom` (a ticket's tear), `.z-1`, `.z-dropdown`, `.z-sticky`, `.z-popup`, `.z-toast`,
   `.pe-none` / `.pe-auto`.
-- **Look**: `.chip` (a small label: a tag, a badge), `.bg-muted`, `.bg-primary-tint`, `.bg-inverse` (the page's
+- **Look**: `.chip` (a small label: a tag, a badge), `.avatar` (a picture or initials in a circle the size of an
+  icon; scale it with font-size), `.bg-muted`, `.bg-primary-tint`, `.bg-inverse` (the page's
   colors swapped: a tooltip), `.bg-scrim` and `.glass-dark` (text over a photo), `.tint-current` (the `aria-current`
   one tinted), `.border-start` / `-end`, `.border-dashed` (dashes only the sides a border class draws), `.hover-muted`,
   `.hover-opaque`. A Menu takes `.menu-quiet` for Bootstrap's nav-link look (the Header pattern's main menu).

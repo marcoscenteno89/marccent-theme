@@ -244,7 +244,7 @@ const ROOTS = {
     'map', 'menu', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
     'loader-pulse', 'loader-ring'],
   replaced: ['input', 'table'], // a form control or a table: auto doesn't fill, so 100% is how they fill (it's the parent's width)
-  inline: ['btn', 'chip', 'rating', 'fa', 'fa-solid', 'fa-regular', 'fa-brands'],
+  inline: ['btn', 'chip', 'avatar', 'rating', 'fa', 'fa-solid', 'fa-regular', 'fa-brands'],
   overlay: ['modal', 'float', 'toast', 'toggle-panel', 'menu-panel'], // outside the flow: sized against the screen
   state: ['sidebar'], // its width is its state (open, collapsed): one width per state, from tokens
 };

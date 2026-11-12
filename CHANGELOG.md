@@ -3,6 +3,18 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## Unreleased
+
+### Added
+- `.avatar` (#8, T-009): a person's picture or initials in a circle the size of an icon (`--icon-size`), scaled with
+  font-size, colored by a class beside it as Chip is. A badge is `.chip` (already in the theme).
+- Button's `align` (#19, T-020): its place in its cell, sideways (`justify-self-start`, `-center`, `-end`), a setting
+  in `markup/settings.json` and a markup case, so an adapter offers it instead of a site's own CSS.
+- `.scrolled-only` (#13, T-014): hidden while the page is at its top, faded in once it scrolls (`<html data-scrolled>`).
+  The Back to top pattern's button; T-038's other state classes stay after 1.0.
+- Patterns (PATTERNS.md): Back to top (#13, T-014), Section heading (#9, T-010) and Announcement row (#10, T-011),
+  each made of the theme's classes only, their markup in marccent-patterns.
+
 ## 1.0.0-rc.25
 
 ### Fixed

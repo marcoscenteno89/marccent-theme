@@ -95,6 +95,44 @@ under it. Was the AppShell component (removed 2026-11-10).
 
 Markup: [app-frame.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/app-frame.html) (marccent-patterns).
 
+## Section heading
+
+The heading over a section: a small label (the eyebrow), the title and a line of text, centered by default. Its text
+keeps a readable width (`.measure`) and is centered under the title. Put it as the first child of a Section.
+
+- **Parts:** Grid (`cols-1 gap-sm`, `justify-center text-center` to center; without them it starts at the
+  start), `.eyebrow`, a heading (`h2`, sized by `.display-*` or `h1`…), a paragraph (`.fs-lg .opacity-75`,
+  `.measure`).
+- **Admin data:** none (its text is the page's).
+- **Built in:** wp: a block pattern (Marccent Blocks' Grid and core Heading and Paragraph blocks); html: the markup.
+
+Markup: [section-heading.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/section-heading.html) (marccent-patterns).
+
+## Announcement row
+
+One line above the Header: a short notice and a link (a sale, an opening, a new service), on a color fill. On phones
+it wraps under itself, still centered.
+
+- **Parts:** a band (`bg-primary` or another fill; its links take the fill's text color, colors.css), `.wrap`,
+  `.fs-sm`, `.text-center`, `pad-y-xs`; a link.
+- **Admin data:** none (or site: a notice set for the whole site).
+- **Built in:** wp: a block pattern placed before the Header in the header template part.
+
+Markup: [announcement.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/announcement.html) (marccent-patterns).
+
+## Back to top
+
+A round button in the bottom corner that takes the visitor back to the top of the page. Hidden while the page is at
+its top, it fades in once the page scrolls (`.scrolled-only`).
+
+- **Parts:** Button (icon only, `arrow-up`, `href="#"`, an `aria-label`), `.position-fixed .bottom-0 .end-0
+  .z-sticky` and a padding class on a frame (`.pe-none`, so clicks beside it reach the page; the button `.pe-auto`),
+  `.scrolled-only`.
+- **Admin data:** none.
+- **Built in:** wp: a block pattern in the footer template part.
+
+Markup: [back-to-top.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/back-to-top.html) (marccent-patterns).
+
 ## To check: components that may be patterns (TICKETS.md T-033)
 
 The audit of 2026-11-09 (every component in `markup/settings.json`): these only arrange other components and classes.
