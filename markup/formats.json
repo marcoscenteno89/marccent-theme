@@ -1,0 +1,20 @@
+{
+  "raised": {
+    "title": "Raised",
+    "tag": "sup",
+    "className": null,
+    "about": "Part of a line raised and smaller: a currency sign ($), a unit, a mark after a name. sup keeps its line's height (base.css)."
+  },
+  "muted": {
+    "title": "Muted",
+    "tag": "span",
+    "className": "text-muted",
+    "about": "Part of a line quieter but still readable: a unit, a note (/mo, per person)."
+  },
+  "badge": {
+    "title": "Badge",
+    "tag": "span",
+    "className": "chip bg-primary-tint",
+    "about": "A word in a line as a small label: New, Sale, Beta. Its shape is the chip's, its color a tint of primary."
+  }
+}

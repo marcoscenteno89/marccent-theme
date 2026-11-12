@@ -21,6 +21,10 @@ The HTML the React components render, for hosts that write the same markup thems
   its settings (T-029: names, types, choices, defaults; `null` until written).
 
 - `tunes.json`: the settings every component takes (extra classes, an anchor, Show if), listed once.
+- `formats.json`: the **text formats**, styles for part of a line (Raised, Muted, Badge: #26), each an element and the
+  theme's classes on it. An editor offers them on selected text (WordPress: a format type each, `registerFormatType`);
+  `npm test` fails when a format names a class the theme doesn't have.
+- `typeset.json`: the typeset cases the server ports are checked against (README, Typography).
 
 `npm run conformance` (also in `npm test`, `scripts/conformance.mjs`) is the Settings and Adapters gates in
 PRODUCT-LINE.md: it runs each adapter and compares what it prints with `html`, one comparison for every adapter, and
