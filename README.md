@@ -203,11 +203,14 @@ locale="de-DE"`: 49⁵⁰ €). Screen readers hear "$19.99, per mo, was $29". I
 nothing of its own, so a server writes the same markup:
 
 ```html
-<s class="fs-50 text-muted"><span class="raised fs-50">$</span>29</s>
-<span class="raised fs-50">$</span>19<span class="raised fs-50">99</span><span class="fs-50 text-muted">/mo</span>
+<span data-component="price" class="d-inline-grid auto-cols gap-x-sm items-end nums-tabular">
+  <span class="visually-hidden">$19.99, per mo, was $29.99</span>
+  <s class="d-inline-grid auto-cols gap-0 items-start fs-50 text-muted" aria-hidden="true"><span class="fs-50">$</span>29<span class="fs-50">99</span></s>
+  <span class="d-inline-grid auto-cols gap-0 items-start" aria-hidden="true"><span class="fs-50">$</span>19<span class="fs-50">99</span><span class="fs-50 text-muted self-end">/mo</span></span>
+</span>
 ```
 
-**Classes that combine**: `.raised` (its top level with the text's top: a price's sign and cents, ™ after a name)
+**Classes that combine**: `.items-start` on an inline grid (its parts' tops lined up: a price's sign and cents)
 and `.fs-50` / `.fs-75` (half or three quarters of the text around it, whatever its size). `sup` and `sub`
 (footnotes, marks) no longer push their line away from the next. And the font's own features, where it has them:
 `.nums-tabular` (digits of one width: tables and prices line up), `.nums-fractions` (1/2 drawn as a fraction),

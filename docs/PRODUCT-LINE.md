@@ -130,7 +130,7 @@ changed deliberately, here first.
       class, the theme's tokens only, scoped to the item, one at a time (the ticket; TICKETS.md T-030). A component or
       container that takes variants has a `variant` setting (as Modal's).
    5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
-      `.raised`); the theme is classes that combine, so no component when classes already do it.
+      `.fs-50`); the theme is classes that combine, so no component when classes already do it.
    6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which was the
       NavBar; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts, its markup a file in marccent-patterns, never a component; in WordPress a
       block pattern of Marccent blocks, never a block. One that needs a kit's data lives in that kit.
