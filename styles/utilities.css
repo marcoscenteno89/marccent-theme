@@ -282,8 +282,12 @@
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
+/* SCROLLED ONLY: hidden while the page is at its top, shown once it scrolls (<html data-scrolled>, as above), faded
+   in. Hidden means out of reach too (visibility: no clicks, no tab stop, not read). The Back to top pattern's button. */
+.scrolled-only { transition: opacity var(--duration-slow), visibility var(--duration-slow); }
+:root:not([data-scrolled]) .scrolled-only { opacity: 0; visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
-  .solid-on-scroll { transition: none; }
+  .solid-on-scroll, .scrolled-only { transition: none; }
 }
 /* LAYERS: what goes over what, one scale for every component: a dropdown over the page, a sticky bar over that, a
    popup panel over the bar, toasts over everything. */
