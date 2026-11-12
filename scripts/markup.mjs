@@ -35,6 +35,7 @@ import { Compare } from './components/ui/compare';
 import { Counter } from './components/ui/counter';
 import { DataTable } from './components/ui/data-table';
 import { Divider } from './components/widgets/divider';
+import { Marquee } from './components/widgets/marquee';
 import { Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab } from './components/widgets/nav';
 import { ExpandButton } from './components/ui/expand-button';
 import { Field } from './components/ui/field';
@@ -57,7 +58,7 @@ import { Trace } from './components/ui/trace';
 import { Typeset } from './components/ui/typeset';
 export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset };
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset };
 `;
 const { outputFiles } = await build({
   absWorkingDir: ROOT,
@@ -78,7 +79,7 @@ writeFileSync(out, outputFiles[0].text);
 const {
   createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset,
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset,
 } = await import(pathToFileURL(out).href);
 
 // A case's HTML (its content fields) goes in as a token, then in the token's place as it is.
@@ -147,6 +148,7 @@ const RENDER = {
   countdown: (f) => h(Countdown, { from: f.from }),
   counter: (f) => h(Counter, { active: false, controls: f.controls }),
   dataTable: (f) => h(DataTable, { columns: f.columns, rows: f.rows, label: f.label, pageSize: f.pageSize, search: f.search }),
+  marquee: (f) => h(Marquee, { duration: f.duration, reverse: f.reverse, label: f.label || undefined, className: f.classes || undefined }, html(f.content)),
   divider: (f) => h(Divider, { shape: f.shape, edge: f.edge, size: f.size, motion: f.motion || undefined, scroll: f.scroll || undefined, flip: f.flip }),
   dock: (f) => h(Dock, { label: f.label }, f.items.map((item) => h(DockItem, { key: item.label, ...item }))),
   expandButton: (f) => h(ExpandButton, { icon: f.icon, label: f.label }, html(f.content)),

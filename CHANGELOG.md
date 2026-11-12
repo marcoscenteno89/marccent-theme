@@ -6,6 +6,9 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- Marquee (#12, T-013): a row that scrolls sideways without end (logos, names). Its content twice, the copy hidden
+  from screen readers and inert; paused on hover, keyboard focus and off screen; still and scrolled by hand with
+  reduced motion. No script, so a server writes the same markup. Its settings in `markup/settings.json`, two cases.
 - `.avatar` (#8, T-009): a person's picture or initials in a circle the size of an icon (`--icon-size`), scaled with
   font-size, colored by a class beside it as Chip is. A badge is `.chip` (already in the theme).
 - Button's `align` (#19, T-020): its place in its cell, sideways (`justify-self-start`, `-center`, `-end`), a setting

@@ -1191,5 +1191,29 @@
       },
       "html": "<p>Prices from $19.99/mo—the 1<sup>st</sup> of 2 plans…</p>"
     }
+  ],
+  "marquee": [
+    {
+      "case": "client names, labeled",
+      "fields": {
+        "label": "Our clients",
+        "duration": 30,
+        "reverse": false,
+        "classes": "",
+        "content": "<span class=\"h4 opacity-75\">Northwind</span><span class=\"h4 opacity-75\">Contoso</span><span class=\"h4 opacity-75\">Fabrikam</span><span class=\"h4 opacity-75\">Tailspin</span>"
+      },
+      "html": "<div data-component=\"marquee\" role=\"group\" aria-label=\"Our clients\" class=\"marquee\"><div class=\"marquee-track\"><div class=\"marquee-group\"><span class=\"h4 opacity-75\">Northwind</span><span class=\"h4 opacity-75\">Contoso</span><span class=\"h4 opacity-75\">Fabrikam</span><span class=\"h4 opacity-75\">Tailspin</span></div><div class=\"marquee-group\" aria-hidden=\"true\" inert=\"\"><span class=\"h4 opacity-75\">Northwind</span><span class=\"h4 opacity-75\">Contoso</span><span class=\"h4 opacity-75\">Fabrikam</span><span class=\"h4 opacity-75\">Tailspin</span></div></div></div>"
+    },
+    {
+      "case": "names, slower and reversed, a smaller gap",
+      "fields": {
+        "label": "",
+        "duration": 45,
+        "reverse": true,
+        "classes": "gap-md",
+        "content": "<span class=\"h4\">Design</span><span class=\"h4\">Build</span><span class=\"h4\">Care</span>"
+      },
+      "html": "<div data-component=\"marquee\" class=\"marquee gap-md\" data-reverse=\"\" style=\"--marquee-duration:45s\"><div class=\"marquee-track\"><div class=\"marquee-group\"><span class=\"h4\">Design</span><span class=\"h4\">Build</span><span class=\"h4\">Care</span></div><div class=\"marquee-group\" aria-hidden=\"true\" inert=\"\"><span class=\"h4\">Design</span><span class=\"h4\">Build</span><span class=\"h4\">Care</span></div></div></div>"
+    }
   ]
 }
