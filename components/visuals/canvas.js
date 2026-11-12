@@ -55,7 +55,7 @@ const Graph = (props) => {
     sketch.draw = () => c.draw();
     sketch.draw();
   }, [props.obj, props.theme, props.theme.version]);
-  return <div ref={readout} className="chart-readout order-first" />;
+  return <div ref={readout} className="graph-readout order-first" />;
 }
 
 const GraphCanvas = withThemeCanvas(Graph, { decorative: false, name: 'graph' }); // a chart people read: full sharpness, no pausing

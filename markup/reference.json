@@ -1346,5 +1346,17 @@
       },
       "html": "<address data-component=\"contact\">123 Main St, Boise, ID 83702</address>"
     }
+  ],
+  "consent": [
+    {
+      "case": "the defaults, a policy link",
+      "fields": {
+        "text": "We use cookies to see how the site is used and to measure our ads. Is that OK?",
+        "accept": "Accept",
+        "reject": "No thanks",
+        "policy": "/privacy/"
+      },
+      "html": "<div data-component=\"consent\" role=\"dialog\" aria-label=\"Cookies\" hidden=\"\" class=\"consent bg border round shadow pad grid cols-1 gap-sm\"><p>We use cookies to see how the site is used and to measure our ads. Is that OK? <a href=\"/privacy/\">Privacy policy</a></p><div class=\"row-wrap cols-end gap-sm\"><button type=\"button\" class=\"btn\" data-consent=\"no\">No thanks</button><button type=\"button\" class=\"btn primary\" data-consent=\"yes\">Accept</button></div></div>"
+    }
   ]
 }

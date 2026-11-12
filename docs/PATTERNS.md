@@ -191,6 +191,19 @@ A band near the end of a page: a title and a line, and a button at the end; on p
 
 Markup: [call-to-action.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/call-to-action.html) (marccent-patterns).
 
+## Call bar
+
+On phones, Call and Get a quote buttons fixed along the bottom of the window, always in reach; from 48rem it's gone
+(the header's call to action takes over). A spacer of its height ends the page, so the bar never covers the footer's
+last line.
+
+- **Parts:** `.fixed-bottom`, `.d-md-none`, `.bg .border-top`, Grid (`fixed`, `--cols: 2`), Button (`.w-100`, one a `tel:`
+  link: Contact's number); a spacer (`.d-md-none`, the bar's height).
+- **Admin data:** site (the phone number, the quote page).
+- **Built in:** wp: a block pattern in the footer template part (it replaces Marccent Local's `inc/callbar.php`).
+
+Markup: [call-bar.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/call-bar.html) (marccent-patterns).
+
 ## To check: components that may be patterns (TICKETS.md T-033)
 
 The audit of 2026-11-09 (every component in `markup/settings.json`): these only arrange other components and classes.

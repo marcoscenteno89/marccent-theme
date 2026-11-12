@@ -10,6 +10,7 @@ import { fileDrop } from './file-drop';
 import { watchDivider } from './divider';
 import { toastSI } from './toasts';
 import { drawMap, restyleMap } from './maps';
+import { watchConsent } from './consent';
 
 /*
  * The components the markup engine (core/enhance.js) wires up: the same markup the React components render, so a
@@ -121,6 +122,9 @@ define('file-drop', fileDrop);
 
 // Section divider (Divider): one that follows the scroll; the rest is CSS.
 define('divider', watchDivider);
+
+// Consent: the cookie banner (core/consent.js).
+define('consent', watchConsent);
 
 /*
  * Sidebar: [data-collapse] narrows it to its icons and back, remembered in this browser: its links' names hidden (into

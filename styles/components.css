@@ -7,9 +7,11 @@
 @import "./components/board.css";
 @import "./components/button.css";
 @import "./components/chip.css";
+@import "./components/consent.css";
 @import "./components/avatar.css";
 @import "./components/carousel.css";
 @import "./components/divider.css";
+@import "./components/graph.css";
 @import "./components/dock.css";
 @import "./components/form.css";
 @import "./components/loading.css";
