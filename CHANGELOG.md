@@ -3,6 +3,12 @@
 Each release, newest first. From 1.0 the versions are semantic: what a patch, a minor and a major may change is in the
 README (Versions → What a version promises).
 
+## Unreleased
+
+### Added
+- `.avatar` (#8, T-009): a person's picture or initials in a circle the size of an icon (`--icon-size`), scaled with
+  font-size, colored by a class beside it as Chip is. A badge is `.chip` (already in the theme).
+
 ## 1.0.0-rc.25
 
 ### Fixed
