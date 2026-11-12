@@ -40,6 +40,17 @@ README (Versions → What a version promises).
 - An `.eyebrow` on a color fill takes the fill's text color, as headings do (its primary ink vanished on a primary or
   gradient band).
 
+## Unreleased
+
+### Added
+- Graph (#16, T-017): the price chart with its frame (`components/visuals/graph.js`, `styles/components/graph.css`):
+  the chart and its hover readout beside a price column, a date row under it that drops dates as it narrows (the
+  breakpoint scale). A site writes no layout CSS for it.
+
+### Changed
+- The chart's readout is `.graph-readout` (was `.chart-readout`, a class only marccent.com's own CSS styled). Breaking
+  for a site that styled it; marccent.com moves to Graph when it's brought up to 1.0.
+
 ## 1.0.0-rc.25
 
 ### Fixed

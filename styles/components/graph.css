@@ -1,0 +1,44 @@
+@import "../layers.css";
+/* GRAPH (Graph in components/visuals/graph.js): a price chart's frame. The chart (a square canvas, its hover readout
+   above it) beside the price column, the date row under both. The price column starts below the readout, so its
+   rows line up with the chart's; the date row drops dates as it narrows, keeping the first and last. Its numbers in
+   the chart's own small type. */
+@layer components {
+.graph {
+  --graph-readout-height: 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-sm);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+.graph .canvas { height: auto; aspect-ratio: 1 / 1; }
+.graph-readout {
+  display: grid;
+  align-items: center;
+  height: var(--graph-readout-height);
+  font-size: var(--small-size);
+}
+.graph-prices { display: grid; padding-top: var(--graph-readout-height); }
+.graph-prices > * { display: grid; align-items: end; justify-content: end; }
+.graph-dates {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  container-type: inline-size;
+  text-align: center;
+}
+.graph-dates > * { padding-block: var(--space-xs); }
+}
+
+/* The date row: every other date dropped below 64rem, more below 48rem and again below 40rem (the breakpoint
+   scale); the first and last always stay. */
+@container (width < 64rem) {
+  .graph-dates > :nth-child(even):not(:last-child, :first-child) { display: none; }
+}
+@container (width < 48rem) {
+  .graph-dates > :nth-child(3n+1):not(:last-child, :first-child) { display: none; }
+}
+@container (width < 40rem) {
+  .graph-dates > :nth-child(3n+2):not(:last-child, :first-child) { display: none; }
+}
