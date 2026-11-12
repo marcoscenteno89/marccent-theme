@@ -6,6 +6,9 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- Text formats (#26, T-028): `markup/formats.json` lists Raised (`sup`), Muted (`span.text-muted`) and Badge
+  (`span.chip.bg-primary-tint`), styles for part of a line that an editor offers on selected text; conformance fails
+  when a format names a class the theme doesn't have.
 - Typeset on the server (#22, T-024): `server/typeset.php` and `server/typeset.py` set text and markup with
   `core/typeset.js`'s rules, so a WordPress or Django page arrives set. `markup/typeset.json` holds the cases (text from
   `typesetParts`, markup from `typesetElement` in Chromium); `npm test` checks the JS and both ports against them.

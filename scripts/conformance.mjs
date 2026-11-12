@@ -395,4 +395,19 @@ if (!option('--adapter') && !option('--render')) {
   if (!left.length) console.log('ok   imports: every component stylesheet is in components.css');
 }
 
+// Text formats (#26): each names an element and classes the theme has, so an editor's format gets the theme's look.
+if (!option('--adapter') && !option('--render')) {
+  const formats = JSON.parse(readFileSync(join(ROOT, 'markup/formats.json'), 'utf8'));
+  const css = readFileSync(join(ROOT, 'dist/marccent.css'), 'utf8');
+  const before = failed;
+  for (const [ name, f ] of Object.entries(formats)) {
+    for (const c of (f.className ?? '').split(/\s+/).filter(Boolean)) {
+      if (new RegExp(`\\.${ c }(?![\\w-])`).test(css)) continue;
+      console.log(`FAIL formats: ${ name } uses .${ c }, which dist/marccent.css doesn't have`);
+      failed++;
+    }
+  }
+  if (failed === before) console.log(`ok   formats: ${ Object.keys(formats).join(', ') } use the theme's classes`);
+}
+
 process.exit(failed || (strict && missing) ? 1 : 0);
