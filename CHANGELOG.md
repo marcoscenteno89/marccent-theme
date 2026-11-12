@@ -23,10 +23,6 @@ README (Versions → What a version promises).
   The Back to top pattern's button; T-038's other state classes stay after 1.0.
 - Patterns (PATTERNS.md): Back to top (#13, T-014), Section heading (#9, T-010) and Announcement row (#10, T-011),
   each made of the theme's classes only, their markup in marccent-patterns.
-
-## Unreleased
-
-### Added
 - Form's `success` (#15, T-016): shown in the form's place once it's sent (a thank-you) and focused, so a screen
   reader reads it; a site needs no script of its own for it. A setting in `markup/settings.json`.
 - Patterns (PATTERNS.md, #14 and #15, T-015 and T-016): Hero, Pricing table (a TabBar switching the period),
@@ -35,21 +31,19 @@ README (Versions → What a version promises).
 - Menu: a mega dropdown (#11, T-012). An item's `description` puts a line under its name (`.menu-link-text`), its
   icon beside the two; a dropdown's `columns` lays its panel out in that many columns side by side where there's room
   (`.menu-mega`, 64rem and up), one where there isn't. A case in `markup/cases.json`.
-
-### Fixed
-- An `.eyebrow` on a color fill takes the fill's text color, as headings do (its primary ink vanished on a primary or
-  gradient band).
-
-## Unreleased
-
-### Added
 - Graph (#16, T-017): the price chart with its frame (`components/visuals/graph.js`, `styles/components/graph.css`):
   the chart and its hover readout beside a price column, a date row under it that drops dates as it narrows (the
   breakpoint scale). A site writes no layout CSS for it.
+- `.fixed-bottom` (#7, T-003): fixed along the bottom of the window (Bootstrap's); the Call bar pattern (PATTERNS.md,
+  its markup in marccent-patterns): Call and Get a quote on phones, a spacer of its height ending the page.
 
 ### Changed
 - The chart's readout is `.graph-readout` (was `.chart-readout`, a class only marccent.com's own CSS styled). Breaking
   for a site that styled it; marccent.com moves to Graph when it's brought up to 1.0.
+
+### Fixed
+- An `.eyebrow` on a color fill takes the fill's text color, as headings do (its primary ink vanished on a primary or
+  gradient band).
 
 ## 1.0.0-rc.25
 

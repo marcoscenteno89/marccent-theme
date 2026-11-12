@@ -268,6 +268,7 @@
 /* Fixed over the top of the page, full width, above the sticky layer (Bootstrap's .fixed-top): it takes no room, so
    the page's first section starts under it (a header floating over the hero). */
 .fixed-top { position: fixed; top: 0; right: 0; left: 0; z-index: 1030; }
+.fixed-bottom { position: fixed; right: 0; bottom: 0; left: 0; z-index: 1030; } /* Bootstrap's: the Call bar */
 /* POINTER EVENTS (Bootstrap's .pe-none, .pe-auto): a frame that lets clicks through to the page, content that doesn't. */
 .pe-none { pointer-events: none; }
 .pe-auto { pointer-events: auto; }
