@@ -1,0 +1,181 @@
+{
+  "text": [
+    {
+      "text": "Wait for it...",
+      "html": "Wait for it…"
+    },
+    {
+      "text": "Open 10--20 hours, Mon--Fri",
+      "html": "Open 10–20 hours, Mon–Fri"
+    },
+    {
+      "text": "9 -- 5 daily",
+      "html": "9–5 daily"
+    },
+    {
+      "text": "Fast -- and cheap",
+      "html": "Fast—and cheap"
+    },
+    {
+      "text": "word--word",
+      "html": "word–word"
+    },
+    {
+      "text": "Marccent(tm), Brand(R), Service(sm) and (c) 2026",
+      "html": "Marccent<sup>™</sup>, Brand<sup>®</sup>, Service<sup>℠</sup> and © 2026"
+    },
+    {
+      "text": "Already ™ and ® here",
+      "html": "Already <sup>™</sup> and <sup>®</sup> here"
+    },
+    {
+      "text": "He is 6'2\" tall",
+      "html": "He is 6′2″ tall"
+    },
+    {
+      "text": "A 12\" pizza and a 3' board",
+      "html": "A 12″ pizza and a 3′ board"
+    },
+    {
+      "text": "Don't say \"hi\" to the 80's",
+      "html": "Don't say \"hi\" to the 80's"
+    },
+    {
+      "text": "40 m2 of floor, 3 ft3 of soil, 12cm2",
+      "html": "40 m² of floor, 3 ft³ of soil, 12 cm²"
+    },
+    {
+      "text": "m2 alone and 2 mm22",
+      "html": "m2 alone and 2 mm22"
+    },
+    {
+      "text": "10 kg, 72 °F, 50 %, 5 lbs, 2 hrs, 300 sq ft",
+      "html": "10 kg, 72 °F, 50 %, 5 lbs, 2 hrs, 300 sq ft"
+    },
+    {
+      "text": "10 kgs and 5 minutes",
+      "html": "10 kgs and 5 minutes"
+    },
+    {
+      "text": "The 1st, 2nd, 3rd and 4th floors, 21st and 112th",
+      "html": "The 1<sup>st</sup>, 2<sup>nd</sup>, 3<sup>rd</sup> and 4<sup>th</sup> floors, 21<sup>st</sup> and 112<sup>th</sup>"
+    },
+    {
+      "text": "first and 1stly, st alone, 2 nd",
+      "html": "first and 1stly, st alone, 2 nd"
+    },
+    {
+      "text": "Call 555-123-4567 on 2026-11-12",
+      "html": "Call 555-123-4567 on 2026-11-12"
+    },
+    {
+      "text": "",
+      "html": ""
+    },
+    {
+      "text": "plain text that needs nothing",
+      "html": "plain text that needs nothing"
+    },
+    {
+      "text": "Fish & chips < 5 > 3",
+      "html": "Fish &amp; chips &lt; 5 &gt; 3"
+    },
+    {
+      "text": "Keep the last two words together",
+      "widow": true,
+      "html": "Keep the last two words together"
+    },
+    {
+      "text": "Ends with a space ",
+      "widow": true,
+      "html": "Ends with a space "
+    },
+    {
+      "text": "Short",
+      "widow": true,
+      "html": "Short"
+    },
+    {
+      "text": "Two words",
+      "widow": true,
+      "html": "Two words"
+    },
+    {
+      "text": "A very long last word supercalifragilistic",
+      "widow": true,
+      "html": "A very long last word supercalifragilistic"
+    },
+    {
+      "text": "Ends at 10 kg",
+      "widow": true,
+      "html": "Ends at 10 kg"
+    },
+    {
+      "text": "Ends on the 2nd",
+      "widow": true,
+      "html": "Ends on the 2<sup>nd</sup>"
+    }
+  ],
+  "markup": [
+    {
+      "markup": "<p>Open Mon--Fri, the 2nd floor...</p>",
+      "html": "<p>Open Mon–Fri, the 2<sup>nd</sup> floor…</p>"
+    },
+    {
+      "markup": "<p>Hello <strong>world</strong> -- and the rest of it</p>",
+      "html": "<p>Hello <strong>world</strong>—and the rest of it</p>"
+    },
+    {
+      "markup": "<p>Run <code>a -- b...</code> then (tm)</p>",
+      "html": "<p>Run <code>a -- b...</code> then <sup>™</sup></p>"
+    },
+    {
+      "markup": "<pre>x -- y...</pre><p>but here...</p>",
+      "html": "<pre>x -- y...</pre><p>but here…</p>"
+    },
+    {
+      "markup": "<p class=\"no-typeset\">left -- alone...</p><p>set -- here</p>",
+      "html": "<p class=\"no-typeset\">left -- alone...</p><p>set—here</p>"
+    },
+    {
+      "markup": "<div contenteditable=\"true\">edit -- me</div>",
+      "html": "<div contenteditable=\"true\">edit -- me</div>"
+    },
+    {
+      "markup": "<p>Already <sup>st</sup> raised and H<sub>2</sub>O</p>",
+      "html": "<p>Already <sup>st</sup> raised and H<sub>2</sub>O</p>"
+    },
+    {
+      "markup": "<p>A <a href=\"/x?a=1&amp;b=2\">link -- here</a> &amp; more...</p>",
+      "html": "<p>A <a href=\"/x?a=1&amp;b=2\">link—here</a> &amp; more…</p>"
+    },
+    {
+      "markup": "<ul><li>1st</li><li>2nd item here</li></ul>",
+      "html": "<ul><li>1<sup>st</sup></li><li>2<sup>nd</sup> item here</li></ul>"
+    },
+    {
+      "markup": "<p>Line one<br>line two -- end</p>",
+      "html": "<p>Line one<br>line two—end</p>"
+    },
+    {
+      "markup": "<!-- a -- comment... --><p>after -- it</p>",
+      "html": "<!-- a -- comment... --><p>after—it</p>"
+    },
+    {
+      "markup": "<p>A <img src=\"a.png\" alt=\"x -- y\"> picture...</p>",
+      "html": "<p>A <img src=\"a.png\" alt=\"x -- y\"> picture…</p>"
+    },
+    {
+      "markup": "<script>var a = \"--\";</script><style>a::after{content:\"...\"}</style><p>ok...</p>",
+      "html": "<script>var a = \"--\";</script><style>a::after{content:\"...\"}</style><p>ok…</p>"
+    },
+    {
+      "markup": "<p><span class=\"lead no-typeset\">no -- set</span> yes -- set</p>",
+      "html": "<p><span class=\"lead no-typeset\">no -- set</span> yes—set</p>"
+    },
+    {
+      "markup": "<p>Fish &amp; chips &lt; 5 -- the last words</p>",
+      "html": "<p>Fish &amp; chips &lt; 5—the last words</p>"
+    }
+  ]
+}

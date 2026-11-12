@@ -6,6 +6,9 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- Typeset on the server (#22, T-024): `server/typeset.php` and `server/typeset.py` set text and markup with
+  `core/typeset.js`'s rules, so a WordPress or Django page arrives set. `markup/typeset.json` holds the cases (text from
+  `typesetParts`, markup from `typesetElement` in Chromium); `npm test` checks the JS and both ports against them.
 - DateTime (#24, T-026): a date, a time or a range as `<time>` elements in the reader's language (Intl), a range
   sharing what both ends share ("Nov 6 – 8, 2026"), or relative ("3 days ago", the exact moment in its title). A
   date alone is always its own day (UTC); a date and time takes a `timeZone`. Its settings and five cases.
