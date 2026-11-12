@@ -53,6 +53,8 @@ README (Versions → What a version promises).
   for a site that styled it; marccent.com moves to Graph when it's brought up to 1.0.
 
 ### Fixed
+- README's Price markup is the component's (from `markup/reference.json`), and `.raised`, removed in rc.15, is no
+  longer named in README or PRODUCT-LINE.md (#145).
 - `styles/components.css` (and so `dist/marccent.css`) now has compare, rating and table, which it left out (#139);
   conformance fails when a component stylesheet isn't imported there.
 - An `.eyebrow` on a color fill takes the fill's text color, as headings do (its primary ink vanished on a primary or
