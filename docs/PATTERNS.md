@@ -133,6 +133,64 @@ its top, it fades in once the page scrolls (`.scrolled-only`).
 
 Markup: [back-to-top.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/back-to-top.html) (marccent-patterns).
 
+## Hero
+
+A page's first section: an eyebrow, the title, a line and a call to action, centered over a band (a gradient, an
+image as in the Image card, or an animation playing behind it, layered with `.stack`). At least 70% of the window
+tall.
+
+- **Parts:** Section (`wrap wrap-fluid`, `.stack`, a fill class), Animation (optional, behind), the Section
+  heading's parts, Button (`light` on a fill) and a link.
+- **Admin data:** none.
+- **Built in:** wp: a block pattern.
+
+Markup: [hero.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/hero.html) (marccent-patterns).
+
+## Pricing table
+
+Plans side by side, the featured one raised (`.shadow-lg`, a `.chip` over it); each its name, a Price, its features
+and a button. A TabBar over them switches the period: a Tab per period (Monthly, Yearly), each holding the plans with
+that period's Prices. Plans wrap under each other below 16rem each.
+
+- **Parts:** TabBar and Tab (the periods), Grid (`--min: 16rem`), Card, Price, Chip, Button (`justify-self-start`).
+- **Admin data:** none (or rows: a plan per row).
+- **Built in:** wp: a block pattern.
+
+Markup: [pricing.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/pricing.html) (marccent-patterns).
+
+## Bento grid
+
+Cards of different sizes packed into one grid: some over two rows (`.row-span-2`), the holes filled (`.dense`), every
+row at least `--row` tall (`.rows-min`).
+
+- **Parts:** Grid (`dense`, `rows-min`, `--cols`, `--row`), Card.
+- **Admin data:** none.
+- **Built in:** wp: a block pattern.
+
+Markup: [bento.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/bento.html) (marccent-patterns).
+
+## Bar sparkline
+
+A few bars to show a trend at a glance, inside a card or beside a number: each bar's height is its value's share of
+the largest, its label for screen readers on the whole (`role="img"`). For a chart with axes and values: Graph.
+
+- **Parts:** Grid (`fixed`, `items-end`, `--cols` one per bar, a height), a fill class and `.round` on each bar.
+- **Admin data:** none (or rows).
+- **Built in:** wp: a block pattern.
+
+Markup: [bar-sparkline.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/bar-sparkline.html) (marccent-patterns).
+
+## Call to action
+
+A band near the end of a page: a title and a line, and a button at the end; on phones the button goes under them.
+
+- **Parts:** Section (`wrap wrap-fluid`, a fill class), `.row-wrap` with `.grow` on the text, Button (`light` on a
+  fill).
+- **Admin data:** none.
+- **Built in:** wp: a block pattern.
+
+Markup: [call-to-action.html](https://github.com/marcoscenteno89/marccent-patterns/blob/main/patterns/call-to-action.html) (marccent-patterns).
+
 ## To check: components that may be patterns (TICKETS.md T-033)
 
 The audit of 2026-11-09 (every component in `markup/settings.json`): these only arrange other components and classes.

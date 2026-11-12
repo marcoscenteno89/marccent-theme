@@ -27,9 +27,18 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- Form's `success` (#15, T-016): shown in the form's place once it's sent (a thank-you) and focused, so a screen
+  reader reads it; a site needs no script of its own for it. A setting in `markup/settings.json`.
+- Patterns (PATTERNS.md, #14 and #15, T-015 and T-016): Hero, Pricing table (a TabBar switching the period),
+  Bento grid, Bar sparkline and Call to action, each made of the theme's classes only, their markup in
+  marccent-patterns.
 - Menu: a mega dropdown (#11, T-012). An item's `description` puts a line under its name (`.menu-link-text`), its
   icon beside the two; a dropdown's `columns` lays its panel out in that many columns side by side where there's room
   (`.menu-mega`, 64rem and up), one where there isn't. A case in `markup/cases.json`.
+
+### Fixed
+- An `.eyebrow` on a color fill takes the fill's text color, as headings do (its primary ink vanished on a primary or
+  gradient band).
 
 ## 1.0.0-rc.25
 
