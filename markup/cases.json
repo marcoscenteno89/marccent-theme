@@ -1254,5 +1254,16 @@
         "icon": false
       }
     }
+  ],
+  "consent": [
+    {
+      "case": "the defaults, a policy link",
+      "fields": {
+        "text": "We use cookies to see how the site is used and to measure our ads. Is that OK?",
+        "accept": "Accept",
+        "reject": "No thanks",
+        "policy": "/privacy/"
+      }
+    }
   ]
 }

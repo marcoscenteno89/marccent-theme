@@ -36,6 +36,11 @@ README (Versions → What a version promises).
   breakpoint scale). A site writes no layout CSS for it.
 - `.fixed-bottom` (#7, T-003): fixed along the bottom of the window (Bootstrap's); the Call bar pattern (PATTERNS.md,
   its markup in marccent-patterns): Call and Get a quote on phones, a spacer of its height ending the page.
+- Consent (#6, T-002): the cookie banner, a panel in the bottom corner (across the bottom on phones) until the visitor
+  answers, the answer kept six months (the `marccent_consent` cookie). On yes, the tags a site held back in
+  `<template data-consent-held>` run; Google's Consent Mode is told either way when the page has gtag, and a
+  `marccent:consent` event goes out. A link to `#cookie-settings` opens it again. The engine wires the markup
+  (`core/consent.js`); its settings and a case.
 
 ### Changed
 - The chart's readout is `.graph-readout` (was `.chart-readout`, a class only marccent.com's own CSS styled). Breaking

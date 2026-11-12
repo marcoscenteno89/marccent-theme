@@ -1,0 +1,19 @@
+@import "../layers.css";
+/* CONSENT (Consent in components/ui/consent.js): the cookie banner, fixed in the bottom corner over the page, at most
+   24rem wide; on phones (under 40rem) across the bottom. An overlay: sized against the screen, outside the flow. Its
+   surface, padding and layout are classes on the markup. */
+@layer components {
+.consent {
+  position: fixed;
+  inset: auto var(--space) var(--space) auto;
+  z-index: 1090;
+  max-width: min(24rem, 100vw - 2 * var(--space));
+  font-size: var(--small-size);
+}
+.consent[hidden] { display: none; }
+.consent > p { margin: 0; }
+}
+
+@media (width < 40rem) {
+  .consent { inset: auto var(--space-sm) var(--space-sm); max-width: none; }
+}
