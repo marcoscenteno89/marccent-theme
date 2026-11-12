@@ -12,9 +12,11 @@ import '../../styles/components/menu.css';
  * keyboard; a site closes open ones after navigating and on an outside click or Escape (querySelectorAll
  * ('details[open]') on its header).
  *
- * Item: { name, href?, icon?, label?, external?, className?, children? }. name: visible text. href: where it goes (a
- * dropdown's is its "browse all" page, for the sitemap and footer). icon: full Font Awesome classes. label: aria-label
- * for icon-only links. external: opens in a new tab.
+ * Item: { name, href?, icon?, label?, description?, external?, className?, children?, columns? }. name: visible text.
+ * href: where it goes (a dropdown's is its "browse all" page, for the sitemap and footer). icon: full Font Awesome
+ * classes. label: aria-label for icon-only links. description: a line under the name (WordPress's menu item
+ * description), the link then its icon beside the two. external: opens in a new tab. columns: a dropdown's panel in
+ * that many columns side by side where there's room (a mega menu: .menu-mega), one where there isn't.
  */
 
 // Usage: <a href={s.href} {...externalProps(s)}>
@@ -83,19 +85,22 @@ const MenuLink = ({ item, iconOnly, className }) => (
     {...externalProps(item)}
   >
     {item.icon && <i className={item.icon} aria-hidden="true"></i>}
-    {!iconOnly && <span className="text-truncate">{item.name}</span>}
+    {!iconOnly && (item.description
+      ? <span className="menu-link-text"><span>{item.name}</span><small className="opacity-75">{item.description}</small></span>
+      : <span className="text-truncate">{item.name}</span>)}
   </Link>
 );
 
 // A dropdown; sub: it sits in another dropdown's panel (.menu-sub: the caret points sideways, menu.css places it).
 // Its children render the same way, so a child with children is a submenu of this one.
 const MenuDropdown = ({ item, sub, className, panelClassName, linkClassName }) => (
-  <details data-component="menu-dropdown" className={cx('menu-dropdown', sub && 'menu-sub', className, item.className)}>
+  <details data-component="menu-dropdown" className={cx('menu-dropdown', sub && 'menu-sub', item.columns > 1 && 'menu-mega', className, item.className)}>
     <summary className={cx('menu-link caret', linkClassName)}>
       {item.icon && <i className={item.icon} aria-hidden="true"></i>}
       <span className="text-truncate">{item.name}</span>
     </summary>
-    <div className={cx('menu-panel bg border round shadow pad grid cols-1 gap-sm', panelClassName)}>
+    <div className={cx('menu-panel bg border round shadow pad grid cols-1 gap-sm', panelClassName)}
+      style={item.columns > 1 ? { '--cols': item.columns } : undefined}>
       {item.children.map(child => child.children
         ? <MenuDropdown key={child.name} item={child} sub className={className} panelClassName={panelClassName} linkClassName={linkClassName} />
         : <MenuLink key={child.href + child.name} item={child} className={linkClassName} />

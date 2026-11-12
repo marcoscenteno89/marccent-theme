@@ -359,6 +359,52 @@
         ]
       },
       "html": "<div class=\"toggle-fold\"><button type=\"button\" class=\"btn menu-fold-toggle\" data-component=\"toggle-button\" data-icon=\"bars\" data-active-icon=\"xmark\" aria-expanded=\"false\" aria-controls=\"id-1\" aria-label=\"Main menu\" id=\"id-1-toggle\" popovertarget=\"id-1\"><i data-component=\"icon\" class=\"fa-solid fa-bars btn-icon\" aria-hidden=\"true\"></i></button><div id=\"id-1\" data-component=\"toggle-panel\" popover=\"auto\" role=\"group\" aria-label=\"Main menu\" class=\"toggle-panel bg border round shadow pad-sm\"><nav data-component=\"menu\" class=\"menu grid gap-sm auto-cols menu-fold\" aria-label=\"Main\"><a data-component=\"menu-link\" href=\"/services/\" class=\"menu-link\"><span class=\"text-truncate\">Services</span></a><details data-component=\"menu-dropdown\" class=\"menu-dropdown\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">About</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\"><a data-component=\"menu-link\" href=\"/about/team/\" class=\"menu-link\"><span class=\"text-truncate\">Team</span></a></div></details><a data-component=\"menu-link\" href=\"/contact/\" class=\"menu-link\"><span class=\"text-truncate\">Contact</span></a></nav></div></div>"
+    },
+    {
+      "case": "a mega dropdown: two columns of icon, name and a line",
+      "fields": {
+        "label": "Main",
+        "layout": "auto-cols",
+        "iconOnly": false,
+        "items": [
+          {
+            "name": "Trips",
+            "href": "/trips/",
+            "columns": 2,
+            "children": [
+              {
+                "name": "Mountains",
+                "href": "/trips/mountains/",
+                "icon": "fa-solid fa-mountain",
+                "description": "Hikes and huts above the tree line"
+              },
+              {
+                "name": "Coast",
+                "href": "/trips/coast/",
+                "icon": "fa-solid fa-water",
+                "description": "Beaches, ferries and cliff walks"
+              },
+              {
+                "name": "Cities",
+                "href": "/trips/cities/",
+                "icon": "fa-solid fa-city",
+                "description": "Food, museums and night trains"
+              },
+              {
+                "name": "Islands",
+                "href": "/trips/islands/",
+                "icon": "fa-solid fa-umbrella-beach",
+                "description": "Slow days a boat ride away"
+              }
+            ]
+          },
+          {
+            "name": "About",
+            "href": "/about/"
+          }
+        ]
+      },
+      "html": "<nav data-component=\"menu\" class=\"menu grid gap-sm auto-cols\" aria-label=\"Main\"><details data-component=\"menu-dropdown\" class=\"menu-dropdown menu-mega\"><summary class=\"menu-link caret\"><span class=\"text-truncate\">Trips</span></summary><div class=\"menu-panel bg border round shadow pad grid cols-1 gap-sm\" style=\"--cols:2\"><a data-component=\"menu-link\" href=\"/trips/mountains/\" class=\"menu-link\"><i class=\"fa-solid fa-mountain\" aria-hidden=\"true\"></i><span class=\"menu-link-text\"><span>Mountains</span><small class=\"opacity-75\">Hikes and huts above the tree line</small></span></a><a data-component=\"menu-link\" href=\"/trips/coast/\" class=\"menu-link\"><i class=\"fa-solid fa-water\" aria-hidden=\"true\"></i><span class=\"menu-link-text\"><span>Coast</span><small class=\"opacity-75\">Beaches, ferries and cliff walks</small></span></a><a data-component=\"menu-link\" href=\"/trips/cities/\" class=\"menu-link\"><i class=\"fa-solid fa-city\" aria-hidden=\"true\"></i><span class=\"menu-link-text\"><span>Cities</span><small class=\"opacity-75\">Food, museums and night trains</small></span></a><a data-component=\"menu-link\" href=\"/trips/islands/\" class=\"menu-link\"><i class=\"fa-solid fa-umbrella-beach\" aria-hidden=\"true\"></i><span class=\"menu-link-text\"><span>Islands</span><small class=\"opacity-75\">Slow days a boat ride away</small></span></a></div></details><a data-component=\"menu-link\" href=\"/about/\" class=\"menu-link\"><span class=\"text-truncate\">About</span></a></nav>"
     }
   ],
   "toggleButton": [

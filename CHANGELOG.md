@@ -24,6 +24,13 @@ README (Versions → What a version promises).
 - Patterns (PATTERNS.md): Back to top (#13, T-014), Section heading (#9, T-010) and Announcement row (#10, T-011),
   each made of the theme's classes only, their markup in marccent-patterns.
 
+## Unreleased
+
+### Added
+- Menu: a mega dropdown (#11, T-012). An item's `description` puts a line under its name (`.menu-link-text`), its
+  icon beside the two; a dropdown's `columns` lays its panel out in that many columns side by side where there's room
+  (`.menu-mega`, 64rem and up), one where there isn't. A case in `markup/cases.json`.
+
 ## 1.0.0-rc.25
 
 ### Fixed
