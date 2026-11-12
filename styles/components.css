@@ -4,21 +4,24 @@
  * doesn't matter. icons.css and header.css are in core.css already.
  */
 @import "./layers.css";
+@import "./components/avatar.css";
 @import "./components/board.css";
 @import "./components/button.css";
-@import "./components/chip.css";
-@import "./components/consent.css";
-@import "./components/avatar.css";
 @import "./components/carousel.css";
+@import "./components/chip.css";
+@import "./components/compare.css";
+@import "./components/consent.css";
 @import "./components/divider.css";
-@import "./components/graph.css";
 @import "./components/dock.css";
 @import "./components/form.css";
+@import "./components/graph.css";
 @import "./components/loading.css";
 @import "./components/map.css";
 @import "./components/marquee.css";
 @import "./components/menu.css";
 @import "./components/modal.css";
 @import "./components/popover.css";
-@import "./components/toast.css";
+@import "./components/rating.css";
 @import "./components/sidebar.css";
+@import "./components/table.css";
+@import "./components/toast.css";
