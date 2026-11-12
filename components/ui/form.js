@@ -14,7 +14,7 @@ const formValues = (form) => Object.fromEntries(new FormData(form));
  * thrown on, as before). Busy: loading.
  */
 const SETTLED_MS = 2500;
-const useSubmit = (onSubmit) => {
+const useSubmit = (onSubmit, onDone) => {
   const [ state, setState ] = useState();
   const timer = useRef();
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -31,6 +31,7 @@ const useSubmit = (onSubmit) => {
     try {
       await onSubmit?.(formValues(form), form);
       settle('done');
+      onDone?.();
     } catch (err) {
       settle('error');
       throw err;
@@ -56,6 +57,8 @@ const SubmitButton = ({ state, icon = 'paper-plane', children }) => (
  * @param {string} [props.submitIcon="paper-plane"] - Submit button icon (see Button).
  * @param {string} [props.className="grid gap-sm pairs"] - Replaces the default classes. .pairs (layout.css) gives
  *   every Field's label the same width.
+ * @param {React.ReactNode} [props.success] - Shown in the form's place once it's sent (a thank-you), and focused,
+ *   so a screen reader reads it; none: the form stays, its button saying it's sent for a moment.
  * @param {React.ReactNode} [props.children]
  * Any other prop (style, id, action, method…) goes on the <form>.
  *
@@ -68,12 +71,19 @@ const SubmitButton = ({ state, icon = 'paper-plane', children }) => (
  *   <Input name="city" required /><Input name="state" /><Input name="zip" />
  * </Form>
  */
-const Form = ({ onSubmit, submitLabel = 'Submit', submitIcon = 'paper-plane', className = 'grid gap-sm pairs', children, ...rest }) => {
-  const [ state, submit ] = useSubmit(onSubmit);
+const Form = ({ onSubmit, submitLabel = 'Submit', submitIcon = 'paper-plane', className = 'grid gap-sm pairs', success, children, ...rest }) => {
+  const [ sent, setSent ] = useState(false);
+  const [ state, submit ] = useSubmit(onSubmit, success ? () => setSent(true) : undefined);
+  const said = useRef();
+  useEffect(() => { if (sent) said.current?.focus(); }, [ sent ]);
   return (
     <form data-component="form" className={className} aria-busy={state === 'loading' || undefined} {...rest} onSubmit={submit}>
-      {children}
-      {submitLabel && <SubmitButton state={state} icon={submitIcon}>{submitLabel}</SubmitButton>}
+      {sent
+        ? <div ref={said} tabIndex={-1} className="grid gap-sm">{success}</div>
+        : <>
+          {children}
+          {submitLabel && <SubmitButton state={state} icon={submitIcon}>{submitLabel}</SubmitButton>}
+        </>}
     </form>
   );
 }

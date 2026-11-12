@@ -37,6 +37,17 @@ button.menu-link { border: 0; background: none; font: inherit; text-align: start
 
 .menu-link:hover { background-color: var(--muted-bg); }
 
+/* A link with a description (.menu-link-text): its name over a line about it, wrapping, the icon at the top beside
+   them. */
+.menu-link:has(> .menu-link-text) { align-items: start; white-space: normal; }
+.menu-link-text { display: grid; }
+
+/* Mega panel (.menu-mega: a dropdown with columns, its links with descriptions): --cols columns side by side in a
+   wide container, each at least 14rem; one column in a narrow one (below). */
+@container (width >= 64rem) {
+  .menu-mega > .menu-panel { grid-template-columns: repeat(var(--cols), minmax(14rem, 1fr)); }
+}
+
 /* Dropdown: the panel floats over the page (the one non-grid rule: an overlay can't take grid space). */
 .menu-dropdown { position: relative; }
 /* Its summary is a .caret (base.css): ▾ after it, turned while open. */
