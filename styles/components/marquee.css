@@ -1,0 +1,42 @@
+@import "../layers.css";
+/* MARQUEE (Marquee in components/widgets/marquee.js): a row that scrolls sideways without end. Its track holds the
+   content twice and slides left by one copy (half the track), then starts over; each copy ends with the gap, so the
+   seam is even; a copy shorter than the row is spread to its width. Its edges fade out. Paused on hover and keyboard focus, and off screen (animations.css); with reduced
+   motion it stands still and scrolls by hand, the copy gone. The gap between items: --marquee-gap, or a gap class on
+   the row. */
+@layer components {
+.marquee {
+  --marquee-gap: var(--space-xl);
+  display: grid;
+  overflow: hidden;
+  container-type: inline-size;
+  mask: linear-gradient(to right, transparent, #000 var(--space-lg), #000 calc(100% - var(--space-lg)), transparent);
+}
+.marquee:is(.gap-0, .gap-xs, .gap-sm, .gap-md, .gap-lg, .gap-xl) { --marquee-gap: var(--gap); gap: 0; }
+.marquee-track {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: start;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+.marquee[data-reverse] > .marquee-track { animation-direction: reverse; }
+.marquee:is(:hover, :focus-within) > .marquee-track { animation-play-state: paused; }
+.marquee-group {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: var(--marquee-gap);
+  padding-inline-end: var(--marquee-gap);
+  min-inline-size: 100cqi; /* a copy at least the row's width, so a short one never shows an end */
+  justify-content: space-around;
+}
+}
+
+@keyframes marquee { to { translate: -50% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; mask: none; }
+  .marquee-track { animation: none; }
+  .marquee-group[aria-hidden] { display: none; }
+}

@@ -241,7 +241,7 @@ if (option('--render')) {
 // to say what it is. Other classes (parts, modifiers, states) aren't roots: a rule on a part is sized inside its root.
 const ROOTS = {
   block: ['board', 'swiper', 'compare', 'divider', 'dock-items', 'field', 'inline-form', 'pairs', 'header',
-    'map', 'menu', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
+    'map', 'marquee', 'menu', 'spinner', 'loader-bar', 'loader-bars', 'loader-dots', 'loader-flip', 'loader-orbit',
     'loader-pulse', 'loader-ring'],
   replaced: ['input', 'table'], // a form control or a table: auto doesn't fill, so 100% is how they fill (it's the parent's width)
   inline: ['btn', 'chip', 'avatar', 'rating', 'fa', 'fa-solid', 'fa-regular', 'fa-brands'],
