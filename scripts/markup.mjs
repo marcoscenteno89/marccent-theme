@@ -36,6 +36,8 @@ import { Counter } from './components/ui/counter';
 import { DataTable } from './components/ui/data-table';
 import { Divider } from './components/widgets/divider';
 import { Marquee } from './components/widgets/marquee';
+import { DateTime } from './components/ui/date-time';
+import { Contact } from './components/ui/contact';
 import { Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab } from './components/widgets/nav';
 import { ExpandButton } from './components/ui/expand-button';
 import { Field } from './components/ui/field';
@@ -58,7 +60,7 @@ import { Trace } from './components/ui/trace';
 import { Typeset } from './components/ui/typeset';
 export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset };
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, DateTime, Contact, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset };
 `;
 const { outputFiles } = await build({
   absWorkingDir: ROOT,
@@ -79,7 +81,7 @@ writeFileSync(out, outputFiles[0].text);
 const {
   createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset,
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, DateTime, Contact, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset,
 } = await import(pathToFileURL(out).href);
 
 // A case's HTML (its content fields) goes in as a token, then in the token's place as it is.
@@ -166,6 +168,8 @@ const RENDER = {
   orbit: (f) => h(Orbit, {}, f.items.map((item) => h(OrbitItem, { key: item.title, ...item }))),
   pagination: (f) => h(Pagination, { total: f.total, pageSize: f.pageSize, current: f.current, update: () => {}, label: f.label }),
   parallax: (f) => h(Parallax, { speed: f.speed }, html(f.content)),
+  'date-time': (f) => h(DateTime, { value: f.value, end: f.end || undefined, show: f.show, locale: f.locale, timeZone: f.timeZone, now: f.now }),
+  contact: (f) => h(Contact, { kind: f.kind, value: f.value, label: f.label || undefined, icon: f.icon }),
   price: (f) => h(Price, { amount: f.amount, currency: f.currency, per: f.per || undefined, was: f.was || undefined }),
   radialMenu: (f) => h(RadialMenu, { label: f.label }, f.items.map((item) => h(RadialMenuItem, { key: item.label, ...item }))),
   rating: (f) => h(Rating, { name: f.name, label: f.label, maximum: f.maximum, icon: f.icon }),

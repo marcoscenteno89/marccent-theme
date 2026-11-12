@@ -6,6 +6,12 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- DateTime (#24, T-026): a date, a time or a range as `<time>` elements in the reader's language (Intl), a range
+  sharing what both ends share ("Nov 6 – 8, 2026"), or relative ("3 days ago", the exact moment in its title). A
+  date alone is always its own day (UTC); a date and time takes a `timeZone`. Its settings and five cases.
+- Contact (#25, T-027): a phone number, email or street address as a link that does what it says (`tel:` from the
+  digits, `mailto:`, `<address>`), its kind's icon before it in an icon row. Its settings and three cases.
+  `<address>` is no longer italic (base.css).
 - Marquee (#12, T-013): a row that scrolls sideways without end (logos, names). Its content twice, the copy hidden
   from screen readers and inert; paused on hover, keyboard focus and off screen; still and scrolled by hand with
   reduced motion. No script, so a server writes the same markup. Its settings in `markup/settings.json`, two cases.

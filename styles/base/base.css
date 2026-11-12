@@ -67,6 +67,7 @@ ol, ul, dl { margin-top: 0; margin-bottom: var(--space); }
 dd, figure, blockquote, pre { margin: 0; }
 ol, ul { padding-left: var(--space-lg); }
 small { font-size: var(--small-size); }
+address { font-style: normal; } /* a street address reads as text (Contact), not italic */
 /* Raised and lowered text (footnote markers, ™, ordinals: typeset(), core/typeset.js) without the browser's
    vertical-align, which pushes its line away from the next. */
 sup, sub { position: relative; font-size: .75em; line-height: 0; vertical-align: baseline; }

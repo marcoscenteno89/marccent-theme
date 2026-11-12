@@ -1215,5 +1215,90 @@
       },
       "html": "<div data-component=\"marquee\" class=\"marquee gap-md\" data-reverse=\"\" style=\"--marquee-duration:45s\"><div class=\"marquee-track\"><div class=\"marquee-group\"><span class=\"h4\">Design</span><span class=\"h4\">Build</span><span class=\"h4\">Care</span></div><div class=\"marquee-group\" aria-hidden=\"true\" inert=\"\"><span class=\"h4\">Design</span><span class=\"h4\">Build</span><span class=\"h4\">Care</span></div></div></div>"
     }
+  ],
+  "date-time": [
+    {
+      "case": "a date",
+      "fields": {
+        "value": "2026-11-06",
+        "show": "date",
+        "locale": "en-US",
+        "timeZone": "UTC"
+      },
+      "html": "<time data-component=\"date-time\" dateTime=\"2026-11-06\">Nov 6, 2026</time>"
+    },
+    {
+      "case": "a range in one month",
+      "fields": {
+        "value": "2026-11-06",
+        "end": "2026-11-08",
+        "show": "date",
+        "locale": "en-US",
+        "timeZone": "UTC"
+      },
+      "html": "<span data-component=\"date-time\">Nov <time dateTime=\"2026-11-06\">6</time> – <time dateTime=\"2026-11-08\">8</time>, 2026</span>"
+    },
+    {
+      "case": "an evening, in its zone",
+      "fields": {
+        "value": "2026-11-06T18:30:00-07:00",
+        "show": "date-time",
+        "locale": "en-US",
+        "timeZone": "America/Boise"
+      },
+      "html": "<time data-component=\"date-time\" dateTime=\"2026-11-06T18:30:00-07:00\">Nov 6, 2026, 6:30 PM</time>"
+    },
+    {
+      "case": "relative, three days ago",
+      "fields": {
+        "value": "2026-11-03T12:00:00Z",
+        "show": "relative",
+        "locale": "en-US",
+        "timeZone": "UTC",
+        "now": "2026-11-06T12:00:00Z"
+      },
+      "html": "<time data-component=\"date-time\" dateTime=\"2026-11-03T12:00:00Z\" title=\"Nov 3, 2026\">3 days ago</time>"
+    },
+    {
+      "case": "another language",
+      "fields": {
+        "value": "2026-11-06",
+        "end": "2026-12-02",
+        "show": "date",
+        "locale": "es-MX",
+        "timeZone": "UTC"
+      },
+      "html": "<span data-component=\"date-time\"><time dateTime=\"2026-11-06\">6 de nov</time> – <time dateTime=\"2026-12-02\">2 de dic</time> 2026</span>"
+    }
+  ],
+  "contact": [
+    {
+      "case": "a phone number",
+      "fields": {
+        "kind": "phone",
+        "value": "(208) 555-0100",
+        "icon": true
+      },
+      "html": "<a data-component=\"contact\" href=\"tel:2085550100\" class=\"layout-icon d-inline-grid\"><i data-component=\"icon\" class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i><span>(208) 555-0100</span></a>"
+    },
+    {
+      "case": "an email, labeled",
+      "fields": {
+        "kind": "email",
+        "value": "hello@example.com",
+        "label": "Email us",
+        "icon": true
+      },
+      "html": "<a data-component=\"contact\" href=\"mailto:hello@example.com\" class=\"layout-icon d-inline-grid\"><i data-component=\"icon\" class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i><span>Email us</span></a>"
+    },
+    {
+      "case": "an address, no icon",
+      "fields": {
+        "kind": "address",
+        "value": "123 Main St, Boise, ID 83702",
+        "icon": false
+      },
+      "html": "<address data-component=\"contact\">123 Main St, Boise, ID 83702</address>"
+    }
   ]
 }
