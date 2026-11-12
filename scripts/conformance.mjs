@@ -384,4 +384,15 @@ if (!option('--adapter') && !option('--render')) {
   if (failed === before) console.log(`ok   breakpoints: ${checked} widths on the scale (${SCALE.join(', ')})`);
 }
 
+// Every component's stylesheet is in components.css (#139), so a server-rendered page gets them all; icons.css and
+// header.css come with core.css instead.
+if (!option('--adapter') && !option('--render')) {
+  const IN_CORE = [ 'icons.css', 'header.css' ];
+  const imported = readFileSync(join(ROOT, 'styles/components.css'), 'utf8');
+  const left = readdirSync(join(ROOT, 'styles/components')).filter((f) => f.endsWith('.css') && !IN_CORE.includes(f) && !imported.includes(`./components/${f}"`));
+  for (const f of left) console.log(`FAIL imports: styles/components/${f} isn't in styles/components.css, so dist/ and server-rendered pages lack it`);
+  failed += left.length;
+  if (!left.length) console.log('ok   imports: every component stylesheet is in components.css');
+}
+
 process.exit(failed || (strict && missing) ? 1 : 0);

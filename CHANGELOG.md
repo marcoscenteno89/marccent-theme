@@ -47,6 +47,8 @@ README (Versions → What a version promises).
   for a site that styled it; marccent.com moves to Graph when it's brought up to 1.0.
 
 ### Fixed
+- `styles/components.css` (and so `dist/marccent.css`) now has compare, rating and table, which it left out (#139);
+  conformance fails when a component stylesheet isn't imported there.
 - An `.eyebrow` on a color fill takes the fill's text color, as headings do (its primary ink vanished on a primary or
   gradient band).
 
