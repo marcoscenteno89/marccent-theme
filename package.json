@@ -33,6 +33,7 @@
     "./styles/*": "./styles/*",
     "./dist/*": "./dist/*",
     "./markup/*": "./markup/*",
+    "./server/*": "./server/*",
     "./package.json": "./package.json"
   },
   "files": [
@@ -44,6 +45,7 @@
     "dist",
     "markup",
     "scripts",
+    "server",
     "README.md",
     "CHANGELOG.md"
   ],
@@ -53,9 +55,10 @@
     "prepublishOnly": "npm run build",
     "markup": "node scripts/markup.mjs",
     "dividers": "node lib/dividers.gen.mjs",
-    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs --theme && node scripts/patterns.mjs",
+    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs --theme && node scripts/typeset.mjs --check && node scripts/patterns.mjs",
     "conformance": "node scripts/conformance.mjs",
     "cases": "node scripts/cases.mjs",
+    "typeset": "node scripts/typeset.mjs",
     "patterns": "node scripts/patterns.mjs",
     "affected": "node scripts/affected.mjs",
     "status": "node scripts/status.mjs"

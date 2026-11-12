@@ -191,6 +191,12 @@ server-written element, or `typesetParts(text)` / `typesetElement(el)` from `cor
 
 Hyphens are left alone (phone numbers and dates use them), and so is code (`code`, `pre`, `kbd`, `.no-typeset`).
 
+**On the server, so nothing shifts after the page loads**: the same rules in PHP and Python, for markup a server
+writes. `\Marccent\typeset_html($html)` (`server/typeset.php`) and `typeset_html(html)` (`server/typeset.py`) set
+markup as `typesetElement` does; `typeset($text, $widow)` sets plain text and returns escaped HTML. Both are checked
+against `markup/typeset.json`, cases taken from `core/typeset.js` and a browser (`npm run typeset` writes them,
+`npm test` checks all three).
+
 **Prices, with `Price`**: `<Price amount={19.99} per="mo" was={29} />` shows ~~$29~~ $19⁹⁹/mo: the sign and cents
 raised and small, the period small, the old price struck through, in any currency and locale (`currency="EUR"
 locale="de-DE"`: 49⁵⁰ €). Screen readers hear "$19.99, per mo, was $29". It's made of the classes below and
