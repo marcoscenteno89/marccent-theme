@@ -64,7 +64,7 @@ kit into a fresh WordPress and fails when a group, type, pattern or page doesn't
 
 | Kit | Output | For | Needs | Stage | Notes |
 |---|---|---|---|---|---|
-| Local business | wp | a business serving an area: details, services, service areas and cities, locations, hours and closed days, reviews, questions, the call bar | | building | finishes Marccent Local (wp's TODO.md); its groups are rc-imp's; marccent-wp's hero, services, locations, faq and contact patterns move here |
+| Local business | wp | a business serving an area: details, services, service areas and cities, locations, hours and closed days, reviews, questions, the call bar | | building | finishes Marccent Local (wp's TODO.md); its groups are a local business's; marccent-wp's hero, services, locations, faq and contact patterns move here |
 | Portfolio | wp | an agency or freelancer: projects (client, year, role, tools, images), case study pages, testimonials | | Wanted (after 1.0) | with Local business's services it's a web design site |
 | CRM | wp | contacts, companies, deals and activities, each a Data table; form entries become contacts | | Wanted (after 1.0) | the wp site's CRM (`wp/sites/wp/content/crm.php`) as a kit |
 | Contractor projects | wp | projects per service and area, before and after photos (Compare), an estimate form with photos | Local business | Wanted (after 1.0) | |

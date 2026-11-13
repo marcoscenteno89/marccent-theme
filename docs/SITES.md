@@ -7,7 +7,7 @@ work until 1.0, then brought up to it once: PRODUCT-LINE.md 3.5).
 
 | Site | Output | Built with | Address | Stage | Notes |
 |---|---|---|---|---|---|
-| marccent.com | html | marccent/next (the theme's React components) | marccent.com (not deployed yet) | building | 1.0 needs it live; the html test (3.6) |
+| marccent.com | html | marccent/next (the theme's React components) | marccent.com (not deployed yet) | frozen | after 1.0: 1.0 is the template, not the sites (2026-11-13); the html test is the cases page (3.6) |
 | wp site | wp | Marccent Blocks, Marccent Content, marccent-wp | wp.localhost | test | the WordPress test: the kitchen sink (`wp/sites/wp/content/kitchen-sink.php`), the CRM (`crm.php`, `views.php`) |
 | rc-imp | wp | Marccent Blocks, Marccent Content, marccent-wp | rc-imp.localhost | frozen | a client site, content in `wp/sites/rc-imp/content`; its own CSS left (T-019 to T-021) |
 | rimrock | wp | Marccent Blocks, Marccent Content, marccent-wp | rimrock.localhost | frozen | no content folder yet |
