@@ -1,0 +1,20 @@
+{
+  "about": "The site-wide settings (PRODUCT-LINE.md 5.7): the site's theme, one source for every output. An admin draws them as fields (settingsFields, components/theme/settings-panel.js) and saves what it sanitizes as said here; a server paints them with server/palette.php, a browser with lib/palette.js. Their defaults are lib/theme.defaults.json's; choicesFrom names a list the theme builds (designs: lib/design.js; hovers: styles/hovers.css's hover-* classes).",
+  "settings": {
+    "design": {"type": "text", "about": "The design style: fonts, corners, shadows and surfaces", "choicesFrom": "designs", "sanitize": "class"},
+    "palette": {"type": "text", "about": "Which palette is the site's: one of the theme's, or one of the site's own", "sanitize": "class"},
+    "palettes": {"type": "list", "about": "The site's own palettes, each an id and two colors (up to 20)", "items": {"id": {"type": "text", "sanitize": "class", "validate": "required"}, "primary": {"type": "color", "sanitize": "color", "validate": "required"}, "secondary": {"type": "color", "sanitize": "color", "validate": "required"}}, "maximum": 20, "sanitize": "each item"},
+    "isDark": {"type": "boolean", "about": "Dark mode: the page dark, its text light", "sanitize": "boolean"},
+    "glass": {"type": "boolean", "about": "Frosted, see-through surfaces", "sanitize": "boolean"},
+    "hover": {"type": "text", "about": "The hover effect for buttons and cards whose own hover is the default; none: no effect", "choicesFrom": "hovers", "sanitize": "class"},
+    "dark": {"type": "color", "about": "The dark color: text in light mode, the page in dark mode", "sanitize": "color"},
+    "light": {"type": "color", "about": "The light color: the page in light mode, text in dark mode", "sanitize": "color"},
+    "vars": {"type": "object", "about": "CSS variables over the theme's, --name: value (a value can't close the rule)", "sanitize": "css variables"},
+    "visitor": {"type": "object", "about": "What visitors may change for themselves: the full mini theme editor, or single controls", "items": {"full": {"type": "boolean", "about": "A Theme button that opens every control", "default": true, "sanitize": "boolean"}, "design": {"type": "boolean", "about": "The design style", "sanitize": "boolean"}, "mode": {"type": "boolean", "about": "Light or dark", "sanitize": "boolean"}, "glass": {"type": "boolean", "about": "Glass", "sanitize": "boolean"}, "palette": {"type": "boolean", "about": "The palettes", "sanitize": "boolean"}}, "sanitize": "each item"},
+    "expiresDays": {"type": "number", "about": "How many days a visitor's own theme lasts", "minimum": 0, "maximum": 365, "sanitize": "number"}
+  },
+  "checks": {
+    "contrast": "lib/palette.js contrastChecks (server/palette.php contrast): the text on each brand color and the primary color on the page under WCAG AA's 4.5:1, a warning"
+  },
+  "version": 1
+}

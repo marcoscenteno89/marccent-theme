@@ -2,6 +2,7 @@
 import { Field } from '../ui/field';
 import { Button } from '../ui/button';
 import SETTINGS from '../../markup/settings.json';
+import SITE_SETTINGS from '../../markup/site-settings.json';
 
 /*
  * A component's editing version (PRODUCT-LINE.md 5.6, #21): its settings (markup/settings.json) as the fields of a form,
@@ -25,10 +26,15 @@ const choiceLabel = (value) => {
 // An about that's a stray comment mark from the source it was read from ("*", "*/") says nothing.
 const helpOf = (about) => (typeof about === 'string' && /[a-z]/i.test(about) ? about : undefined);
 
-const TYPES = { text: 'text', number: 'number', boolean: 'toggle', list: 'list', object: 'object', content: 'content' };
+const TYPES = { text: 'text', number: 'number', boolean: 'toggle', color: 'color', list: 'list', object: 'object', content: 'content' };
+
+// A list's or an object's item fields, when its setting says them (items: { key: setting }; site-settings.json).
+const itemFields = (items) => items && settingsFields({ settings: items });
 
 /**
- * settingsFields: a component's settings as form fields, in settings.json's order.
+ * settingsFields: a component's settings as form fields, in settings.json's order; or the site-wide ones
+ * (markup/site-settings.json: settingsFields(SITE_SETTINGS)). A setting whose choices are a list the theme builds
+ * (choicesFrom: designs, hovers) gets its options from the override.
  * @param {string|Object} component - Its name in markup/settings.json ("Gauge"), or its entry.
  * @param {Object} [overrides] - By setting name: fields to set on it ({ label, help, type: 'range', min, max, step,
  *   fields: [ … ] for a list's items, options }), or false to leave it out.
@@ -41,14 +47,18 @@ const settingsFields = (component, overrides = {}) => {
   if (!entry?.settings) return [];
   return Object.entries(entry.settings).flatMap(([ key, s ]) => {
     if (overrides[key] === false) return [];
+    const items = itemFields(s.items);
     const field = {
       key,
-      type: s.choices ? 'select' : TYPES[s.type] ?? 'text',
+      type: s.choices || s.choicesFrom ? 'select' : s.type === 'object' && items ? 'group' : TYPES[s.type] ?? 'text',
       label: labelOf(key),
       help: helpOf(s.about),
       ...(s.default !== undefined && { default: s.default }),
       ...(s.choices && { options: s.choices.map((c) => [ choiceLabel(c), c ]) }),
       ...(s.validate === 'required' && { required: true }),
+      ...(s.minimum !== undefined && { min: s.minimum }),
+      ...(s.maximum !== undefined && { max: s.maximum }),
+      ...(items && { fields: items }),
     };
     return [ { ...field, ...overrides[key] } ];
   });
@@ -96,7 +106,18 @@ const List = ({ field, value, onChange, controls }) => {
     </fieldset>
   );
 };
-const CONTROLS = { text: Text, number: NumberControl, range: NumberControl, toggle: Toggle, select: Select, list: List };
+const Color = ({ field, value, onChange }) => (
+  <Field name={field.key} label={field.label} type="color" value={value || '#000000'} title={field.help} onChange={(e) => onChange(e.target.value)} />
+);
+// An object of fields of its own (the site's visitor permissions): each drawn in turn, its value the object.
+const Group = ({ field, value, onChange, controls }) => (
+  <fieldset className="grid cols-1 gap-sm">
+    <legend className="fw-bold">{field.label}</legend>
+    {field.fields.map((f) => <Control key={f.key} field={f} value={value?.[f.key] ?? f.default} controls={controls}
+      onChange={(v) => onChange({ ...value, [f.key]: v })} />)}
+  </fieldset>
+);
+const CONTROLS = { text: Text, number: NumberControl, range: NumberControl, toggle: Toggle, select: Select, list: List, color: Color, group: Group };
 
 const Control = ({ field, value, onChange, controls }) => {
   const Draw = controls?.[field.type] ?? CONTROLS[field.type];
@@ -125,4 +146,4 @@ const SettingsPanel = ({ component, values = {}, onChange, overrides, controls, 
   </div>
 );
 
-export { SettingsPanel, settingsFields };
+export { SettingsPanel, settingsFields, SITE_SETTINGS };

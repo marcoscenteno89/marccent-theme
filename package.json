@@ -29,6 +29,7 @@
     "./lib/design": "./lib/design.js",
     "./lib/css-color": "./lib/css-color.js",
     "./lib/theme-scope": "./lib/theme-scope.js",
+    "./lib/palette": "./lib/palette.js",
     "./lib/grid_helper": "./lib/grid_helper.js",
     "./styles/*": "./styles/*",
     "./dist/*": "./dist/*",
@@ -55,13 +56,14 @@
     "prepublishOnly": "npm run build",
     "markup": "node scripts/markup.mjs",
     "dividers": "node lib/dividers.gen.mjs",
-    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs --theme && node scripts/typeset.mjs --check && node scripts/patterns.mjs",
+    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs --theme && node scripts/typeset.mjs --check && node scripts/patterns.mjs && node scripts/palette.mjs",
     "conformance": "node scripts/conformance.mjs",
     "cases": "node scripts/cases.mjs",
     "typeset": "node scripts/typeset.mjs",
     "patterns": "node scripts/patterns.mjs",
     "affected": "node scripts/affected.mjs",
-    "status": "node scripts/status.mjs"
+    "status": "node scripts/status.mjs",
+    "palette": "node scripts/palette.mjs"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.4",

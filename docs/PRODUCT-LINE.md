@@ -199,7 +199,15 @@ changed deliberately, here first.
    own controls (WordPress: `wp.components`, Marccent Blocks' `islandBlock`), never a field list typed by hand. What
    a setting can't say (a range's step, an icon or image picker, a list's item fields) is an override beside it, by
    the setting's name. The wp adapter is the template for every later admin output.
-7. **Checked:** `npm run conformance` fails on a setting that isn't one of its component's props (read from the
+7. **One source of control** (Marcos, 2026-11-13). Every setting, a component's or the whole site's, is defined once,
+   in marccent-theme, and every output only draws and saves it. The site-wide ones (the site's theme: design style,
+   palette and the site's own palettes, dark mode, glass, the default hover, dark and light, CSS variables, what
+   visitors may change, how long their choice lasts) are `markup/site-settings.json`; their defaults
+   `lib/theme.defaults.json`; the colors they paint and the contrast warnings `lib/palette.js`, with its PHP twin
+   `server/palette.php` for servers. An admin (marccent-wp's theme options page) draws them with its own controls and
+   no math, CSS or list of its own; a setting an output keeps that the theme doesn't define is a gap to close in the
+   theme (a ticket), not a feature of the output.
+8. **Checked:** `npm run conformance` fails on a setting that isn't one of its component's props (read from the
    component's source, by `prop` when the name differs), a setting without a known type or sanitize rule, or a
    component without a version, and lists the components that stay without their settings.
 
@@ -301,6 +309,9 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-13: the theme options page (marccent-wp) is in 1.0, its settings the theme's: one source of control for
+  every setting (5.7), the site-wide ones `markup/site-settings.json`, their colors `lib/palette.js` and
+  `server/palette.php`; the page and Marccent Blocks only draw, save and paint them.
 - 2026-11-13: 1.0 is the template, not the sites (3.1): the theme and its adapters (the wp ones included), never a
   site instance. marccent.com leaves 1.0 (it was in it, Decisions 2026-11-10) with every other site; its issues and
   a site's tickets (#18) are after 1.0, the html test is the cases page. The checklist's marccent.com

@@ -6,6 +6,11 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- One source of control for the site-wide settings (PRODUCT-LINE.md 5.7, #21): `markup/site-settings.json` (the
+  site's theme: design, palettes, dark mode, glass, hover, dark and light, CSS variables, what visitors may change, how
+  long it lasts), `lib/palette.js` (the CSS variables a theme paints, the text on each fill, contrast and its WCAG
+  warnings) and its PHP twin `server/palette.php`, checked against it by `npm test` (`scripts/palette.mjs`).
+  `settingsFields` reads it too (`SITE_SETTINGS`): colors, a list's or an object's own fields, `choicesFrom`.
 - The sites' widgets in the theme (#17, T-018), each sized by its parent (PRODUCT-LINE.md 4.9), with its settings and
   cases:
   - Clock's `face` (settings version 2): `digital` (as before), `analog` (a face with hour marks and three hands,
