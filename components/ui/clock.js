@@ -65,7 +65,7 @@ const Colon = () => <span className="clock-flip-colon" aria-hidden="true"><i /><
  * a second off when the page hydrates.
  * @param {'digital'|'analog'|'flip'} [face='digital'] - digital: the time as text; analog: a face with hour marks and
  *   three hands; flip: hh:mm:ss in gooey digits that fold into the next. Analog and flip fill their parent's width
- *   (flip scales with the font size: its digits are 1.25em).
+ *   (flip's digits are 3rem, --clock-flip-size, and smaller when the width is narrower).
  * @param {string} [format='h:mm:ss A'] - How the time reads, a dayjs format: "dddd, h:mm A", "HH:mm". Flip: 24-hour
  *   when it has an H.
  * @param {string} [className] - Extra classes on the root.

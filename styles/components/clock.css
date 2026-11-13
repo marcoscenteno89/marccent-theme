@@ -2,8 +2,8 @@
 /* CLOCK (Clock in components/ui/clock.js): the analog and flip faces; the digital face is text and classes only.
    Analog: a rounded square in the theme gradient's rim, its marks an SVG, three hands turned by --clock-time (seconds
    since midnight, LiveClock), hidden until the first tick (data-ticking). Flip: three pairs of GooDigits (.countdown,
-   animations.css) and two colons on one line, the digits 1.25em (so the font size sizes it), smaller when the width
-   is narrower. Both fill their parent's width. */
+   animations.css) and two colons on one line, the digits 3rem (--clock-flip-size), smaller when the width is narrower.
+   Both fill their parent's width. */
 @layer components {
 .clock-analog {
   display: grid;
@@ -41,11 +41,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: min(.2em, 1.75cqi);
+  gap: min(.5rem, 1.75cqi);
   color: var(--primary);
 }
-/* The digits 1.25em, or smaller when that wouldn't fit the width (six digits, two colons and the gaps: about 9). */
-.clock-flip > * { --countdown-size: min(1.25em, 10.5cqi); }
+/* The digits 3rem, or smaller when that wouldn't fit the width (six digits, two colons and the gaps: about 9); the goo
+   filter needs them about 1.5rem or more to read. */
+.clock-flip > * { --countdown-size: min(var(--clock-flip-size, 3rem), 10.5cqi); }
 .clock-flip-pair { display: flex; gap: calc(var(--countdown-size) / 6); }
 .clock-flip-colon { display: grid; gap: calc(var(--countdown-size) / 5); }
 .clock-flip-colon > i {
