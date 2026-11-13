@@ -6,7 +6,7 @@ service**: a defined, repeatable result, each new client a new entry, not a new 
 
 - **Core assets**: marccent-theme (components, classes, tokens), its settings, the adapters (Marccent Blocks and
   Marccent Content, django-marccent, marccent/next), the patterns (marccent-patterns) and the kits (marccent-kits).
-- **Products**: the sites (rc-imp, rimrock, cr-landscape, marccent-web, marccent.com, and every one after).
+- **Products**: the sites, every one built from the product line ([SITES.md](SITES.md) lists them).
 - **Variation points**: the only places one product differs from another: a component's settings, the kits a site
   uses and its content. Anything else that differs is a missing core asset.
 - **Domain engineering** builds and fixes the core assets; **application engineering** builds sites from them. Until
@@ -74,8 +74,7 @@ changed deliberately, here first.
    template later admin outputs follow), stable enough that a site is built from them without issues. 1.0 is live
    when marccent-theme 1.0.0 is released, Marccent Blocks, Marccent Content and marccent-wp are on it, and the wp test
    site (wp.localhost) works with every component (all of it). Then the changes are frozen and every site
-   (marccent.com, marccent-html, rc-imp, rimrock, cr-landscape, marccent-web, Fernway, parallax-html) and the django
-   output are built or brought up to 1.0 once, instead of after every change.
+   ([SITES.md](SITES.md)) and the django output are built or brought up to 1.0 once, instead of after every change.
 2. **The first item is completing the product line** (this document): its stages, shapes and checks. That isn't a
    new feature; it's what makes new features fit.
 3. **Anything new asked for goes to Wanted** (an issue labeled `after 1.0`, section 8), and Claude says so before
@@ -84,9 +83,8 @@ changed deliberately, here first.
    `wp/sites/wp/content/kitchen-sink.php`).
 5. **Only the template is worked on** (2026-11-13; was marccent.com and the wp site, 2026-11-09): the theme, the wp
    adapters (Marccent Blocks, Marccent Content, marccent-wp), the patterns and kits, and the wp test site
-   (wp.localhost, a test bed, not a product). Every site is frozen until then (marccent.com, marccent-html, rc-imp,
-   rimrock, cr-landscape, marccent-web, Fernway, parallax-html), and so are the django output and django-marccent
-   (`"frozen"` in `markup/outputs.json`, which the conformance check skips).
+   (wp.localhost, a test bed, not a product). Every site is frozen until then ([SITES.md](SITES.md)), and so are
+   the django output and django-marccent (`"frozen"` in `markup/outputs.json`, which the conformance check skips).
 6. **Every component is tested where people use it:** on the wp site's kitchen-sink page (wp.localhost, the WordPress
    test: `wp/sites/wp/content/kitchen-sink.php`), both in the admin (the block in the editor, its settings, the admin
    data it needs) and on the page; and on the cases page (`npm run cases`: the html test, each case live with the
@@ -157,7 +155,7 @@ changed deliberately, here first.
    Breadcrumbs; T-004, T-005, T-025 to T-027); styling on part of a line (raised, muted, a badge) is a **text
    format** (T-028).
 8. **No block for what a list of links already does.** No Social links block: social links are a menu, shown with
-   the Menu block (rc-imp's Social menu, built from its Profiles rows).
+   the Menu block (a site's Social menu, built from its Profiles rows).
 9. **A component sets no width and no outer margin; its container decides both.** The layout it sits in (a grid
    cell, `.wrap`, a column, `.measure`, a gap or a spacing class on the parent) sizes and spaces it, so the same
    component fits a sidebar, a card and a full-width section unchanged. On a component's root, by kind:
@@ -299,7 +297,7 @@ everywhere becomes a rule above and its line goes.
 
 - 2026-11-13: 1.0 is the template, not the sites (3.1): the theme and its adapters (the wp ones included), never a
   site instance. marccent.com leaves 1.0 (it was in it, Decisions 2026-11-10) with every other site; its issues and
-  a site's tickets (#18: rc-imp's hovers) are after 1.0, the html test is the cases page. The checklist's marccent.com
+  a site's tickets (#18) are after 1.0, the html test is the cases page. The checklist's marccent.com
   and going-live sections are after 1.0.
 - 2026-11-13: 1.0's outputs are html (no admin) and wp (with an admin); django leaves 1.0, its issues after 1.0 (#38,
   #129, #130, #133, #144). wp's admin is the template the later admin outputs follow.
