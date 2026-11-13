@@ -69,24 +69,29 @@ changed deliberately, here first.
 ## 3. The feature freeze (until 1.0 is live)
 
 1. **No new features, widgets, blocks, settings or functionality until 1.0 is live:** only debugging, fixing and
-   finishing what exists. 1.0 is live when marccent-theme 1.0.0 is released, marccent.com is live and the wp site
-   (wp.localhost) works with every component (all of it). Then the changes are frozen and the other sites (rc-imp,
-   rimrock, cr-landscape, marccent-web) and outputs (django) are brought up to 1.0 once, instead of after every
-   change.
+   finishing what exists. **1.0 is the template, not the sites** (Marcos, 2026-11-13: the class, not its
+   instances): marccent-theme and its adapters for the two outputs, html (no admin) and wp (with an admin, the
+   template later admin outputs follow), stable enough that a site is built from them without issues. 1.0 is live
+   when marccent-theme 1.0.0 is released, Marccent Blocks, Marccent Content and marccent-wp are on it, and the wp test
+   site (wp.localhost) works with every component (all of it). Then the changes are frozen and every site
+   (marccent.com, marccent-html, rc-imp, rimrock, cr-landscape, marccent-web, Fernway, parallax-html) and the django
+   output are built or brought up to 1.0 once, instead of after every change.
 2. **The first item is completing the product line** (this document): its stages, shapes and checks. That isn't a
    new feature; it's what makes new features fit.
 3. **Anything new asked for goes to Wanted** (an issue labeled `after 1.0`, section 8), and Claude says so before
    doing anything else.
 4. **Test tools are allowed** when they find bugs and are thrown away after (the kitchen-sink page,
    `wp/sites/wp/content/kitchen-sink.php`).
-5. **Only marccent.com and the wp site are worked on** (2026-11-09), with the theme and the adapters they use
-   (marccent/next; Marccent Blocks and Marccent Content). Everything else is frozen until then: the django output
-   and django-marccent (`"frozen"` in `markup/outputs.json`, which the conformance check skips), rc-imp, rimrock,
-   cr-landscape, marccent-web, marccent-html, Fernway, parallax-html.
+5. **Only the template is worked on** (2026-11-13; was marccent.com and the wp site, 2026-11-09): the theme, the wp
+   adapters (Marccent Blocks, Marccent Content, marccent-wp), the patterns and kits, and the wp test site
+   (wp.localhost, a test bed, not a product). Every site is frozen until then (marccent.com, marccent-html, rc-imp,
+   rimrock, cr-landscape, marccent-web, Fernway, parallax-html), and so are the django output and django-marccent
+   (`"frozen"` in `markup/outputs.json`, which the conformance check skips).
 6. **Every component is tested where people use it:** on the wp site's kitchen-sink page (wp.localhost, the WordPress
    test: `wp/sites/wp/content/kitchen-sink.php`), both in the admin (the block in the editor, its settings, the admin
-   data it needs) and on the page; and on marccent.com (the html test: the page). A component isn't done until it
-   works in all three. Its markup cases, each adapter's beside the theme's, are on the cases page (`npm run cases`).
+   data it needs) and on the page; and on the cases page (`npm run cases`: the html test, each case live with the
+   theme's CSS and engine, each adapter's markup beside the theme's). A component isn't done until it works in all
+   three.
 
 ## 4. Components: what belongs in the theme and what in an adapter
 
@@ -292,6 +297,12 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-13: 1.0 is the template, not the sites (3.1): the theme and its adapters (the wp ones included), never a
+  site instance. marccent.com leaves 1.0 (it was in it, Decisions 2026-11-10) with every other site; its issues and
+  a site's tickets (#18: rc-imp's hovers) are after 1.0, the html test is the cases page. The checklist's marccent.com
+  and going-live sections are after 1.0.
+- 2026-11-13: 1.0's outputs are html (no admin) and wp (with an admin); django leaves 1.0, its issues after 1.0 (#38,
+  #129, #130, #133, #144). wp's admin is the template the later admin outputs follow.
 - 2026-11-11: the theme's open requests in the 1.0 milestone (#6–#27, T-002 to T-029) are mostly new components and
   looks, which section 3 freezes: Marcos needs them for 1.0, so they are 1.0's scope and get built before 1.0.0. The
   freeze holds for everything else new: it goes to `after 1.0` (3.3).
@@ -310,8 +321,6 @@ everywhere becomes a rule above and its line goes.
   (projects.json); their lists stay here with the others (KITS.md, PATTERNS.md: section 8). Kits are new entries (after 1.0) except Local business, which finishes
   Marccent Local; web design is Portfolio plus Local business, and web hosting's parts are Product landing's plans and
   the Help center, so neither is a kit. The patterns' converter to each output stays after 1.0 (T-037).
-- 2026-11-10: marccent.com frozen (projects.json) while 1.0 needs it live (3.1): it stays in 1.0 and unfreezes
-  in phase 3 of the 1.0 checklist's order, once the wp stack passes its gate.
 - 2026-11-10: a business schema from a Business field group (Marccent Local's `inc/schema.php`): no plugin builds
   one; every field group makes its own schema (Marccent Content's `schema`), so a group without one adds none.
 - 2026-11-08: a `site.css` for custom styles: section 4, rule 1 holds for every Marccent project (the sites and the
@@ -319,8 +328,8 @@ everywhere becomes a rule above and its line goes.
 
 ## The 1.0 checklist
 
-The one list of what's left before 1.0 (3.1: marccent-theme 1.0.0, marccent.com live, the wp site working with every
-component). Ticked here as it's done; what's for after 1.0 is the issues labeled `after 1.0`.
+The one list of what's left before 1.0 (3.1: the template: marccent-theme 1.0.0 and the wp adapters on it, the wp
+test site working with every component). Ticked here as it's done; what's for after 1.0 is the issues labeled `after 1.0`.
 
 ### The order (the unfreeze plan, 2026-11-10)
 
@@ -333,9 +342,8 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
    retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
    shows every component in the admin and on the page.
-3. **marccent.com** (section 4) and safe to go live (section 5). It stays in 1.0 (3.1) and frozen in projects.json
-   until phase 2 passes its gate; then it's unfrozen (Decisions, 2026-11-10).
-4. **1.0.0 released** (section 6). The freeze ends; the frozen sites and outputs are brought up to 1.0 once (3.1).
+3. **1.0.0 released** (section 6). The freeze ends; the sites and the frozen outputs are built or brought up to 1.0
+   once (3.1). marccent.com (section 4) and going live (section 5) are the first after 1.0 (Decisions, 2026-11-13).
 
 **1. The product line**
 - [x] **Component stage:** a markup case (`markup/cases.json` → `reference.json`) for every component and container
@@ -389,7 +397,7 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [ ] Timeline, Dock, Radial menu, Step bar, Orbit and Tab bar take their children (T-034's blocks) and a Loop of them.
 - [ ] The kitchen sink current with all of it.
 
-**4. marccent.com live**
+**4. marccent.com live** (after 1.0: a site, not the template; Decisions, 2026-11-13)
 - [ ] On the theme's T-033 release: its Images and Animations pages as the Collage and Image card patterns, its cards
   as Image cards, its StatCards (about 15) each in a Card; on T-034's, its Timelines, Docks, Radial menus, Step bars,
   Orbits and Tab bars with their children.
@@ -400,8 +408,9 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [ ] Hosting, the domain, the deploy.
 - [ ] T-002 cookie consent (if it tracks); T-024 typography set on the server.
 
-**5. Safe to go live**
+**5. Safe to go live** (after 1.0, with marccent.com)
 - [ ] The database off its public IP, passwords rotated, a non-root admin; the Maps key restricted by referrer.
 
 **6. Release**
-- [ ] marccent-theme 1.0.0, and marccent.com and the wp plugins on it. The freeze ends.
+- [ ] marccent-theme 1.0.0, and the wp adapters (Marccent Blocks, Marccent Content, marccent-wp) on it. The freeze
+  ends.
