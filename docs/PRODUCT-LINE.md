@@ -190,7 +190,13 @@ changed deliberately, here first.
    full words (`padding`, `verticalPadding`, `columns`, `minimumColumnWidth`, `minimumHeight`, `maximum`,
    `language`), and so do the components' props: a setting's name is its prop (2026-11-10). `href` stays, the web's own word for a link; Map's `center` and pins are `{ lat, lng }`, Google's own shape (its markup says `data-latitude`, `data-longitude`); Animation's `frameRate` is p5's word.
 5. **A setting is a look or a choice, never content.** Text, items and lists that repeat aren't settings (6.1).
-6. **Checked:** `npm run conformance` fails on a setting that isn't one of its component's props (read from the
+6. **Editing screens are generated from the settings** (#21, T-022; 2026-11-13). The theme turns a component's
+   settings into its fields (`settingsFields`, `components/theme/settings-panel.js`: a label, help, type, default,
+   choices) and draws them as a form (`SettingsPanel`); an output with an admin draws the same fields with its admin's
+   own controls (WordPress: `wp.components`, Marccent Blocks' `islandBlock`), never a field list typed by hand. What
+   a setting can't say (a range's step, an icon or image picker, a list's item fields) is an override beside it, by
+   the setting's name. The wp adapter is the template for every later admin output.
+7. **Checked:** `npm run conformance` fails on a setting that isn't one of its component's props (read from the
    component's source, by `prop` when the name differs), a setting without a known type or sanitize rule, or a
    component without a version, and lists the components that stay without their settings.
 
@@ -292,6 +298,8 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-13: 1.0's outputs are html (no admin: marccent.com) and wp (with an admin); django leaves 1.0, its issues
+  after 1.0 (#38, #129, #130, #133, #144). wp's admin is the template the later admin outputs follow (5.6).
 - 2026-11-11: the theme's open requests in the 1.0 milestone (#6–#27, T-002 to T-029) are mostly new components and
   looks, which section 3 freezes: Marcos needs them for 1.0, so they are 1.0's scope and get built before 1.0.0. The
   freeze holds for everything else new: it goes to `after 1.0` (3.3).

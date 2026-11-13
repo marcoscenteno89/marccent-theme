@@ -21,6 +21,10 @@ README (Versions → What a version promises).
   - Calendar: a month to pick a day or a range from, year and decade views, events as dots (admin rows), limits,
     keyboard moves and a details line. Its states in the markup (`aria-selected`, `aria-current`, `.is-end`),
     its look `calendar.css`.
+- A component's editing version (#21, T-022; PRODUCT-LINE.md 5.6): `settingsFields` turns its settings
+  (`markup/settings.json`) into form fields (label, help, type, default, choices), overrides by setting name for what a
+  setting can't say; `SettingsPanel` draws them with the theme's controls or an admin's (`controls`, by field type).
+  `components/theme/settings-panel.js`. Marccent Blocks' editor panels are its WordPress adapter.
 - Text formats (#26, T-028): `markup/formats.json` lists Raised (`sup`), Muted (`span.text-muted`) and Badge
   (`span.chip.bg-primary-tint`), styles for part of a line that an editor offers on selected text; conformance fails
   when a format names a class the theme doesn't have.
