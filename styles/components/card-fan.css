@@ -1,0 +1,33 @@
+@import "../layers.css";
+/* CARD FAN (CardFan in components/widgets/card-fan.js): its cards in one grid cell, each turned round a point below
+   the stack by its distance from the middle one (--i, of --cards): 3deg apart at rest, --card-fan-spread apart (and
+   dropped a little, the outer ones more) while hovered or focused within. The root fills its parent and centers the
+   stack; each card is --card-fan-width wide, 5:7. */
+@layer components {
+.card-fan {
+  --card-fan-width: 8rem;
+  --card-fan-spread: 14deg;
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-lg);
+}
+.card-fan:focus-visible { outline: var(--focus-width) solid var(--focus-ring); outline-offset: var(--focus-width); border-radius: var(--radius-card); }
+.card-fan-item {
+  --from-middle: calc(var(--i) - (var(--cards) - 1) / 2);
+  grid-area: 1 / 1;
+  display: grid;
+  width: var(--card-fan-width);
+  aspect-ratio: 5 / 7;
+  transform-origin: 50% 160%;
+  rotate: calc(var(--from-middle) * 3deg);
+  transition: rotate var(--duration-slow) cubic-bezier(.34, 1.56, .64, 1), translate var(--duration-slow);
+}
+.card-fan-item > * { height: 100%; }
+.card-fan:is(:hover, :focus-within) .card-fan-item {
+  rotate: calc(var(--from-middle) * var(--card-fan-spread));
+  translate: 0 calc(max(var(--from-middle), -1 * var(--from-middle)) * .4rem);
+}
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-fan-item { transition: none; }
+}

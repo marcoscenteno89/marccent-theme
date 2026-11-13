@@ -7,13 +7,17 @@
 @import "./components/avatar.css";
 @import "./components/board.css";
 @import "./components/button.css";
+@import "./components/calendar.css";
+@import "./components/card-fan.css";
 @import "./components/carousel.css";
 @import "./components/chip.css";
+@import "./components/clock.css";
 @import "./components/compare.css";
 @import "./components/consent.css";
 @import "./components/divider.css";
 @import "./components/dock.css";
 @import "./components/form.css";
+@import "./components/gauge.css";
 @import "./components/graph.css";
 @import "./components/loading.css";
 @import "./components/map.css";
@@ -21,6 +25,7 @@
 @import "./components/menu.css";
 @import "./components/modal.css";
 @import "./components/popover.css";
+@import "./components/radar.css";
 @import "./components/rating.css";
 @import "./components/sidebar.css";
 @import "./components/table.css";

@@ -1,0 +1,60 @@
+@import "../layers.css";
+/* CLOCK (Clock in components/ui/clock.js): the analog and flip faces; the digital face is text and classes only.
+   Analog: a rounded square in the theme gradient's rim, its marks an SVG, three hands turned by --clock-time (seconds
+   since midnight, LiveClock), hidden until the first tick (data-ticking). Flip: three pairs of GooDigits (.countdown,
+   animations.css) and two colons on one line, the digits 1.25em (so the font size sizes it), smaller when the width
+   is narrower. Both fill their parent's width. */
+@layer components {
+.clock-analog {
+  display: grid;
+  aspect-ratio: 1;
+  border: max(3px, .4em) solid transparent;
+  border-radius: 28%;
+  background: linear-gradient(var(--body-bg), var(--body-bg)) padding-box, linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+}
+.clock-analog > * { grid-area: 1 / 1; }
+.clock-marks { width: 100%; height: 100%; }
+.clock-mark { stroke: var(--body-color); stroke-width: .8; stroke-linecap: round; opacity: .4; }
+.clock-mark-hour { stroke-width: 2; opacity: 1; }
+.clock-mark-quarter { stroke: var(--primary); stroke-width: 2; opacity: 1; }
+.clock-hand {
+  place-self: center;
+  translate: 0 -50%;
+  transform-origin: 50% 100%;
+  border-radius: 99px;
+  transition: rotate .3s cubic-bezier(.34, 1.56, .64, 1);
+}
+.clock-analog:not([data-ticking]) .clock-hand { visibility: hidden; }
+.clock-hour { width: 3.5%; height: 26%; background: var(--body-color); rotate: calc(var(--clock-time, 0) * 1deg / 120); }
+.clock-minute { width: 2.2%; height: 36%; background: var(--primary); rotate: calc(var(--clock-time, 0) * 1deg / 10); }
+.clock-second { width: 1%; height: 40%; background: var(--secondary); rotate: calc(var(--clock-time, 0) * 6deg); }
+.clock-pin {
+  place-self: center;
+  width: 6%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.clock-flip {
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: min(.2em, 1.75cqi);
+  color: var(--primary);
+}
+/* The digits 1.25em, or smaller when that wouldn't fit the width (six digits, two colons and the gaps: about 9). */
+.clock-flip > * { --countdown-size: min(1.25em, 10.5cqi); }
+.clock-flip-pair { display: flex; gap: calc(var(--countdown-size) / 6); }
+.clock-flip-colon { display: grid; gap: calc(var(--countdown-size) / 5); }
+.clock-flip-colon > i {
+  width: calc(var(--countdown-size) / 7);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+}
+@media (prefers-reduced-motion: reduce) {
+  .clock-hand { transition: none; }
+}

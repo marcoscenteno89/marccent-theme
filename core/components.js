@@ -11,6 +11,7 @@ import { watchDivider } from './divider';
 import { toastSI } from './toasts';
 import { drawMap, restyleMap } from './maps';
 import { watchConsent } from './consent';
+import { countUp } from './count-up';
 
 /*
  * The components the markup engine (core/enhance.js) wires up: the same markup the React components render, so a
@@ -125,6 +126,9 @@ define('divider', watchDivider);
 
 // Consent: the cookie banner (core/consent.js).
 define('consent', watchConsent);
+
+// CountUp: its number counts up from 0 the first time it scrolls into view (core/count-up.js).
+define('count-up', countUp);
 
 /*
  * Sidebar: [data-collapse] narrows it to its icons and back, remembered in this browser: its links' names hidden (into
