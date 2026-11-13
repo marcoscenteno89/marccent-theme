@@ -1,0 +1,50 @@
+@import "../layers.css";
+/* CALENDAR (Calendar in components/ui/calendar.js): a card (its classes on the markup) holding the header, the month
+   grid (or the year's months, or a decade's years) and the details. A day is a square button: today ringed in the
+   primary color (aria-current), a picked end in the theme gradient (.is-end), the days between tinted (aria-selected),
+   the next and last month's days faded (.is-outside), a day that can't be picked struck through (disabled). */
+@layer components {
+.calendar { align-content: start; }
+.calendar-title {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: var(--h5-size, 1.25rem);
+  font-weight: 700;
+  text-align: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.calendar-title:disabled { cursor: default; }
+.calendar-month { display: grid; grid-template-columns: repeat(var(--cols, 7), minmax(0, 1fr)); }
+.calendar-row { display: contents; }
+.calendar-head { display: grid; place-items: center; padding-block: var(--space-sm); font-weight: 700; opacity: .75; }
+.calendar-day, .calendar-cell {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-control);
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.calendar-day { aspect-ratio: 1; padding: 0; }
+.calendar-day[aria-selected="true"] { background: color-mix(in srgb, var(--primary) 22%, transparent); }
+.calendar-day[aria-current="date"], .calendar-cell[aria-current="date"] { border-color: var(--primary); color: var(--primary); font-weight: 700; }
+:is(.calendar-day, .calendar-cell).is-end { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--light); }
+.calendar-day.is-outside:not(.is-end), .calendar-cell.is-outside { opacity: .6; }
+.calendar-day:disabled { opacity: .25; text-decoration: line-through; cursor: not-allowed; }
+.calendar-day:focus-visible, .calendar-cell:focus-visible { outline: var(--focus-width) solid var(--focus-ring); outline-offset: 1px; }
+.calendar-dots { display: flex; gap: 2px; min-height: 5px; }
+.calendar-dot { display: block; width: 5px; aspect-ratio: 1; border-radius: 50%; }
+.calendar-dot-lg { width: .6rem; }
+.calendar-cells { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-sm); }
+.calendar-cell { padding: var(--space-sm); border-color: var(--border-color); }
+.calendar-cell small { opacity: .75; }
+}

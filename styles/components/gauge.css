@@ -1,0 +1,74 @@
+@import "../layers.css";
+/* GAUGE (Gauge in components/ui/gauge.js): a value on a dial, --gauge-value (0 to 1) on the root. --gauge-fill is
+   registered as a number so it can animate: it starts at 0 and runs to --gauge-value once, as the gauge first shows,
+   turning the ring's conic gradient or the needle. Ring: the number in the middle of the ring. Speedometer: a half dial
+   (the box is 2:1, the dial's center its bottom middle), the number under it. Both fill their parent's width. */
+@property --gauge-fill { syntax: "<number>"; inherits: true; initial-value: 0; }
+@keyframes gauge-fill { from { --gauge-fill: 0; } }
+@layer components {
+.gauge {
+  --gauge-fill: var(--gauge-value, 0);
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  animation: gauge-fill 1s cubic-bezier(.34, 1.3, .64, 1) both;
+}
+.gauge-readout { display: grid; justify-items: center; }
+.gauge-unit, .gauge-label { opacity: .75; }
+.gauge-unit { margin-inline-start: .2em; }
+
+/* Ring: the dial and the readout in one cell. */
+.gauge-ring { grid-template-areas: "gauge"; place-items: center; }
+.gauge-ring > * { grid-area: gauge; }
+.gauge-ring .gauge-dial {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    conic-gradient(var(--primary), var(--secondary) calc(var(--gauge-fill) * 100%), transparent 0),
+    var(--border-color);
+  mask: radial-gradient(farthest-side, transparent 76%, #000 77%);
+}
+.gauge-ring .gauge-readout { line-height: 1.1; }
+
+/* Speedometer: the dial, then the readout. */
+.gauge-speedometer { gap: var(--space-sm); }
+.gauge-speedometer .gauge-dial { display: grid; width: 100%; aspect-ratio: 2; }
+/* The colored arc on its own layer, so its mask doesn't cut the needle and hub. */
+.gauge-speedometer .gauge-dial::before {
+  content: "";
+  background: conic-gradient(from -90deg at 50% 100%, var(--success), var(--primary), var(--danger) 180deg, transparent 0);
+  mask: radial-gradient(farthest-side at 50% 100%, transparent 72%, #000 73%);
+  border-radius: 999px 999px 0 0;
+}
+.gauge-speedometer .gauge-dial::before, .gauge-speedometer .gauge-dial > * { grid-area: 1 / 1; }
+.gauge-ticks {
+  background: var(--body-color);
+  opacity: .6;
+  mask:
+    repeating-conic-gradient(from -90.5deg at 50% 100%, #000 0 1deg, transparent 0 18deg),
+    radial-gradient(farthest-side at 50% 100%, transparent 60%, #000 61% 68%, transparent 69%);
+  mask-composite: intersect;
+}
+.gauge-needle {
+  place-self: end center;
+  width: max(3px, 1.5%);
+  height: 88%;
+  border-radius: 99px;
+  background: var(--body-color);
+  transform-origin: 50% 100%;
+  rotate: calc(-90deg + var(--gauge-fill) * 180deg);
+}
+.gauge-hub {
+  place-self: end center;
+  width: 9%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  translate: 0 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+}
+@media (prefers-reduced-motion: reduce) {
+  .gauge { animation: none; }
+}
