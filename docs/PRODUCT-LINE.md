@@ -129,8 +129,9 @@ changed deliberately, here first.
    4. It only changes how one item looks (its shape, its frame), and could do it to other items → a **variant**: one
       class, the theme's tokens only, scoped to the item, one at a time (the ticket; TICKETS.md T-030). A component or
       container that takes variants has a `variant` setting (as Modal's).
-   5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
-      `.fs-50`); the theme is classes that combine, so no component when classes already do it.
+   5. It only changes one property (spacing, color, size, placement), or adds one behavior any item can take (a
+      hover, sticky) → a **class**, a utility (rule 11: `.pad-lg`, `.text-muted`, `.fs-50`, `.hover-rise`,
+      `.sticky-top`); the theme is classes that combine, so no component when classes already do it.
    6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which was the
       NavBar; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts, its markup a file in marccent-patterns, never a component; in WordPress a
       block pattern of Marccent blocks, never a block. One that needs a kit's data lives in that kit.
@@ -174,6 +175,22 @@ changed deliberately, here first.
     setting, and its parts are its own. A component whose settings take two or more named pieces of content (a
     brand, items, a footer) is reported as a probable pattern (4.5): a page frame. `npm run conformance` fails on the
     first and reports the second; a reviewed one is listed in the check with why it stays (Modal: dialog markup).
+11. **Tokens, components and utilities** (2026-11-13): the theme ships three kinds of thing, and everything a site
+    uses is one of them.
+    - **Tokens** are values (colors, fonts, sizes, spacing, timing): custom properties in `styles/tokens`, the one
+      thing a site sets for itself (rule 3).
+    - **Components** have markup (and containers, patterns: rule 5).
+    - **Utilities** are classes that go on any component without being one, each doing one thing: a property
+      (`utilities.css`: text, color, size, sticky, visibility), a hover (`hovers.css`). One that needs JS gets it
+      from the theme, started by its class (`core/pointer.js` for `.hover-tilt`, `.hover-spotlight`, `.hover-magnet`).
+
+    Utilities follow the components' rules: they live in the theme only; they draw from tokens; an adapter offers
+    them as a setting's `choices` or the extra classes tune (5.3) and writes the class, nothing else (rule 6); and a
+    site's own taste is a choice among them or its tokens, never a `site.css` rule (rule 1). One the theme lacks is a
+    ticket (rule 2), like rc-imp's hovers (#18). **A new kind of utility** (a behavior not mapped yet) is one more
+    family: its own stylesheet or section, its class prefix (as `hover-`), its list in the `choices` of the
+    settings that offer it (`markup/settings.json`, as Card's `hover`) and a line here; it isn't a component unless
+    rule 5 says so.
 
 ## 5. Settings: one standard everywhere
 
@@ -292,6 +309,9 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-13: what to call hovers, animations and other behaviors that aren't components (raised by rc-imp's
+  hovers, #18): **utilities**, the theme's third kind beside tokens and components; a new behavior is a new family
+  of them (4.11).
 - 2026-11-11: the theme's open requests in the 1.0 milestone (#6–#27, T-002 to T-029) are mostly new components and
   looks, which section 3 freezes: Marcos needs them for 1.0, so they are 1.0's scope and get built before 1.0.0. The
   freeze holds for everything else new: it goes to `after 1.0` (3.3).
