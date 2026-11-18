@@ -47,7 +47,7 @@ function typeset_characters( string $text ): string {
 function typeset( string $text, bool $widow = false ): string {
 	$set = typeset_characters( $text );
 	if ( $widow ) {
-		$set = preg_replace( '~(*UCP) (\S{1,12}\s*)$~uD', TYPESET_NBSP . '$1', $set, 1 );
+		$set = preg_replace( '~(*UCP) (\S{1,12}[^\S\x{00A0}]*)$~uD', TYPESET_NBSP . '$1', $set, 1 );
 	}
 	$esc = fn( $s ) => htmlspecialchars( $s, ENT_NOQUOTES | ENT_HTML5, 'UTF-8' );
 	$out = '';
@@ -129,6 +129,12 @@ if ( PHP_SAPI === 'cli' && isset( $argv ) && realpath( $argv[0] ) === __FILE__ &
 		$got = typeset_html( $c['markup'] );
 		if ( $got !== $c['html'] ) {
 			echo 'FAIL typeset php: ' . json_encode( $c['markup'], JSON_UNESCAPED_UNICODE ) . ' gave ' . json_encode( $got, JSON_UNESCAPED_UNICODE ) . ', not ' . json_encode( $c['html'], JSON_UNESCAPED_UNICODE ) . "\n";
+			$failed++;
+		}
+		// Set again, it stays as it is (an adapter may set a block and then the block around it).
+		$again = typeset_html( $c['html'] );
+		if ( $again !== $c['html'] ) {
+			echo 'FAIL typeset php: set again, ' . json_encode( $c['html'], JSON_UNESCAPED_UNICODE ) . ' gave ' . json_encode( $again, JSON_UNESCAPED_UNICODE ) . "\n";
 			$failed++;
 		}
 	}

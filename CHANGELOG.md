@@ -53,6 +53,9 @@ README (Versions → What a version promises).
   for a site that styled it; marccent.com moves to Graph when it's brought up to 1.0.
 
 ### Fixed
+- Typeset sets text once: setting it again (WordPress sets a block, then the block around it) no longer joins one
+  more word each time when the last one is already joined, as before a raised ™. `npm test` sets every markup case
+  twice in PHP and Python.
 - README's Price markup is the component's (from `markup/reference.json`), and `.raised`, removed in rc.15, is no
   longer named in README or PRODUCT-LINE.md (#145).
 - `styles/components.css` (and so `dist/marccent.css`) now has compare, rating and table, which it left out (#139);

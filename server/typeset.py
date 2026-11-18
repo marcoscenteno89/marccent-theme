@@ -40,7 +40,7 @@ _RULES = [
     (re.compile(r'([0-9][0-9,.]*) ?(' + LENGTHS + r')([23])' + END), lambda m: m[1] + NBSP + m[2] + POWERS[m[3]]),
     (re.compile(r'([0-9]) (?=(?:' + '|'.join(UNITS) + r')' + END + ')'), '\\1' + NBSP),
 ]
-_WIDOW = re.compile(r' (\S{1,12}\s*)\Z')
+_WIDOW = re.compile(r' (\S{1,12}[^\S\u00a0]*)\Z')
 _RAISED = re.compile(r'([0-9])(st|nd|rd|th)' + END + r'|([™®℠])')
 _ATTR = r'''(?:\s+[^\s"'>/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?)*'''
 _TOKENS = re.compile(r'(<!--.*?-->|<![^>]*>|<\?.*?>|</?[a-zA-Z][^\s/>]*' + _ATTR + r'\s*/?>)', re.S)
@@ -117,6 +117,11 @@ if __name__ == '__main__' and sys.argv[1:2] == ['--cases']:
         got = typeset_html(c['markup'])
         if got != c['html']:
             print(f"FAIL typeset python: {json.dumps(c['markup'], ensure_ascii=False)} gave {json.dumps(got, ensure_ascii=False)}, not {json.dumps(c['html'], ensure_ascii=False)}")
+            failed += 1
+        # Set again, it stays as it is (an adapter may set a block and then the block around it).
+        again = typeset_html(c['html'])
+        if again != c['html']:
+            print(f"FAIL typeset python: set again, {json.dumps(c['html'], ensure_ascii=False)} gave {json.dumps(again, ensure_ascii=False)}")
             failed += 1
     if not failed:
         print(f"ok   typeset python: {len(cases['text']) + len(cases['markup'])} cases set as core/typeset.js sets them")
