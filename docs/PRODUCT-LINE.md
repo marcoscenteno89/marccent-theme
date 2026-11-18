@@ -292,6 +292,10 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-18: which text a WordPress page typesets on the server (#143): every block's, through
+  `server/typeset.php`, with WordPress's own wptexturize off, so one set of rules covers the whole page and the two
+  never rewrite the same text. Quotes stay straight until the theme's rules curl them (a theme change, for every
+  adapter).
 - 2026-11-11: the theme's open requests in the 1.0 milestone (#6–#27, T-002 to T-029) are mostly new components and
   looks, which section 3 freezes: Marcos needs them for 1.0, so they are 1.0's scope and get built before 1.0.0. The
   freeze holds for everything else new: it goes to `after 1.0` (3.3).

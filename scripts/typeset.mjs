@@ -52,6 +52,7 @@ const WIDOWS = [
   'A very long last word supercalifragilistic',
   'Ends at 10 kg',
   'Ends on the 2nd',
+  'Already set: then\u00A0', // its last word joined already (a ™ after it): left as it is
 ];
 // Markup, as a server writes it: typesetElement() on a div holding it. Kept in the form a browser writes back.
 const MARKUP = [
@@ -70,6 +71,7 @@ const MARKUP = [
   '<script>var a = "--";</script><style>a::after{content:"..."}</style><p>ok...</p>',
   '<p><span class="lead no-typeset">no -- set</span> yes -- set</p>',
   '<p>Fish &amp; chips &lt; 5 -- the last words</p>',
+  '<p>Ends with a mark: Marccent then (tm)</p>',
 ];
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

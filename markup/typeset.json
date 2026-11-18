@@ -114,6 +114,11 @@
       "text": "Ends on the 2nd",
       "widow": true,
       "html": "Ends on the 2<sup>nd</sup>"
+    },
+    {
+      "text": "Already set: then ",
+      "widow": true,
+      "html": "Already set: then "
     }
   ],
   "markup": [
@@ -176,6 +181,10 @@
     {
       "markup": "<p>Fish &amp; chips &lt; 5 -- the last words</p>",
       "html": "<p>Fish &amp; chips &lt; 5—the last words</p>"
+    },
+    {
+      "markup": "<p>Ends with a mark: Marccent then (tm)</p>",
+      "html": "<p>Ends with a mark: Marccent then <sup>™</sup></p>"
     }
   ]
 }

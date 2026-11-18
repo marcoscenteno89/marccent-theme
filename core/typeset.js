@@ -34,7 +34,9 @@ const characters = (text) => text
   .replace(new RegExp(`(\\d) (?=(?:${ UNITS.join('|') })(?![\\p{L}\\d]))`, 'gu'), `$1${ NBSP }`);
 
 // The last space before a short last word, a no-break one.
-const noWidow = (text) => text.replace(/ (\S{1,12}\s*)$/u, `${ NBSP }$1`);
+// Not when the last word is already joined (a no-break space after it, as a raised ™ leaves its word): set again,
+// the same text gives the same result (WordPress sets a block and then the block around it).
+const noWidow = (text) => text.replace(/ (\S{1,12}[^\S\u00A0]*)$/u, `${ NBSP }$1`);
 
 /**
  * typesetParts: the text set, as parts: strings, and { sup, className } for raised text (an ordinal's letters, ™).
