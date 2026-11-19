@@ -48,7 +48,7 @@ From the repo layout and Marcos's notes. **Not verified in this container. Confi
 3. **One goal per change.** One branch, one PR, one thing. A fix and a cleanup are two PRs.
 4. **Do only what the task says.** If you find something else, write it in your reply as a new issue for Hub. Do not fix it.
 5. **Never work around a missing theme feature** with CSS, JS or a copied component. Say a `ticket` issue is needed in marccent-theme.
-6. **Every change starts in marccent-theme** and moves to the other repos in the order `npm run affected` gives (in marccent-theme).
+6. **Every change to a SHARED piece (tokens, components, utilities, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
 7. **Never remove** a feature, setting, file or list item without an issue or Marcos's OK.
 8. **No model names** in commits, PR titles or bodies, comments, or pushed files.
 

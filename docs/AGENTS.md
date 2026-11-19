@@ -52,7 +52,7 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 2. **Issues** follow `PRODUCT-LINE.md` section 8: one issue per piece of work, in marccent-theme; a `project:` label; one kind label (`bug`, `request`, `after 1.0`, `idea`); `ticket` for theme fixes that projects wait on. Bugs and requests go to the 1.0 milestone.
 3. **Do only what was asked.** Anything else found becomes an issue and is named in the reply. It is not fixed in the same change.
 4. **No custom assets.** When marccent-theme cannot do something, open a `ticket` issue in marccent-theme. Never work around it with CSS, JS or a copied component.
-5. **Every change starts in marccent-theme**, then moves to the other projects, in the order `npm run affected` gives.
+5. **Every change to a SHARED piece (tokens, components, utilities, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
 6. **Keep the issues in sync.** A change that ships a ticket says `Fixes #N` and removes its stopgaps in every project it names, in the same round.
 7. **Tell Marcos when he is wrong.** If a request breaks these rules or the current structure, say so first and plainly: "That's wrong, because…", with the rule, the file or the standard.
 8. **When no rule covers it, stop and ask** (`PRODUCT-LINE.md` section 9). Ask in the form: the situation, the options, your recommendation and why, and whether it is a rule or a one-off.
