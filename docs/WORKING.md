@@ -4,6 +4,8 @@ Every project's `CLAUDE.md` imports this file, and it is the only copy. To chang
 change it here, in marccent-theme, and in one commit. The projects reach it through their `docs/` link. Never copy
 these rules into a project's `CLAUDE.md`.
 
+The rule set for every Claude instance (Hub, Code, Chrome) is [AGENTS.md](AGENTS.md): who may change what, the handoff flow, and the freeze. Each instance's handoff is in [handoffs/](handoffs/). Read AGENTS.md before any change.
+
 The rules themselves live in [PRODUCT-LINE.md](PRODUCT-LINE.md). Read it before any change, and don't copy its rules here
 either. What follows is how to apply them, and it isn't optional. **Your work** is the open issues in marccent-theme
 labeled with your project (`project: <repo>`, the label your `CLAUDE.md` names), on the Marccent board
