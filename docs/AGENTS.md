@@ -74,6 +74,9 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 ## Rules for Hub specifically
 
 - Hub writes no code and makes no code commits or code PRs.
+- Hub is in charge of downstream effects (see "Downstream" above): it finds every dependent of a change, and makes sure each gets an issue or a line in the report.
+- Every feedback starts with a `Give to:` line (see "Feedback format" above).
+- Every problem Hub finds becomes an issue in the repo that owns the fix (see "Hub creates an issue for every problem" above).
 - **Docs exception:** when Marcos asks, Hub may commit and push a branch in marccent-theme that changes `.md` files under `docs/` only, and open a PR for it. Hub must check, before it commits, that `git status` shows only `.md` files under `docs/`. Anything else: stop and ask Marcos.
 - Hub's plan is a task for Code, written so Code can follow it without asking: numbered steps, exact file names, exact checks, and what "done" looks like.
 - Hub's verification of Code's work is a written check against the task, `PRODUCT-LINE.md`, `WORKING.md` and the code. Hub names the check it ran and what it printed.
@@ -83,6 +86,36 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 - Chrome never changes code. Chrome does not install, switch or update a plugin or theme on wp.localhost.
 - Chrome checks only what the task lists. A check it cannot run is reported as not run.
 - Chrome's report: one line per check, `PASS`, `FAIL` or `UNCLEAR`, and what it saw (the URL and what was on screen). It sends the report to Marcos.
+
+## Downstream: a change reaches every project that uses it
+
+Hub is in charge of every change's downstream effect, and Hub makes none of the changes itself. When marccent-theme, or any shared piece of it (a component, a token, a utility, a setting, the markup reference, the docs), changes, Hub makes sure each dependent project gets the update. Steps, in order:
+
+1. **Name the change**: the repo, the files, and which parts of the theme it touches (components, markup, settings, tokens, utilities, docs).
+2. **Find the dependents**: in marccent-theme run `npm run affected`. It reads `docs/projects.json` and lists the projects that use the changed parts. If the command cannot run, read each project's `uses` and `via` fields in `docs/projects.json` by hand, and say so.
+3. **Check each dependent's pin**: run `npm run status` in marccent-theme. It shows which projects are behind the theme and by how much.
+4. **Sort the dependents**:
+   - An **active** dependent that is behind, or that the change breaks: one issue in that project's repo, labeled `project: <repo>`, that says what to bump and what to fix. Give it to Code in that repo.
+   - A **frozen** dependent (see `docs/projects.json` `stage`): no issue, one line in the report saying it was checked and is frozen. Marcos decides when it moves.
+   - A dependent the change does not affect: one line in the report, saying why.
+5. **Stopgaps and tickets**: if the change ships a `ticket` issue, every project waiting on it gets its own issue to remove its stopgap, and a "Waiting on this" line on the ticket, per `PRODUCT-LINE.md` section 8.
+6. **Report the full list** to Marcos: every dependent, its stage, its pin, and the issue for it (or why there is none). Marcos gives each issue to the person or instance named in its `Give to:` line.
+
+Hub never fixes a dependent itself. The issue is the handoff.
+
+## Feedback format: who to give it to
+
+Every piece of feedback Hub writes names the owner, in a fixed line, before anything else in that piece:
+
+- `Give to: Code in <repo>`: a code or docs fix in that repo. Code does it.
+- `Give to: Chrome`: a browser check. Chrome does it and reports to Marcos.
+- `Give to: Marcos`: a decision, a merge, or anything only Marcos can do.
+
+Each feedback also carries the issue link for the problem. If there is no issue yet, Hub creates one first (below) and then gives the link.
+
+## Hub creates an issue for every problem it finds
+
+Every problem Hub finds, in any repo, becomes a GitHub issue in the repo that owns the fix. Hub writes it with the template in [ISSUE-TEMPLATE.md](ISSUE-TEMPLATE.md). Use the labels `code` or `chrome` when the repo has them. If it does not, put the owner in the body's `Give to:` line. Creating an issue changes no file (see "Issues are not code" above).
 
 ## Open questions for Marcos (not settled by these rules)
 

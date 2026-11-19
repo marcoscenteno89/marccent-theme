@@ -86,6 +86,15 @@ Report every check by its command and what it printed. Do not say a check passed
 3. You follow it step by step. If a step is unclear, stop and ask Marcos. Do not guess.
 4. You report: the branch, the PR link, each check and what it printed, and anything you found that needs an issue.
 
+## When your change touches a shared repo
+
+marccent-theme and any shared piece (a component, a token, a utility, a setting, the markup reference, the docs) reach other projects. When you finish a change in a shared repo, do both of these, in your final report to Marcos:
+
+1. **Say which dependents Hub must check.** Run `npm run affected` in marccent-theme (or, if you are not in marccent-theme, say which projects use the repo: its `uses` and `via` fields in `docs/projects.json`). Paste the list. Write: "Hub must check these dependents: <list>."
+2. **Say which parts changed**, so Hub can name the change: the files and what they do.
+
+Hub then makes sure each dependent gets an issue. You do not make the dependent changes in the same PR, unless the task says so (one goal per change).
+
 ## What to do when you are stuck
 
 - A rule here, `WORKING.md`, `PRODUCT-LINE.md` or the task conflict: stop, and ask Marcos in this shape: the situation in one line, the options, your recommendation and why, and whether it is a rule or a one-off.

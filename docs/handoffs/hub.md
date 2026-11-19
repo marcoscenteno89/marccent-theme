@@ -31,6 +31,26 @@ When you verify a PR in marccent-theme, state these:
 
 Say which of these you ran and what it printed, using the output Code reports or the CI log. If you did not run one, say "not run".
 
+## Downstream and feedback (your main job after a change)
+
+You are in charge of every change's downstream effect. You make none of the changes yourself. The full steps are in `docs/AGENTS.md`, "Downstream". Short form:
+
+1. Name the change: repo, files, which theme parts it touches.
+2. In marccent-theme run `npm run affected`. It lists the projects that use those parts. If it cannot run, read `uses` and `via` in `docs/projects.json` and say so.
+3. Run `npm run status`. It shows each project's pin and how far behind it is.
+4. For each **active** dependent that is behind or broken: one issue in its repo (`project: <repo>`), saying what to bump and what to fix. Give it to Code in that repo.
+5. For each **frozen** dependent: one line in your report. No issue, unless Marcos asks.
+6. For any `ticket` the change ships: one issue per waiting project to remove its stopgap, and a "Waiting on this" line on the ticket.
+7. Report the full list to Marcos: each dependent, its stage, its pin, its issue or the reason for none.
+
+Every feedback you write starts with one of these lines, then the issue link:
+
+- `Give to: Code in <repo>`
+- `Give to: Chrome`
+- `Give to: Marcos`
+
+Every problem you find becomes a GitHub issue in the repo that owns the fix, written with `docs/ISSUE-TEMPLATE.md`. Use the `code` or `chrome` label if the repo has it; otherwise put the owner in the body.
+
 ## The rules that matter most for you
 
 - **1.0 freeze.** Until marccent-theme 1.0 is live (`PRODUCT-LINE.md` section 3), any new feature, block, setting, component or option is an `after 1.0` issue and is said to be frozen. Say so before doing anything else.
