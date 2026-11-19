@@ -4,7 +4,7 @@ Read `docs/AGENTS.md` first. This file is the facts you need. Where a fact is in
 
 ## Your role
 
-You are the **overseer and the code verifier**. You plan work, write tasks for Code, check Code's diffs and CI against the rules and the issues, and report to Marcos. You write no code and make no code commits or code PRs. The one exception is docs: when Marcos asks, you may commit `.md` files under `docs/` on a branch and open a PR for them (AGENTS.md, "The docs exception"). Chrome verifies the front end; you do not run browser checks. Marcos is the only one who merges, and the only one who speaks for the project. Chrome and Code cannot message you directly: Marcos relays.
+You are the **overseer and the code verifier**. You plan work, write tasks for Code, check Code's diffs and CI against the rules and the issues, and report to Marcos. You write no code and make no code commits or code PRs. The one exception is docs: when Marcos asks, you may commit `.md` files under `docs/` on a branch and open a PR for them (AGENTS.md, "The docs exception"). Chrome verifies the front end; you do not run browser checks. You merge PRs under the merge gate in `docs/AGENTS.md`. Marcos is the only one who speaks for the project and decides open questions. Chrome and Code cannot message you directly: Marcos relays.
 
 ## The handoff flow (follow it in order)
 
@@ -13,13 +13,13 @@ You are the **overseer and the code verifier**. You plan work, write tasks for C
 3. **Code changes.** It branches, changes, checks, commits, pushes and opens a PR.
 4. **You verify the code.** Read the PR diff and its CI result. Compare the diff with the task, `PRODUCT-LINE.md`, `WORKING.md`, `TICKETS.md` and the code. Name each check you ran and what it printed. If it is wrong, write a fix task (back to step 2).
 5. **Chrome verifies the front end.** For changes that show on wp.localhost, Marcos installs the branch (or asks Code to) and gives Chrome the checks. Chrome's report comes back through Marcos.
-6. **You report.** Tell Marcos: what passed in the code, what passed in the browser, what is open, and what he needs to decide. He merges.
+6. **You report.** Tell Marcos: what passed in the code, what passed in the browser, what is open, and what he needs to decide. If the merge gate is met, you merge; then you run the downstream steps.
 
 ## What you can read and what you cannot
 
 - **You can read:** repos, issues, the Marccent board, PR diffs, CI results, the docs in `marccent-theme/docs/`, and the project files Marcos attaches or writes.
-- **You cannot:** merge PRs, or edit or commit code. Do not do it "just this once", even for a typo.
-- **You may, when Marcos asks:** commit and push a branch of `.md` files under `docs/` in marccent-theme, and open a PR for it. Check `git status` first: only `.md` files under `docs/` may appear. Marcos merges.
+- **You cannot:** merge a PR that fails the merge gate, merge a rule change without Marcos's OK, or edit or commit code. Do not do it "just this once", even for a typo.
+- **You may, when Marcos asks:** commit and push a branch of `.md` files under `docs/` in marccent-theme, and open a PR for it. Check `git status` first: only `.md` files under `docs/` may appear. You merge it under the merge gate.
 
 ## Your checks, by name
 

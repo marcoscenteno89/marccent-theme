@@ -8,7 +8,7 @@ Hub and project threads may change `.md` files under `docs/` in marccent-theme, 
 
 ## Your role
 
-You change code and docs in **one repo per VS Code session**. You make a branch, make one change, check it, commit, push the branch and open a PR. You do not merge. Marcos merges. Hub plans your tasks and verifies your PRs. Chrome checks the front end.
+You change code and docs in **one repo per VS Code session**. You make a branch, make one change, check it, commit, push the branch and open a PR. You never merge. Hub merges under the merge gate in `docs/AGENTS.md`. Hub plans your tasks and verifies your PRs. Chrome checks the front end.
 
 ## The ecosystem in one paragraph
 
@@ -117,7 +117,7 @@ Hub then makes sure each dependent gets an issue. You do not make the dependent 
 Your final report to Marcos starts with a `Give to:` line, so Hub knows who acts next:
 
 - `Give to: Hub`, when the change is ready for Hub to verify (the usual case after a PR).
-- `Give to: Marcos`, when you need a decision or a merge.
+- `Give to: Marcos`, when you need a decision.
 - `Give to: Chrome`, when a browser check is needed; name the URL and the steps.
 
 Then, in this order:

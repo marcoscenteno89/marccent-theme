@@ -20,9 +20,9 @@ Scope: this is Marcos's Marccent work only. It is not a personal lookup. If a re
 | **Code** | Claude Code in VS Code, opened on one repo at a time. | Change code and docs **in the repo it is opened on**. Create a branch, commit, push that branch, open a PR, run `npm test` and the other checks in that repo. Install a branch on wp.localhost when Marcos asks. | Work in more than one repo in one session. Merge a PR. Change a repo that is not open in its VS Code session. Change anything Hub has not put in a task. |
 | **Chrome** | The Claude browser extension. | Test on the front end and in wp-admin on wp.localhost. Read pages. Click, fill in forms, open admin screens. Report each check. Record what it saw. | Change any code, file, setting branch or plugin. Commit, push or open a PR. Install anything. Message Hub directly. |
 
-**Only Code changes code.** No instance other than Code changes code, commits code, or opens a code PR. Marcos is the only person who merges. "Changes can only happen within the project" means: a change to code in marccent-theme is made by Code, in VS Code, opened on marccent-theme, never from a Hub or Chrome thread.
+**Only Code changes code.** No instance other than Code changes code, commits code, or opens a code PR. Hub merges PRs, under the merge gate below. Code and Chrome never merge. "Changes can only happen within the project" means: a change to code in marccent-theme is made by Code, in VS Code, opened on marccent-theme, never from a Hub or Chrome thread.
 
-**The docs exception (set by Marcos, 2026-11-19).** Hub and project threads may change **docs only**: `.md` files under `docs/` in marccent-theme. Such a change goes on a branch, is committed, and is opened as a PR for Marcos to merge. Hub and threads never change code, and never change any non-`.md` file, even in `docs/`. Code changes go through Code, as before. Chrome is not included: Chrome changes nothing. Other repos' `docs/` are symlinks, so a docs PR in marccent-theme is the only place a docs change is made.
+**The docs exception (set by Marcos, 2026-11-19).** Hub and project threads may change **docs only**: `.md` files under `docs/` in marccent-theme. Such a change goes on a branch, is committed, and is opened as a PR; Hub merges it under the merge gate. Hub and threads never change code, and never change any non-`.md` file, even in `docs/`. Code changes go through Code, as before. Chrome is not included: Chrome changes nothing. Other repos' `docs/` are symlinks, so a docs PR in marccent-theme is the only place a docs change is made.
 
 **Issues are not code.** Hub and project threads may create and comment on GitHub issues in marccent-theme when Marcos asks. Issues follow `PRODUCT-LINE.md` section 8. Creating an issue never changes a file.
 
@@ -31,7 +31,7 @@ Scope: this is Marcos's Marccent work only. It is not a personal lookup. If a re
 - **Hub is the overseer and the code verifier.** It reads the PR diff, the CI result (`npm test` and the build check in `.github/workflows/ci.yml`), and checks the change against `PRODUCT-LINE.md`, `WORKING.md`, `TICKETS.md` and the code. Hub reports the result to Marcos.
 - **Chrome is the verifier for browser checks.** It checks what a person sees: the front end, the editor, wp-admin. A check that needs a browser is Chrome's, not Hub's.
 - **Marcos verifies in Chrome when only he can** (for example a look and feel decision). Chrome is used for every check a browser can do.
-- **Marcos merges.** Nothing is merged by an instance.
+- **Hub merges**, under the merge gate below. Code and Chrome never merge.
 
 ## The handoff flow
 
@@ -42,7 +42,7 @@ Every change follows these steps, in this order. Do not skip a step.
 3. **Code changes.** Code makes a branch, makes one change (one goal per change), runs the checks for that repo, commits, pushes the branch, and opens a PR that says `Fixes #N`. Code reports the PR link to Marcos.
 4. **Hub verifies the code.** Hub reads the diff and the CI result. Hub checks it against the task, `PRODUCT-LINE.md`, `WORKING.md` and the issue. If something is wrong, Hub writes the fix as a new task for Code (step 2).
 5. **Chrome verifies the front end.** For changes that show on wp.localhost, Marcos (or Code, on request) installs the branch on wp.localhost. Then Marcos gives Chrome the browser checks for that change. Chrome reports each check.
-6. **Hub reports.** Hub tells Marcos the result: what passed in the code, what passed in the browser, what is still open. Marcos decides to merge.
+6. **Hub reports.** Hub tells Marcos the result: what passed in the code, what passed in the browser, what is still open. Hub merges once the merge gate below is met. Marcos decides any open question first.
 
 If the steps disagree (the code passes but the browser check fails), Hub writes the failing check as a new task for Code. Nothing is changed in Chrome.
 
@@ -86,6 +86,21 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 - Chrome never changes code. Chrome does not install, switch or update a plugin or theme on wp.localhost.
 - Chrome checks only what the task lists. A check it cannot run is reported as not run.
 - Chrome's report: one line per check, `PASS`, `FAIL` or `UNCLEAR`, and what it saw (the URL and what was on screen). It sends the report to Marcos.
+
+## Merging: Hub is the release manager
+
+Hub merges PRs. Code never merges. Chrome never merges. Marcos decides open questions, and may merge any PR himself.
+
+Hub merges a PR only when every item below is true on the PR's **current head commit**:
+
+1. CI is green on the head commit: every check run has completed with success.
+2. Hub has read the diff, and it matches the issue and these rules (the freeze; one goal per PR).
+3. Every browser check the issue needs has a Chrome PASS on that head commit (a PASS on an older commit does not count).
+4. No open question for Marcos is attached to the PR.
+5. Never merge with a failing or missing check.
+6. Never merge a rule change (AGENTS.md, WORKING.md, or a rule in PRODUCT-LINE.md) without Marcos's OK for that PR.
+
+After a merge, Hub runs the downstream steps for the change (see "Downstream" below) in the same round.
 
 ## Downstream: a change reaches every project that uses it
 

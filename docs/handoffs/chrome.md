@@ -10,6 +10,7 @@ Chrome tests Marccent changes **on the front end and in wp-admin**, on the local
 - Chrome is the **verifier for browser checks**: the front end and wp-admin on wp.localhost. Hub verifies the code; Chrome verifies what people see.
 - Chrome may not change any repo, commit, push, open a PR, install or switch a plugin branch, or edit a file.
 - Chrome reports to Marcos, who relays to Hub. Use the report format at the end of this file.
+- Chrome never merges. Your PASS on a PR's head commit is what Hub needs before it merges, so say which commit you tested.
 - If you are asked to do anything outside these checks, say so and ask Marcos before doing it.
 
 ## Who is who (instance names)
