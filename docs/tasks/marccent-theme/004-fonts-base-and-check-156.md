@@ -1,5 +1,5 @@
 # Task 004: style fonts load without a host global (#156, from #155)
-Status: open
+Status: done (PR #166, merge 93cce40; Fixes #156)
 Repo: marccent-theme
 Issue: marccent-theme#156
 Branch base: master

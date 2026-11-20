@@ -35,8 +35,11 @@ The next theme tag is `v1.0.0-rc.26`. Hub will cut it only after task 004 (#156,
 - The repo's test command (`npm test`, if it has one). Paste the output.
 - `npm run conformance` in marccent-theme at that tag is Hub's check, not this task's. Do not run it here.
 
-## Chrome check (after the PR is merged, not in this task)
+## Chrome checks (after the PR is merged, not in this task)
 
+**Fonts (rc.26's #156 fix).** On wp.localhost, with no `marccentFontsBase` set by the adapter, check three design styles: `minimal`, `brutalism` and `art-deco`. In each, the heading font renders (not the system fallback), and the page's `<link data-font>` elements point at `dist/fonts/`. Code's headless check covered only the one-font default style (`modern`), so these three are the first multi-font test. Chrome reports to Marcos.
+
+**Widgets.**
 On wp.localhost, Chrome checks each of the nine widgets in the block editor and on the page: the block appears, its settings show, the front end renders it, and nothing overflows at phone width. Chrome reports to Marcos. Hub then sets this task's Status to `done`.
 
 ## Done when
@@ -46,6 +49,6 @@ On wp.localhost, Chrome checks each of the nine widgets in the block editor and 
 
 ## Notes
 
-- Blocked until: `v1.0.0-rc.26` is tagged. rc.26 waits on task 004 (#156, fonts base), then Hub tags it (`docs/RELEASES.md`). Hub changes this Status to `open` in a docs PR and writes the tag here.
+- Blocked until: `v1.0.0-rc.26` is tagged. Task 004 (#156) is merged (93cce40). Task 005 (`docs/tasks/marccent-theme/005-release-rc26.md`, the release PR that bumps the version) must merge first. Then Hub cuts the tag (`docs/RELEASES.md`). Hub changes this Status to `open` in a docs PR and writes the tag here.
 - Not in this task: marccent-html and marccent/next (marccent.com). Both are frozen until after 1.0 (PRODUCT-LINE.md 3.5). They keep their `components/widgets` copies until they unfreeze.
 - Freeze applies (PRODUCT-LINE.md section 3). No new widget, setting or block.
