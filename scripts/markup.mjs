@@ -59,9 +59,15 @@ import { Scenery } from './components/visuals/scenery';
 import { TagInput } from './components/ui/tag-input';
 import { Trace } from './components/ui/trace';
 import { Typeset } from './components/ui/typeset';
+import { Atom } from './components/visuals/effects';
+import { Calendar } from './components/ui/calendar';
+import { CardFan } from './components/widgets/card-fan';
+import { CountUp } from './components/ui/count-up';
+import { Gauge } from './components/ui/gauge';
+import { Radar } from './components/ui/radar';
 export { createElement, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, DateTime, Contact, Consent, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset };
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, DateTime, Contact, Consent, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset, Atom, Calendar, CardFan, CountUp, Gauge, Radar };
 `;
 const { outputFiles } = await build({
   absWorkingDir: ROOT,
@@ -82,7 +88,7 @@ writeFileSync(out, outputFiles[0].text);
 const {
   createElement: h, renderToStaticMarkup, Button, Icon, Section, Grid, Card, Menu, ToggleButton, Modal, Drawer, Accordion,
   AccordionItem, Tooltip, Popover, Alert, MapView,
-  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, DateTime, Contact, Consent, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset,
+  Blur, Board, BoardGrid, Carousel, Clock, Code, CodeTabs, Compare, Counter, DataTable, Divider, Dock, DockItem, RadialMenu, RadialMenuItem, StepBar, StepBarStep, TabBar, Tab, ExpandButton, Field, FileDrop, Form, StepForm, Step, Goo, HexFlip, HexGrid, StatCard, Timeline, TimelineItem, LinkPreview, Loading, Marquee, DateTime, Contact, Consent, MiniThemeEditor, ThemeEditor, ThemeProvider, Orbit, OrbitItem, Countdown, Parallax, Pagination, Price, Rating, Stars, Scenery, TagInput, Trace, Typeset, Atom, Calendar, CardFan, CountUp, Gauge, Radar,
 } = await import(pathToFileURL(out).href);
 
 // A case's HTML (its content fields) goes in as a token, then in the token's place as it is.
@@ -143,7 +149,14 @@ const RENDER = {
   board: (f) => h(Board, { grid: new BoardGrid(f.rows, f.cols, () => ({})), gap: f.gap },
     (cell, i) => h('button', { key: i, type: 'button', className: 'btn-plain square bg border', 'aria-label': `Cell ${i + 1}` })),
   carousel: (f) => h(Carousel, { slideWidth: f.slideWidth, label: f.label }, f.slides.map((t, i) => h('div', { key: i, className: 'bg border round pad' }, t))),
-  clock: (f) => h(Clock, { format: f.format }),
+  clock: (f) => h(Clock, { face: f.face, format: f.format }),
+  countUp: (f) => h(CountUp, { to: f.to, decimals: f.decimals, prefix: f.prefix, suffix: f.suffix }),
+  gauge: (f) => h(Gauge, { value: f.value, maximum: f.maximum, face: f.face, unit: f.unit, label: f.label }),
+  radar: (f) => h(Radar, { axes: f.axes, label: f.label }),
+  atom: (f) => h(Atom, { speed: f.speed }),
+  // Its cards: the theme's Card with a title in it.
+  cardFan: (f) => h(CardFan, { spread: f.spread, label: f.label }, f.cards.map((title) => h(Card, { key: title, center: true }, h('strong', null, title)))),
+  calendar: (f) => h(Calendar, { mode: f.mode, weekStart: f.weekStart }),
   code: (f) => h(Code, { language: f.language, label: f.label }, f.code),
   codeTabs: (f) => h(CodeTabs, { value: f.value, onChange: () => {}, languages: f.languages }),
   compare: (f) => h(Compare, { before: h('img', { src: f.before, alt: f.beforeAlt }), after: h('img', { src: f.after, alt: f.afterAlt }),

@@ -6,6 +6,21 @@ README (Versions → What a version promises).
 ## Unreleased
 
 ### Added
+- The sites' widgets in the theme (#17, T-018), each sized by its parent (PRODUCT-LINE.md 4.9), with its settings and
+  cases:
+  - Clock's `face` (settings version 2): `digital` (as before), `analog` (a face with hour marks and three hands,
+    turned by `--clock-time`) and `flip` (hh:mm:ss in GooDigits; 24-hour when the format has an H). `clock.css`.
+  - Gauge: one value on a dial, `face` `ring` (fills round the number) or `speedometer` (a half dial and a needle).
+    Markup and CSS only: `--gauge-value` on the root, animated from 0 by a registered `--gauge-fill`. `gauge.css`.
+  - Radar: values on three or more axes as an SVG, the values' shape grown from the middle. `axes` are admin rows,
+    as DataTable's. `radar.css`.
+  - CountUp: a number that counts up from 0 the first time it scrolls into view; the markup holds the final number.
+    Its plain-JS twin is `core/count-up.js`, wired by the markup engine (`data-component="count-up"`).
+  - Atom: a nucleus and three electrons on tilted orbits, built like SolarSystem (`useSpins`).
+  - CardFan: its Cards stacked, fanned out on hover or focus. Markup and CSS only (`--i`, `--cards`). `card-fan.css`.
+  - Calendar: a month to pick a day or a range from, year and decade views, events as dots (admin rows), limits,
+    keyboard moves and a details line. Its states in the markup (`aria-selected`, `aria-current`, `.is-end`),
+    its look `calendar.css`.
 - Text formats (#26, T-028): `markup/formats.json` lists Raised (`sup`), Muted (`span.text-muted`) and Badge
   (`span.chip.bg-primary-tint`), styles for part of a line that an editor offers on selected text; conformance fails
   when a format names a class the theme doesn't have.

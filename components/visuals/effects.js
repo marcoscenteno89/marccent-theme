@@ -326,6 +326,46 @@ const SolarSystem = ({ className, style }) => {
   );
 }
 
+/* ---------- atom ---------- */
+
+/**
+ * Atom: a nucleus and three electrons, each on its own tilted orbit. Built like SolarSystem (layers and inline styles,
+ * no CSS of its own): each orbit is a ring squashed and tilted into an ellipse; its electron rides an arm that
+ * useSpins turns, turning back and un-squashing itself so it stays round. Square, as wide as its parent; waits while the
+ * pointer is over it, and stays still for visitors who ask for reduced motion.
+ * @param {number} [speed=3] - Seconds per lap of the inner orbit; the others take a third and two thirds longer.
+ * @param {string} [label='An atom'] - What screen readers hear.
+ */
+const Atom = ({ speed = 3, label = 'An atom', className }) => {
+  const box = useRef(null);
+  useSpins(box);
+  const squash = .38;
+  return (
+    <div ref={box} data-component="atom" className={cx('cq', className)} role="img" aria-label={label}>
+      <div className="stack square" style={{ placeItems: 'center' }}>
+        {[ 3, 4, 5 ].map((n, i) => {
+          const from = i * 120, lap = Number((speed * n / 3).toFixed(2));
+          return (
+            <div key={i} className="stack" style={{ width: '92cqi', aspectRatio: 1, rotate: `${i * 60 - 30}deg`, scale: `1 ${squash}` }}>
+              <div className="shape-ring" style={{ gridArea: '1 / 1', width: '100%', '--ring-hole': 'calc(100% - 3px)', background: 'var(--primary)' }} />
+              <div className="stack" data-lap={lap} data-from={from} style={{ gridArea: '1 / 1', width: '100%', aspectRatio: 1, rotate: `${from}deg` }}>
+                <div className="circle bg-secondary" data-lap={lap} data-from={-from} data-direction={-1}
+                  style={{ width: '6cqi', aspectRatio: 1, placeSelf: 'center end', translate: '50% 0', rotate: `${-from}deg`,
+                    scale: `1 ${1 / squash}`, boxShadow: '0 0 2cqi var(--secondary)' }} />
+              </div>
+            </div>
+          );
+        })}
+        <div className="stack" style={{ width: '16cqi', aspectRatio: 1, placeItems: 'center' }}>
+          {[ [ -2, -2, 'bg-danger' ], [ 2, -1.5, 'bg-primary' ], [ -1.5, 2, 'bg-primary' ], [ 2, 2, 'bg-danger' ], [ 0, 0, 'bg-gradient' ] ].map(([ x, y, c ], i) => (
+            <div key={i} className={cx('circle', c)} style={{ width: '8cqi', aspectRatio: 1, translate: `${x}cqi ${y}cqi`, boxShadow: 'inset -1cqi -1cqi 2cqi rgb(0 0 0 / .3)' }} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- countdown ---------- */
 
 // How long the bars sit collapsed in the middle between digits, then how long each digit holds (ms).
@@ -468,6 +508,6 @@ const Parallax = ({ speed = 0.2, as: Tag = 'div', className, children }) => {
 }
 
 export {
-  Orbit, OrbitItem, OrbitPlayer, OrbitClock, SolarSystem, Spins, useSpins, GooDigit, Countdown, CountdownTimer, Parallax, useParallax,
+  Orbit, OrbitItem, OrbitPlayer, OrbitClock, SolarSystem, Atom, Spins, useSpins, GooDigit, Countdown, CountdownTimer, Parallax, useParallax,
   ParallaxMotion, reducedMotion
 };

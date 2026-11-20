@@ -602,6 +602,20 @@
       "fields": {
         "format": "h:mm:ss A"
       }
+    },
+    {
+      "case": "the analog face",
+      "fields": {
+        "face": "analog",
+        "format": "h:mm:ss A"
+      }
+    },
+    {
+      "case": "the flip face, 24-hour",
+      "fields": {
+        "face": "flip",
+        "format": "HH:mm:ss"
+      }
     }
   ],
   "code": [
@@ -1263,6 +1277,103 @@
         "accept": "Accept",
         "reject": "No thanks",
         "policy": "/privacy/"
+      }
+    }
+  ],
+  "countUp": [
+    {
+      "case": "a whole number with a suffix",
+      "fields": {
+        "to": 9400,
+        "suffix": "+"
+      }
+    },
+    {
+      "case": "money with two decimals",
+      "fields": {
+        "to": 12480.52,
+        "decimals": 2,
+        "prefix": "$"
+      }
+    }
+  ],
+  "gauge": [
+    {
+      "case": "a ring",
+      "fields": {
+        "value": 73,
+        "unit": "%",
+        "label": "Activated"
+      }
+    },
+    {
+      "case": "a speedometer out of 850",
+      "fields": {
+        "face": "speedometer",
+        "value": 742,
+        "maximum": 850,
+        "label": "Very good"
+      }
+    }
+  ],
+  "radar": [
+    {
+      "case": "five axes",
+      "fields": {
+        "label": "Account health",
+        "axes": [
+          {
+            "label": "Usage",
+            "value": 86
+          },
+          {
+            "label": "Seats",
+            "value": 70
+          },
+          {
+            "label": "Support",
+            "value": 62
+          },
+          {
+            "label": "Billing",
+            "value": 94
+          },
+          {
+            "label": "NPS",
+            "value": 77
+          }
+        ]
+      }
+    }
+  ],
+  "atom": [
+    {
+      "case": "the default speed",
+      "fields": {
+        "speed": 3
+      }
+    }
+  ],
+  "cardFan": [
+    {
+      "case": "three cards",
+      "fields": {
+        "spread": 14,
+        "label": "Accounts",
+        "cards": [
+          "Checking",
+          "Savings",
+          "Credit"
+        ]
+      }
+    }
+  ],
+  "calendar": [
+    {
+      "case": "before it runs in the browser",
+      "fields": {
+        "mode": "range",
+        "weekStart": 1
       }
     }
   ]
