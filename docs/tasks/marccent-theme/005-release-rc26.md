@@ -26,7 +26,7 @@ Do not change anything else. No code, no docs, no rule file.
 4. Edit `CHANGELOG.md` as in Files. Read the existing `## 1.0.0-rc.25` section first and match its layout.
 5. Run `npm run build`, then `npm run build` again, then `git diff --exit-code -- dist` (it must print nothing after the second build).
 6. Run the checks below.
-7. Commit (no model names in the message), push `release/rc26-version`, and open a PR into `master`. Body starts with the two attribution lines, then `Release v1.0.0-rc.26. Hub cuts the tag after merge.`, then the check output.
+7. Commit (the `Co-Authored-By: Claude …` trailer is allowed and stays; no other model name in the message), push `release/rc26-version`, and open a PR into `master`. Body starts with the two attribution lines, then `Release v1.0.0-rc.26. Hub cuts the tag after merge.`, then the check output.
 
 ## Checks
 

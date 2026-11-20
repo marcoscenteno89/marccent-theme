@@ -50,12 +50,11 @@ Do not change `docs/PRODUCT-LINE.md`, even though `d676305` touches it. That fil
 1. `git fetch origin` and `git checkout -b claude/settings-panel-t022 origin/master`.
 2. `git cherry-pick 948b6a4`. Then `git cherry-pick d676305`, leaving out the `docs/PRODUCT-LINE.md` hunk: `git checkout origin/master -- docs/PRODUCT-LINE.md` after the pick, then amend.
 3. If a conflict appears in `lib/palette.js` or `server/palette.php`, stop and report the file names. Do not guess.
-4. Remove any `Co-Authored-By:` line naming a model from the commit messages (the repo rules forbid model names).
-5. Add the four `font*` entries and the `choicesFrom: "fonts"` source (see Role-font entries).
-6. Do the apply step (see Apply step).
-7. Read issue #21. Check the panel against Option A: every setting in `markup/site-settings.json` and `markup/settings.json` shows in the panel with the right control type. Adapters get a slot for their own controls and nothing else. Write any gap in the PR body. Do not fill the gap in this task.
-8. Run the checks below.
-9. Push `claude/settings-panel-t022`. Open a PR into `master`. Body starts with the two attribution lines, then the gap list, then `Part of #21`. Say `Fixes #21` only if the gap list is empty.
+4. Add the four `font*` entries and the `choicesFrom: "fonts"` source (see Role-font entries).
+5. Do the apply step (see Apply step).
+6. Read issue #21. Check the panel against Option A: every setting in `markup/site-settings.json` and `markup/settings.json` shows in the panel with the right control type. Adapters get a slot for their own controls and nothing else. Write any gap in the PR body. Do not fill the gap in this task.
+7. Run the checks below.
+8. Push `claude/settings-panel-t022`. Open a PR into `master`. Body starts with the two attribution lines, then the gap list, then `Part of #21`. Say `Fixes #21` only if the gap list is empty.
 
 ## Checks
 
