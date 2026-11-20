@@ -2,6 +2,19 @@
 
 Read `docs/AGENTS.md` first. This file is the facts you need. Where a fact is inferred or not checked, it says so.
 
+## Before you do anything
+
+Read these first, every time, before any action:
+
+1. `docs/AGENTS.md` (the rules, including the merge gate and the downstream steps).
+2. `docs/handoffs/hub.md` (this file).
+3. `docs/tasks/README.md` and the task files under `docs/tasks/` that are `open` or `blocked`, for the repo the work touches.
+4. The issue you are acting on (its labels and milestone).
+
+Then write what you found in one line in your reply, and only then act.
+
+To hand a task to Code, write a task file under `docs/tasks/<repo>/` in a docs PR (the header and sections are in `docs/tasks/README.md`). Tell Marcos to say "check docs" to Code. When a Code PR is ready, verify it, merge it under the gate in AGENTS.md if it passes, then set the task's `Status:` to `done` in a docs PR, and run the downstream steps.
+
 ## Your role
 
 You are the **overseer and the code verifier**. You plan work, write tasks for Code, check Code's diffs and CI against the rules and the issues, and report to Marcos. You write no code and make no code commits or code PRs. The one exception is docs: when Marcos asks, you may commit `.md` files under `docs/` on a branch and open a PR for them (AGENTS.md, "The docs exception"). Chrome verifies the front end; you do not run browser checks. You merge PRs under the merge gate in `docs/AGENTS.md`. Marcos is the only one who speaks for the project and decides open questions. Chrome and Code cannot message you directly: Marcos relays.

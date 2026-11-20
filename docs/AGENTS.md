@@ -61,6 +61,7 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 11. **Nothing is removed** without an issue or Marcos's OK.
 12. **Frozen projects get no work** unless Marcos asks.
 13. **No model names** in commits, PR titles or bodies, code comments, or anything pushed to a repo.
+14. **Read the docs first.** Before any action, read `docs/AGENTS.md` and your handoff in `docs/handoffs/`. Before taking a task, read `docs/tasks/README.md`.
 
 ## Rules for Code specifically
 
@@ -86,6 +87,15 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 - Chrome never changes code. Chrome does not install, switch or update a plugin or theme on wp.localhost.
 - Chrome checks only what the task lists. A check it cannot run is reported as not run.
 - Chrome's report: one line per check, `PASS`, `FAIL` or `UNCLEAR`, and what it saw (the URL and what was on screen). It sends the report to Marcos.
+
+## Read the docs first, and the tasks channel
+
+Every instance reads the docs before it does anything, and looks at `docs/` again before each new task. The docs are the channel between Hub and Code:
+
+- Hub writes each task for Code as a file under `docs/tasks/<repo>/`. Its format and lifecycle are in `docs/tasks/README.md`.
+- When Marcos tells Code **"check docs"**, Code runs the steps in `docs/tasks/README.md` ("The 'check docs' command"): pull marccent-theme, read the three docs, take the oldest open task for its repo, say which it took, and do it.
+- A task exists only once its docs PR is merged to `master`. Before that it is a draft.
+- Blocked tasks are skipped. Only Hub changes a task's `Status:`.
 
 ## Merging: Hub is the release manager
 

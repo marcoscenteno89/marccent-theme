@@ -6,6 +6,20 @@ Read `docs/AGENTS.md` first. This file is the facts you need. Where a fact is in
 
 Hub and project threads may change `.md` files under `docs/` in marccent-theme, through their own docs PRs (AGENTS.md, "The docs exception"). They never change code. You are the only one who changes code, so when a docs PR and a code PR touch the same file, expect a merge conflict and tell Marcos.
 
+## Tasks, and the "check docs" command
+
+Your work arrives as task files under `docs/tasks/<repo>/`. The format, the lifecycle and the command are in `docs/tasks/README.md`.
+
+When Marcos says **"check docs"**, do exactly these steps, in order (the full text is in `docs/tasks/README.md`):
+
+1. `cd ~/app/marccent-theme && git pull`. Run it even if the repo you are in is marccent-theme. If `~/app/marccent-theme` does not exist, stop and tell Marcos.
+2. Read `docs/AGENTS.md`, `docs/handoffs/code.md` and `docs/tasks/README.md`.
+3. List the task files in `docs/tasks/<this repo>/`, and keep the ones whose header says `Status: open`.
+4. Take the open task with the lowest number, and say its path in your reply.
+5. Do it. In your PR body, give the task path, a `Give to:` line, each check with its output, and the dependents Hub must check.
+
+If there is no open task, say so and stop. Do not take a `blocked` task.
+
 ## Your role
 
 You change code and docs in **one repo per VS Code session**. You make a branch, make one change, check it, commit, push the branch and open a PR. You never merge. Hub merges under the merge gate in `docs/AGENTS.md`. Hub plans your tasks and verifies your PRs. Chrome checks the front end.
