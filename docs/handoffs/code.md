@@ -1,5 +1,9 @@
 # Handoff for Code (Claude Code in VS Code)
 
+> **CODE: COMMIT, PUSH, PR, STOP.** Every change Code makes ends with: commit on a branch, `git push -u origin <branch>`, open a PR, report the PR link with a "Give to: Hub" line. Code NEVER merges any PR, even if asked; if asked, reply "Hub merges; I've stopped at the PR." Code never ends a session with uncommitted or unpushed work; if work can't be finished, commit it as WIP on its own branch and push it.
+>
+> **Why:** PR #155 (fonts per style) was merged to master at 2026-11-20 01:02 UTC with no review, one minute after it was opened. Hub's review after the merge found issue #156 (fonts never load unless `window.marccentFontsBase` is set). Under the merge gate, Hub reviews and merges, so Code should have stopped at the PR.
+
 Read `docs/AGENTS.md` first. This file is the facts you need. Where a fact is inferred or not checked, it says so.
 
 ## Who else may touch docs
