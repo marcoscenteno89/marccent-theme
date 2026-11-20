@@ -1,6 +1,7 @@
 import { DEFAULT_DESIGN } from '../lib/design';
 import defaults from '../lib/defaults';
 import { applyScopes, paletteVars } from '../lib/theme-scope';
+import { fontVars, fontsFor, loadFonts } from '../lib/fonts';
 
 /**
  * applySiteTheme: puts the saved theme on <html>: the COLORS in styles/defaults.css (the only ones meant to be
@@ -24,6 +25,10 @@ const applySiteTheme = (theme) => {
   html.dataset.theme = theme.isDark ? 'dark' : 'light';
   html.classList.toggle('glass', !!theme.glass);
   html.dataset.design = theme.design ?? DEFAULT_DESIGN;
+  // The fonts this style and the site's roles use, linked once each (lib/fonts.js); the roles' variables over the style's.
+  const roles = theme.fonts ?? defaults.fonts ?? {};
+  for (const [ prop, v ] of Object.entries(fontVars(roles))) html.style.setProperty(prop, v);
+  loadFonts(fontsFor(html.dataset.design, roles));
   if (theme.hover) {
     html.dataset.hover = theme.hover;
   } else {
