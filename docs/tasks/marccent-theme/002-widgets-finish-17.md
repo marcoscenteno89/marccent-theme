@@ -1,5 +1,5 @@
 # Task 002: finish the widgets (#17, T-018)
-Status: open
+Status: done (PR #163, merge dd6aa19; Fixes #17, done not released)
 Repo: marccent-theme
 Issue: marccent-theme#17
 Branch base: master
