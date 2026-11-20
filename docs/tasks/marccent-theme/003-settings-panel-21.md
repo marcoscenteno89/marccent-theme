@@ -13,9 +13,9 @@ The work is on the local branch `claude/1.0-integration`: `948b6a4` (settingsFie
 
 ## Why it is blocked
 
-`d676305` adds site-wide settings, and the role fonts (body, heading, display, mono) that PR #155 added on master also belong there. Marcos has not decided #155 yet. Do not start until the Notes say the decision is made.
+`d676305` adds site-wide settings, and the role fonts (body, heading, display, mono) that PR #155 added on master also belong there. Marcos chose on 2026-11-20 to keep #155 and fix it (issue #156, task 004). The open question left is whether role fonts (`theme.fonts`) are a site setting in `d676305`'s settings, or stay out until #21 decides them.
 
-- Decision needed: revert #155, or keep it and fix it (issue #156). Hub has asked Marcos.
+- Decision needed from Marcos: where the role-font settings live. Hub asks him once this task is opened.
 - Once that is decided, Hub changes this Status to `open` in a docs PR.
 
 ## Files (for when the task is open)
@@ -47,5 +47,5 @@ Do not change `docs/PRODUCT-LINE.md`, even though `d676305` touches it. That fil
 
 ## Notes
 
-- Blocked until: Marcos decides #155 (revert or keep and fix #156), and Hub moves this task to `open` in a docs PR.
+- Blocked until: Marcos decides where the role-font settings live (see Why it is blocked), and Hub moves this task to `open` in a docs PR. Task 004 (#156) lands first, since it changes how fonts load.
 - Freeze applies (PRODUCT-LINE.md section 3). Anything beyond #21 is an issue, not part of this change.
