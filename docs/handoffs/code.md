@@ -121,6 +121,8 @@ git diff --exit-code -- dist   # must print nothing: dist/ must match the build
 
 `npm test` is what CI runs. CI also fails if `dist/` is out of date, so commit the built `dist/` when your change touches the source that builds it.
 
+**Browser tests: run them with `--ui` so Marcos can watch (rule, Marcos 2026-11-20).** When you run Playwright tests locally, open the UI first with `npm run test:ui` and leave it open, so Marcos can watch each step. Then run the normal headless `npm test` (and `npm run e2e` once it exists) for the result you report. The UI does not exit on its own and gives no pass or fail code, so it is never the result. CI stays headless. Say in your report that you opened `test:ui`, and paste the headless summary line.
+
 **Other repos:** run the repo's own `npm test` or PHP checks, named in its `README.md` and `package.json`. If a check fails, say which one and paste what it printed.
 
 Report every check by its command and what it printed. Do not say a check passed unless you ran it.

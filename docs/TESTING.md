@@ -4,6 +4,22 @@ Status: plan. Parts marked **(to build)** do not exist yet. Each is a task in `d
 
 Read this before you write a test, a task that adds a test, or a Chrome check.
 
+## 0. The gate for a public component (rule, Marcos 2026-11-20)
+
+A component is **public** when it is exported from marccent-theme (any entry in `package.json` `exports` that a site or adapter can import, and every component in `markup/cases.json`). A public component is available to the public (exported, released, or pinned by an adapter) only when it passes its own tests **in marccent-theme**, before it touches WordPress or any adapter.
+
+Two tiers:
+
+- **Tier 1, the theme (required for every public component).** Component-level tests in marccent-theme, run on the cases page: each case at 375, 768 and 1280, light and dark, with screenshots, no console errors, no horizontal scroll, and no serious or critical axe violations. Plus unit tests for any logic the component has (for example `lib/*.js`). Tier 1 is a CI gate, so `npm test` and the `e2e` job fail when a public component has no case or no test.
+- **Tier 2, the adapters (required before a component is used in WordPress).** A wp-env site (section 1) runs the standard admin and incognito checks (section 3) for the adapter's use of the component. Tier 2 never replaces tier 1. A component that fails tier 1 is not shipped to any adapter, even if its WordPress checks pass.
+
+Rules that follow from this:
+
+- A new public component ships with its cases and tests in the same pull request. A pull request that adds a public component with no tests fails CI.
+- A component with no tests is not public. It stays internal, or it is listed as not covered and kept out of the exports.
+- The coverage check is in marccent-theme's CI (task 006). Until it exists, Hub checks coverage by hand and says so in the review.
+- Chrome checks are judgment checks on top of tier 1 and tier 2. They do not count as the tier 1 gate.
+
 ## 1. The stack and where each part runs
 
 | Part | What it does | Where it runs | When it runs |
@@ -99,7 +115,34 @@ Core first, then downstream (AGENTS.md, WORK FLOWS DOWNSTREAM):
 
 Each step is a task in `docs/tasks/`, ordered so that the core task comes first.
 
-## 8. Who owns what
+## 8. Playwright, and how it fits
+
+Playwright is a test tool that drives a real browser (Chromium here) from code. It opens a page, clicks, types, resizes the window, reads the page's HTML and console, and takes screenshots. A Playwright test is a script that does this and then checks the result. It is the browser part of the stack in section 1. It does not replace the PHP or markup checks (`npm test`, the cases page), and it does not replace Chrome for judgment checks.
+
+Where each part sits:
+
+- **Unit checks** (`npm test`, the markup and conformance scripts): read files and check the output. No browser.
+- **Playwright** (tier 1 for every public component, section 0): opens each case from the cases page in a browser, at three widths, in both colour schemes. It fails on console errors, horizontal scroll and axe violations, and it saves screenshots.
+- **wp-env + Playwright** (tier 2): the same tool, pointed at a throwaway WordPress site, for the admin and incognito checks.
+- **Chrome** (judgment): a person-like check that reads and reports. Never a gate.
+
+## 9. Watching the tests
+
+Marcos wants to watch the tests run in a real browser. Three commands do this (added as package scripts by task 006):
+
+- `npm run test:ui`: opens Playwright's test UI. Pick a test, run it, and watch each step, with the page, the console and the network beside it. Use this to learn the tests and to debug one.
+- `npm run test:headed`: runs the whole suite in a visible browser window, one test after another.
+- `npm run e2e`: the same suite, headless (no window). This is what CI runs.
+
+Where it runs: the tests run in WSL Debian on Marcos's PC. The browser window shows through WSLg (Windows' built-in display for Linux apps), so `test:headed` and `test:ui` open on the Windows desktop. If WSLg does not show the window, run `npm run test:ui -- --ui-host=0.0.0.0` and open the printed address in Windows Chrome.
+
+When CI fails, it keeps the evidence. The `e2e` job saves, for each failing test, a **trace** (a step-by-step recording with screenshots, console and network), a **video**, and the **screenshots**, as artifacts on the run. To open a trace on your PC, download the artifact and run `npx playwright show-trace <file>.zip`. That opens the same step-by-step viewer that `test:ui` uses.
+
+Tests are headless in CI and headed only on request. A headed run is never a gate.
+
+**Rule for Code (Marcos, 2026-11-20): run browser tests with `--ui`.** When Code runs Playwright locally, it opens `npm run test:ui` so Marcos can watch. It also runs the headless `npm test` (and `npm run e2e`) for the result it reports, because the UI does not exit or give a pass or fail code. CI stays headless. The same rule is in `docs/handoffs/code.md` (Checks) and the paste-ready copy in project files.
+
+## 10. Who owns what
 
 - **Code** writes and runs the tests in its repo, and reports the output in the PR.
 - **Hub** checks the tests exist for the standard checks, reads the output, and merges under the gate.
