@@ -68,6 +68,9 @@ README (Versions → What a version promises).
   for a site that styled it; marccent.com moves to Graph when it's brought up to 1.0.
 
 ### Fixed
+- A style's fonts load without a host setting `marccentFontsBase`: `dist/marccent.js` finds `fonts/` beside itself (its
+  own URL), and the global still overrides it (a relative path works too). `npm run build` checks that every font a design
+  style names, and every registry font, has its `dist/fonts/<id>.css` (#156).
 - Typeset sets text once: setting it again (WordPress sets a block, then the block around it) no longer joins one
   more word each time when the last one is already joined, as before a raised ™. `npm test` sets every markup case
   twice in PHP and Python.

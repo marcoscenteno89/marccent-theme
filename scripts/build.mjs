@@ -8,9 +8,9 @@
  *   dist/manifest.json       the version and the file names, for the host adapters (WordPress, Django)
  */
 import { build } from 'esbuild';
-import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
@@ -80,6 +80,19 @@ for (const [ id, font ] of Object.entries(FONTS)) {
   }
   writeFileSync(join(DIST, 'fonts', `${id}.css`), `/* ${font.name} (${font.package}): latin, woff2. marccent-theme ${version} */\n${faces.join('\n')}\n`);
 }
+
+/*
+ * The check (npm run build fails, so CI does): every font a design style names (DESIGN_FONTS, lib/fonts.gen.js)
+ * and every registry font has its dist/fonts/<id>.css with at least one @font-face. Without it a style would load
+ * no font, and nothing would say so.
+ */
+const { DESIGN_FONTS } = await import(pathToFileURL(join(ROOT, 'lib/fonts.gen.js')).href);
+const needed = new Set([ ...Object.keys(FONTS), ...Object.values(DESIGN_FONTS).flat() ]);
+const missing = [ ...needed ].filter((id) => {
+  const file = join(DIST, 'fonts', `${id}.css`);
+  return !FONTS[id] || !existsSync(file) || !readFileSync(file, 'utf8').includes('@font-face');
+});
+if (missing.length) throw new Error(`fonts with no dist/fonts/<id>.css (or not in markup/fonts.json): ${missing.join(', ')}`);
 
 writeFileSync(join(DIST, 'manifest.json'), `${JSON.stringify({
   version,
