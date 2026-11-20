@@ -145,6 +145,10 @@ Then, in this order:
 3. Which dependents Hub must check (see "When your change touches a shared repo" below).
 4. Anything you found that needs an issue, with its suggested `project:` and owner.
 
+## Releases
+
+When Marcos or Hub asks for a release, you prepare the release PR (version in `package.json`, the CHANGELOG entry, `npm run build`, commit `dist/`). You never tag. Hub merges and tags (`docs/RELEASES.md`). A hotfix PR targets the `release/<major>.x` branch Hub names, not `master`.
+
 ## What to do when you are stuck
 
 - A rule here, `WORKING.md`, `PRODUCT-LINE.md` or the task conflict: stop, and ask Marcos in this shape: the situation in one line, the options, your recommendation and why, and whether it is a rule or a one-off.
