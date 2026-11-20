@@ -140,6 +140,8 @@ When CI fails, it keeps the evidence. The `e2e` job saves, for each failing test
 
 Tests are headless in CI and headed only on request. A headed run is never a gate.
 
+**Rule for Code (Marcos, 2026-11-20): run browser tests with `--ui`.** When Code runs Playwright locally, it opens `npm run test:ui` so Marcos can watch. It also runs the headless `npm test` (and `npm run e2e`) for the result it reports, because the UI does not exit or give a pass or fail code. CI stays headless. The same rule is in `docs/handoffs/code.md` (Checks) and the paste-ready copy in project files.
+
 ## 10. Who owns what
 
 - **Code** writes and runs the tests in its repo, and reports the output in the PR.

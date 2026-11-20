@@ -46,6 +46,7 @@ Do not change any component, style or script. If the cases page does not render 
 
 ## Checks
 
+- Browser rule: open `npm run test:ui` for Marcos to watch, and say so in the PR body. The result you report comes from the headless `npm test` and `npm run e2e`.
 - `npm test` passes, including `scripts/public-coverage.mjs`. Paste the output of the coverage check: the count of public components, cases and tests, and the allowlisted gaps.
 - A new public component with no test file, on a throwaway branch (do not merge), makes `npm test` FAIL. Paste the failing line. Delete the branch.
 - `npm test` passes. Paste the last 5 lines.
