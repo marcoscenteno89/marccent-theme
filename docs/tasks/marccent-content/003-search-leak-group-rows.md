@@ -1,6 +1,6 @@
 # Task 003: a visitor's search over group rows reads private values
 
-Status: open
+Status: done
 Repo: marccent-content
 Issue: marcoscenteno89/marccent-content#7
 Branch base: claude/project-thread-1t553q (PR #5's branch, head `81d0bbe`)
@@ -35,5 +35,6 @@ A Loop's visitor search over a repeating group's rows does not match on a privat
 
 ## Notes
 
+- **Done** in commit `0e9bd65` on `claude/project-thread-1t553q` (PR #5): "A Loop's search over group rows doesn't read a private field's value". Code did it before this task was merged; this file is the record.
 - Related: marccent-content #6 (the `where` leak, fixed in `81d0bbe`) and #7 (this). Do not close #6 from this task.
 - Chrome checks the browser side after the branch is installed. Hub gives those steps; see issue #7.
