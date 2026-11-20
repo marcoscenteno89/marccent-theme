@@ -56,6 +56,8 @@ README (Versions → What a version promises).
 - Typeset sets text once: setting it again (WordPress sets a block, then the block around it) no longer joins one
   more word each time when the last one is already joined, as before a raised ™. `npm test` sets every markup case
   twice in PHP and Python.
+- HexGrid's `gap` setting is the number it is (each hexagon's scale, default 0.94), not a list of gap classes, so an
+  admin can offer it (Marccent Blocks' Hex grid).
 - README's Price markup is the component's (from `markup/reference.json`), and `.raised`, removed in rc.15, is no
   longer named in README or PRODUCT-LINE.md (#145).
 - `styles/components.css` (and so `dist/marccent.css`) now has compare, rating and table, which it left out (#139);
