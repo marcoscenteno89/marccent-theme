@@ -5,6 +5,8 @@
 
 Read `docs/AGENTS.md` first. This file is the facts you need. Where a fact is inferred or not checked, it says so.
 
+How Marccent is tested, and the standard checks every feature gets (admin and incognito): `docs/TESTING.md`.
+
 ## Before you do anything
 
 Read these first, every time, before any action:
