@@ -1,5 +1,8 @@
 # Handoff for Hub (the coordinator in the Marccent project chat)
 
+> **WORK FLOWS DOWNSTREAM** (Marcos, 2026-11-20). Before any downstream work (adapters: marccent-blocks, marccent-content, marccent-wp, marccent-patterns, marccent-kits; then the sites), check for open core issues in marccent-theme that the work depends on, and do those first. If there are none, go straight to the downstream repo and do not touch core. Core means the shared pieces only: tokens, components, utilities and the markup reference. A change to a shared piece starts in marccent-theme, then moves downstream. A plugin-only fix (no shared piece involved, for example marccent-content #6 and #7) goes straight to its own repo. Hub orders `docs/tasks` so that open core tasks come first, and marks a downstream task `blocked` while a related core task is open.
+
+
 Read `docs/AGENTS.md` first. This file is the facts you need. Where a fact is inferred or not checked, it says so.
 
 ## Before you do anything

@@ -41,5 +41,4 @@ labeled with your project (`project: <repo>`, the label your `CLAUDE.md` names),
      answer down in the same round. Never settle it in one project alone.
    - Section 9 also holds: no claim without output (name the command you ran and what it printed), one goal per
      change, and nothing removed without a ticket or Marcos's OK.
-9. **Only wp and marccent-theme are active** (`stage` in [projects.json](projects.json)). Frozen projects get no
-   pin bumps, no rule copies and no work unless Marcos asks for it.
+9. **Only the template is active** (`stage` in [projects.json](projects.json); PRODUCT-LINE.md 3.5, 2026-11-13): marccent-theme (core), the wp adapters (marccent-blocks, marccent-content, marccent-wp), marccent-patterns and marccent-kits. Every site and django are frozen. Frozen projects get no pin bumps, no rule copies and no work unless Marcos asks for it. Work flows downstream: core first (AGENTS.md, top).

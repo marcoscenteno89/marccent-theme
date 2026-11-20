@@ -1,6 +1,6 @@
 # Task 001: pin marccent-theme by tag, not by commit
 
-Status: open
+Status: blocked
 Repo: marccent-kits
 Issue: none
 Branch base: the repo's default branch
@@ -35,4 +35,5 @@ Move the marccent-theme pin in `package.json` from a commit to a release tag, so
 
 ## Notes
 
+- Blocked until `v1.0.0-rc.26` is tagged (WORK FLOWS DOWNSTREAM, AGENTS.md: core first). Hub changes this Status to `open` in a docs PR after the tag, and writes the tag here.
 - If `npm test` fails after the pin moves, stop and report the output. Do not change the pin back without saying why.
