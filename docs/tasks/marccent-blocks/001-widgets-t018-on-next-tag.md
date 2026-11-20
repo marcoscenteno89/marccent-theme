@@ -13,7 +13,7 @@ The widgets: Count up, Gauge (ring and speedometer), Radar, Card fan, Atom, Cale
 
 ## Why it is blocked
 
-Hub has not tagged a release yet. Nothing here may pin a commit. Do not start until the Notes say a tag is named.
+The next theme tag is `v1.0.0-rc.26`. Hub will cut it only after task 004 (#156, fonts base) merges to master, because master's fonts do not load without a host global and a tag now would push that bug into Blocks. Nothing here may pin a commit or a tag before rc.26 exists. Do not start until the Notes say rc.26 is tagged.
 
 ## Files (when open)
 
@@ -22,7 +22,7 @@ Hub has not tagged a release yet. Nothing here may pin a commit. Do not start un
 
 ## Exact steps (when open)
 
-1. Read the tag Hub names in Notes. Confirm it exists: `git ls-remote --tags https://github.com/marcoscenteno89/marccent-theme | grep <tag>`.
+1. Read the tag in Notes (`v1.0.0-rc.26`). Confirm it exists: `git ls-remote --tags https://github.com/marcoscenteno89/marccent-theme | grep <tag>`.
 2. Check out `claude/t018-blocks`, then `git merge --no-edit origin/<default branch>` only if the branch is behind. Never rebase or force-push a branch someone else made.
 3. Pin the theme to that tag: `npm run theme:update` (or edit `package.json` by hand to `github:marcoscenteno89/marccent-theme#<tag>`, then `npm install`).
 4. For each of the nine widgets, check the block's settings match `markup/settings.json` in the theme at that tag (the names and defaults). Write any mismatch in the PR body. Do not fix anything beyond the widgets.
@@ -46,6 +46,6 @@ On wp.localhost, Chrome checks each of the nine widgets in the block editor and 
 
 ## Notes
 
-- Blocked until: Hub names the theme tag that ships PR #163 (Hub tags releases; see `docs/RELEASES.md`). Hub changes this Status to `open` in a docs PR and writes the tag name here.
+- Blocked until: `v1.0.0-rc.26` is tagged. rc.26 waits on task 004 (#156, fonts base), then Hub tags it (`docs/RELEASES.md`). Hub changes this Status to `open` in a docs PR and writes the tag here.
 - Not in this task: marccent-html and marccent/next (marccent.com). Both are frozen until after 1.0 (PRODUCT-LINE.md 3.5). They keep their `components/widgets` copies until they unfreeze.
 - Freeze applies (PRODUCT-LINE.md section 3). No new widget, setting or block.
