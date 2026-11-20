@@ -292,6 +292,9 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-20: the style fonts ship latin-only woff2 subsets (dist/fonts/<id>.css, #155, #156); Cyrillic, Vietnamese and other
+  subsets fall back to the system font. Marcos's call: he won't do non-Latin sites for a long time. Adding the other subsets
+  back is a change to dist/ and the build, not a setting, so it waits until a site needs one.
 - 2026-11-18: which text a WordPress page typesets on the server (#143): every block's, through
   `server/typeset.php`, with WordPress's own wptexturize off, so one set of rules covers the whole page and the two
   never rewrite the same text. Quotes stay straight until the theme's rules curl them (a theme change, for every
