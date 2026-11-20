@@ -297,7 +297,7 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
-- 2026-11-20: the work flows downstream (section 4.4, WORKING.md rule 4): core (marccent-theme) first, then the adapters
+- 2026-11-20: the work flows downstream (section 4.4; the rule itself is at the top of docs/AGENTS.md): core (marccent-theme) first, then the adapters
   (blocks, content, wp, patterns, kits), then the sites. Marcos's call: a later core change forces the downstream work to be
   redone, so downstream waits while the core work it depends on is open. Confirms 1.0 = the template (2026-11-13 below).
 - 2026-11-20: the style fonts ship latin-only woff2 subsets (dist/fonts/<id>.css, #155, #156); Cyrillic, Vietnamese and other

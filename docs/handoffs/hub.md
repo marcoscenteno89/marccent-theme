@@ -1,5 +1,8 @@
 # Handoff for Hub (the coordinator in the Marccent project chat)
 
+> **WORK FLOWS DOWNSTREAM** (Marcos, 2026-11-20). Core (marccent-theme) first, then the adapters (marccent-blocks, marccent-content, marccent-wp, marccent-patterns, marccent-kits), then the sites. Don't start downstream work while core work it depends on is open. Reason: a later core change forces the downstream work to be redone, which causes delays. Hub orders `docs/tasks` so core tasks come first, and marks a downstream task `blocked` while the related core tasks are open. Exception: a bug fix that lives only in a downstream repo and touches no shared piece (for example marccent-content #6 and #7) may go ahead.
+
+
 Read `docs/AGENTS.md` first. This file is the facts you need. Where a fact is inferred or not checked, it says so.
 
 ## Before you do anything

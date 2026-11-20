@@ -1,5 +1,8 @@
 # Handoff for Code (Claude Code in VS Code)
 
+> **WORK FLOWS DOWNSTREAM** (Marcos, 2026-11-20). Core (marccent-theme) first, then the adapters (marccent-blocks, marccent-content, marccent-wp, marccent-patterns, marccent-kits), then the sites. Don't start downstream work while core work it depends on is open. Reason: a later core change forces the downstream work to be redone, which causes delays. Hub orders `docs/tasks` so core tasks come first, and marks a downstream task `blocked` while the related core tasks are open. Exception: a bug fix that lives only in a downstream repo and touches no shared piece (for example marccent-content #6 and #7) may go ahead.
+
+
 > **CODE: COMMIT, PUSH, PR, STOP.** Every change Code makes ends with: commit on a branch, `git push -u origin <branch>`, open a PR, report the PR link with a "Give to: Hub" line. Code NEVER merges any PR, even if asked; if asked, reply "Hub merges; I've stopped at the PR." Code never ends a session with uncommitted or unpushed work; if work can't be finished, commit it as WIP on its own branch and push it.
 >
 > **Why:** PR #155 (fonts per style) was merged to master at 2026-11-20 01:02 UTC with no review, one minute after it was opened. Hub's review after the merge found issue #156 (fonts never load unless `window.marccentFontsBase` is set). #155 also added a new site-level setting, `theme.fonts` (body, heading, display and mono roles), read in `core/apply.js`, during the feature freeze (PRODUCT-LINE.md 3.1 and 3.3). Under the merge gate, Hub reviews and merges, so Code should have stopped at the PR.
