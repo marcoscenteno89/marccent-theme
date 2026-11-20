@@ -4,6 +4,22 @@ Status: plan. Parts marked **(to build)** do not exist yet. Each is a task in `d
 
 Read this before you write a test, a task that adds a test, or a Chrome check.
 
+## 0. The gate for a public component (rule, Marcos 2026-11-20)
+
+A component is **public** when it is exported from marccent-theme (any entry in `package.json` `exports` that a site or adapter can import, and every component in `markup/cases.json`). A public component is available to the public (exported, released, or pinned by an adapter) only when it passes its own tests **in marccent-theme**, before it touches WordPress or any adapter.
+
+Two tiers:
+
+- **Tier 1, the theme (required for every public component).** Component-level tests in marccent-theme, run on the cases page: each case at 375, 768 and 1280, light and dark, with screenshots, no console errors, no horizontal scroll, and no serious or critical axe violations. Plus unit tests for any logic the component has (for example `lib/*.js`). Tier 1 is a CI gate, so `npm test` and the `e2e` job fail when a public component has no case or no test.
+- **Tier 2, the adapters (required before a component is used in WordPress).** A wp-env site (section 1) runs the standard admin and incognito checks (section 3) for the adapter's use of the component. Tier 2 never replaces tier 1. A component that fails tier 1 is not shipped to any adapter, even if its WordPress checks pass.
+
+Rules that follow from this:
+
+- A new public component ships with its cases and tests in the same pull request. A pull request that adds a public component with no tests fails CI.
+- A component with no tests is not public. It stays internal, or it is listed as not covered and kept out of the exports.
+- The coverage check is in marccent-theme's CI (task 006). Until it exists, Hub checks coverage by hand and says so in the review.
+- Chrome checks are judgment checks on top of tier 1 and tier 2. They do not count as the tier 1 gate.
+
 ## 1. The stack and where each part runs
 
 | Part | What it does | Where it runs | When it runs |
