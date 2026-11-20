@@ -1,5 +1,5 @@
 # Task 001: HexGrid's gap is a number, not gap classes (#152)
-Status: open
+Status: done (PR #160, merge aa93db3)
 Repo: marccent-theme
 Issue: marccent-theme#152
 Branch base: master
