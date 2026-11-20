@@ -80,14 +80,14 @@ From the repo layout and Marcos's notes. **Not verified in this container. Confi
 5. **Never work around a missing theme feature** with CSS, JS or a copied component. Say a `ticket` issue is needed in marccent-theme.
 6. **Every change to a SHARED piece (tokens, components, utilities, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
 7. **Never remove** a feature, setting, file or list item without an issue or Marcos's OK.
-8. **No model names** in commits, PR titles or bodies, comments, or pushed files.
+8. **No model names** in commits, PR titles or bodies, comments, or pushed files. **Exception (Marcos, 2026-11-20):** the `Co-Authored-By: Claude …` trailer that Claude Code adds to a commit is allowed; leave it in. No other model name.
 
 ## Branches and PRs
 
 - One repo per VS Code session. Open the repo named in the task. Do not change a second repo in the same session.
 - Make a new branch for each change. Name it after the issue, for example `issue-62-private-field`. (Proposed naming; not written down elsewhere yet.)
 - Never commit to `main` or `master`. Never force-push. Never rewrite someone else's history.
-- Commit messages: say what changed and why, in the imperative. End with the attribution lines the session gives. Do not put a model name in them.
+- Commit messages: say what changed and why, in the imperative. End with the attribution lines the session gives. The `Co-Authored-By: Claude …` trailer stays (the one exception). No other model name in them.
 - PR body: say what changed, which issue it closes (`Fixes #N`), how it was checked (the commands you ran and what they printed), and what is still open.
 - marccent-theme has **no PR template** today (`.github/` holds only `workflows/ci.yml`). Use the body above.
 - After you open the PR, tell Marcos the link. Hub verifies it next.

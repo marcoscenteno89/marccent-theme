@@ -64,7 +64,7 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 10. **One goal per change.** A branch or PR does one thing.
 11. **Nothing is removed** without an issue or Marcos's OK.
 12. **Frozen projects get no work** unless Marcos asks.
-13. **No model names** in commits, PR titles or bodies, code comments, or anything pushed to a repo.
+13. **No model names** in commits, PR titles or bodies, code comments, or anything pushed to a repo. **One exception (Marcos, 2026-11-20):** the `Co-Authored-By: Claude …` trailer that Claude Code adds to a commit message is allowed. Do not remove it. It is the only model name a commit may carry. Everything else stays banned: the subject and body text, PR titles and bodies, code comments.
 14. **Read the docs first.** Before any action, read `docs/AGENTS.md` and your handoff in `docs/handoffs/`. Before taking a task, read `docs/tasks/README.md`.
 
 ## Rules for Code specifically

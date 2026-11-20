@@ -26,9 +26,8 @@ The next theme tag is `v1.0.0-rc.26`. Hub will cut it only after task 004 (#156,
 2. Check out `claude/t018-blocks`, then `git merge --no-edit origin/<default branch>` only if the branch is behind. Never rebase or force-push a branch someone else made.
 3. Pin the theme to that tag: `npm run theme:update` (or edit `package.json` by hand to `github:marcoscenteno89/marccent-theme#<tag>`, then `npm install`).
 4. For each of the nine widgets, check the block's settings match `markup/settings.json` in the theme at that tag (the names and defaults). Write any mismatch in the PR body. Do not fix anything beyond the widgets.
-5. Remove any `Co-Authored-By:` line naming a model from commit messages.
-6. Run the checks below.
-7. Push the branch. Open a PR into the default branch. Body starts with the two attribution lines, then `Part of marccent-theme#17`, then the settings check list, then the check output.
+5. Run the checks below.
+6. Push the branch. Open a PR into the default branch. Body starts with the two attribution lines, then `Part of marccent-theme#17`, then the settings check list, then the check output.
 
 ## Checks
 

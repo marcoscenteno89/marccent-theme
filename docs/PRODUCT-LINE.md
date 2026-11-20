@@ -297,6 +297,9 @@ everywhere becomes a rule above and its line goes.
   back is a change to dist/ and the build, not a setting, so it waits until a site needs one.
 - 2026-11-20: the role fonts (body, heading, display, mono) are site settings (markup/site-settings.json, fontBody and the rest),
   generated into the SettingsPanel like every other setting, not a separate `theme.fonts` path (#21, task 003). Marcos's call.
+- 2026-11-20: the `Co-Authored-By: Claude …` commit trailer that Claude Code adds is allowed, the one exception to the
+  no-model-names rule (AGENTS.md rule 13). Model names stay banned everywhere else: commit subject and body text, PR titles
+  and bodies, code comments. Marcos's call, so Code stops stripping the trailer by hand.
 - 2026-11-18: which text a WordPress page typesets on the server (#143): every block's, through
   `server/typeset.php`, with WordPress's own wptexturize off, so one set of rules covers the whole page and the two
   never rewrite the same text. Quotes stay straight until the theme's rules curl them (a theme change, for every
