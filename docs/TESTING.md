@@ -115,7 +115,32 @@ Core first, then downstream (AGENTS.md, WORK FLOWS DOWNSTREAM):
 
 Each step is a task in `docs/tasks/`, ordered so that the core task comes first.
 
-## 8. Who owns what
+## 8. Playwright, and how it fits
+
+Playwright is a test tool that drives a real browser (Chromium here) from code. It opens a page, clicks, types, resizes the window, reads the page's HTML and console, and takes screenshots. A Playwright test is a script that does this and then checks the result. It is the browser part of the stack in section 1. It does not replace the PHP or markup checks (`npm test`, the cases page), and it does not replace Chrome for judgment checks.
+
+Where each part sits:
+
+- **Unit checks** (`npm test`, the markup and conformance scripts): read files and check the output. No browser.
+- **Playwright** (tier 1 for every public component, section 0): opens each case from the cases page in a browser, at three widths, in both colour schemes. It fails on console errors, horizontal scroll and axe violations, and it saves screenshots.
+- **wp-env + Playwright** (tier 2): the same tool, pointed at a throwaway WordPress site, for the admin and incognito checks.
+- **Chrome** (judgment): a person-like check that reads and reports. Never a gate.
+
+## 9. Watching the tests
+
+Marcos wants to watch the tests run in a real browser. Three commands do this (added as package scripts by task 006):
+
+- `npm run test:ui`: opens Playwright's test UI. Pick a test, run it, and watch each step, with the page, the console and the network beside it. Use this to learn the tests and to debug one.
+- `npm run test:headed`: runs the whole suite in a visible browser window, one test after another.
+- `npm run e2e`: the same suite, headless (no window). This is what CI runs.
+
+Where it runs: the tests run in WSL Debian on Marcos's PC. The browser window shows through WSLg (Windows' built-in display for Linux apps), so `test:headed` and `test:ui` open on the Windows desktop. If WSLg does not show the window, run `npm run test:ui -- --ui-host=0.0.0.0` and open the printed address in Windows Chrome.
+
+When CI fails, it keeps the evidence. The `e2e` job saves, for each failing test, a **trace** (a step-by-step recording with screenshots, console and network), a **video**, and the **screenshots**, as artifacts on the run. To open a trace on your PC, download the artifact and run `npx playwright show-trace <file>.zip`. That opens the same step-by-step viewer that `test:ui` uses.
+
+Tests are headless in CI and headed only on request. A headed run is never a gate.
+
+## 10. Who owns what
 
 - **Code** writes and runs the tests in its repo, and reports the output in the PR.
 - **Hub** checks the tests exist for the standard checks, reads the output, and merges under the gate.
