@@ -1,5 +1,9 @@
 # AGENTS.md: who does what in the Marccent project
 
+> **CODE: COMMIT, PUSH, PR, STOP.** Every change Code makes ends with: commit on a branch, `git push -u origin <branch>`, open a PR, report the PR link with a "Give to: Hub" line. Code NEVER merges any PR, even if asked; if asked, reply "Hub merges; I've stopped at the PR." Code never ends a session with uncommitted or unpushed work; if work can't be finished, commit it as WIP on its own branch and push it.
+>
+> **Why:** PR #155 (fonts per style) was merged to master at 2026-11-20 01:02 UTC with no review, one minute after it was opened. Hub's review after the merge found issue #156 (fonts never load unless `window.marccentFontsBase` is set). #155 also added a new site-level setting, `theme.fonts` (body, heading, display and mono roles), read in `core/apply.js`, during the feature freeze (PRODUCT-LINE.md 3.1 and 3.3). Under the merge gate, Hub reviews and merges, so Code should have stopped at the PR.
+
 **Read this first.** It is the rule set for every Claude instance that works on Marccent. It applies to Hub, Code and Chrome, and to any future instance. The rules here override habit. If a rule here conflicts with another doc, stop and ask Marcos (`docs/PRODUCT-LINE.md` section 9).
 
 Scope: this is Marcos's Marccent work only. It is not a personal lookup. If a request is outside Marccent, say so and ask Marcos.
