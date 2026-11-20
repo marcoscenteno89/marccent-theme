@@ -66,6 +66,7 @@ Do not change any component, style or script. If the cases page does not render 
 ## Notes
 
 - Chrome is never a CI gate. Do not add a Chrome step to this job.
+- Where the test cases come from is in `docs/TESTING.md`, section 3a: the generated case test, axe-core, the W3C APG pattern for each interactive component type (with a test per pattern, named in its title), and PRODUCT-LINE's rules. The APG keyboard tests are part of this task for the component types in `markup/cases.json` that have a pattern. List in the PR body each type that has a pattern and each that does not.
 - The allowlist (`markup/coverage-gaps.json`) lists known gaps, not a way to skip a component. The gate in `docs/TESTING.md`, section 0, applies to every public component.
 - This harness checks the cases page only. The WordPress admin and incognito checks are in `docs/TESTING.md`, section 3, and come with the wp-env tasks in marccent-content and marccent-blocks, which wait for this one.
 - The `e2e` job must not be marked as optional or allowed to fail.

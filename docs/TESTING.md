@@ -77,6 +77,17 @@ Run in a fresh browser context with no cookies.
 - [ ] Basic accessibility with axe: labels, colour contrast, focus order, and keyboard use of every control.
 - [ ] Performance basics: no new render-blocking script or stylesheet without a reason in the PR body.
 
+## 3a. Where the test cases come from
+
+Every public component gets its cases from three sources. Each test names its source in its title, so a reviewer can see why it exists.
+
+1. **The cases page (generated).** Each case in `markup/cases.json` gets one generic test at each width and in both colour schemes: loads, no console errors, no horizontal scroll, screenshot. Nothing to write by hand for this part.
+2. **Accessibility rules (axe-core).** Every case runs `axe-core` through `@axe-core/playwright`, and fails on any `serious` or `critical` violation. The rules are listed at https://github.com/dequelabs/axe-core (the rule reference is in its `doc/rule-descriptions.md`).
+3. **Keyboard and ARIA behaviour per pattern (W3C APG).** Each interactive component type has the behaviour the W3C *ARIA Authoring Practices Guide* specifies: https://www.w3.org/WAI/ARIA/apg/patterns/ (for example tabs, dialog, accordion, menu, combobox). A test for an interactive component checks the keys and focus behaviour that its pattern lists, for example: Tab moves focus in and out, arrow keys move within a tabs or menu widget, Escape closes a dialog and returns focus to the trigger. Name the pattern in the test title, for example `apg tabs: arrow keys move between tabs`.
+4. **Our own rules (PRODUCT-LINE.md).** The width rule (no width or outer margin set by a component), light and dark mode, and no console errors. These are checked by the same tests in source 1, and by `npm run conformance` where the rule is static.
+
+Where a component has no APG pattern (a plain layout piece), source 3 does not apply, and the PR body says so. Where a rule from source 2 or 3 does not apply to a case, the test names the exception and why. No exception is added to fix a failing test.
+
 ## 4. How Code writes a test for a task
 
 1. Read this file and the task's **Checks** section. Every check in the task maps to a test or to a named Chrome step.
