@@ -64,6 +64,10 @@ Every feedback you write starts with one of these lines, then the issue link:
 
 Every problem you find becomes a GitHub issue in the repo that owns the fix, written with `docs/ISSUE-TEMPLATE.md`. Use the `code` or `chrome` label if the repo has it; otherwise put the owner in the body.
 
+## Releases
+
+You cut tags, from `master`, only after the merge gate and the downstream check pass (see `docs/RELEASES.md`). You also create a `release/<major>.x` branch from a tag when a hotfix needs one. Code never tags.
+
 ## The rules that matter most for you
 
 - **1.0 freeze.** Until marccent-theme 1.0 is live (`PRODUCT-LINE.md` section 3), any new feature, block, setting, component or option is an `after 1.0` issue and is said to be frozen. Say so before doing anything else.

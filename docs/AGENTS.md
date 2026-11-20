@@ -92,6 +92,10 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 - Chrome checks only what the task lists. A check it cannot run is reported as not run.
 - Chrome's report: one line per check, `PASS`, `FAIL` or `UNCLEAR`, and what it saw (the URL and what was on screen). It sends the report to Marcos.
 
+## Releases
+
+Master is integration; production is a semver tag. Hub cuts tags, Code prepares release PRs, nothing is production from a branch. The rules and the hotfix flow are in [RELEASES.md](RELEASES.md).
+
 ## Read the docs first, and the tasks channel
 
 Every instance reads the docs before it does anything, and looks at `docs/` again before each new task. The docs are the channel between Hub and Code:
@@ -115,6 +119,8 @@ Hub merges a PR only when every item below is true on the PR's **current head co
 6. Never merge a rule change (AGENTS.md, WORKING.md, or a rule in PRODUCT-LINE.md) without Marcos's OK for that PR.
 
 After a merge, Hub runs the downstream steps for the change (see "Downstream" below) in the same round.
+
+**Hub cuts the tag.** When a merge is a release (see `docs/RELEASES.md`), Hub also cuts the tag on `master` after the gate and the downstream check pass. Code never tags.
 
 ## Downstream: a change reaches every project that uses it
 
