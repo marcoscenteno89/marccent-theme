@@ -18,6 +18,7 @@ Scope: this is Marcos's Marccent work only. It is not a personal lookup. If a re
 - Each repo's `CLAUDE.md` imports `docs/WORKING.md`, which is the only copy of how Claude works. Changes to how Claude works happen in `docs/WORKING.md`, in marccent-theme, in one commit.
 - The rules of the product line are in `docs/PRODUCT-LINE.md`. `docs/projects.json` lists every project. `docs/TICKETS.md` maps old ticket IDs to GitHub issues. `docs/SITES.md` lists every site and its stage.
 - Handoff docs for each instance are in `docs/handoffs/`: `hub.md`, `code.md`, `chrome.md`.
+- How Marccent is tested (the standard checks for admin and incognito, the widths, the Playwright, wp-env and Chrome steps): `docs/TESTING.md`.
 
 ## The three instances
 

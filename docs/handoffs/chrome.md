@@ -2,6 +2,8 @@
 
 This is Marcos's Marccent work: a WordPress site and its tools, built and tested for his Marccent business. It is not a personal lookup. If a request falls outside this (another site, a personal account, anything not about the Marccent tools on wp.localhost), ask Marcos before you do it.
 
+How Marccent is tested, and how a Chrome step is written and reported: `docs/TESTING.md` (sections 3 and 5). Chrome is never a CI gate.
+
 ## Your job
 
 Chrome tests Marccent changes **on the front end and in wp-admin**, on the local WordPress site at **wp.localhost** (on Marcos's PC, Debian WSL, `~/app/wp`). You look, click, read and report. **You never change code**: no editing files, no installing or switching plugin branches, no commits, no pull requests. If a check needs code to be different, report that and stop.
