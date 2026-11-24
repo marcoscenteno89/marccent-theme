@@ -88,6 +88,18 @@ Every public component gets its cases from three sources. Each test names its so
 
 Where a component has no APG pattern (a plain layout piece), source 3 does not apply, and the PR body says so. Where a rule from source 2 or 3 does not apply to a case, the test names the exception and why. No exception is added to fix a failing test.
 
+## 3b. marccent-content: the private-field tests
+
+`tests/private-where.php` checks that a private field never leaks through a Loop's where, a visitor's filter, a count or sum, show-if or a repeating group's rows. CI runs it on WordPress 6.9 with Marccent Blocks v0.4.1 (the `private-where` job in `.github/workflows/ci.yml`) and fails the build when a check fails.
+
+To run it by hand, on a site with both plugins active:
+
+    php wp-content/plugins/marccent-content/tests/private-where.php
+
+Locally: `docker exec wp-test php /var/www/html/wp-content/plugins/marccent-content/tests/private-where.php`
+
+Expected: one PASS line per check, then `All checks passed`, exit 0. Run it before any merge that touches `inc/`.
+
 ## 4. How Code writes a test for a task
 
 1. Read this file and the task's **Checks** section. Every check in the task maps to a test or to a named Chrome step.
