@@ -29,11 +29,11 @@ Rules that follow from this:
 | **wp-env** (to build) | A throwaway WordPress site in Docker with Marccent Blocks, Marccent Content and Marccent WP installed | marccent-content, marccent-blocks, marccent-wp (CI jobs in each) | Every pull request in those repos that touches PHP, blocks or settings |
 | **Cases page** (existing) | `npm run cases` renders every component's markup, the golden test for markup | marccent-theme | Every push and pull request, and at release |
 | **Screenshots** (to build) | Playwright captures at three widths (below) | Same as Playwright | On every pull request that changes a visual, and at release |
-| **Chrome** | A person-like check of what a page looks like and how it behaves, reported to Marcos | A browser, on wp.localhost | Judgment checks, and checks Playwright cannot make. Chrome is **never a CI gate** |
+| **Chrome** | A person-like check of what a page looks like and how it behaves, reported to Marcos | A browser, on wp.localhost | Judgment checks, and checks Playwright cannot make. Chrome is **never a CI gate**, but a Chrome PASS on the PR's head commit is **required before Hub merges** any change that needs a browser check (`AGENTS.md`, merge gate item 3) |
 
 Rules:
 
-- A CI gate is a Playwright or PHP test that fails the build. Chrome never fails a build. A Chrome PASS is evidence for Hub, not a gate.
+- A CI gate is a Playwright or PHP test that fails the build. Chrome never fails a build. A Chrome PASS on the PR's head commit is required before Hub merges a change that needs a browser check. A PASS on an older commit does not count.
 - Every gate runs on the exact head SHA of the PR.
 - Test data is seeded by a script and torn down after the run. Tests never touch real content, real users or real settings on any live site.
 
@@ -147,7 +147,7 @@ Where each part sits:
 - **Unit checks** (`npm test`, the markup and conformance scripts): read files and check the output. No browser.
 - **Playwright** (tier 1 for every public component, section 0): opens each case from the cases page in a browser, at three widths, in both colour schemes. It fails on console errors, horizontal scroll and axe violations, and it saves screenshots.
 - **wp-env + Playwright** (tier 2): the same tool, pointed at a throwaway WordPress site, for the admin and incognito checks.
-- **Chrome** (judgment): a person-like check that reads and reports. Never a gate.
+- **Chrome** (judgment): a person-like check that reads and reports. Not a CI gate. Its PASS on the head commit is required before a merge that needs it.
 
 ## 9. Watching the tests
 
