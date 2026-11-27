@@ -1,5 +1,5 @@
 # Task 005: release PR for v1.0.0-rc.26
-Status: open
+Status: done
 Repo: marccent-theme
 Issue: none
 Branch base: master
@@ -20,13 +20,13 @@ Do not change anything else. No code, no docs, no rule file.
 
 ## Exact steps
 
-1. `git fetch origin` and `git checkout -b release/rc26-version origin/master`. Hub's release branch name is not needed here; this is a PR into master.
+1. `git fetch origin` and `git checkout -b claude/rc26-version origin/master`. The branch is named `claude/<topic>`, the form Code's session uses. This is a PR into master.
 2. Read `README.md` "Versions" for the release steps. This task follows them, and stops before the tag.
 3. Edit `package.json` and `package-lock.json` as in Files.
 4. Edit `CHANGELOG.md` as in Files. Read the existing `## 1.0.0-rc.25` section first and match its layout.
 5. Run `npm run build`, then `npm run build` again, then `git diff --exit-code -- dist` (it must print nothing after the second build).
 6. Run the checks below.
-7. Commit (the `Co-Authored-By: Claude …` trailer is allowed and stays; no other model name in the message), push `release/rc26-version`, and open a PR into `master`. Body starts with the two attribution lines, then `Release v1.0.0-rc.26. Hub cuts the tag after merge.`, then the check output.
+7. Commit (the `Co-Authored-By: Claude …` trailer is allowed and stays; no other model name in the message), push `claude/rc26-version`, and open a PR into `master`. Body starts with the two attribution lines, then `Release v1.0.0-rc.26. Hub cuts the tag after merge.`, then the check output.
 
 ## Checks
 
@@ -41,5 +41,6 @@ Do not change anything else. No code, no docs, no rule file.
 
 ## Notes
 
-- Do not tag. Do not create a `release/` branch on the remote; the name above is a local branch only. Hub decides on any release branch.
+- Do not tag. Do not create a `release/` branch on the remote. The PR branch is `claude/rc26-version`. Hub decides on any release branch.
+- Done (Hub, 2026-11-27): PR #178 merged as `ba5aa11` (head `7f98eb2`, CI green). Hub created the tag `v1.0.0-rc.26` on `ba5aa11` locally. Its push to origin was refused (HTTP 403 from the sandbox proxy), so the tag is not on origin yet; Marcos needs to push it. See `docs/tasks/marccent-blocks/001-widgets-t018-on-next-tag.md`.
 - Freeze applies: no change beyond the version and the CHANGELOG heading.
