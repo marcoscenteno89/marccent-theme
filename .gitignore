@@ -3,3 +3,5 @@ node_modules
 __pycache__/
 *.egg-info/
 .playwright-mcp/
+test-results/
+playwright-report/
