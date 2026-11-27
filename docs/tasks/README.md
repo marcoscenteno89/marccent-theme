@@ -7,11 +7,13 @@
 >
 > **Why:** PR #155 (fonts per style) was merged to master at 2026-11-20 01:02 UTC with no review, one minute after it was opened. Hub's review after the merge found issue #156 (fonts never load unless `window.marccentFontsBase` is set). #155 also added a new site-level setting, `theme.fonts` (body, heading, display and mono roles), read in `core/apply.js`, during the feature freeze (PRODUCT-LINE.md 3.1 and 3.3). Under the merge gate, Hub reviews and merges, so Code should have stopped at the PR.
 
-The channel between Hub and Code is the docs. Hub writes each task for Code as a file in this folder. Code reads it and does it. Chrome does not use this channel; Chrome's checks come from Hub through Marcos.
+The channel between Hub and Code is the docs. Hub writes each task for Code as a file in this folder. Code reads it and does it.
+
+Chrome has its own folder on the same channel, `docs/tasks/chrome/`, for browser checks only. Chrome reads it on github.com, not from a clone. Its format and its "check docs" steps are in `docs/tasks/chrome/README.md` and `docs/handoffs/chrome.md`. Everything in this README about the lifecycle applies to Chrome's tasks too, with two differences: the header says `Give to: Chrome`, and the header has an `Install:` line in place of `Branch base:`.
 
 ## Where tasks live
 
-`docs/tasks/<repo>/<NNN>-<slug>.md`, one folder per repo. `NNN` is a three-digit number, counted per repo from `001`. Never reuse a number.
+`docs/tasks/<repo>/<NNN>-<slug>.md`, one folder per repo, and `docs/tasks/chrome/<NNN>-<slug>.md` for Chrome. `NNN` is a three-digit number, counted per folder from `001`. Never reuse a number.
 
 Example: `docs/tasks/marccent-content/001-content-61-editor-preview.md`.
 
