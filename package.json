@@ -55,13 +55,16 @@
     "prepublishOnly": "npm run build",
     "markup": "node scripts/markup.mjs",
     "dividers": "node lib/dividers.gen.mjs",
-    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs --theme && node scripts/typeset.mjs --check && node scripts/patterns.mjs",
+    "test": "node scripts/markup.mjs --check && node scripts/conformance.mjs --theme && node scripts/typeset.mjs --check && node scripts/patterns.mjs && node scripts/public-coverage.mjs",
     "conformance": "node scripts/conformance.mjs",
     "cases": "node scripts/cases.mjs",
     "typeset": "node scripts/typeset.mjs",
     "patterns": "node scripts/patterns.mjs",
     "affected": "node scripts/affected.mjs",
-    "status": "node scripts/status.mjs"
+    "status": "node scripts/status.mjs",
+    "e2e": "playwright test --trace off",
+    "test:headed": "playwright test --headed --trace off",
+    "test:ui": "playwright test --ui"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.4",
@@ -129,6 +132,8 @@
     }
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.14.1",
+    "@playwright/test": "1.65.1",
     "esbuild": "^0.25.11",
     "postcss": "^8",
     "react": "^19.3.1",

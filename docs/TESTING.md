@@ -25,10 +25,10 @@ Rules that follow from this:
 | Part | What it does | Where it runs | When it runs |
 |---|---|---|---|
 | `npm test` (existing) | Markup, conformance, typeset and pattern checks | marccent-theme | Every push and pull request (`.github/workflows/ci.yml`) |
-| **Playwright** (to build) | Drives a real browser against a real page, for CI gates and screenshots | marccent-theme for the markup and design checks. The WordPress repos for anything that needs WordPress | CI gate on every pull request. Screenshots on every pull request that changes markup, CSS or a block |
+| **Playwright** (built, task 006) | Drives a real browser against a real page, for CI gates and screenshots | marccent-theme for the markup and design checks. The WordPress repos for anything that needs WordPress | CI gate on every pull request. Screenshots on every pull request that changes markup, CSS or a block |
 | **wp-env** (to build) | A throwaway WordPress site in Docker with Marccent Blocks, Marccent Content and Marccent WP installed | marccent-content, marccent-blocks, marccent-wp (CI jobs in each) | Every pull request in those repos that touches PHP, blocks or settings |
 | **Cases page** (existing) | `npm run cases` renders every component's markup, the golden test for markup | marccent-theme | Every push and pull request, and at release |
-| **Screenshots** (to build) | Playwright captures at three widths (below) | Same as Playwright | On every pull request that changes a visual, and at release |
+| **Screenshots** (built, task 006) | Playwright captures at three widths (below) | Same as Playwright | On every pull request that changes a visual, and at release |
 | **Chrome** | A person-like check of what a page looks like and how it behaves, reported to Marcos | A browser, on wp.localhost | Judgment checks, and checks Playwright cannot make. Chrome is **never a CI gate** |
 
 Rules:

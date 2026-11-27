@@ -1,0 +1,11 @@
+{
+  "_about": "Public components with no case in markup/cases.json, or no test file under tests/, that are known and tracked. scripts/public-coverage.mjs reads this list. It may only shrink: a new public component not listed here fails npm test, and a listed one that is now covered fails until it is removed. Each entry names its issue; 'none yet' means no issue exists yet and Hub must open one.",
+  "gaps": [
+    { "component": "toast", "issue": "none yet", "reason": "components/ui/toast.js has no case in markup/cases.json" },
+    { "component": "card-button", "issue": "none yet", "reason": "components/widgets/card-button.js has no case in markup/cases.json" },
+    { "component": "layout", "issue": "none yet", "reason": "components/widgets/layout.js has no case in markup/cases.json" },
+    { "component": "nav", "issue": "none yet", "reason": "components/widgets/nav.js has no case in markup/cases.json" },
+    { "component": "sidebar", "issue": "none yet", "reason": "components/widgets/sidebar.js has no case in markup/cases.json" },
+    { "component": "slider-pager", "issue": "none yet", "reason": "components/widgets/slider-pager.js has no case in markup/cases.json" }
+  ]
+}
