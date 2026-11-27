@@ -48,6 +48,6 @@ On wp.localhost, Chrome checks each of the nine widgets in the block editor and 
 
 ## Notes
 
-- Blocked until: `v1.0.0-rc.26` is tagged. Task 004 (#156) is merged (93cce40). Task 005 (`docs/tasks/marccent-theme/005-release-rc26.md`, the release PR that bumps the version) must merge first. Then Hub cuts the tag (`docs/RELEASES.md`). Hub changes this Status to `open` in a docs PR and writes the tag here.
+- Blocked until: `v1.0.0-rc.26` is on origin. Task 004 (#156) is merged (93cce40). Task 005 is done: release PR #178 merged as `ba5aa11`. Hub cut the tag `v1.0.0-rc.26` on `ba5aa11` locally, but the push to origin was refused (HTTP 403 from the sandbox proxy, 2026-11-27). Marcos must run `git push origin v1.0.0-rc.26` from a machine that can reach GitHub. When `git ls-remote --tags` shows it, Hub changes this Status to `open` in a docs PR.
 - Not in this task: marccent-html and marccent/next (marccent.com). Both are frozen until after 1.0 (PRODUCT-LINE.md 3.5). They keep their `components/widgets` copies until they unfreeze.
 - Freeze applies (PRODUCT-LINE.md section 3). No new widget, setting or block.
