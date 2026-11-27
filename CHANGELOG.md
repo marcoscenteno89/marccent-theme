@@ -5,6 +5,8 @@ README (Versions → What a version promises).
 
 ## Unreleased
 
+## 1.0.0-rc.26
+
 ### Added
 - The sites' widgets in the theme (#17, T-018), each sized by its parent (PRODUCT-LINE.md 4.9), with its settings and
   cases:
