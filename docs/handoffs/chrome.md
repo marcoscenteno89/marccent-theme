@@ -15,6 +15,28 @@ Chrome tests Marccent changes **on the front end and in wp-admin**, on the local
 - Chrome never merges. Your PASS on a PR's head commit is what Hub needs before it merges, so say which commit you tested.
 - If you are asked to do anything outside these checks, say so and ask Marcos before doing it.
 
+## Check docs: how Chrome takes its tasks
+
+Marcos can tell Chrome **"check docs"**. Chrome then reads its tasks from the docs and does them. You cannot run `git pull`. You read the pages on github.com, on the `master` branch only.
+
+Do these steps in order, and nothing else:
+
+1. Open https://github.com/marcoscenteno89/marccent-theme/blob/master/docs/AGENTS.md and read it.
+2. Open https://github.com/marcoscenteno89/marccent-theme/blob/master/docs/tasks/chrome/README.md and read it. It is the format of a Chrome task.
+3. Open https://github.com/marcoscenteno89/marccent-theme/tree/master/docs/tasks/chrome. Read the file list. Ignore `README.md`.
+4. Open each other file in that list. Keep only the files whose header says `Status: open`.
+5. Take the open file with the lowest number. Say its path in your report, for example: "Taking docs/tasks/chrome/001-example.md".
+6. Open the file's page on github.com (its `blob` URL on `master`) and read every section.
+7. Open each wp.localhost URL under **Where**, log in as the **Where** section says, and run the **Steps** in order. Check each against **Pass when** and **Fail when**.
+8. If there is no open task, say so in your report and stop.
+9. Send the report to Marcos (format below). Do not message Hub. Do not edit any file, on GitHub or anywhere else.
+
+Chrome never takes a task from a branch, from a pull request, or from a file that is not on `master`. If the task's `Install:` line names a commit or branch, check what Marcos has installed on wp.localhost (Plugins screen, the version and the Marccent Blocks or Marccent Content screen). If it is not the one named, report `UNCLEAR` for the whole task, with the version you saw, and stop.
+
+Give Marcos this exact starting command, when he needs one:
+
+> check docs. Start at https://github.com/marcoscenteno89/marccent-theme/blob/master/docs/handoffs/chrome.md and follow its "Check docs" section.
+
 ## Who is who (instance names)
 
 - **Hub** = the coordinator, in the Marccent project chat on claude.ai. It tracks work and writes no code.

@@ -95,6 +95,7 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 - Chrome never changes code. Chrome does not install, switch or update a plugin or theme on wp.localhost.
 - Chrome checks only what the task lists. A check it cannot run is reported as not run.
 - Chrome's report: one line per check, `PASS`, `FAIL` or `UNCLEAR`, and what it saw (the URL and what was on screen). It sends the report to Marcos.
+- Chrome may read the docs on github.com (`master` of marccent-theme only) to take its checks. Reading a page changes nothing. Chrome edits no file, on GitHub or anywhere else, and does not take a task from a branch or a pull request.
 
 ## Releases
 
@@ -107,6 +108,7 @@ Every instance reads the docs before it does anything, and looks at `docs/` agai
 - Hub writes each task for Code as a file under `docs/tasks/<repo>/`. Its format and lifecycle are in `docs/tasks/README.md`.
 - When Marcos tells Code **"check docs"**, Code runs the steps in `docs/tasks/README.md` ("The 'check docs' command"): pull marccent-theme, read the three docs, take the oldest open task for its repo, say which it took, and do it.
 - A task exists only once its docs PR is merged to `master`. Before that it is a draft.
+- Hub writes Chrome's browser checks as files under `docs/tasks/chrome/`. When Marcos tells Chrome **"check docs"**, Chrome reads those files on github.com, on `master`, and runs the oldest open one. Its steps are in `docs/handoffs/chrome.md` ("Check docs") and its format in `docs/tasks/chrome/README.md`. Chrome reports to Marcos, not to Hub.
 - Blocked tasks are skipped. Only Hub changes a task's `Status:`.
 
 ## Merging: Hub is the release manager
