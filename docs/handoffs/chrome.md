@@ -139,10 +139,9 @@ Chrome cannot message Hub directly. You report to Marcos, who relays to Hub.
 
 ### 3a. Private fields (issue #62, Content PR #5): status and tests
 
-**Status, verified:**
-- PR #5 is **open** on GitHub: `marcoscenteno89/marccent-content` pull request 5, "A private field: edited beside the post, never shown on the page".
-- Its head branch is **`claude/project-thread-1t553q`**, at commit **`4e63b8e`**. Main does not have it.
-- Main is `a864dce`. Chrome must test with the branch installed, not main.
+**Status (updated 2026-11-27):**
+- PR #5 is **merged** into `main` of `marcoscenteno89/marccent-content` (merged 2026-11-24 by Marcos, "A private field: edited beside the post, never shown on the page"). Its head was `claude/project-thread-1t553q` at `5770d43`.
+- So `main` has the feature. Chrome tests what is installed on wp.localhost. Marcos or Code must confirm it is `main` or a checkout that includes PR #5. If it is not, report `UNCLEAR` and stop.
 
 **What the code does (verified):**
 - A **Private** toggle in Fields → Field groups → field → **Rules**. In JSON it is `"private": true`.
@@ -154,7 +153,7 @@ Chrome cannot message Hub directly. You report to Marcos, who relays to Hub.
 
 **Known gap, found on re-check (report it, don't fix it):** a Loop's **`where` filter still reads private fields**. `mcc_where_meta` (inc/blocks.php) builds a meta query on every field, private or not. So a Loop filtered by a private value (for example `revenue>1000000`) shows which posts match, even though the value itself is never shown. Likewise `mcc_where_row` reads the row data directly; a private field inside a repeating group is probably filtered the same way (not confirmed by running it). Show-if is not affected: it reads the value as empty.
 
-**Install (Marcos or Code, not Chrome):** on wp.localhost, the Marccent Content plugin must be the `claude/project-thread-1t553q` checkout. Marcos or Code does this in the WSL copy of the repo, then reactivates the plugin. The exact path on Marcos's machine is not confirmed in the repos; Code should confirm it. Chrome only tests what is installed.
+**Install (Marcos or Code, not Chrome):** on wp.localhost, the Marccent Content plugin must include PR #5 (`main` since 2026-11-24, or the `claude/project-thread-1t553q` checkout). Marcos or Code does this in the WSL copy of the repo, then reactivates the plugin. The exact path on Marcos's machine is not confirmed in the repos; Code should confirm it. Chrome only tests what is installed.
 
 **Test steps (Chrome):**
 1. Check the installed branch: Plugins → "Marccent Content" version 0.2.0; it should show the Private toggle in Fields → Field groups → a field's Rules. If the toggle is missing, stop and report: the branch isn't installed.
