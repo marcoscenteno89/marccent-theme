@@ -13,7 +13,7 @@ still use the old names. Rename them so the code matches the docs. Nothing else 
 1. The `stage` key in `docs/projects.json` becomes `status`. Its values stay (`active`, `frozen`, `retired`).
 2. The file `markup/tunes.json` becomes `markup/common-settings.json`. Its content stays the same.
 3. The `frozen` text in `markup/outputs.json` (the django output) says "until 1.0 is live". It becomes "until 1.0 is released".
-4. The `host` field in `markup/outputs.json` is NOT changed by this task (see Notes).
+4. The `host` field is removed from `markup/outputs.json` (Marcos's decision, 2026-11-28; see Files, step 10).
 
 Task 007 (CMS Outputs wording) already covers `markup/tunes.json` line 18, `scripts/conformance.mjs` lines 13, 14 and 130,
 and `markup/README.md` lines 15 to 20. Do not repeat those edits here. If one of them is still not done when you start,
@@ -42,7 +42,10 @@ do it under 007, not here.
    `markup/common-settings.json`. The dated 2026-11-09 checklist line (`the common settings in markup/tunes.json`) changes to
    `markup/common-settings.json`.
 9. Do NOT edit `CHANGELOG.md`. Its old entries keep their wording (history).
-10. Do NOT edit the decision-log line dated 2026-11-11 that names `docs/todo/`. It is history.
+10. `markup/outputs.json`: delete the `"host"` line in each of the three outputs (wp, html, django). Keep the JSON valid:
+    the comma after the line before it must still be right. Nothing else in the file changes. No script reads `host`;
+    `grep -rn '\.host' scripts` finds nothing, and the check must show the same.
+11. Do NOT edit the decision-log line dated 2026-11-11 that names `docs/todo/`. It is history.
 
 ## Exact steps
 
@@ -50,7 +53,7 @@ do it under 007, not here.
 2. Run `grep -rn -E "\.stage\b|\bstage:|\"stage\"" scripts docs markup --include=*.mjs --include=*.js --include=*.json --include=*.md`
    and paste the output into the PR body. Each hit that is about a project's state is changed under step "Files". A hit about
    the seven product steps is left alone.
-3. Make the edits in Files, steps 1 to 8.
+3. Make the edits in Files, steps 1 to 10.
 4. Run `git mv markup/tunes.json markup/common-settings.json`. Then search for `tunes.json` and fix every hit outside `CHANGELOG.md`
    and the 2026-11-11 history line.
 5. Run `npm run build`, then `git diff --exit-code -- dist`. Paste the output. If `dist/` changes only because the `frozen` text
@@ -74,13 +77,12 @@ do it under 007, not here.
 - `markup/common-settings.json` exists and `markup/tunes.json` does not.
 - The django `frozen` text says "until 1.0 is released".
 - The checks above pass and are pasted into the PR body.
+- The `host` field is gone from `markup/outputs.json` (`grep -c '"host"' markup/outputs.json` prints 0).
 - The PR is open. Code does not merge it; Hub does.
 
 ## Notes
 
-- `host` (step 4 of Goal): no script reads it. `grep -rn '\.host' scripts` finds nothing. Removing it deletes a field, and
-  PRODUCT-LINE.md section 9 says nothing is removed without a ticket or Marcos's OK. Marcos has not given that OK. So this
-  task leaves it, and a separate decision (remove or keep) goes to Marcos through Hub.
+- `host`: Marcos decided on 2026-11-28 to remove it ("get rid of it"). No script reads it. PRODUCT-LINE.md section 9 logs the decision.
 - django-marccent is frozen (PRODUCT-LINE.md section 3, `markup/outputs.json`). Its CLAUDE.md still names `docs/todo/`. That
   change waits until django is unfrozen. Do not change django-marccent in this task.
 - The `request` label on GitHub stays as it is. Renaming it is a GitHub change for Marcos.

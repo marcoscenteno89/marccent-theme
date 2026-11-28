@@ -298,18 +298,19 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-28: the `host` field in markup/outputs.json (Marcos, after Hub's question: does an output have a host or a platform?): remove it, since no script reads it and the output id already says wp, html or django. Done by task 008.
 - 2026-11-28: the terms (Marcos, after Hub's list). Each word means only this from now on:
   - **Issue**: a GitHub issue. **Bug**: an existing problem (`bug` label). **Feature**: an improvement to what exists (`feature` label, renamed from `request` on 2026-11-28). `ticket` label: a theme issue other projects may wait on.
   - **Task**: a job file in docs/tasks for Code or Chrome, whatever it fixes or adds. **Handoff**: a file in docs/handoffs, the standing rules of one Claude instance (Hub, Code, Chrome). Nothing else.
   - **Component**: any unit of the theme's markup. **Container**: a component that only holds content (Section, Grid, Card). **Pattern**: several parts arranged into a page frame (PATTERNS.md). **Widget**: retired (folder names such as `components/widgets` keep their path). **Block**: only a WordPress block; CSS "block" is the layout word.
   - **Core**: marccent-theme and its adapters, the thing 1.0 releases (it was called "the template"). **Site template**: the rules for building a new site, such as renaming images and adding alt text (`wp/new-site-template`).
-  - **Output**: the kind of site a product is built for: wp, html, django (`markup/outputs.json`). **CMS Output**: an output with an admin (wp, django); html has none (Marcos, 2026-11-28). **Adapter**: the code that turns the theme's markup into one output (Marccent Blocks for wp). **Host** is not used in prose; the `host` field in outputs.json is a Code task.
+  - **Output**: the kind of site a product is built for: wp, html, django (`markup/outputs.json`). **CMS Output**: an output with an admin (wp, django); html has none (Marcos, 2026-11-28). **Adapter**: the code that turns the theme's markup into one output (Marccent Blocks for wp). **Host** is not used: the `host` field in outputs.json is removed (decided 2026-11-28, task 008).
   - **Setting**: a component's prop (`markup/settings.json`). **Common setting**: a setting every component takes (`markup/tunes.json`; the filename is a Code task).
   - **Stage**: one of the seven steps of the product line (section 1). **Status**: a site's or project's state (building, test, live, frozen; active or frozen). The `stage` key in projects.json is a Code task to rename it `status`. **Phase** is retired; the 1.0 order's parts are steps.
   - **Released**: a tagged version, what production runs. **Live**: a site serving visitors. The freeze ends at "1.0 is released" (section 3).
   - **CSS utility class**: a class that sets one property (`.pad-lg`). **Variant class**: a class that gives a component one of its styles. **JS class**: a class in the JavaScript code. A bare "class" or "utility" is not used.
   - **Default branch**: `master` in marccent-theme. Not called "integration". marccent-content's default branch is `main`; renaming it is a separate decision.
-  - Decided here, not yet done: the outputs.json `host` key, the projects.json `stage` key, the `tunes.json` filename, and the 1.0 checklist count lines (dated 2026-11-09) need Code or GitHub work.
+  - Decided here, not yet done: the projects.json `stage` key, the `tunes.json` filename, and the 1.0 checklist count lines (dated 2026-11-09) need Code or GitHub work.
 - 2026-11-20: the work flows downstream (section 4.4; the rule is at the top of docs/AGENTS.md): before downstream work, the open
   core issues it depends on come first; if there are none, the work goes straight to its repo and core is not touched. Core is the
   shared pieces only (tokens, components, utility classes, the markup reference); a plugin-only fix goes straight to its own repo.
