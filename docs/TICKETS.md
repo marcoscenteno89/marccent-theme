@@ -34,7 +34,6 @@ new is added to it.
 | T-029 | [#27](https://github.com/marcoscenteno89/marccent-theme/issues/27) | One standard set of settings per component, the same names, choices and defaults wherever … |
 | T-030 | [#28](https://github.com/marcoscenteno89/marccent-theme/issues/28) | Variants: one class that gives an item a distinct shape or frame of its own (a ticket firs… |
 | T-031 | [#29](https://github.com/marcoscenteno89/marccent-theme/issues/29) | Looks to consider after the ticket (ideas, not decided) |
-| T-035 | [#30](https://github.com/marcoscenteno89/marccent-theme/issues/30) | An admin for the html output (marccent.com): today its content is in code |
 | T-036 | [#31](https://github.com/marcoscenteno89/marccent-theme/issues/31) | Animated canvas backgrounds for parallax pages and other sections (Marcos, 2026-11-10): a … |
 | T-037 | [#32](https://github.com/marcoscenteno89/marccent-theme/issues/32) | Patterns in a repository of their own, written once as HTML (the theme's markup, no CSS or… |
 | T-038 | [#33](https://github.com/marcoscenteno89/marccent-theme/issues/33) | Show or hide by the page's state, for a logo per mode or a light logo over the hero and a … |

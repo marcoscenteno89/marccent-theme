@@ -13,7 +13,7 @@ Three layers, each working without the one above: **CSS and tokens** (everywhere
 everywhere: it finds components by `data-component` and wires them up) and the **React kit** (`components/`, Next and
 the block editor).
 
-- **CSS**: tokens, a grid layout system, utilities, hover effects (some follow the mouse: tilt, spotlight, magnet) and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
+- **CSS**: tokens, a grid layout system, utility classes, hover effects (some follow the mouse: tilt, spotlight, magnet) and 27 design styles (glassmorphism, brutalism, editorial, terminal, claymorphism…) that restyle the whole site without changing its markup.
 - **Theme engine**: palettes, light / dark mode, glass and design style, saved in the browser, for the whole site or one section. A full editor (`ThemeEditor`) and a one-row mini editor (`MiniThemeEditor`).
 - **UI kit**: Button (with loading / done / error states), Icon (Font Awesome), Modal, Drawer, Tooltip, Popover, LinkPreview, Form, Field, FileDrop, Code (CodeMirror), Toast, Accordion, Pagination, Loading and more; Section, Grid and Card (the layout classes as components); a Menu that folds behind a menu button on narrow screens (the Header pattern), a Sidebar that collapses to its icons (the App frame pattern), a Dock, and a Map (Google, in the theme's colors).
 - **Patterns** ([docs/PATTERNS.md](docs/PATTERNS.md)): what a site arranges its own way from the components (a footer, a header), with their markup, instead of components.
@@ -39,7 +39,7 @@ From 1.0 the versions are [semantic](https://semver.org/). The public part, what
 
 - **The markup**: each component's HTML, its `data-component` names and the `data-*` attributes the engine reads.
   `markup/reference.json` is it written down, so a change there shows in the diff of a release.
-- **The CSS**: the class names (layout, utilities, hovers, components) and the custom properties (tokens) documented
+- **The CSS**: the class names (layout, utility classes, hovers, components) and the custom properties (tokens) documented
   here and in `styles/tokens/`, and the design style ids.
 - **The React props** of the components, and the JS of `core` (`marccent-theme`) and `react` (`marccent-theme/react`).
 - **The paths** in `package.json`'s `exports`: `components/*`, `styles/*`, `dist/*`, `markup/*`, `core/enhance`,
@@ -234,7 +234,7 @@ and `.bg-page` (the page's colors on any element; a band with its own `data-them
 
 One scale, Tailwind's: `sm` 40rem (640px), `md` 48rem (768px), `lg` 64rem (1024px). A name means the same width
 everywhere: `.span-md-*`, `.icon-only-md`, `.d-md-none` and `.sticky-md-top` all change at 48rem. Most are container
-queries, measured on the nearest `.wrap` or `.cq`, not the screen; the `-md-` display and sticky utilities are the
+queries, measured on the nearest `.wrap` or `.cq`, not the screen; the `-md-` display and sticky utility classes are the
 screen's. A header folds at `lg`: Menu `fold` and `.layout-ends` go to one row from 64rem. The `.span-2` … `.span-10`
 steps follow the grid's columns instead (N × 14rem plus the gaps).
 

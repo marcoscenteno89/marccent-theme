@@ -1,13 +1,13 @@
 # Sites
 
 The products: every site built on Marccent, its output, what builds it and where it stands (the Sites stage,
-PRODUCT-LINE.md). One row per site; a new site is one more row, built from the template (wp/new-site-template) or the
-Next app. Stages: **building**, **test** (a site for testing the product line, never live), **live**, **frozen** (no
+PRODUCT-LINE.md). One row per site; a new site is one more row, built from the site template (wp/new-site-template) or the
+Next app. Status: **building**, **test** (a site for testing the product line, never live), **live**, **frozen** (no
 work until 1.0, then brought up to it once: PRODUCT-LINE.md 3.5).
 
-| Site | Output | Built with | Address | Stage | Notes |
+| Site | Output | Built with | Address | Status | Notes |
 |---|---|---|---|---|---|
-| marccent.com | html | marccent/next (the theme's React components) | marccent.com (not deployed yet) | frozen | after 1.0: 1.0 is the template, not the sites (2026-11-13); the html test is the cases page (3.6) |
+| marccent.com | html | marccent/next (the theme's React components) | marccent.com (not deployed yet) | frozen | after 1.0: 1.0 is the core, not the sites (2026-11-13); the html test is the cases page (3.6) |
 | wp site | wp | Marccent Blocks, Marccent Content, marccent-wp | wp.localhost | test | the WordPress test: the kitchen sink (`wp/sites/wp/content/kitchen-sink.php`), the CRM (`crm.php`, `views.php`) |
 | rc-imp | wp | Marccent Blocks, Marccent Content, marccent-wp | rc-imp.localhost | frozen | a client site, content in `wp/sites/rc-imp/content`; its own CSS left (T-019 to T-021) |
 | rimrock | wp | Marccent Blocks, Marccent Content, marccent-wp | rimrock.localhost | frozen | no content folder yet |

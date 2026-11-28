@@ -56,12 +56,12 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 
 ## Rules for every instance
 
-1. **Freeze.** Until marccent-theme 1.0 is live, only fix and finish what exists (`PRODUCT-LINE.md` section 3). A request for anything new is an issue labeled `after 1.0` and the project's label. Say it is frozen, then stop unless Marcos confirms it is finishing existing work.
+1. **Freeze.** Until marccent-theme 1.0 is released, only fix and finish what exists (`PRODUCT-LINE.md` section 3). A request for anything new is an issue labeled `after 1.0` and the project's label. Say it is frozen, then stop unless Marcos confirms it is finishing existing work.
 2. **Issues** follow `PRODUCT-LINE.md` section 8: one issue per piece of work, in marccent-theme; a `project:` label; one kind label (`bug`, `request`, `after 1.0`, `idea`); `ticket` for theme fixes that projects wait on. Bugs and requests go to the 1.0 milestone.
 3. **Do only what was asked.** Anything else found becomes an issue and is named in the reply. It is not fixed in the same change.
 4. **No custom assets.** When marccent-theme cannot do something, open a `ticket` issue in marccent-theme. Never work around it with CSS, JS or a copied component.
-5. **Every change to a SHARED piece (tokens, components, utilities, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
-6. **Keep the issues in sync.** A change that ships a ticket says `Fixes #N` and removes its stopgaps in every project it names, in the same round.
+5. **Every change to a SHARED piece (tokens, components, utility classes, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
+6. **Keep the issues in sync.** A change that ships a `ticket` issue says `Fixes #N` and removes its stopgaps in every project it names, in the same round.
 7. **Tell Marcos when he is wrong.** If a request breaks these rules or the current structure, say so first and plainly: "That's wrong, because…", with the rule, the file or the standard.
 8. **When no rule covers it, stop and ask** (`PRODUCT-LINE.md` section 9). Ask in the form: the situation, the options, your recommendation and why, and whether it is a rule or a one-off.
 9. **No claim without output.** Say a check passed only after running it. Name the command and what it printed. Say what was not run.
@@ -99,7 +99,7 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 
 ## Releases
 
-Master is integration; production is a semver tag. Hub cuts tags, Code prepares release PRs, nothing is production from a branch. The rules and the hotfix flow are in [RELEASES.md](RELEASES.md).
+Master is the default branch; production is a semver tag. Hub cuts tags, Code prepares release PRs, nothing is production from a branch. The rules and the hotfix flow are in [RELEASES.md](RELEASES.md).
 
 ## Read the docs first, and the tasks channel
 
@@ -130,9 +130,9 @@ After a merge, Hub runs the downstream steps for the change (see "Downstream" be
 
 ## Downstream: a change reaches every project that uses it
 
-Hub is in charge of every change's downstream effect, and Hub makes none of the changes itself. When marccent-theme, or any shared piece of it (a component, a token, a utility, a setting, the markup reference, the docs), changes, Hub makes sure each dependent project gets the update. Steps, in order:
+Hub is in charge of every change's downstream effect, and Hub makes none of the changes itself. When marccent-theme, or any shared piece of it (a component, a token, a utility class, a setting, the markup reference, the docs), changes, Hub makes sure each dependent project gets the update. Steps, in order:
 
-1. **Name the change**: the repo, the files, and which parts of the theme it touches (components, markup, settings, tokens, utilities, docs).
+1. **Name the change**: the repo, the files, and which parts of the theme it touches (components, markup, settings, tokens, utility classes, docs).
 2. **Find the dependents**: in marccent-theme run `npm run affected`. It reads `docs/projects.json` and lists the projects that use the changed parts. If the command cannot run, read each project's `uses` and `via` fields in `docs/projects.json` by hand, and say so.
 3. **Check each dependent's pin**: run `npm run status` in marccent-theme. It shows which projects are behind the theme and by how much.
 4. **Sort the dependents**:

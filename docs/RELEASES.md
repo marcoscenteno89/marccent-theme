@@ -4,8 +4,8 @@ Read this with `docs/AGENTS.md`. It says where code is built, where it is releas
 
 ## The three rules
 
-1. **master is integration.** Every merged change lands on `master` first. It is tested and it is the place the next version is built. **master is never production.** Nothing is installed or deployed from a branch.
-2. **Production is a semver tag.** A release is a git tag: `v1.0.0`, or a release candidate while 1.0 is not out (`v1.0.0-rc.25` is the latest one today). Dependents install a tag, never a branch (see the "Versions" section of `README.md`).
+1. **master is the default branch.** Every merged change lands on `master` first. It is tested and it is the place the next version is built. **master is never production.** Nothing is installed or deployed from a branch.
+2. **Production is a semver tag.** A release is a git tag: `v1.0.0`, or a release candidate while 1.0 is not released (`v1.0.0-rc.25` is the latest one today). Dependents install a tag, never a branch (see the "Versions" section of `README.md`).
 3. **No long-lived production branch.** There is no `production` or `stable` branch. A tag is the record.
 
 ## Who does what

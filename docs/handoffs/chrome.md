@@ -47,9 +47,9 @@ Chrome cannot message Hub directly. You report to Marcos, who relays to Hub.
 
 ## The ecosystem
 
-- **marccent-theme** is the shared core for every adapter: design tokens, components and utilities. Every other project depends on it.
-- **1.0 = the template**: the theme plus its adapters. Site instances (individual client sites) come after 1.0.
-- **A feature freeze** is on until 1.0 is live (`docs/PRODUCT-LINE.md`). Work now is only fixing and finishing what exists.
+- **marccent-theme** is the shared core for every adapter: design tokens, components and utility classes. Every other project depends on it.
+- **1.0 = the core**: the theme plus its adapters. Sites (individual client sites) come after 1.0.
+- **A feature freeze** is on until 1.0 is released (`docs/PRODUCT-LINE.md`). Work now is only fixing and finishing what exists.
 - **The WordPress products** run together on one local site, wp.localhost:
   - Marccent Blocks (plugin): the theme's styles and blocks.
   - Marccent WP (block theme): the page frame and patterns.

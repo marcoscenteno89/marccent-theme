@@ -20,7 +20,7 @@ The HTML the React components render, for hosts that write the same markup thems
   PRODUCT-LINE.md 4.5; a pattern, variant or remove here is waiting to leave), its parent when it only exists inside another (`parent`), `planned` when it's decided but not built yet, the kinds of admin data it needs on an output with an admin (`[]`: none) and
   its settings (T-029: names, types, choices, defaults; `null` until written).
 
-- `tunes.json`: the settings every component takes (extra classes, an anchor, Show if), listed once.
+- `tunes.json`: the common settings every component takes (extra classes, an anchor, Show if), listed once.
 - `formats.json`: the **text formats**, styles for part of a line (Raised, Muted, Badge: #26), each an element and the
   theme's classes on it. An editor offers them on selected text (WordPress: a format type each, `registerFormatType`);
   `npm test` fails when a format names a class the theme doesn't have.
