@@ -11,10 +11,10 @@ Example: `marccent-content: a private field's value leaks through a Loop's where
 ## Labels
 
 - `project: <repo>`: the repo that owns the fix (e.g. `project: marccent-content`).
-- One kind label: `bug` (broken), `request` (finishing what exists), `after 1.0` (new: frozen), or `idea` (not decided).
+- One kind label: `bug` (broken), `feature` (an improvement to what exists), `after 1.0` (new: frozen), or `idea` (not decided).
 - `ticket`: only when marccent-theme must ship the fix and projects wait on it.
 - `code` or `chrome`: when the repo has the label. Check first. If the repo does not have it, leave it off and put the owner in the body's "Give to" line.
-- Milestone `1.0`: for every `bug` and `request`. None for `after 1.0` and `idea`.
+- Milestone `1.0`: for every `bug` and `feature`. None for `after 1.0` and `idea`.
 
 ## Body
 

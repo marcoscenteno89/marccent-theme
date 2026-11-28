@@ -16,7 +16,7 @@ labeled with your project (`project: <repo>`, the label your `CLAUDE.md` names),
    open an issue for it labeled `after 1.0` and your project. Then
    stop there, unless the person confirms it's finishing existing work.
 2. **Issues follow PRODUCT-LINE.md section 8 strictly:** a `project:` label and one kind label each, the 1.0
-   milestone for bugs and requests. Work the theme fixes is one `ticket` issue; a project waiting on it gets its
+   milestone for bugs and features. Work the theme fixes is one `ticket` issue; a project waiting on it gets its
    label and a line under "Waiting on this", never a copy. Move the card to In progress when you start (at most 3
    there), close it with `Fixes #N` (Done, not released) and move it to Released with the tag; the stopgaps go in the same round.
 3. **Don't run on your own.** Do what was asked and nothing more. Anything else you find (a bug, a cleanup, a

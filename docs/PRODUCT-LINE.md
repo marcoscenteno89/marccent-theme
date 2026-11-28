@@ -243,10 +243,10 @@ keep no list: their `CLAUDE.md` names their label.
    old IDs to issues).
 2. **Labels say whose and what kind:**
    - `project: <repo>`: every project that fixes it or waits on it (`project: marccent-theme`, `project: marccent-blocks`…).
-   - one kind: `bug`, `request` (fixing or finishing what exists), `after 1.0` (new: the freeze, section 3) or
-     `idea` (not decided yet: once it is, it becomes a bug, request or after 1.0 issue).
+   - one kind: `bug`, `feature` (an improvement to what exists), `after 1.0` (new: the freeze, section 3) or
+     `idea` (not decided yet: once it is, it becomes a bug, feature or after 1.0 issue).
    - `ticket`: the theme fixes it (section 4, rule 2) and projects may wait on it.
-3. **The 1.0 milestone** holds every bug and request; `after 1.0` and `idea` issues have no milestone until 1.0 is
+3. **The 1.0 milestone** holds every bug and feature; `after 1.0` and `idea` issues have no milestone until 1.0 is
    out.
 4. **Waiting on is a link, never a copy.** A project waiting on a theme issue gets its label on the issue and one line
    under the issue's "Waiting on this": the project, what it unblocks there and the stopgap that goes. When the
@@ -299,7 +299,7 @@ Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`
 everywhere becomes a rule above and its line goes.
 
 - 2026-11-28: the terms (Marcos, after Hub's list). Each word means only this from now on:
-  - **Issue**: a GitHub issue. **Bug**: an existing problem (`bug` label). **Feature**: an improvement (`request` label; the label keeps its name until Marcos renames it). `ticket` label: a theme issue other projects may wait on.
+  - **Issue**: a GitHub issue. **Bug**: an existing problem (`bug` label). **Feature**: an improvement to what exists (`feature` label, renamed from `request` on 2026-11-28). `ticket` label: a theme issue other projects may wait on.
   - **Task**: a job file in docs/tasks for Code or Chrome, whatever it fixes or adds. **Handoff**: a file in docs/handoffs, the standing rules of one Claude instance (Hub, Code, Chrome). Nothing else.
   - **Component**: any unit of the theme's markup. **Container**: a component that only holds content (Section, Grid, Card). **Pattern**: several parts arranged into a page frame (PATTERNS.md). **Widget**: retired (folder names such as `components/widgets` keep their path). **Block**: only a WordPress block; CSS "block" is the layout word.
   - **Core**: marccent-theme and its adapters, the thing 1.0 releases (it was called "the template"). **Site template**: the rules for building a new site, such as renaming images and adding alt text (`wp/new-site-template`).
@@ -309,7 +309,7 @@ everywhere becomes a rule above and its line goes.
   - **Released**: a tagged version, what production runs. **Live**: a site serving visitors. The freeze ends at "1.0 is released" (section 3).
   - **CSS utility class**: a class that sets one property (`.pad-lg`). **Variant class**: a class that gives a component one of its styles. **JS class**: a class in the JavaScript code. A bare "class" or "utility" is not used.
   - **Default branch**: `master` in marccent-theme. Not called "integration". marccent-content's default branch is `main`; renaming it is a separate decision.
-  - Decided here, not yet done: the outputs.json `host` key, the projects.json `stage` key, the `tunes.json` filename, the `request` label, and the 1.0 checklist count lines (dated 2026-11-09) need Code or GitHub work.
+  - Decided here, not yet done: the outputs.json `host` key, the projects.json `stage` key, the `tunes.json` filename, and the 1.0 checklist count lines (dated 2026-11-09) need Code or GitHub work.
 - 2026-11-20: the work flows downstream (section 4.4; the rule is at the top of docs/AGENTS.md): before downstream work, the open
   core issues it depends on come first; if there are none, the work goes straight to its repo and core is not touched. Core is the
   shared pieces only (tokens, components, utility classes, the markup reference); a plugin-only fix goes straight to its own repo.
@@ -395,7 +395,7 @@ belongs to a later step waits, and Claude says so when it's asked for early.
   is a score to read; stars that lead somewhere are Rating's, after 1.0 (T-039).
 - [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).
 - [x] **Kits:** decided 2026-11-10: the list is [KITS.md](KITS.md), each kit a folder in marccent-kits, a Marccent
-  export file with a `kit` header; checked by `npm run kits`. The check, the template and the Local business kit are
+  export file with a `kit` header; checked by `npm run kits`. The check and the Local business kit are
   in marccent-kits (2026-11-11: `npm run kits` passes, 14 groups, 1 post type, 7 patterns, 5 pages). Left, all of step
   2: the import check (#88), waiting on Marccent Content's import adding (#63) and Blocks' export of patterns and
   pages (#44); marccent-wp's patterns moving out (#102).
