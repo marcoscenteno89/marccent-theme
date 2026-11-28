@@ -38,7 +38,7 @@ do it under 007, not here.
    steps) and change those the same way.
 8. `docs/PRODUCT-LINE.md`: the glossary line that says "The `stage` key in projects.json is a Code task to rename it `status`"
    and the line that says "the `tunes.json` filename" are done by this task: remove those two items from the "Decided here, not
-   yet done" line of section 9. Also in section 2, the mention of `markup/tunes.json` in the table row 3 becomes
+   yet done" line of section 9. Also in section 1, the table row 3 (Settings), becomes
    `markup/common-settings.json`. The dated 2026-11-09 checklist line (`the common settings in markup/tunes.json`) changes to
    `markup/common-settings.json`.
 9. Do NOT edit `CHANGELOG.md`. Its old entries keep their wording (history).
