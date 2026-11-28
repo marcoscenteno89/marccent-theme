@@ -24,14 +24,14 @@ service**: a defined, repeatable result, each new client a new entry, not a new 
 ```
 Wanted ──► Component ──► Settings ──► Adapters ──► Kits ──► Sites ──► Live
  idea       the theme's    one set of    WordPress,    field groups,  built from     checks pass,
-            markup cases   rules for     Django, Next  post types,    the template   address up
+            markup cases   rules for     Django, Next  post types,    the core       address up
                            its settings  translate it  patterns       and kits
 ```
 
-- **A new widget** goes Wanted → Component → Settings → Adapters, then any kit or site can use it.
+- **A new component** goes Wanted → Component → Settings → Adapters, then any kit or site can use it.
 - **A new website** goes Wanted → Sites (using existing components and kits) → Live.
 - **A new kit** goes Wanted → Kits (using existing components) → used by sites.
-- A stage only takes what the stage before it finished: a site never uses a widget that isn't through Adapters, an
+- A stage only takes what the stage before it finished: a site never uses a component that isn't through Adapters, an
   adapter never ships a component the theme doesn't have.
 
 **Its structure is what lasts.** After 1.0 entries come and go freely, but the stages, their order and the shape of
@@ -42,17 +42,17 @@ changed deliberately, here first.
 | # | Stage | Home (its list) | An entry has | Check (the gate to the next stage) | State |
 |---|---|---|---|---|---|
 | 1 | **Wanted** | GitHub Issues in marccent-theme, on the Marccent board (section 8) | an issue: what, where, its `project:` and kind labels, the 1.0 milestone or none | its labels and milestone (section 8); then a decision to build it (none before 1.0 but product-line work) | moved to GitHub Issues (2026-11-11) |
-| 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component that stays (52); the pending ones once built |
-| 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 54 components, 204 settings; Marccent Blocks doesn't read them yet |
+| 2 | **Component** | `markup/cases.json` → `markup/reference.json` | its markup cases (the HTML for each set of inputs) | `npm test` (reference up to date) | every component with a case in `markup/cases.json` (64 entries); the pending ones once built |
+| 3 | **Settings** | `markup/settings.json`, `markup/tunes.json` | its kind, parent, admin data, version, and each setting: type, about, default, choices, sanitize, validate (5.2) | `npm run conformance`: kinds, parents, variants, admin tools, every setting's shape | written: 75 entries in `markup/settings.json` (72 components, 3 containers, 295 settings); Marccent Blocks doesn't read them yet |
 | 4 | **Adapters** | `markup/outputs.json` (each output's adapters) | its output, its folder, the command that renders the cases (or that it uses the components) | `npm run conformance` (`npm test` runs it with `--theme`, without the adapters): every adapter's markup against the reference, and what it doesn't cover (`--strict` fails on it); the kitchen-sink page's "Not shown yet" for the rest of Marccent Blocks | automatic: Marccent Blocks 29 of 33 cases (no menu, toggleButton), django-marccent 19 of 33; marccent/next and marccent-html use the components |
 | 5 | **Kits** | [KITS.md](KITS.md) (the list); each kit a folder in marccent-kits | a Marccent export file with a `kit` header (name, output, about, version, components, needs) and its parts: field groups and post types (added to a site's, never replacing them), patterns, starter pages, sample rows | `npm run kits` (marccent-kits): the shape, every component, class and block it uses exists, full-word names; then it imports cleanly into a fresh WordPress (once Marccent Content's import adds) | the format and check settled (2026-11-10); Local business being built; eight more in Wanted |
-| 6 | **Sites** | [SITES.md](SITES.md) | site, output, built with, address, stage (building, test, live, frozen), notes | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | 8 sites listed: one building (marccent.com), one test (the wp site), six frozen |
-| 7 | **Live** | the Sites list's stage | address, launch date | the site's checks keep passing | none live yet |
+| 6 | **Sites** | [SITES.md](SITES.md) | site, output, built with, address, status (building, test, live, frozen), notes | built from `wp/new-site-template` or the Next app; `bin/contrast`, images, schema pass | 8 sites listed: one building (marccent.com), one test (the wp site), six frozen |
+| 7 | **Live** | the Sites list's status | address, launch date | the site's checks keep passing | none live yet |
 
 ## 2. Rules of the product line
 
-1. **Everything new enters at Wanted.** No stage is skipped: no widget built straight into a site, no site without
-   the template.
+1. **Everything new enters at Wanted.** No stage is skipped: no component built straight into a site, no site without
+   the site template.
 2. **One home per list.** Each stage's list lives in one file in one project; everything else reads it, never copies it.
 3. **Every entry has its stage's shape.** An entry with a field missing is incomplete, not "a special case".
 4. **Every stage has a gate.** A check that fails or reports when an entry isn't ready to move on.
@@ -66,12 +66,12 @@ changed deliberately, here first.
    `npm test` (as component sizing has), or a line saying what checks it instead (the feature
    freeze: Claude, and Marcos's review).
 
-## 3. The feature freeze (until 1.0 is live)
+## 3. The feature freeze (until 1.0 is released)
 
-1. **No new features, widgets, blocks, settings or functionality until 1.0 is live:** only debugging, fixing and
-   finishing what exists. **1.0 is the template, not the sites** (Marcos, 2026-11-13: the class, not its
+1. **No new features, components, WordPress blocks, settings or functionality until 1.0 is released:** only debugging, fixing and
+   finishing what exists. **1.0 is the core, not the sites** (Marcos, 2026-11-13: the class, not its
    instances): marccent-theme and its adapters for the two outputs, html (no admin) and wp (with an admin, the
-   template later admin outputs follow), stable enough that a site is built from them without issues. 1.0 is live
+   template later admin outputs follow), stable enough that a site is built from them without issues. 1.0 is released
    when marccent-theme 1.0.0 is released, Marccent Blocks, Marccent Content and marccent-wp are on it, and the wp test
    site (wp.localhost) works with every component (all of it). Then the changes are frozen and every site
    (marccent.com, marccent-html, rc-imp, rimrock, cr-landscape, marccent-web, Fernway, parallax-html) and the django
@@ -82,7 +82,7 @@ changed deliberately, here first.
    doing anything else.
 4. **Test tools are allowed** when they find bugs and are thrown away after (the kitchen-sink page,
    `wp/sites/wp/content/kitchen-sink.php`).
-5. **Only the template is worked on** (2026-11-13; was marccent.com and the wp site, 2026-11-09): the theme, the wp
+5. **Only the core is worked on** (2026-11-13; was marccent.com and the wp site, 2026-11-09): the theme, the wp
    adapters (Marccent Blocks, Marccent Content, marccent-wp), the patterns and kits, and the wp test site
    (wp.localhost, a test bed, not a product). Every site is frozen until then (marccent.com, marccent-html, rc-imp,
    rimrock, cr-landscape, marccent-web, Fernway, parallax-html), and so are the django output and django-marccent
@@ -102,7 +102,7 @@ changed deliberately, here first.
    overrides of a theme class.
 2. **When the theme can't do it, don't work around it.** A component missing, broken or not fitting: open an issue labeled
    `ticket` (section 8: who needs it, what for, which file holds the stopgap) and fix it in the theme. The
-   stopgap is removed when the ticket ships.
+   stopgap is removed when the theme issue ships.
 3. **Allowed in a project**: content (text, images, settings, menus), the theme's tokens set in its own settings
    (palette, fonts, spacing), and app logic that drives theme components with data (an API call, a form post).
 4. **Every theme change cascades.** A change isn't done until every project that uses the theme has it: release it
@@ -114,8 +114,8 @@ changed deliberately, here first.
    When the markup (`markup/reference.json`) or a component's props change, update the adapters that translate them
    in the same pass; `npm run affected` lists which projects read what changed (every project, what it uses from
    the theme and its stage: [projects.json](projects.json)), and `npm run status` which ones are still behind the theme
-   (their pin against what changed since in what they use; an active project behind fails it). When a change ships a ticket, remove that ticket's stopgap. A project that can't take the change
-   yet gets a line in the ticket's "Waiting on this" saying why.
+   (their pin against what changed since in what they use; an active project behind fails it). When a change ships a theme issue, remove that issue's stopgap. A project that can't take the change
+   yet gets a line in the theme issue's "Waiting on this" saying why.
 5. **Component, container, variant, class or pattern** (provisional, 2026-11-09: kept under watch, changed here
    first if it doesn't hold). Ask in order; the first yes decides:
    First, **whose state is it?** (2026-11-10) When the behavior belongs to one of its parts (a menu's fold, a
@@ -132,9 +132,9 @@ changed deliberately, here first.
       alignment) → a **container** (Section, Grid, Card). One block or tag in every output; Section's dividers and
       background image are settings of that one box.
    4. It only changes how one item looks (its shape, its frame), and could do it to other items → a **variant**: one
-      class, the theme's tokens only, scoped to the item, one at a time (the ticket; TICKETS.md T-030). A component or
+      class, the theme's tokens only, scoped to the item, one at a time (the theme issue; T-030 in TICKETS.md). A component or
       container that takes variants has a `variant` setting (as Modal's).
-   5. It only changes one property (spacing, color, size, placement) → a **class** (`.pad-lg`, `.text-muted`,
+   5. It only changes one property (spacing, color, size, placement) → a **CSS utility class** (`.pad-lg`, `.text-muted`,
       `.fs-50`); the theme is classes that combine, so no component when classes already do it.
    6. It arranges several specific parts, each of which works on its own → a **pattern** (a header, which was the
       NavBar; a footer, a stat card, a hero, a call to action): listed in [PATTERNS.md](PATTERNS.md) with its parts, its markup a file in marccent-patterns, never a component; in WordPress a
@@ -161,7 +161,7 @@ changed deliberately, here first.
 9. **A component sets no width and no outer margin; its container decides both.** The layout it sits in (a grid
    cell, `.wrap`, a column, `.measure`, a gap or a spacing class on the parent) sizes and spaces it, so the same
    component fits a sidebar, a card and a full-width section unchanged. On a component's root, by kind:
-   - **block components** (Card, Nav, Menu, Map, Carousel, Form fields, loaders) fill their parent by being a block
+   - **components that fill their parent** (Card, Menu, Map, Carousel, Form fields, loaders) fill it by being a CSS block
      or grid item that stretches: no `width` but `auto`, no `max-width` but `100%`, no `min-width` but `0`, no margin
      but `0`. Form controls and tables are the one case of `width: 100%`, because `auto` doesn't stretch them;
    - **inline controls** (Button, Icon, Chip, Rating) are as wide as their content (`fit-content`, an icon's
@@ -173,7 +173,7 @@ changed deliberately, here first.
      changing it is their job (2026-11-10): one width per state, from tokens, on the root and its state class only.
 
    Parts inside a component (a knob, a handle, an icon slot) are sized within it. `npm run conformance` checks the
-   roots in `styles/components`; one that breaks the rule is a ticket, excused by ID in the check until it ships.
+   roots in `styles/components`; one that breaks the rule is a theme issue, excused by ID in the check until it ships.
 10. **A component styles only itself** (2026-11-10). No rule in a component's stylesheet reaches another component's
     root from outside (`.app-shell .menu`, `.nav .menu-panel`): a different look is that component's variant or
     setting, and its parts are its own. A component whose settings take two or more named pieces of content (a
@@ -189,8 +189,8 @@ changed deliberately, here first.
    paddings, sides, variants), `sanitize` (what it may hold, the same in every output: text, html, url, class,
    number, boolean, each item, each field) and `validate` (`required`). Each component has a `version`; after 1.0 its
    settings change only by adding (2.5), and a version up says so, so saved content can be upgraded.
-3. **Tunes:** settings every component and container takes, listed once in `markup/tunes.json`, not per component:
-   extra classes (a variant, a utility), an anchor, Show if (on an output with an admin).
+3. **Common settings:** settings every component and container takes, listed once in `markup/tunes.json`, not per component:
+   extra classes (a variant class, a utility class), an anchor, Show if (on an output with an admin).
 4. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`. The settings use
    full words (`padding`, `verticalPadding`, `columns`, `minimumColumnWidth`, `minimumHeight`, `maximum`,
    `language`), and so do the components' props: a setting's name is its prop (2026-11-10). `href` stays, the web's own word for a link; Map's `center` and pins are `{ lat, lng }`, Google's own shape (its markup says `data-latitude`, `data-longitude`); Animation's `frameRate` is p5's word.
@@ -238,7 +238,7 @@ All work, for every project, is a GitHub issue in marccent-theme
 keep no list: their `CLAUDE.md` names their label.
 
 1. **One issue per piece of work, in marccent-theme.** Its title says what's wrong or wanted; its body says where,
-   and how it shows. A theme ticket keeps its old ID in the title (`T-002: …`; [TICKETS.md](TICKETS.md) maps the
+   and how it shows. A theme issue keeps its old ID in the title (`T-002: …`; [TICKETS.md](TICKETS.md) maps the
    old IDs to issues).
 2. **Labels say whose and what kind:**
    - `project: <repo>`: every project that fixes it or waits on it (`project: marccent-theme`, `project: marccent-blocks`…).
@@ -247,9 +247,9 @@ keep no list: their `CLAUDE.md` names their label.
    - `ticket`: the theme fixes it (section 4, rule 2) and projects may wait on it.
 3. **The 1.0 milestone** holds every bug and request; `after 1.0` and `idea` issues have no milestone until 1.0 is
    out.
-4. **Waiting on is a link, never a copy.** A project waiting on a ticket gets its label on the ticket and one line
-   under the ticket's "Waiting on this": the project, what it unblocks there and the stopgap that goes. When the
-   issue the work happens in is a separate one, it's marked blocked by the ticket (GitHub's relationships).
+4. **Waiting on is a link, never a copy.** A project waiting on a theme issue gets its label on the issue and one line
+   under the issue's "Waiting on this": the project, what it unblocks there and the stopgap that goes. When the
+   issue the work happens in is a separate one, it's marked blocked by the theme issue (GitHub's relationships).
 5. **The board's columns are the issue's status:** After 1.0 → Open for 1.0 → In progress → Done, not released →
    Released. A new issue starts in Open for 1.0 (a bug or request) or After 1.0 (`after 1.0`, `idea`), and moves
    from After 1.0 only when the freeze ends. It goes to In progress when work starts on it, and **In progress holds
@@ -289,7 +289,7 @@ rule settles.
 1. **No claim without output.** Claude says a check passed only when it ran it and saw it pass, and names the
    command; what wasn't run is said as not run.
 2. **One goal per change.** A branch or PR does one thing; a fix and a cleanup are two changes.
-3. **Nothing is removed without a ticket or Marcos's OK:** no feature, setting, file or list item deleted on
+3. **Nothing is removed without an issue or Marcos's OK:** no feature, setting, file or list item deleted on
    Claude's own. A cleanup found while working becomes an issue (section 8, rule 7).
 
 ### Decisions
@@ -297,9 +297,21 @@ rule settles.
 Rulings on grey areas, newest first: `YYYY-MM-DD: <the situation>: <the ruling>`. A ruling that turns out to apply
 everywhere becomes a rule above and its line goes.
 
+- 2026-11-28: the terms (Marcos, after Hub's list). Each word means only this from now on:
+  - **Issue**: a GitHub issue. **Bug**: an existing problem (`bug` label). **Feature**: an improvement (`request` label; the label keeps its name until Marcos renames it). `ticket` label: a theme issue other projects may wait on.
+  - **Task**: a job file in docs/tasks for Code or Chrome, whatever it fixes or adds. **Handoff**: a file in docs/handoffs, the standing rules of one Claude instance (Hub, Code, Chrome). Nothing else.
+  - **Component**: any unit of the theme's markup. **Container**: a component that only holds content (Section, Grid, Card). **Pattern**: several parts arranged into a page frame (PATTERNS.md). **Widget**: retired (folder names such as `components/widgets` keep their path). **Block**: only a WordPress block; CSS "block" is the layout word.
+  - **Core**: marccent-theme and its adapters, the thing 1.0 releases (it was called "the template"). **Site template**: the rules for building a new site, such as renaming images and adding alt text (`wp/new-site-template`).
+  - **Output**: the kind of site a product is built for: wp, html, django (`markup/outputs.json`). **Adapter**: the code that turns the theme's markup into one output (Marccent Blocks for wp). **Host** is not used in prose; the `host` field in outputs.json is a Code task.
+  - **Setting**: a component's prop (`markup/settings.json`). **Common setting**: a setting every component takes (`markup/tunes.json`; the filename is a Code task).
+  - **Stage**: one of the seven steps of the product line (section 1). **Status**: a site's or project's state (building, test, live, frozen; active or frozen). The `stage` key in projects.json is a Code task to rename it `status`. **Phase** is retired; the 1.0 order's parts are steps.
+  - **Released**: a tagged version, what production runs. **Live**: a site serving visitors. The freeze ends at "1.0 is released" (section 3).
+  - **CSS utility class**: a class that sets one property (`.pad-lg`). **Variant class**: a class that gives a component one of its styles. **JS class**: a class in the JavaScript code. A bare "class" or "utility" is not used.
+  - **Default branch**: `master` in marccent-theme. Not called "integration". marccent-content's default branch is `main`; renaming it is a separate decision.
+  - Decided here, not yet done: the outputs.json `host` key, the projects.json `stage` key, the `tunes.json` filename, the `request` label, and the 1.0 checklist count lines (dated 2026-11-09) need Code or GitHub work.
 - 2026-11-20: the work flows downstream (section 4.4; the rule is at the top of docs/AGENTS.md): before downstream work, the open
   core issues it depends on come first; if there are none, the work goes straight to its repo and core is not touched. Core is the
-  shared pieces only (tokens, components, utilities, the markup reference); a plugin-only fix goes straight to its own repo.
+  shared pieces only (tokens, components, utility classes, the markup reference); a plugin-only fix goes straight to its own repo.
   Marcos's call, so a later core change doesn't force the downstream work to be redone.
 - 2026-11-20: the style fonts ship latin-only woff2 subsets (dist/fonts/<id>.css, #155, #156); Cyrillic, Vietnamese and other
   subsets fall back to the system font. Marcos's call: he won't do non-Latin sites for a long time. Adding the other subsets
@@ -344,16 +356,16 @@ everywhere becomes a rule above and its line goes.
 
 ## The 1.0 checklist
 
-The one list of what's left before 1.0 (3.1: the template: marccent-theme 1.0.0 and the wp adapters on it, the wp
+The one list of what's left before 1.0 (3.1: the core: marccent-theme 1.0.0 and the wp adapters on it, the wp
 test site working with every component). Ticked here as it's done; what's for after 1.0 is the issues labeled `after 1.0`.
 
 ### The order (the unfreeze plan, 2026-11-10)
 
-The theme first: it's the root of everything. A phase starts only when the one before passes its gate; work that
-belongs to a later phase waits, and Claude says so when it's asked for early.
+The theme first: it's the root of everything. A step starts only when the one before passes its gate; work that
+belongs to a later step waits, and Claude says so when it's asked for early.
 
 1. **The theme.** Its lines below: Kits, B-008; then T-003's utilities (B-003 done 2026-11-10). Released and tagged: v1.0.0-rc.25 (2026-11-11).
-   **Gate:** `npm test` passes (the theme's checks; an adapter's markup is phase 2's gate) with no sizing exception
+   **Gate:** `npm test` passes (the theme's checks; an adapter's markup is step 2's gate) with no sizing exception
    left, every theme line ticked, the release tagged.
 2. **The wp stack** (Marccent Blocks, then Marccent Content and marccent-wp): on that release, the blocks the theme
    retired gone, section 3 below done. **Gate:** `npm run status` and `npm run conformance` pass, the kitchen sink
@@ -368,7 +380,7 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
   The six children of T-034 (Timeline item, Dock item, Radial menu item, Step bar step, Orbit item, Tab) are covered
   by their parents' cases (2026-11-10). StatCard's case is without its box (2026-11-10). None for what's left (Collage, ImageCard, HexWall). AppShell is gone (2026-11-10): Sidebar and the App frame pattern.
 - [x] **Settings stage, written (T-029):** every component that stays (54) has its settings in `markup/settings.json`,
-  204 in all, with sanitize, validate and a version (2026-11-09); the tunes in `markup/tunes.json`.
+  204 in all, with sanitize, validate and a version (2026-11-09); the common settings in `markup/tunes.json`.
 - [x] **Settings stage, used by Marccent Blocks** (2026-11-10): its block.json attributes are written from
   settings.json (`npm run test:settings` fails on any difference without a reason in `tools/settings-map.json`), the
   short names are the settings' full words there (padding, columns, verticalPadding, language; content saved before is
@@ -383,7 +395,7 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [x] **Sites:** one list of every site and its stage ([SITES.md](SITES.md), 2026-11-09).
 - [x] **Kits:** decided 2026-11-10: the list is [KITS.md](KITS.md), each kit a folder in marccent-kits, a Marccent
   export file with a `kit` header; checked by `npm run kits`. The check, the template and the Local business kit are
-  in marccent-kits (2026-11-11: `npm run kits` passes, 14 groups, 1 post type, 7 patterns, 5 pages). Left, all phase
+  in marccent-kits (2026-11-11: `npm run kits` passes, 14 groups, 1 post type, 7 patterns, 5 pages). Left, all of step
   2: the import check (#88), waiting on Marccent Content's import adding (#63) and Blocks' export of patterns and
   pages (#44); marccent-wp's patterns moving out (#102).
 - [x] **Adapters:** every adapter's markup against the reference (`npm run conformance`).
@@ -413,7 +425,7 @@ belongs to a later phase waits, and Claude says so when it's asked for early.
 - [ ] Timeline, Dock, Radial menu, Step bar, Orbit and Tab bar take their children (T-034's blocks) and a Loop of them.
 - [ ] The kitchen sink current with all of it.
 
-**4. marccent.com live** (after 1.0: a site, not the template; Decisions, 2026-11-13)
+**4. marccent.com live** (after 1.0: a site, not the core; Decisions, 2026-11-13)
 - [ ] On the theme's T-033 release: its Images and Animations pages as the Collage and Image card patterns, its cards
   as Image cards, its StatCards (about 15) each in a Card; on T-034's, its Timelines, Docks, Radial menus, Step bars,
   Orbits and Tab bars with their children.

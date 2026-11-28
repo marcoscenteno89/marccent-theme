@@ -47,7 +47,7 @@ You change code and docs in **one repo per VS Code session**. You make a branch,
 
 ## The ecosystem in one paragraph
 
-Marccent is a product line. **marccent-theme** is the shared core: design tokens, components and utilities. Every adapter builds on it. The WordPress adapters (Marccent Blocks plugin, Marccent WP block theme, Marccent Content plugin) run together on one local site, **wp.localhost**, on Marcos's PC. Nothing is live. **1.0 = the template** (the theme plus its adapters). A **feature freeze** is on until 1.0 is live: only fix and finish what exists.
+Marccent is a product line. **marccent-theme** is the shared core: design tokens, components and utility classes. Every adapter builds on it. The WordPress adapters (Marccent Blocks plugin, Marccent WP block theme, Marccent Content plugin) run together on one local site, **wp.localhost**, on Marcos's PC. Nothing is live. **1.0 = the template** (the theme plus its adapters). A **feature freeze** is on until 1.0 is live: only fix and finish what exists.
 
 ## The repos
 
@@ -55,7 +55,7 @@ From `docs/projects.json` (the list is the source of truth; stages may change):
 
 | Repo | Role | Stage (per projects.json) | Notes |
 |---|---|---|---|
-| `marccent-theme` | Shared core: tokens, components, utilities, `dist/`, `docs/` | core | All shared docs live here. |
+| `marccent-theme` | Shared core: tokens, components, utility classes, `dist/`, `docs/` | core | All shared docs live here. |
 | `marccent-blocks` | WordPress plugin: blocks, runtime, styles, Forms, export | active | Pins marccent-theme by tag. |
 | `marccent-content` | WordPress plugin: field groups, post types, Loop, Field | active | Requires Marccent Blocks; no pin of its own. |
 | `marccent-wp` | WordPress block theme: page frame, templates, patterns | active | Requires Marccent Blocks. |
@@ -79,11 +79,11 @@ From the repo layout and Marcos's notes. **Not verified in this container. Confi
 ## Rules you must follow
 
 1. **Read first:** `docs/WORKING.md`, the `CLAUDE.md` in the repo you are in, and the issue your task names. `WORKING.md` is imported by every repo's `CLAUDE.md`.
-2. **The freeze.** Until 1.0 is live, you do not add features, blocks, settings, components or options. If a task asks for one, stop and say it is frozen. Hub will turn it into an `after 1.0` issue.
+2. **The freeze.** Until 1.0 is released, you do not add features, blocks, settings, components or options. If a task asks for one, stop and say it is frozen. Hub will turn it into an `after 1.0` issue.
 3. **One goal per change.** One branch, one PR, one thing. A fix and a cleanup are two PRs.
 4. **Do only what the task says.** If you find something else, write it in your reply as a new issue for Hub. Do not fix it.
 5. **Never work around a missing theme feature** with CSS, JS or a copied component. Say a `ticket` issue is needed in marccent-theme.
-6. **Every change to a SHARED piece (tokens, components, utilities, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
+6. **Every change to a SHARED piece (tokens, components, utility classes, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
 7. **Never remove** a feature, setting, file or list item without an issue or Marcos's OK.
 8. **No model names** in commits, PR titles or bodies, comments, or pushed files. **Exception (Marcos, 2026-11-20):** the `Co-Authored-By: Claude …` trailer that Claude Code adds to a commit is allowed; leave it in. No other model name.
 
@@ -136,7 +136,7 @@ Report every check by its command and what it printed. Do not say a check passed
 
 ## When your change touches a shared repo
 
-marccent-theme and any shared piece (a component, a token, a utility, a setting, the markup reference, the docs) reach other projects. When you finish a change in a shared repo, do both of these, in your final report to Marcos:
+marccent-theme and any shared piece (a component, a token, a utility class, a setting, the markup reference, the docs) reach other projects. When you finish a change in a shared repo, do both of these, in your final report to Marcos:
 
 1. **Say which dependents Hub must check.** Run `npm run affected` in marccent-theme (or, if you are not in marccent-theme, say which projects use the repo: its `uses` and `via` fields in `docs/projects.json`). Paste the list. Write: "Hub must check these dependents: <list>."
 2. **Say which parts changed**, so Hub can name the change: the files and what they do.

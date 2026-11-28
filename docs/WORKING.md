@@ -11,7 +11,7 @@ either. What follows is how to apply them, and it isn't optional. **Your work** 
 labeled with your project (`project: <repo>`, the label your `CLAUDE.md` names), on the Marccent board
 (PRODUCT-LINE.md section 8).
 
-1. **Feature freeze until 1.0 is live** (PRODUCT-LINE.md section 3). Only debugging, fixing and finishing what
+1. **Feature freeze until 1.0 is released** (PRODUCT-LINE.md section 3). Only debugging, fixing and finishing what
    exists. When someone asks for anything new (a feature, block, setting, component, option), say it's frozen and
    open an issue for it labeled `after 1.0` and your project. Then
    stop there, unless the person confirms it's finishing existing work.
@@ -28,7 +28,7 @@ labeled with your project (`project: <repo>`, the label your `CLAUDE.md` names),
    the theme's part (its code, its docs, its issues) is done, checked and released or pinned first; only then
    is each project that uses it moved to it, in the order of `npm run affected`. Never change a project first and
    bring the theme in after.
-6. **Every change keeps the issues in sync.** A change that ships a ticket closes it (`Fixes #N`) and removes its
+6. **Every change keeps the issues in sync.** A change that ships a `ticket` issue closes it (`Fixes #N`) and removes its
    stopgaps in every project it names, in the same round. Before you finish, run marccent-theme's checks from the
    workspace: `npm test` (conformance included).
 7. **Tell Marcos when he's wrong.** If a request breaks these rules, the current structure or a common
@@ -40,5 +40,5 @@ labeled with your project (`project: <repo>`, the label your `CLAUDE.md` names),
      situation, the options, your recommendation and why, and whether it's a rule or a one-off. Then write the
      answer down in the same round. Never settle it in one project alone.
    - Section 9 also holds: no claim without output (name the command you ran and what it printed), one goal per
-     change, and nothing removed without a ticket or Marcos's OK.
-9. **Only the template is active** (`stage` in [projects.json](projects.json); PRODUCT-LINE.md 3.5, 2026-11-13): marccent-theme (core), the wp adapters (marccent-blocks, marccent-content, marccent-wp), marccent-patterns and marccent-kits. Every site and django are frozen. Frozen projects get no pin bumps, no rule copies and no work unless Marcos asks for it. Work flows downstream: core first (AGENTS.md, top).
+     change, and nothing removed without an issue or Marcos's OK.
+9. **Only the core is active** (`stage` in [projects.json](projects.json); PRODUCT-LINE.md 3.5, 2026-11-13): marccent-theme (core), the wp adapters (marccent-blocks, marccent-content, marccent-wp), marccent-patterns and marccent-kits. Every site and django are frozen. Frozen projects get no pin bumps, no rule copies and no work unless Marcos asks for it. Work flows downstream: core first (AGENTS.md, top).
