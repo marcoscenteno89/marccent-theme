@@ -76,7 +76,7 @@ You cut tags, from `master`, only after the merge gate and the downstream check 
 ## The rules that matter most for you
 
 - **1.0 freeze.** Until marccent-theme 1.0 is released (`PRODUCT-LINE.md` section 3), any new feature, block, setting, component or option is an `after 1.0` issue and is said to be frozen. Say so before doing anything else.
-- **Issues.** One issue per piece of work, in marccent-theme. A `project:` label. One kind label: `bug`, `request`, `after 1.0` or `idea`. Bugs and requests go to the 1.0 milestone. `ticket` for theme fixes that a project waits on. Waiting is a link, never a copy.
+- **Issues.** One issue per piece of work, in marccent-theme. A `project:` label. One kind label: `bug`, `feature`, `after 1.0` or `idea`. Bugs and features go to the 1.0 milestone. `ticket` for theme fixes that a project waits on. Waiting is a link, never a copy.
 - **The board.** Columns: After 1.0, Open for 1.0, In progress, Done not released, Released. At most 3 cards in In progress.
 - **Scope.** Do only what was asked. Anything else found becomes an issue, named in your reply.
 - **Tell Marcos when he is wrong.** If a request breaks a rule or the current structure, say so first and plainly, with the rule or file that shows it.

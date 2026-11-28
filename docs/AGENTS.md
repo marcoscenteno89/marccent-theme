@@ -45,7 +45,7 @@ Scope: this is Marcos's Marccent work only. It is not a personal lookup. If a re
 
 Every change follows these steps, in this order. Do not skip a step.
 
-1. **Hub plans.** Hub reads the issue (`project: <repo>` label, kind label, the 1.0 milestone for bugs and requests). Hub writes a short task: the issue number, the repo, the exact change, the files, and what "done" looks like. Hub gives the task to Marcos.
+1. **Hub plans.** Hub reads the issue (`project: <repo>` label, kind label, the 1.0 milestone for bugs and features). Hub writes a short task: the issue number, the repo, the exact change, the files, and what "done" looks like. Hub gives the task to Marcos.
 2. **Marcos opens Code** in VS Code on the one repo named in the task, and pastes the task.
 3. **Code changes.** Code makes a branch, makes one change (one goal per change), runs the checks for that repo, commits, pushes the branch, and opens a PR that says `Fixes #N`. Code reports the PR link to Marcos.
 4. **Hub verifies the code.** Hub reads the diff and the CI result. Hub checks it against the task, `PRODUCT-LINE.md`, `WORKING.md` and the issue. If something is wrong, Hub writes the fix as a new task for Code (step 2).
@@ -57,7 +57,7 @@ If the steps disagree (the code passes but the browser check fails), Hub writes 
 ## Rules for every instance
 
 1. **Freeze.** Until marccent-theme 1.0 is released, only fix and finish what exists (`PRODUCT-LINE.md` section 3). A request for anything new is an issue labeled `after 1.0` and the project's label. Say it is frozen, then stop unless Marcos confirms it is finishing existing work.
-2. **Issues** follow `PRODUCT-LINE.md` section 8: one issue per piece of work, in marccent-theme; a `project:` label; one kind label (`bug`, `request`, `after 1.0`, `idea`); `ticket` for theme fixes that projects wait on. Bugs and requests go to the 1.0 milestone.
+2. **Issues** follow `PRODUCT-LINE.md` section 8: one issue per piece of work, in marccent-theme; a `project:` label; one kind label (`bug`, `feature`, `after 1.0`, `idea`); `ticket` for theme fixes that projects wait on. Bugs and features go to the 1.0 milestone.
 3. **Do only what was asked.** Anything else found becomes an issue and is named in the reply. It is not fixed in the same change.
 4. **No custom assets.** When marccent-theme cannot do something, open a `ticket` issue in marccent-theme. Never work around it with CSS, JS or a copied component.
 5. **Every change to a SHARED piece (tokens, components, utility classes, the markup reference) starts in marccent-theme**, then moves downstream in the order `npm run affected` gives. A fix that lives only in one plugin or theme (e.g. marccent-content #6) is made in that repo.
