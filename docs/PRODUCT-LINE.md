@@ -13,11 +13,12 @@ service**: a defined, repeatable result, each new client a new entry, not a new 
   1.0 the work is domain engineering.
 - **The reference architecture** is the flow below: the part that lasts.
 - **Outputs**: the kinds of site a product can be, a list that can grow (`markup/outputs.json`): today **wp**
-  (WordPress), **html** (plain HTML and Next) and **django**. Each says whether it has an **admin** (wp and django:
-  people edit the data in an admin; html: the data comes with the page). Every output with an admin follows the same
-  **admin pattern**: the same kinds of admin data (menu, rows, site, theme, keys, entries), each provided by one of
-  its tools, and each component says which kinds it needs (`markup/settings.json`). A new output is one more entry
-  there, with its adapters and, if it has an admin, its tool for every kind.
+  (WordPress), **html** (plain HTML and Next) and **django**. An output is a **CMS Output** when it has an admin, where
+  people edit the site's data (wp and django). html is not one: its data comes with the page. Every CMS Output follows
+  the same **admin pattern**: the same kinds of admin data (menu, rows, site, theme, keys, entries), each provided by
+  one of its tools, and each component says which kinds it needs (`markup/settings.json`). A new output is one more
+  entry there, with its adapters and, if it is a CMS Output, its tool for every kind. **CMS Outputs** is the one term
+  for this group everywhere in the docs and the code.
 
 ## 1. The flow (the reference architecture)
 
@@ -70,8 +71,8 @@ changed deliberately, here first.
 
 1. **No new features, components, WordPress blocks, settings or functionality until 1.0 is released:** only debugging, fixing and
    finishing what exists. **1.0 is the core, not the sites** (Marcos, 2026-11-13: the class, not its
-   instances): marccent-theme and its adapters for the two outputs, html (no admin) and wp (with an admin, the
-   template later admin outputs follow), stable enough that a site is built from them without issues. 1.0 is released
+   instances): marccent-theme and its adapters for the two outputs, html (not a CMS Output) and wp (a CMS Output, the
+   core later CMS Outputs follow), stable enough that a site is built from them without issues. 1.0 is released
    when marccent-theme 1.0.0 is released, Marccent Blocks, Marccent Content and marccent-wp are on it, and the wp test
    site (wp.localhost) works with every component (all of it). Then the changes are frozen and every site
    (marccent.com, marccent-html, rc-imp, rimrock, cr-landscape, marccent-web, Fernway, parallax-html) and the django
@@ -190,7 +191,7 @@ changed deliberately, here first.
    number, boolean, each item, each field) and `validate` (`required`). Each component has a `version`; after 1.0 its
    settings change only by adding (2.5), and a version up says so, so saved content can be upgraded.
 3. **Common settings:** settings every component and container takes, listed once in `markup/tunes.json`, not per component:
-   extra classes (a variant class, a utility class), an anchor, Show if (on an output with an admin).
+   extra classes (a variant class, a utility class), an anchor, Show if (on a CMS Output).
 4. **Full words.** `latitude`, `longitude`, not `lat`, `lng`; `{{ question }}`, not `{{ q }}`. The settings use
    full words (`padding`, `verticalPadding`, `columns`, `minimumColumnWidth`, `minimumHeight`, `maximum`,
    `language`), and so do the components' props: a setting's name is its prop (2026-11-10). `href` stays, the web's own word for a link; Map's `center` and pins are `{ lat, lng }`, Google's own shape (its markup says `data-latitude`, `data-longitude`); Animation's `frameRate` is p5's word.
@@ -213,9 +214,9 @@ changed deliberately, here first.
      languages, Hex grid's positions, a Data table's columns, a form field's choices.
 2. **Parents take a Loop.** Accordion, Tabs, Carousel and every parent above accept a Loop of their children, so a FAQ
    stored as rows can be an Accordion.
-3. **Components that need the admin say so** (`admin` in `markup/settings.json`), and every output with an admin
-   provides each kind with one of its tools (`markup/outputs.json`, the admin pattern; an output without an admin,
-   html, gets the data with the page). The kinds and who needs them:
+3. **Components that need the admin say so** (`admin` in `markup/settings.json`), and every CMS Output provides each
+   kind with one of its tools (`markup/outputs.json`, the admin pattern; an output that isn't a CMS Output, html,
+   gets the data with the page). The kinds and who needs them:
    - menus: Navbar, Menu, and the Header and Footer patterns (WordPress: Appearance → Menus; Django: a menu model). A nav picks any menu
      made in the admin and can go anywhere;
    - forms (entries, who's emailed, the spam check), Map (key, places), the theme editors (the site's theme and what
@@ -302,7 +303,7 @@ everywhere becomes a rule above and its line goes.
   - **Task**: a job file in docs/tasks for Code or Chrome, whatever it fixes or adds. **Handoff**: a file in docs/handoffs, the standing rules of one Claude instance (Hub, Code, Chrome). Nothing else.
   - **Component**: any unit of the theme's markup. **Container**: a component that only holds content (Section, Grid, Card). **Pattern**: several parts arranged into a page frame (PATTERNS.md). **Widget**: retired (folder names such as `components/widgets` keep their path). **Block**: only a WordPress block; CSS "block" is the layout word.
   - **Core**: marccent-theme and its adapters, the thing 1.0 releases (it was called "the template"). **Site template**: the rules for building a new site, such as renaming images and adding alt text (`wp/new-site-template`).
-  - **Output**: the kind of site a product is built for: wp, html, django (`markup/outputs.json`). **Adapter**: the code that turns the theme's markup into one output (Marccent Blocks for wp). **Host** is not used in prose; the `host` field in outputs.json is a Code task.
+  - **Output**: the kind of site a product is built for: wp, html, django (`markup/outputs.json`). **CMS Output**: an output with an admin (wp, django); html has none (Marcos, 2026-11-28). **Adapter**: the code that turns the theme's markup into one output (Marccent Blocks for wp). **Host** is not used in prose; the `host` field in outputs.json is a Code task.
   - **Setting**: a component's prop (`markup/settings.json`). **Common setting**: a setting every component takes (`markup/tunes.json`; the filename is a Code task).
   - **Stage**: one of the seven steps of the product line (section 1). **Status**: a site's or project's state (building, test, live, frozen; active or frozen). The `stage` key in projects.json is a Code task to rename it `status`. **Phase** is retired; the 1.0 order's parts are steps.
   - **Released**: a tagged version, what production runs. **Live**: a site serving visitors. The freeze ends at "1.0 is released" (section 3).
@@ -329,8 +330,8 @@ everywhere becomes a rule above and its line goes.
   site instance. marccent.com leaves 1.0 (it was in it, Decisions 2026-11-10) with every other site; its issues and
   a site's tickets (#18: rc-imp's hovers) are after 1.0, the html test is the cases page. The checklist's marccent.com
   and going-live sections are after 1.0.
-- 2026-11-13: 1.0's outputs are html (no admin) and wp (with an admin); django leaves 1.0, its issues after 1.0 (#38,
-  #129, #130, #133, #144). wp's admin is the template the later admin outputs follow.
+- 2026-11-13: 1.0's outputs are html (not a CMS Output) and wp (a CMS Output); django leaves 1.0, its issues after 1.0 (#38,
+  #129, #130, #133, #144). wp's admin is the template the later CMS Outputs follow.
 - 2026-11-11: the theme's open requests in the 1.0 milestone (#6–#27, T-002 to T-029) are mostly new components and
   looks, which section 3 freezes: Marcos needs them for 1.0, so they are 1.0's scope and get built before 1.0.0. The
   freeze holds for everything else new: it goes to `after 1.0` (3.3).
